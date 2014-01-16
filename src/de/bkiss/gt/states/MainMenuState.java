@@ -82,4 +82,15 @@ public class MainMenuState extends AbstractAppState implements ScreenController{
     }
     
     
+    public String getUserName(){
+        return System.getProperty("user.name");
+    }
+    
+    
+    public String getDescriptionText(){
+        return "A funniy-ish yet serious-ish 3D arcade "
+                + "management simulation powered by jME3";
+    }
+    
+    
 }
