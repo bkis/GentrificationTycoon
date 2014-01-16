@@ -2,6 +2,7 @@ package gtpreview;
 
 import com.jme3.app.Application;
 import com.jme3.app.SimpleApplication;
+import com.jme3.asset.AssetManager;
 import com.jme3.collision.CollisionResults;
 import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;
@@ -11,10 +12,12 @@ import com.jme3.input.controls.AnalogListener;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.input.controls.MouseButtonTrigger;
 import com.jme3.input.controls.Trigger;
+import com.jme3.math.ColorRGBA;
 import com.jme3.math.Ray;
 import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
+import com.jme3.scene.Geometry;
 import com.jme3.scene.Spatial;
 
 /**
@@ -129,9 +132,12 @@ public class InputMapper{
                 // Use the results -- we rotate the selected geometry.
                 if (results.size() > 0) {
                     // The closest result is the target that the player picked:
-                    Spatial target = results.getClosestCollision().getGeometry();
+                    Geometry target = results.getClosestCollision().getGeometry();
                     // Here comes the action:
-                    target.scale(2);
+                    target.getMaterial().setColor("Diffuse", ColorRGBA.White);
+                    target.getMaterial().setColor("Ambient", ColorRGBA.Green);
+                    //target.getMaterial().setTexture("DiffuseMap",
+                            //app.getAssetManager().loadTexture("Textures/buildings/construction/construction.png"));
                 }
             } 
         }

@@ -15,8 +15,12 @@ import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
+import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
+import com.jme3.scene.shape.Box;
+import com.jme3.scene.shape.Sphere;
+import com.jme3.util.TangentBinormalGenerator;
 
 /**
  *
@@ -59,6 +63,8 @@ public class IngameState extends AbstractAppState{
         constructWorld();
         
         //add cars
+        rootNode.attachChild(makeCar());
+        rootNode.attachChild(makeCar());
         rootNode.attachChild(makeCar());
         
         //lights

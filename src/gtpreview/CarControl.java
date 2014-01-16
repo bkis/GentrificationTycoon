@@ -43,13 +43,19 @@ public class CarControl extends AbstractControl{
         this.dir = Direction.N;
         this.initialized = false;
         this.breakPower = 0;
-        this.SPEED = (FastMath.rand.nextFloat()+0.5f)*2;
+        setSpeedAndDirection();
+        this.move = MOVE_N;
+    }
+    
+    
+    private void setSpeedAndDirection(){
+        this.SPEED = (FastMath.rand.nextFloat()+0.85f)*2;
         this.MOVE_N = new Vector3f(0,0,-SPEED);
         this.MOVE_E = new Vector3f(SPEED,0,0);
         this.MOVE_S = new Vector3f(0,0,SPEED);
         this.MOVE_W = new Vector3f(-SPEED,0,0);
-        this.move = MOVE_N;
     }
+    
     
     @Override
     protected void controlUpdate(float tpf) {
@@ -64,30 +70,31 @@ public class CarControl extends AbstractControl{
     }
     
     private void setNewPath(){
+        setSpeedAndDirection();
         spatial.setLocalTransform(initTransform);
         int rndXPos, rndZPos;
-        while ((rndXPos = FastMath.rand.nextInt(worldWidth)) % 2 != 0){};
-        while ((rndZPos = FastMath.rand.nextInt(worldHeight)) % 2 != 0){};
+        while ((rndXPos = FastMath.rand.nextInt(worldWidth)-worldWidth/2) % 2 != 0){};
+        while ((rndZPos = FastMath.rand.nextInt(worldHeight)-worldHeight/2) % 2 != 0){};
         dir = pickDirection();
         
         switch (dir){
             case N:
-                spatial.setLocalTranslation(rndXPos-worldWidth, yOffset, worldHeight);
+                spatial.setLocalTranslation(rndXPos, yOffset, worldHeight/2);
                 spatial.setLocalRotation(YAW000);
                 move = MOVE_N;
                 break;
             case E:
-                spatial.setLocalTranslation(0, yOffset, rndZPos-worldHeight);
+                spatial.setLocalTranslation(-worldHeight/2, yOffset, rndZPos);
                 spatial.setLocalRotation(YAW270);
                 move = MOVE_E;
                 break;
             case S:
-                spatial.setLocalTranslation(rndXPos-worldWidth, yOffset, 0);
+                spatial.setLocalTranslation(rndXPos, yOffset, -worldWidth/2);
                 spatial.setLocalRotation(YAW180);
                 move = MOVE_S;
                 break;
             case W:
-                spatial.setLocalTranslation(worldWidth, yOffset, rndZPos-worldHeight);
+                spatial.setLocalTranslation(worldHeight/2, yOffset, rndZPos);
                 spatial.setLocalRotation(YAW090);
                 move = MOVE_W;
                 break;
@@ -108,16 +115,17 @@ public class CarControl extends AbstractControl{
     
     private boolean isInsideBounds(){
         switch(dir){
-            case N: if (spatial.getLocalTranslation().getZ() < 0)           return false;
-            case E: if (spatial.getLocalTranslation().getX() > worldWidth)  return false;
-            case S: if (spatial.getLocalTranslation().getZ() > worldHeight) return false;
-            case W: if (spatial.getLocalTranslation().getX() < 0)           return false;
+            case N: if (spatial.getLocalTranslation().getZ() < -worldHeight/2) return false;
+            case E: if (spatial.getLocalTranslation().getX() > worldWidth/2)   return false;
+            case S: if (spatial.getLocalTranslation().getZ() > worldHeight/2)  return false;
+            case W: if (spatial.getLocalTranslation().getX() < -worldWidth/2)  return false;
             default: return true;
         }
     }
     
     private void initialize(){
         this.initTransform = spatial.getLocalTransform();
+        setNewPath();
         initialized = true;
     }
     
