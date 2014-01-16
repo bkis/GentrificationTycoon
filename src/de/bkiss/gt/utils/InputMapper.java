@@ -130,7 +130,7 @@ public class InputMapper{
                     // The closest result is the target that the player picked:
                     Geometry target = results.getClosestCollision().getGeometry();
                     // Here comes the action:
-                    target.getMaterial().setColor("Diffuse", ColorRGBA.White);
+                    target.getMaterial().setColor("Diffuse", ColorRGBA.Green);
                     target.getMaterial().setColor("Ambient", ColorRGBA.Green);
                     //target.getMaterial().setTexture("DiffuseMap",
                             //app.getAssetManager().loadTexture("Textures/buildings/construction/construction.png"));

@@ -1,10 +1,9 @@
 package de.bkiss.gt;
 
-import de.bkiss.gt.states.IngameState;
 import com.jme3.app.SimpleApplication;
-import com.jme3.font.BitmapText;
 import com.jme3.renderer.RenderManager;
 import com.jme3.system.AppSettings;
+import de.bkiss.gt.states.MainMenuState;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 
@@ -36,20 +35,8 @@ public class Main extends SimpleApplication {
     public void simpleInitApp() {
         setDisplayStatView(false);
         
-        //text
-        guiFont = assetManager.loadFont("Interface/Fonts/Default.fnt");
-        BitmapText helloText = new BitmapText(guiFont, false);
-        helloText.setSize(guiFont.getCharSet().getRenderedSize());
-        helloText.setText("Gentrification Tycoon (Test Scence)");
-        helloText.setLocalTranslation(300, helloText.getLineHeight(), 0);
-        guiNode.attachChild(helloText);
-        
-        //cam
-        //flyCam.setZoomSpeed(20);
-        
-        //load GameState
-        IngameState state = new IngameState();
-        stateManager.attach(state);
+        //attatch initial state
+        stateManager.attach(new MainMenuState());
     }
 
     @Override

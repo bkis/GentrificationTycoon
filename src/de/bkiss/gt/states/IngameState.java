@@ -15,14 +15,12 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
+import com.jme3.niftygui.NiftyJmeDisplay;
 import com.jme3.renderer.Camera;
-import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
-import com.jme3.scene.shape.Box;
-import com.jme3.scene.shape.Sphere;
-import com.jme3.util.TangentBinormalGenerator;
 import de.bkiss.gt.utils.InputMapper;
+import de.lessvoid.nifty.Nifty;
 
 /**
  *
@@ -32,7 +30,7 @@ public class IngameState extends AbstractAppState{
     
     private Camera cam;
     private Node rootNode;
-    SimpleApplication app;
+    private SimpleApplication app;
     private AssetManager assetManager;
     
     private static final String STH = "street_h";
@@ -81,6 +79,21 @@ public class IngameState extends AbstractAppState{
         
         cam.setLocation(new Vector3f(0, 10, 8));
         cam.setRotation(new Quaternion(8.377186E-4f, 0.9033154f, -0.42897254f, 0.0017641005f));
+    
+        loadHUD();
+    }
+    
+    
+    private void loadHUD(){
+        NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(
+            assetManager, app.getInputManager(), app.getAudioRenderer(), app.getViewPort());
+        /** Create a new NiftyGUI object */
+        Nifty nifty = niftyDisplay.getNifty();
+        /** Read your XML and initialize your custom ScreenController */
+        nifty.fromXml("Interface/screen.xml", "hud");
+        // nifty.fromXml("Interface/helloworld.xml", "start", new MySettingsScreen(data));
+        // attach the Nifty display to the gui view port as a processor
+        app.getGuiViewPort().addProcessor(niftyDisplay);
     }
 
     
