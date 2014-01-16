@@ -2,7 +2,6 @@ package gtpreview;
 
 import com.jme3.app.Application;
 import com.jme3.app.SimpleApplication;
-import com.jme3.asset.AssetManager;
 import com.jme3.collision.CollisionResults;
 import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;
@@ -18,7 +17,6 @@ import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.Geometry;
-import com.jme3.scene.Spatial;
 
 /**
  *
@@ -40,6 +38,9 @@ public class InputMapper{
     private final static Trigger TRIGGER_ESC =  new KeyTrigger(KeyInput.KEY_ESCAPE);
     private final static String MAPPING_ESC  = "escape";
     
+    private final static MouseButtonTrigger TRIGGER_LCLICK = new MouseButtonTrigger(MouseInput.BUTTON_LEFT);
+    private final static String MAPPING_LCLICK = "left click";
+    
     //INGAME
     //--CAM MOVEMENT
     private final static Trigger TRIGGER_CAM_W  =  new KeyTrigger(KeyInput.KEY_LEFT);
@@ -57,9 +58,7 @@ public class InputMapper{
     private final static String MAPPING_CAM_S = "cam move south";
     private final static String MAPPING_CAM_ZOOM = "cam zoom";
     
-    private final static MouseButtonTrigger TRIGGER_LCLICK = new MouseButtonTrigger(MouseInput.BUTTON_LEFT);
 
-    
     
     public InputMapper(Application app){
         this.app = (SimpleApplication) app;
@@ -80,20 +79,17 @@ public class InputMapper{
                 inputManager.addMapping(MAPPING_CAM_S, TRIGGER_CAM_S, TRIGGER_CAM_S2);
                 inputManager.addMapping(MAPPING_CAM_ZOOM, TRIGGER_CAM_ZOOM);
                 inputManager.addMapping(MAPPING_ESC, TRIGGER_ESC);
-                inputManager.addMapping("pick target", TRIGGER_LCLICK);
+                inputManager.addMapping(MAPPING_LCLICK, TRIGGER_LCLICK);
                 inputManager.addListener(analogListener,
                         new String[]{
                             MAPPING_CAM_W,
                             MAPPING_CAM_N,
                             MAPPING_CAM_E,
                             MAPPING_CAM_S});
-                //inputManager.addListener(analogListener,new String[]{MAPPING_CAM_N});
-                //inputManager.addListener(analogListener,new String[]{MAPPING_CAM_E});
-                //inputManager.addListener(analogListener,new String[]{MAPPING_CAM_S});
                 inputManager.addListener(actionListener,new String[]{
                             MAPPING_ESC,
                             MAPPING_CAM_ZOOM,
-                            "pick target"});
+                            MAPPING_LCLICK});
                 break;
             case INPUT_MODE_MAINMENU:
                 break;
@@ -110,7 +106,7 @@ public class InputMapper{
                 app.stop();
             if (name.equals(MAPPING_CAM_ZOOM) && !isPressed)
                 cycleCamZoom();
-            if (name.equals("pick target") && !isPressed) {
+            if (name.equals(MAPPING_LCLICK) && !isPressed) {
                 // Reset results list.
                 CollisionResults results = new CollisionResults();
                 // Convert screen click to 3d position
@@ -156,10 +152,6 @@ public class InputMapper{
                 moveCam(0,0,tpf*5);
         }
     };
-    
-    
-     /** Pick a Target Using the Mouse Pointer. <ol><li>Map "pick target" action to a MouseButtonTrigger. <li>flyCam.setEnabled(false); <li>inputManager.setCursorVisible(true); <li>Implement action in AnalogListener (TODO).</ol>
-    */
     
     
     private void moveCam(float x, float y, float z){

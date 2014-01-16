@@ -1,1 +1,2 @@
-# This is my README
+# GENTRIFICATION TYCOON
+# ...in early pre-alpha
