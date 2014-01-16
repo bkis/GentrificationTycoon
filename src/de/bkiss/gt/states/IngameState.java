@@ -1,5 +1,6 @@
-package gtpreview;
+package de.bkiss.gt.states;
 
+import de.bkiss.gt.controls.CarControl;
 import com.jme3.app.Application;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AbstractAppState;
@@ -21,6 +22,7 @@ import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Box;
 import com.jme3.scene.shape.Sphere;
 import com.jme3.util.TangentBinormalGenerator;
+import de.bkiss.gt.utils.InputMapper;
 
 /**
  *

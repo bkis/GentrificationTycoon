@@ -1,4 +1,4 @@
-package gtpreview;
+package de.bkiss.gt.controls;
 
 import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
