@@ -29,8 +29,6 @@ public class InputMapper{
     public final static int INPUT_MODE_PAUSED = 2;
     
     private SimpleApplication app;
-    private int worldWidth;
-    private int worldHeight;
     private Camera cam;
     private InputManager inputManager;
     
@@ -143,29 +141,56 @@ public class InputMapper{
     private AnalogListener analogListener = new AnalogListener() {
         public void onAnalog(String name, float value, float tpf) {
             if (name.equals(MAPPING_CAM_W))
-                moveCam(-tpf*5,0,0);
+                moveCam(-tpf*5,0);
             if (name.equals(MAPPING_CAM_N))
-                moveCam(0,0,-tpf*5);
+                moveCam(0,-tpf*5);
             if (name.equals(MAPPING_CAM_E))
-                moveCam(tpf*5,0,0);
+                moveCam(tpf*5,0);
             if (name.equals(MAPPING_CAM_S))
-                moveCam(0,0,tpf*5);
+                moveCam(0,tpf*5);
         }
     };
     
     
-    private void moveCam(float x, float y, float z){
+    private void moveCam(float x, float z){
+        if (x != 0 && !isCamInsideBoundsX(x)) x = 0;
+        if (z != 0 && !isCamInsideBoundsZ(z)) z = 0;
+                   
         cam.setLocation(
                 new Vector3f(
                     cam.getLocation().x + x,
-                    cam.getLocation().y + y,
+                    cam.getLocation().y,
                     cam.getLocation().z + z));
-        /*cam.lookAtDirection(
-                new Vector3f(
-                    cam.getDirection().x + (-x/40),
-                    cam.getDirection().y,
-                    cam.getDirection().z),
-                Vector3f.UNIT_Y);*/
+    }
+    
+    
+    private boolean isCamInsideBoundsX(float x){
+        if (cam.getLocation().y <= 5.1f){
+            if (x < 0 && cam.getLocation().x <= -7.8f) return false;
+            if (x > 0 && cam.getLocation().x >=  7.8f) return false;
+        } else if (cam.getLocation().y <= 10.1f){
+            if (x < 0 && cam.getLocation().x <= -5.3f) return false;
+            if (x > 0 && cam.getLocation().x >=  5.3f) return false;
+        } else {
+            if (x < 0 && cam.getLocation().x <= -3.0f) return false;
+            if (x > 0 && cam.getLocation().x >=  3.0f) return false;
+        }
+        return true;
+    }
+    
+    
+    private boolean isCamInsideBoundsZ(float z){
+        if (cam.getLocation().y <= 5.1f){
+            if (z < 0 && cam.getLocation().z <= -2.2f) return false;
+            if (z > 0 && cam.getLocation().z >= 12.3f) return false;
+        } else if (cam.getLocation().y <= 10.1f){
+            if (z < 0 && cam.getLocation().z <=  6.8f) return false;
+            if (z > 0 && cam.getLocation().z >= 13.8f) return false;
+        } else {
+            if (z < 0 && cam.getLocation().z <  15.7f) return false;
+            if (z > 0 && cam.getLocation().z >  15.5f) return false;
+        }
+        return true;
     }
     
     

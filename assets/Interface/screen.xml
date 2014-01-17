@@ -40,13 +40,13 @@
   	
   	<screen id="hud">
 		<layer id="hud-background" childLayout="vertical">
-		  	<image filename="Interface/hud-frame.png" width="100%" height="100%"/>
+		  	<image filename="Interface/hud-frame.png" width="100%" height="100%" imageMode="resize:62,4,62,59,62,4,62,5,62,4,62,64"/>
 		</layer>
 		<layer id="foreground" childLayout="horizontal">
 			<panel id="panel_left" width="80%" height="100%" childLayout="vertical">  
 					<panel id="panel_bottom_left" height="75%" width="20%" valign="center" childLayout="center">  
-						<image filename="Interface/face1.png" valign="center" align="center" height="50%" width="30%" >
-						</image>
+						<!-- <image filename="Interface/face1.png" valign="center" align="center" height="50%" width="30%" >
+						</image> -->
 					</panel>
 			</panel>
 			  

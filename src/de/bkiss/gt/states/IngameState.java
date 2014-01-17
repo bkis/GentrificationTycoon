@@ -202,24 +202,24 @@ public class IngameState extends AbstractAppState{
         car.scale(0.3f, 0.4f, 0.7f);
         
         //make exhauster particle effect
-        ParticleEmitter exhaustEffect = new ParticleEmitter("Emitter", ParticleMesh.Type.Triangle, 30);
-        Material fogMat = new Material(assetManager, "Common/MatDefs/Misc/Particle.j3md");
-        exhaustEffect.setMaterial(fogMat);
-        exhaustEffect.setEndColor( new ColorRGBA(0.3f, 0.3f, 0.3f, 1f) );
-        exhaustEffect.setStartColor( new ColorRGBA(0.5f, 0.5f, 0.5f, 0.5f) );
-        exhaustEffect.getParticleInfluencer().setInitialVelocity(new Vector3f(0, 0.2f, 0));
-        exhaustEffect.setStartSize(0.01f);
-        exhaustEffect.setEndSize(0.05f);
-        exhaustEffect.setGravity(0f,0f,0f);
-        exhaustEffect.setLowLife(0.1f);
-        exhaustEffect.setHighLife(0.5f);
-        exhaustEffect.getParticleInfluencer().setVelocityVariation(0.3f);
-        exhaustEffect.move(0.1f, -0.15f, 0.2f);
+//        ParticleEmitter exhaustEffect = new ParticleEmitter("Emitter", ParticleMesh.Type.Triangle, 30);
+//        Material fogMat = new Material(assetManager, "Common/MatDefs/Misc/Particle.j3md");
+//        exhaustEffect.setMaterial(fogMat);
+//        exhaustEffect.setEndColor( new ColorRGBA(0.3f, 0.3f, 0.3f, 1f) );
+//        exhaustEffect.setStartColor( new ColorRGBA(0.5f, 0.5f, 0.5f, 0.5f) );
+//        exhaustEffect.getParticleInfluencer().setInitialVelocity(new Vector3f(0, 0.2f, 0));
+//        exhaustEffect.setStartSize(0.01f);
+//        exhaustEffect.setEndSize(0.05f);
+//        exhaustEffect.setGravity(0f,0f,0f);
+//        exhaustEffect.setLowLife(0.1f);
+//        exhaustEffect.setHighLife(0.5f);
+//        exhaustEffect.getParticleInfluencer().setVelocityVariation(0.3f);
+//        exhaustEffect.move(0.1f, -0.15f, 0.2f);
         
         //make car node
         Node carNode = new Node();
         carNode.attachChildAt(car, 0);
-        carNode.attachChild(exhaustEffect);
+//        carNode.attachChild(exhaustEffect);
         carNode.addControl(new CarControl(
                 getBoardMatrix().length, getBoardMatrix()[0].length));
         return carNode;
