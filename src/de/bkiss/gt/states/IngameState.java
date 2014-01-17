@@ -18,6 +18,7 @@ import com.jme3.math.Vector3f;
 import com.jme3.post.FilterPostProcessor;
 import com.jme3.post.filters.FogFilter;
 import com.jme3.renderer.Camera;
+import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import de.bkiss.gt.utils.InputMapper;
@@ -192,6 +193,15 @@ public class IngameState extends AbstractAppState{
                 rootNode.attachChild(spatial);
             }
         }
+    }
+    
+    
+    private char randomABC(){
+        int i = FastMath.rand.nextInt(9);
+        if (i < 3) return 'a';
+        if (i < 6) return 'b';
+        if (i < 9) return 'c';
+        return 'a';
     }
     
     

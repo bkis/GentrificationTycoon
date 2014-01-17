@@ -216,4 +216,9 @@ public class InputMapper{
                     cam.getLocation().z + zVec));
     }
     
+    
+    private void clickObject(){
+        
+    }
+    
 }
