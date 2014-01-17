@@ -89,7 +89,10 @@ public class MainMenuState extends AbstractAppState implements ScreenController{
     
     public String getDescriptionText(){
         return "A funniy-ish yet serious-ish 3D arcade "
-                + "management simulation powered by jME3";
+                + "management simulation making you a mean "
+                + "and greedy real estate agent in a "
+                + "working-class district hit by gentrification!\n\n"
+                + "Take from the poor - give to the rich!";
     }
     
     

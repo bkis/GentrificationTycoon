@@ -15,12 +15,12 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
-import com.jme3.niftygui.NiftyJmeDisplay;
+import com.jme3.post.FilterPostProcessor;
+import com.jme3.post.filters.FogFilter;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import de.bkiss.gt.utils.InputMapper;
-import de.lessvoid.nifty.Nifty;
 
 /**
  *
@@ -77,10 +77,9 @@ public class IngameState extends AbstractAppState{
         al.setColor(new ColorRGBA(0.6f, 0.6f, 0.6f, 1f));
         rootNode.addLight(al);
         
-        cam.setLocation(new Vector3f(0, 10, 8));
+        //set cam
+        cam.setLocation(new Vector3f(0, 10, 9));
         cam.setRotation(new Quaternion(8.377186E-4f, 0.9033154f, -0.42897254f, 0.0017641005f));
-    
-        //loadHUD();
     }
     
     
@@ -202,24 +201,24 @@ public class IngameState extends AbstractAppState{
         car.scale(0.3f, 0.4f, 0.7f);
         
         //make exhauster particle effect
-//        ParticleEmitter exhaustEffect = new ParticleEmitter("Emitter", ParticleMesh.Type.Triangle, 30);
-//        Material fogMat = new Material(assetManager, "Common/MatDefs/Misc/Particle.j3md");
-//        exhaustEffect.setMaterial(fogMat);
-//        exhaustEffect.setEndColor( new ColorRGBA(0.3f, 0.3f, 0.3f, 1f) );
-//        exhaustEffect.setStartColor( new ColorRGBA(0.5f, 0.5f, 0.5f, 0.5f) );
-//        exhaustEffect.getParticleInfluencer().setInitialVelocity(new Vector3f(0, 0.2f, 0));
-//        exhaustEffect.setStartSize(0.01f);
-//        exhaustEffect.setEndSize(0.05f);
-//        exhaustEffect.setGravity(0f,0f,0f);
-//        exhaustEffect.setLowLife(0.1f);
-//        exhaustEffect.setHighLife(0.5f);
-//        exhaustEffect.getParticleInfluencer().setVelocityVariation(0.3f);
-//        exhaustEffect.move(0.1f, -0.15f, 0.2f);
+        ParticleEmitter exhaustEffect = new ParticleEmitter("Emitter", ParticleMesh.Type.Triangle, 30);
+        Material fogMat = new Material(assetManager, "Common/MatDefs/Misc/Particle.j3md");
+        exhaustEffect.setMaterial(fogMat);
+        exhaustEffect.setEndColor( new ColorRGBA(0.3f, 0.3f, 0.3f, 1f) );
+        exhaustEffect.setStartColor( new ColorRGBA(0.5f, 0.5f, 0.5f, 0.5f) );
+        exhaustEffect.getParticleInfluencer().setInitialVelocity(new Vector3f(0, 0.2f, 0));
+        exhaustEffect.setStartSize(0.01f);
+        exhaustEffect.setEndSize(0.05f);
+        exhaustEffect.setGravity(0f,0f,0f);
+        exhaustEffect.setLowLife(0.1f);
+        exhaustEffect.setHighLife(0.5f);
+        exhaustEffect.getParticleInfluencer().setVelocityVariation(0.3f);
+        exhaustEffect.move(0.1f, -0.15f, 0.2f);
         
         //make car node
         Node carNode = new Node();
         carNode.attachChildAt(car, 0);
-//        carNode.attachChild(exhaustEffect);
+        carNode.attachChild(exhaustEffect);
         carNode.addControl(new CarControl(
                 getBoardMatrix().length, getBoardMatrix()[0].length));
         return carNode;
