@@ -40,7 +40,9 @@ public class IngameState extends AbstractAppState{
     private static final String CON = "construction";
     private static final String LAN = "land";
     
-    private static final String CAR = "car_01";
+    private static final String C1A = "car_1a";
+    private static final String C1B = "car_1b";
+    private static final String C1C = "car_1c";
     
     
     
@@ -61,9 +63,9 @@ public class IngameState extends AbstractAppState{
         constructWorld();
         
         //add cars
-        rootNode.attachChild(makeCar());
-        rootNode.attachChild(makeCar());
-        rootNode.attachChild(makeCar());
+        rootNode.attachChild(makeCar('a'));
+        rootNode.attachChild(makeCar('b'));
+        rootNode.attachChild(makeCar('c'));
         
         //lights
         DirectionalLight sun = new DirectionalLight();
@@ -203,9 +205,16 @@ public class IngameState extends AbstractAppState{
     }
     
     
-    private Node makeCar(){
+    private Node makeCar(char key){
         //make car
-        Spatial car = getSpatial("Models/mobiles/", CAR);
+        Spatial car;
+        switch (key){
+            case 'a': car = getSpatial("Models/mobiles/", C1A); break;
+            case 'b': car = getSpatial("Models/mobiles/", C1B); break;
+            case 'c': car = getSpatial("Models/mobiles/", C1C); break;
+            default:  car = getSpatial("Models/mobiles/", C1A); break;
+        }
+        
         car.scale(0.3f, 0.4f, 0.7f);
         
         //make exhauster particle effect

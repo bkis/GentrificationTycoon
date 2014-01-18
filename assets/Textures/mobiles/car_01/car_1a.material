@@ -14,15 +14,15 @@ material _missing_material_
     }
 }
 
-// car_01 genrated by blender2ogre 0.6.0
+// car_1a genrated by blender2ogre 0.6.0
 
-material car_01 
+material car_1a 
 {
     receive_shadows on 
 
     technique
     {
-        pass car_01
+        pass car_1a
         {
             ambient 0.800000011920929 0.800000011920929 0.800000011920929 1.0
             diffuse 0.6400000190734865 0.6400000190734865 0.6400000190734865 1.0
@@ -48,7 +48,7 @@ material car_01
 
             texture_unit 
             {
-                texture car_01.png
+                texture car_1a.png
                 tex_address_mode wrap
                 scale 1.0 1.0
                 colour_op modulate
