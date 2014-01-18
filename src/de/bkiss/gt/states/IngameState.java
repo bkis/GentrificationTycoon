@@ -15,10 +15,7 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
-import com.jme3.post.FilterPostProcessor;
-import com.jme3.post.filters.FogFilter;
 import com.jme3.renderer.Camera;
-import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import de.bkiss.gt.utils.InputMapper;
@@ -81,6 +78,7 @@ public class IngameState extends AbstractAppState{
         //set cam
         cam.setLocation(new Vector3f(0, 10, 9));
         cam.setRotation(new Quaternion(8.377186E-4f, 0.9033154f, -0.42897254f, 0.0017641005f));
+    
     }
     
     
@@ -175,12 +173,12 @@ public class IngameState extends AbstractAppState{
                     spatial = getSpatial("Models/tiles/", "street_s");
                     spatial.rotate(0, FastMath.DEG_TO_RAD*90, 0);
                 } else if (curr.equals(H01)){
-                    spatial = getSpatial("Models/buildings/", "house_01");
+                    spatial = getSpatial("Models/buildings/", "house_1" + randomABC());
                 } else if (curr.equals(H02)){
-                    spatial = getSpatial("Models/buildings/", "house_02");
+                    spatial = getSpatial("Models/buildings/", "house_2" + randomABC());
                     spatial.rotate(0, FastMath.DEG_TO_RAD*180, 0);
                 } else if (curr.equals(H03)){
-                    spatial = getSpatial("Models/buildings/", "house_03");
+                    spatial = getSpatial("Models/buildings/", "house_3" + randomABC());
                     spatial.rotate(0, FastMath.DEG_TO_RAD*180, 0);
                 } else if (curr.equals(CON)){
                     spatial = getSpatial("Models/buildings/", "construction");
