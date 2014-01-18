@@ -7,7 +7,9 @@ import de.bkiss.gt.states.MainMenuState;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 
-
+/*
+ * gt
+ */
 public class Main extends SimpleApplication {
 
     public static void main(String[] args) {
