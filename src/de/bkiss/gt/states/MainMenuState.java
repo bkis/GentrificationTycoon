@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package de.bkiss.gt.states;
 
 import com.jme3.app.Application;
