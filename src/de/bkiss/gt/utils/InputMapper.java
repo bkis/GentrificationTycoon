@@ -105,34 +105,7 @@ public class InputMapper{
             if (name.equals(MAPPING_CAM_ZOOM) && !isPressed)
                 cycleCamZoom();
             if (name.equals(MAPPING_LCLICK) && !isPressed) {
-                // Reset results list.
-                CollisionResults results = new CollisionResults();
-                // Convert screen click to 3d position
-                Vector2f click2d = inputManager.getCursorPosition();
-                Vector3f click3d = cam.getWorldCoordinates(new Vector2f(click2d.x, click2d.y), 0f).clone();
-                Vector3f dir = cam.getWorldCoordinates(new Vector2f(click2d.x, click2d.y), 1f).subtractLocal(click3d);
-                // Aim the ray from the clicked spot forwards.
-                Ray ray = new Ray(click3d, dir);
-                // Collect intersections between ray and all nodes in results list.
-                app.getRootNode().collideWith(ray, results);
-                // (Print the results so we see what is going on:)
-                for (int i = 0; i < results.size(); i++) {
-                    // (For each "hit", we know distance, impact point, geometry.)
-                    float dist = results.getCollision(i).getDistance();
-                    Vector3f pt = results.getCollision(i).getContactPoint();
-                    String target = results.getCollision(i).getGeometry().getName();
-                    //System.out.println("Selection #" + i + ": " + target + " at " + pt + ", " + dist + " WU away.");
-                }
-                // Use the results -- we rotate the selected geometry.
-                if (results.size() > 0) {
-                    // The closest result is the target that the player picked:
-                    Geometry target = results.getClosestCollision().getGeometry();
-                    // Here comes the action:
-                    target.getMaterial().setColor("Diffuse", ColorRGBA.Green);
-                    target.getMaterial().setColor("Ambient", ColorRGBA.Green);
-                    //target.getMaterial().setTexture("DiffuseMap",
-                            //app.getAssetManager().loadTexture("Textures/buildings/construction/construction.png"));
-                }
+                selectByClick();
             } 
         }
     };
@@ -150,6 +123,29 @@ public class InputMapper{
                 moveCam(0,tpf*5);
         }
     };
+    
+    
+    private Geometry selectByClick(){
+        Geometry target = null;
+        // Reset results list.
+        CollisionResults results = new CollisionResults();
+        // Convert screen click to 3d position
+        Vector2f click2d = inputManager.getCursorPosition();
+        Vector3f click3d = cam.getWorldCoordinates(new Vector2f(click2d.x, click2d.y), 0f).clone();
+        Vector3f dir = cam.getWorldCoordinates(new Vector2f(click2d.x, click2d.y), 1f).subtractLocal(click3d);
+        // Aim the ray from the clicked spot forwards.
+        Ray ray = new Ray(click3d, dir);
+        // Collect intersections between ray and all nodes in results list.
+        app.getRootNode().collideWith(ray, results);
+        if (results.size() > 0) {
+            // The closest result is the target that the player picked:
+            target = results.getClosestCollision().getGeometry();
+            // Here comes the action:
+            target.getMaterial().setColor("Diffuse", ColorRGBA.Green);
+            target.getMaterial().setColor("Ambient", ColorRGBA.Green);
+        }
+        return target;
+    }
     
     
     private void moveCam(float x, float z){

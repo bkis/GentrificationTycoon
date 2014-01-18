@@ -34,7 +34,6 @@ public class Main extends SimpleApplication {
     @Override
     public void simpleInitApp() {
         setDisplayStatView(false);
-        
         //attatch initial state
         stateManager.attach(new MainMenuState());
     }

@@ -16,8 +16,10 @@ import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
+import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
+import com.jme3.scene.shape.Quad;
 import de.bkiss.gt.utils.InputMapper;
 
 /**
@@ -62,6 +64,9 @@ public class IngameState extends AbstractAppState{
         //construct game world
         constructWorld();
         
+        //add ground planes
+        rootNode.attachChild(getGroundPlane());
+        
         //add cars
         rootNode.attachChild(makeCar('a'));
         rootNode.attachChild(makeCar('b'));
@@ -74,13 +79,12 @@ public class IngameState extends AbstractAppState{
         rootNode.addLight(sun); 
         
         AmbientLight al = new AmbientLight();
-        al.setColor(new ColorRGBA(0.6f, 0.6f, 0.6f, 1f));
+        al.setColor(new ColorRGBA(0.7f, 0.7f, 0.7f, 1f));
         rootNode.addLight(al);
         
         //set cam
         cam.setLocation(new Vector3f(0, 10, 9));
         cam.setRotation(new Quaternion(8.377186E-4f, 0.9033154f, -0.42897254f, 0.0017641005f));
-    
     }
     
     
@@ -239,6 +243,18 @@ public class IngameState extends AbstractAppState{
         carNode.addControl(new CarControl(
                 getBoardMatrix().length, getBoardMatrix()[0].length));
         return carNode;
+    }
+    
+    
+    private Geometry getGroundPlane(){
+        Quad plane = new Quad(50,50);
+        Material mat = new Material(assetManager, "Common/MatDefs/Light/Lighting.j3md");
+        mat.setTexture("DiffuseMap", assetManager.loadTexture("Textures/world/plane.jpg"));
+        Geometry geom = new Geometry("plane", plane);
+        geom.setMaterial(mat);
+        geom.rotate(FastMath.DEG_TO_RAD*270, 0, 0);
+        geom.setLocalTranslation(-plane.getWidth()/2,-0.52f,plane.getHeight()/2);
+        return geom;
     }
     
     

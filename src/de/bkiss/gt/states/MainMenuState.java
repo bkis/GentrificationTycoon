@@ -32,7 +32,7 @@ public class MainMenuState extends AbstractAppState implements ScreenController{
         
         //set input mapping
         InputMapper im = new InputMapper(app);
-        im.loadInputMapping(InputMapper.INPUT_MODE_INGAME);
+        im.loadInputMapping(InputMapper.INPUT_MODE_MAINMENU);
         
         //load GUI
         loadGUI();
