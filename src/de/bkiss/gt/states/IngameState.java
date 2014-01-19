@@ -20,6 +20,7 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Quad;
+import de.bkiss.gt.gui.GUIController;
 import de.bkiss.gt.utils.InputMapper;
 
 /**
@@ -32,6 +33,8 @@ public class IngameState extends AbstractAppState{
     private Node rootNode;
     private SimpleApplication app;
     private AssetManager assetManager;
+    private InputMapper inputMapper;
+    private GUIController guiController;
     
     private static final String STH = "street_h";
     private static final String STV = "street_v";
@@ -48,6 +51,12 @@ public class IngameState extends AbstractAppState{
     
     
     
+    public IngameState(InputMapper inputMapper, GUIController guiController){
+        this.inputMapper = inputMapper;
+        this.guiController = guiController;
+    }
+    
+    
     @Override
     public void initialize(AppStateManager stateManager, Application app) {
         //initialize fields
@@ -58,8 +67,7 @@ public class IngameState extends AbstractAppState{
         this.assetManager = this.app.getAssetManager();
         
         //set input mapping
-        InputMapper im = new InputMapper(app);
-        im.loadInputMapping(InputMapper.INPUT_MODE_INGAME);
+        inputMapper.loadInputMapping(InputMapper.INPUT_MODE_INGAME);
         
         //construct game world
         constructWorld();
@@ -81,6 +89,9 @@ public class IngameState extends AbstractAppState{
         AmbientLight al = new AmbientLight();
         al.setColor(new ColorRGBA(0.7f, 0.7f, 0.7f, 1f));
         rootNode.addLight(al);
+        
+        //load gui
+        guiController.loadScreen(GUIController.SCREEN_INGAME);
         
         //set cam
         cam.setLocation(new Vector3f(0, 10, 9));

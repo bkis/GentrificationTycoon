@@ -9,7 +9,7 @@
   
   
   
-	<screen id="start" controller="de.bkiss.gt.states.MainMenuState">
+	<screen id="start" controller="de.bkiss.gt.gui.GUIController">
 		<layer id="start-background" childLayout="center">
 		  	<image filename="Interface/start-background.png" width="100%" height="100%"></image>
 		</layer>
@@ -39,7 +39,7 @@
   	</screen>
   	
   	
-  	<screen id="hud">
+  	<screen id="hud" controller="de.bkiss.gt.gui.GUIController">
 		<layer id="hud-background" childLayout="vertical">
 		  	<image filename="Interface/hud-frame.png" width="100%" height="100%" imageMode="resize:62,4,62,59,62,4,62,5,62,4,62,64"/>
 		</layer>

@@ -3,7 +3,7 @@ package de.bkiss.gt;
 import com.jme3.app.SimpleApplication;
 import com.jme3.renderer.RenderManager;
 import com.jme3.system.AppSettings;
-import de.bkiss.gt.states.MainMenuState;
+import de.bkiss.gt.states.MainState;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 
@@ -37,7 +37,7 @@ public class Main extends SimpleApplication {
     public void simpleInitApp() {
         setDisplayStatView(false);
         //attatch initial state
-        stateManager.attach(new MainMenuState());
+        stateManager.attach(new MainState());
     }
 
     @Override
