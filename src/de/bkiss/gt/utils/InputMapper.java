@@ -178,14 +178,14 @@ public class InputMapper{
     
     private boolean isCamInsideBoundsZ(float z){
         if (cam.getLocation().y <= 5.1f){
-            if (z < 0 && cam.getLocation().z <= -2.2f) return false;
-            if (z > 0 && cam.getLocation().z >= 12.3f) return false;
-        } else if (cam.getLocation().y <= 10.1f){
-            if (z < 0 && cam.getLocation().z <=  6.8f) return false;
+            if (z < 0 && cam.getLocation().z <= -2.0f) return false;
             if (z > 0 && cam.getLocation().z >= 13.8f) return false;
+        } else if (cam.getLocation().y <= 10.1f){
+            if (z < 0 && cam.getLocation().z <=  6.7f) return false;
+            if (z > 0 && cam.getLocation().z >= 15.8f) return false;
         } else {
-            if (z < 0 && cam.getLocation().z <  15.7f) return false;
-            if (z > 0 && cam.getLocation().z >  15.5f) return false;
+            if (z < 0 && cam.getLocation().z <  15.0f) return false;
+            if (z > 0 && cam.getLocation().z >  17.5f) return false;
         }
         return true;
     }

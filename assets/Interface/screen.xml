@@ -41,7 +41,7 @@
   	
   	<screen id="hud" controller="de.bkiss.gt.gui.GUIController">
 		<layer id="hud-background" childLayout="vertical">
-		  	<image filename="Interface/hud-frame.png" width="100%" height="100%" imageMode="resize:62,4,62,59,62,4,62,5,62,4,62,64"/>
+		  	<image filename="Interface/hud-frame.png" width="100%" height="100%" imageMode="resize:62,4,62,59,62,4,62,5,62,4,62,192"/>
 		</layer>
 		<layer id="foreground" childLayout="horizontal">
 			<panel id="panel_left" width="80%" height="100%" childLayout="vertical">  
