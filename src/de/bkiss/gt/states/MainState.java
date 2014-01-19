@@ -46,7 +46,7 @@ public class MainState extends AbstractAppState {
 
     @Override
     public void update(float tpf) { 
-      /** jME update loop! */ 
+      /** jME update loop! */
     }
 
     

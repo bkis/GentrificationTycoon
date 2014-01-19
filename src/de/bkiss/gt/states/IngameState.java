@@ -51,7 +51,8 @@ public class IngameState extends AbstractAppState{
     
     
     
-    public IngameState(InputMapper inputMapper, GUIController guiController){
+    public IngameState(InputMapper inputMapper,
+                       GUIController guiController){
         this.inputMapper = inputMapper;
         this.guiController = guiController;
     }
@@ -107,7 +108,7 @@ public class IngameState extends AbstractAppState{
     
     @Override
     public void cleanup() {
-        rootNode.detachAllChildren();
+        
     }
     
     
@@ -170,12 +171,15 @@ public class IngameState extends AbstractAppState{
                 curr = matrix[i][j];
                 
                 if        (curr.equals(STX)){
-                    spatial = getSpatial("Models/tiles/", "street_x");
+                    //spatial = getSpatial("Models/tiles/", "street_x");
+                    spatial = getStreetTile(STX);
                 } else if (curr.equals(STH)){
-                    spatial = getSpatial("Models/tiles/", "street_s");
+                    //spatial = getSpatial("Models/tiles/", "street_s");
+                    spatial = getStreetTile(STH);
                 } else if (curr.equals(STV)){
-                    spatial = getSpatial("Models/tiles/", "street_s");
-                    spatial.rotate(0, FastMath.DEG_TO_RAD*90, 0);
+                    //spatial = getSpatial("Models/tiles/", "street_s");
+                    spatial = getStreetTile(STV);
+                    //spatial.rotate(0, FastMath.DEG_TO_RAD*90, 0);
                 } else if (curr.equals(H01)){
                     spatial = getSpatial("Models/buildings/", "house_1" + randomABC());
                 } else if (curr.equals(H02)){
@@ -252,6 +256,26 @@ public class IngameState extends AbstractAppState{
         geom.setMaterial(mat);
         geom.rotate(FastMath.DEG_TO_RAD*270, 0, 0);
         geom.setLocalTranslation(-plane.getWidth()/2,-0.52f,plane.getHeight()/2);
+        return geom;
+    }
+    
+    
+    private Geometry getStreetTile(String key){
+        Quad tile = new Quad(1,1);
+        Material mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+        
+        if (key.equals(STX)){
+            mat.setTexture("ColorMap", assetManager.loadTexture("Textures/tiles/streets/street_fx.png"));
+        } else if (key.equals(STH)) {
+            mat.setTexture("ColorMap", assetManager.loadTexture("Textures/tiles/streets/street_fv.png"));
+        } else if (key.equals(STV)) {
+            mat.setTexture("ColorMap", assetManager.loadTexture("Textures/tiles/streets/street_fh.png"));
+        }
+        
+        Geometry geom = new Geometry("street", tile);
+        geom.setMaterial(mat);
+        geom.rotate(FastMath.DEG_TO_RAD*270, 0, 0);
+        geom.move(-0.5f, -0.5f, 0.5f);
         return geom;
     }
     

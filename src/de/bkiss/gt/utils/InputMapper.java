@@ -141,6 +141,7 @@ public class InputMapper{
             // The closest result is the target that the player picked:
             target = results.getClosestCollision().getGeometry();
             // Here comes the action:
+            if (target.getName().equals("street")) return null;
             target.getMaterial().setColor("Diffuse", ColorRGBA.Green);
             target.getMaterial().setColor("Ambient", ColorRGBA.Green);
         }
