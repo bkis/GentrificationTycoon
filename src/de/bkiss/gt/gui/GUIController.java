@@ -7,12 +7,17 @@ import de.bkiss.gt.states.MainState;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author boss
  */
 public class GUIController implements ScreenController {
+    
+    public static int HUD_INFO_PANEL_HEIGHT   = 115;
+    public static int HUD_BUTTON_PANEL_HEIGHT = 32;
     
     public static final String SCREEN_MAINMENU = "start";
     public static final String SCREEN_INGAME   = "hud";
@@ -34,6 +39,10 @@ public class GUIController implements ScreenController {
             app.getViewPort());
         nifty = niftyDisplay.getNifty();
         app.getGuiViewPort().addProcessor(niftyDisplay);
+        
+        //set logging level
+        Logger.getLogger("de.lessvoid.nifty").setLevel(Level.SEVERE); 
+        Logger.getLogger("NiftyInputEventHandlingLog").setLevel(Level.SEVERE); 
     }
     
     public void loadScreen(String screenKey){

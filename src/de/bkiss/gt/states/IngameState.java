@@ -221,7 +221,7 @@ public class IngameState extends AbstractAppState{
             default:  car = getSpatial("Models/mobiles/", C1A); break;
         }
         
-        car.scale(0.3f, 0.4f, 0.7f);
+        car.scale(0.3f, 0.4f, 0.6f);
         
         //make exhauster particle effect
         ParticleEmitter exhaustEffect = new ParticleEmitter("Emitter", ParticleMesh.Type.Triangle, 30);
@@ -250,8 +250,8 @@ public class IngameState extends AbstractAppState{
     
     private Geometry getGroundPlane(){
         Quad plane = new Quad(50,50);
-        Material mat = new Material(assetManager, "Common/MatDefs/Light/Lighting.j3md");
-        mat.setTexture("DiffuseMap", assetManager.loadTexture("Textures/world/plane.jpg"));
+        Material mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+        mat.setTexture("ColorMap", assetManager.loadTexture("Textures/world/plane.jpg"));
         Geometry geom = new Geometry("plane", plane);
         geom.setMaterial(mat);
         geom.rotate(FastMath.DEG_TO_RAD*270, 0, 0);
