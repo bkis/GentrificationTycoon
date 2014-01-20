@@ -5,10 +5,10 @@ import com.jme3.app.SimpleApplication;
 import com.jme3.niftygui.NiftyJmeDisplay;
 import de.bkiss.gt.states.MainState;
 import de.lessvoid.nifty.Nifty;
+import de.lessvoid.nifty.controls.window.WindowControl;
+import de.lessvoid.nifty.elements.Element;
 import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -27,6 +27,7 @@ public class GUIController implements ScreenController {
     private Nifty nifty;
     private Screen screen;    
     private NiftyJmeDisplay niftyDisplay;
+    private Element popup;
     
     
     public GUIController(Application app, MainState mainState){
@@ -41,8 +42,8 @@ public class GUIController implements ScreenController {
         app.getGuiViewPort().addProcessor(niftyDisplay);
         
         //set logging level
-        Logger.getLogger("de.lessvoid.nifty").setLevel(Level.SEVERE); 
-        Logger.getLogger("NiftyInputEventHandlingLog").setLevel(Level.SEVERE); 
+        //Logger.getLogger("de.lessvoid.nifty").setLevel(Level.SEVERE); 
+        //Logger.getLogger("NiftyInputEventHandlingLog").setLevel(Level.SEVERE); 
     }
     
     public void loadScreen(String screenKey){
@@ -50,17 +51,34 @@ public class GUIController implements ScreenController {
             nifty.fromXml("Interface/screen.xml", screenKey, this);
         else
             nifty.gotoScreen(screenKey);
+        
+        this.screen = nifty.getCurrentScreen();
     }
     
     
     public void startGame(){
         mainState.loadState(MainState.STATE_INGAME);
-        nifty.gotoScreen("hud");
     }
     
     
     public void quitGame(){
         app.stop();
+    }
+    
+    
+    public void openPopup(String key){
+        popup = nifty.createPopup("popup_window");
+        
+        if (key.startsWith("info")){
+            popup.findControl("window", WindowControl.class).setTitle("Inforrrrmazzionné");
+        }
+        
+        nifty.showPopup(screen, popup.getId(), null);
+    }
+    
+    
+    public void closeWindow(){
+        nifty.closePopup(popup.getId());
     }
 
     

@@ -16,7 +16,7 @@
 	<screen id="start" controller="de.bkiss.gt.gui.GUIController">
 	
 		<layer id="start-background" childLayout="center">
-		  	<image filename="Interface/start-background.png" width="100%" height="100%"></image>
+		  	<image filename="Interface/start-background.jpg" width="100%" height="100%"></image>
 		</layer>
 		
 		<layer id="foreground" childLayout="vertical">  
@@ -46,12 +46,10 @@
   	</screen>
   	
   	
-  	
-  	
   	<screen id="hud" controller="de.bkiss.gt.gui.GUIController">
   	
 		<layer id="hud-background" childLayout="vertical">
-		  	<image filename="Interface/hud-frame.png" width="100%" height="100%" imageMode="resize:62,4,62,59,62,4,62,5,62,4,62,192"/>
+		  	<image filename="Interface/hud/hud-frame.png" width="100%" height="100%" imageMode="resize:62,4,62,59,62,4,62,5,62,4,62,192"/>
 		</layer>
 		
 		<layer id="foreground" childLayout="vertical">
@@ -61,19 +59,19 @@
 			
 			<panel id="panel_hud_buttons" width="100%" height="" childLayout="center">
 				<panel id="panel_hud_buttons_inner" width="" height="" childLayout="horizontal">
-					<image filename="Interface/spacer_l.png"></image>
-					<image filename="Interface/hud-button-info.png"  visibleToMouse="true"><interact onRelease="quitGame()" /></image>
-					<image filename="Interface/spacer_m.png"></image>
-					<image filename="Interface/hud-button-buil.png"  visibleToMouse="true"><interact onRelease="quitGame()" /></image>
-					<image filename="Interface/spacer_m.png"></image>
-					<image filename="Interface/hud-button-wrck.png" visibleToMouse="true"><interact onRelease="quitGame()" /></image>
-					<image filename="Interface/spacer_m.png"></image>
-					<image filename="Interface/hud-button-bank.png" visibleToMouse="true"><interact onRelease="quitGame()" /></image>
-					<image filename="Interface/spacer_m.png"></image>
-					<image filename="Interface/hud-button-opin.png" visibleToMouse="true"><interact onRelease="quitGame()" /></image>
-					<image filename="Interface/spacer_m.png"></image>
-					<image filename="Interface/hud-button-quit.png" visibleToMouse="true"><interact onRelease="quitGame()" /></image>
-					<image filename="Interface/spacer_r.png"></image>
+					<image filename="Interface/hud/spacer_l.png"></image>
+					<image filename="Interface/hud/hud-button-info.png"  visibleToMouse="true"><interact onRelease="openPopup(info)" /></image>
+					<image filename="Interface/hud/spacer_m.png"></image>
+					<image filename="Interface/hud/hud-button-buil.png"  visibleToMouse="true"><interact onRelease="openPopup(build)" /></image>
+					<image filename="Interface/hud/spacer_m.png"></image>
+					<image filename="Interface/hud/hud-button-wrck.png" visibleToMouse="true"><interact onRelease="openPopup(wreck)" /></image>
+					<image filename="Interface/hud/spacer_m.png"></image>
+					<image filename="Interface/hud/hud-button-bank.png" visibleToMouse="true"><interact onRelease="openPopup(bank)" /></image>
+					<image filename="Interface/hud/spacer_m.png"></image>
+					<image filename="Interface/hud/hud-button-opin.png" visibleToMouse="true"><interact onRelease="openPopup(opinions)" /></image>
+					<image filename="Interface/hud/spacer_m.png"></image>
+					<image filename="Interface/hud/hud-button-quit.png" visibleToMouse="true"><interact onRelease="quitGame()" /></image>
+					<image filename="Interface/hud/spacer_r.png"></image>
 				</panel>
 			</panel>
 			
@@ -85,21 +83,16 @@
 				</panel>
 			</panel>
 		</layer>
-		
-		<layer id="windows" childLayout="absolute">
-			<control id="window-3" name="window" style="custom-window" title="Window Title!" width="300px" height="200px" x="100" y="100">
-				<panel id="window_content" width="100%" height="100%" childLayout="center" backgroundColor="#0000">
-					<text text="AAARRRGGGHHHH!!!!!" style="base-font" color="#eeef" valign="center" width="100%" />
-				</panel>
-			</control>
-			
-			<control id="window-2" name="window" style="custom-window" title="Window Title!" width="300px" height="200px" x="100" y="100">
-				<panel id="window_content" width="100%" height="100%" childLayout="center" backgroundColor="#0000">
-					<text text="AAARRRGGGHHHH!!!!!" style="base-font" color="#eeef" valign="center" width="100%" />
-				</panel>
-			</control>
-		</layer>
-		
+
   	</screen>
+  	
+  	
+  	<popup id="popup_window" childLayout="absolute" backgroundColor="#00000088">
+		<control id="window" name="window" style="custom-window" title="Window Title!" width="300px" height="200px" x="100" y="100">
+			<panel id="window_content" width="100%" height="100%" childLayout="center">
+				<text id="text" text="AAARRRGGGHHHH!!!!!" style="base-font" color="#eeef" valign="center" width="100%" />
+			</panel>
+		</control>
+	</popup>
 	
 </nifty>

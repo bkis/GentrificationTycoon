@@ -41,7 +41,7 @@ public class InputMapper{
     private final static MouseButtonTrigger TRIGGER_LCLICK = new MouseButtonTrigger(MouseInput.BUTTON_LEFT);
     private final static String MAPPING_LCLICK = "left click";
     
-    private final static Trigger TRIGGER_GFX =  new KeyTrigger(KeyInput.KEY_F2);
+    private final static Trigger TRIGGER_GFX =  new KeyTrigger(KeyInput.KEY_LSHIFT);
     private final static String MAPPING_GFX  = "gfx diag";
     
     //INGAME
@@ -116,6 +116,8 @@ public class InputMapper{
             if (name.equals(MAPPING_LCLICK) && !isPressed)
                 selectByClick();
             if (name.equals(MAPPING_GFX) && !isPressed)
+                toggleShowGfxDiag();
+            if (name.equals(MAPPING_GFX) && isPressed)
                 toggleShowGfxDiag();
         }
     };

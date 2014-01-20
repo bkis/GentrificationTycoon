@@ -26,8 +26,7 @@ public class Main extends SimpleApplication {
         //            gDevice.getDisplayMode().getWidth(),
         //            gDevice.getDisplayMode().getHeight());
         settings.setResolution(800,600);
-        settings.setSettingsDialogImage("Interface/splash.png");
-        
+        settings.setSettingsDialogImage("Interface/splash.jpg");
         Main app = new Main();
         app.setSettings(settings);
         app.setShowSettings(true);
@@ -51,5 +50,6 @@ public class Main extends SimpleApplication {
     public void simpleRender(RenderManager rm) {
         //TODO: add render code
     }
+    
     
 }
