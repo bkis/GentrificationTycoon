@@ -1,13 +1,10 @@
 package de.bkiss.gt.states;
 
-import de.bkiss.gt.controls.CarControl;
 import com.jme3.app.Application;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.asset.AssetManager;
-import com.jme3.effect.ParticleEmitter;
-import com.jme3.effect.ParticleMesh;
 import com.jme3.light.AmbientLight;
 import com.jme3.light.DirectionalLight;
 import com.jme3.material.Material;
@@ -21,7 +18,10 @@ import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Quad;
 import de.bkiss.gt.gui.GUIController;
+import de.bkiss.gt.objects.Car;
+import de.bkiss.gt.objects.House;
 import de.bkiss.gt.utils.InputMapper;
+import de.bkiss.gt.utils.ModelLoader;
 
 /**
  *
@@ -44,10 +44,6 @@ public class IngameState extends AbstractAppState{
     private static final String H03 = "house_03";
     private static final String CON = "construction";
     private static final String LAN = "land";
-    
-    private static final String C1A = "car_1a";
-    private static final String C1B = "car_1b";
-    private static final String C1C = "car_1c";
     
     
     
@@ -77,9 +73,18 @@ public class IngameState extends AbstractAppState{
         rootNode.attachChild(getGroundPlane());
         
         //add cars
-        rootNode.attachChild(makeCar('a'));
-        rootNode.attachChild(makeCar('b'));
-        rootNode.attachChild(makeCar('c'));
+        rootNode.attachChild(new Car(assetManager, 'a',
+                getBoardMatrix().length,
+                getBoardMatrix()[0].length)
+                .getSpatial());
+        rootNode.attachChild(new Car(assetManager, 'b',
+                getBoardMatrix().length,
+                getBoardMatrix()[0].length)
+                .getSpatial());
+        rootNode.attachChild(new Car(assetManager, 'c',
+                getBoardMatrix().length,
+                getBoardMatrix()[0].length)
+                .getSpatial());
         
         //lights
         DirectionalLight sun = new DirectionalLight();
@@ -110,27 +115,7 @@ public class IngameState extends AbstractAppState{
     public void cleanup() {
         
     }
-    
-    
-    private Spatial getSpatial(String path, String key){
-        Spatial s = null;
-        
-        try {
-            s = app.getAssetManager().loadModel(
-                path + key + ".j3o");
-        } catch (Exception e){
-            System.out.println("[ERROR] model not found!");
-            System.exit(1);
-        }
-        
-        if (s == null)
-            return null;
-        else
-            s.scale(0.5f);
-        
-        return s;
-    }
-    
+
     
     private String[][] getBoardMatrix(){
         String[][] matrix = {
@@ -171,28 +156,32 @@ public class IngameState extends AbstractAppState{
                 curr = matrix[i][j];
                 
                 if        (curr.equals(STX)){
-                    //spatial = getSpatial("Models/tiles/", "street_x");
                     spatial = getStreetTile(STX);
                 } else if (curr.equals(STH)){
-                    //spatial = getSpatial("Models/tiles/", "street_s");
                     spatial = getStreetTile(STH);
                 } else if (curr.equals(STV)){
-                    //spatial = getSpatial("Models/tiles/", "street_s");
                     spatial = getStreetTile(STV);
-                    //spatial.rotate(0, FastMath.DEG_TO_RAD*90, 0);
                 } else if (curr.equals(H01)){
-                    spatial = getSpatial("Models/buildings/", "house_1" + randomABC());
+                    spatial = new House(app,
+                            House.TYPE_HOUSE_1, "Haus Nr." + i + "" + j)
+                            .getSpatial();
                 } else if (curr.equals(H02)){
-                    spatial = getSpatial("Models/buildings/", "house_2" + randomABC());
+                    spatial = new House(app,
+                            House.TYPE_HOUSE_2, "Haus Nr." + i + "" + j)
+                            .getSpatial();
                     spatial.rotate(0, FastMath.DEG_TO_RAD*180, 0);
                 } else if (curr.equals(H03)){
-                    spatial = getSpatial("Models/buildings/", "house_3" + randomABC());
+                    spatial = new House(app,
+                            House.TYPE_HOUSE_3, "Haus Nr." + i + "" + j)
+                            .getSpatial();
                     spatial.rotate(0, FastMath.DEG_TO_RAD*180, 0);
                 } else if (curr.equals(CON)){
-                    spatial = getSpatial("Models/buildings/", "construction");
+                    spatial = ModelLoader.loadSpatial(assetManager,
+                            "Models/buildings/", "construction");
                     spatial.rotate(0, FastMath.DEG_TO_RAD*90, 0);
                 } else if (curr.equals(LAN)){
-                    spatial = getSpatial("Models/tiles/", "land");
+                    spatial = ModelLoader.loadSpatial(assetManager,
+                            "Models/tiles/", "land");
                 }
                 
                 spatial.move(i-(matrix.length/2), 0, j-(matrix[0].length/2));
@@ -202,51 +191,8 @@ public class IngameState extends AbstractAppState{
     }
     
     
-    private char randomABC(){
-        int i = FastMath.rand.nextInt(9);
-        if (i < 3) return 'a';
-        if (i < 6) return 'b';
-        if (i < 9) return 'c';
-        return 'a';
-    }
     
-    
-    private Node makeCar(char key){
-        //make car
-        Spatial car;
-        switch (key){
-            case 'a': car = getSpatial("Models/mobiles/", C1A); break;
-            case 'b': car = getSpatial("Models/mobiles/", C1B); break;
-            case 'c': car = getSpatial("Models/mobiles/", C1C); break;
-            default:  car = getSpatial("Models/mobiles/", C1A); break;
-        }
-        
-        car.scale(0.3f, 0.4f, 0.6f);
-        
-        //make exhauster particle effect
-        ParticleEmitter exhaustEffect = new ParticleEmitter("Emitter", ParticleMesh.Type.Triangle, 30);
-        Material fogMat = new Material(assetManager, "Common/MatDefs/Misc/Particle.j3md");
-        exhaustEffect.setMaterial(fogMat);
-        exhaustEffect.setEndColor( new ColorRGBA(0.3f, 0.3f, 0.3f, 1f) );
-        exhaustEffect.setStartColor( new ColorRGBA(0.5f, 0.5f, 0.5f, 0.5f) );
-        exhaustEffect.getParticleInfluencer().setInitialVelocity(new Vector3f(0, 0.2f, 0));
-        exhaustEffect.setStartSize(0.01f);
-        exhaustEffect.setEndSize(0.05f);
-        exhaustEffect.setGravity(0f,0f,0f);
-        exhaustEffect.setLowLife(0.1f);
-        exhaustEffect.setHighLife(0.5f);
-        exhaustEffect.getParticleInfluencer().setVelocityVariation(0.3f);
-        exhaustEffect.move(0.1f, -0.15f, 0.2f);
-        
-        //make car node
-        Node carNode = new Node();
-        carNode.attachChildAt(car, 0);
-        carNode.attachChild(exhaustEffect);
-        carNode.addControl(new CarControl(
-                getBoardMatrix().length, getBoardMatrix()[0].length));
-        return carNode;
-    }
-    
+
     
     private Geometry getGroundPlane(){
         Quad plane = new Quad(50,50);
