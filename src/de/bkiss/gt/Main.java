@@ -11,6 +11,7 @@ import java.awt.GraphicsEnvironment;
  * gt
  */
 public class Main extends SimpleApplication {
+    
 
     public static void main(String[] args) {
         AppSettings settings = new AppSettings(true);
@@ -36,6 +37,7 @@ public class Main extends SimpleApplication {
     @Override
     public void simpleInitApp() {
         setDisplayStatView(false);
+        setDisplayFps(false);
         //attatch initial state
         stateManager.attach(new MainState());
     }
@@ -49,4 +51,5 @@ public class Main extends SimpleApplication {
     public void simpleRender(RenderManager rm) {
         //TODO: add render code
     }
+    
 }
