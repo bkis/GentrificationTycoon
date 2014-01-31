@@ -8,7 +8,7 @@ import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 
 /*
- * gt
+ * Gentrification Tycoon
  */
 public class Main extends SimpleApplication {
     
