@@ -79,22 +79,22 @@ public class CarControl extends AbstractControl{
         
         switch (dir){
             case N:
-                spatial.setLocalTranslation(rndXPos, yOffset, worldHeight/2);
+                spatial.setLocalTranslation(rndXPos+getLaneOffset(), yOffset, worldHeight);
                 spatial.setLocalRotation(YAW000);
                 move = MOVE_N;
                 break;
             case E:
-                spatial.setLocalTranslation(-worldHeight/2, yOffset, rndZPos);
+                spatial.setLocalTranslation(-worldHeight, yOffset, rndZPos+getLaneOffset());
                 spatial.setLocalRotation(YAW270);
                 move = MOVE_E;
                 break;
             case S:
-                spatial.setLocalTranslation(rndXPos, yOffset, -worldWidth/2);
+                spatial.setLocalTranslation(rndXPos-getLaneOffset(), yOffset, -worldWidth);
                 spatial.setLocalRotation(YAW180);
                 move = MOVE_S;
                 break;
             case W:
-                spatial.setLocalTranslation(worldHeight/2, yOffset, rndZPos);
+                spatial.setLocalTranslation(worldHeight, yOffset, rndZPos-getLaneOffset());
                 spatial.setLocalRotation(YAW090);
                 move = MOVE_W;
                 break;
@@ -115,10 +115,10 @@ public class CarControl extends AbstractControl{
     
     private boolean isInsideBounds(){
         switch(dir){
-            case N: if (spatial.getLocalTranslation().getZ() < -worldHeight/2) return false;
-            case E: if (spatial.getLocalTranslation().getX() > worldWidth/2)   return false;
-            case S: if (spatial.getLocalTranslation().getZ() > worldHeight/2)  return false;
-            case W: if (spatial.getLocalTranslation().getX() < -worldWidth/2)  return false;
+            case N: if (spatial.getLocalTranslation().getZ() < -worldHeight) return false;
+            case E: if (spatial.getLocalTranslation().getX() > worldWidth)   return false;
+            case S: if (spatial.getLocalTranslation().getZ() > worldHeight)  return false;
+            case W: if (spatial.getLocalTranslation().getX() < -worldWidth)  return false;
             default: return true;
         }
     }
@@ -129,4 +129,7 @@ public class CarControl extends AbstractControl{
         initialized = true;
     }
     
+    private float getLaneOffset(){
+        return spatial.getLocalScale().x/6;
+    }
 }

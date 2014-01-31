@@ -3,12 +3,15 @@ package de.bkiss.gt;
 import com.jme3.app.SimpleApplication;
 import com.jme3.renderer.RenderManager;
 import com.jme3.system.AppSettings;
-import de.bkiss.gt.states.MainMenuState;
+import de.bkiss.gt.states.MainState;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 
-
+/*
+ * gt
+ */
 public class Main extends SimpleApplication {
+    
 
     public static void main(String[] args) {
         AppSettings settings = new AppSettings(true);
@@ -23,8 +26,7 @@ public class Main extends SimpleApplication {
         //            gDevice.getDisplayMode().getWidth(),
         //            gDevice.getDisplayMode().getHeight());
         settings.setResolution(800,600);
-        settings.setSettingsDialogImage("Interface/splash.png");
-        
+        settings.setSettingsDialogImage("Interface/splash.jpg");
         Main app = new Main();
         app.setSettings(settings);
         app.setShowSettings(true);
@@ -34,8 +36,9 @@ public class Main extends SimpleApplication {
     @Override
     public void simpleInitApp() {
         setDisplayStatView(false);
+        setDisplayFps(false);
         //attatch initial state
-        stateManager.attach(new MainMenuState());
+        stateManager.attach(new MainState());
     }
 
     @Override
@@ -47,4 +50,6 @@ public class Main extends SimpleApplication {
     public void simpleRender(RenderManager rm) {
         //TODO: add render code
     }
+    
+    
 }

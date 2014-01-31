@@ -17,6 +17,7 @@ import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.Geometry;
+import de.bkiss.gt.Main;
 
 /**
  *
@@ -28,9 +29,10 @@ public class InputMapper{
     public final static int INPUT_MODE_MAINMENU = 1;
     public final static int INPUT_MODE_PAUSED = 2;
     
-    private SimpleApplication app;
+    private Main app;
     private Camera cam;
     private InputManager inputManager;
+    private boolean showDiag;
     
     //GENERAL
     private final static Trigger TRIGGER_ESC =  new KeyTrigger(KeyInput.KEY_ESCAPE);
@@ -38,6 +40,9 @@ public class InputMapper{
     
     private final static MouseButtonTrigger TRIGGER_LCLICK = new MouseButtonTrigger(MouseInput.BUTTON_LEFT);
     private final static String MAPPING_LCLICK = "left click";
+    
+    private final static Trigger TRIGGER_GFX =  new KeyTrigger(KeyInput.KEY_LSHIFT);
+    private final static String MAPPING_GFX  = "gfx diag";
     
     //INGAME
     //--CAM MOVEMENT
@@ -59,7 +64,7 @@ public class InputMapper{
 
     
     public InputMapper(Application app){
-        this.app = (SimpleApplication) app;
+        this.app = (Main) app;
         this.cam = app.getCamera();
         this.inputManager = app.getInputManager();
     }
@@ -68,6 +73,10 @@ public class InputMapper{
     public void loadInputMapping(int inputMode){
         inputManager.clearMappings();
         inputManager.setCursorVisible(true);
+        
+        //general
+        inputManager.addMapping(MAPPING_GFX, TRIGGER_GFX);
+        inputManager.addListener(actionListener,new String[]{MAPPING_GFX});
         
         switch (inputMode){
             case INPUT_MODE_INGAME:
@@ -104,9 +113,12 @@ public class InputMapper{
                 app.stop();
             if (name.equals(MAPPING_CAM_ZOOM) && !isPressed)
                 cycleCamZoom();
-            if (name.equals(MAPPING_LCLICK) && !isPressed) {
+            if (name.equals(MAPPING_LCLICK) && !isPressed)
                 selectByClick();
-            } 
+            if (name.equals(MAPPING_GFX) && !isPressed)
+                toggleShowGfxDiag();
+            if (name.equals(MAPPING_GFX) && isPressed)
+                toggleShowGfxDiag();
         }
     };
     
@@ -141,6 +153,7 @@ public class InputMapper{
             // The closest result is the target that the player picked:
             target = results.getClosestCollision().getGeometry();
             // Here comes the action:
+            if (target.getName().equals("street")) return null;
             target.getMaterial().setColor("Diffuse", ColorRGBA.Green);
             target.getMaterial().setColor("Ambient", ColorRGBA.Green);
         }
@@ -177,14 +190,14 @@ public class InputMapper{
     
     private boolean isCamInsideBoundsZ(float z){
         if (cam.getLocation().y <= 5.1f){
-            if (z < 0 && cam.getLocation().z <= -2.2f) return false;
-            if (z > 0 && cam.getLocation().z >= 12.3f) return false;
-        } else if (cam.getLocation().y <= 10.1f){
-            if (z < 0 && cam.getLocation().z <=  6.8f) return false;
+            if (z < 0 && cam.getLocation().z <= -2.0f) return false;
             if (z > 0 && cam.getLocation().z >= 13.8f) return false;
+        } else if (cam.getLocation().y <= 10.1f){
+            if (z < 0 && cam.getLocation().z <=  6.7f) return false;
+            if (z > 0 && cam.getLocation().z >= 15.8f) return false;
         } else {
-            if (z < 0 && cam.getLocation().z <  15.7f) return false;
-            if (z > 0 && cam.getLocation().z >  15.5f) return false;
+            if (z < 0 && cam.getLocation().z <  15.0f) return false;
+            if (z > 0 && cam.getLocation().z >  17.5f) return false;
         }
         return true;
     }
@@ -213,8 +226,10 @@ public class InputMapper{
     }
     
     
-    private void clickObject(){
-        
+    public void toggleShowGfxDiag(){
+        app.setDisplayFps(!showDiag);
+        app.setDisplayStatView(!showDiag);
+        showDiag = !showDiag;
     }
     
 }
