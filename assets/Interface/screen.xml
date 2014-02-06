@@ -91,7 +91,7 @@
 		<panel id="popup_spacer_top" width="100%" height="20%"></panel>
 		
 		<panel id="popup_window" width="60%" height="60%" childLayout="vertical" backgroundColor="#000000ff">
-			<panel id="popup_window_titlebar" width="100%" height="20" childLayout="center" backgroundColor="#444444ff">
+			<panel id="popup_window_titlebar" width="100%" height="20" childLayout="center" backgroundColor="#a55731ff">
 				<text text="TITLE!" font="Interface/Fonts/Default.fnt" width="100%" height="100%" wrap="false"/>
 			</panel>
 			

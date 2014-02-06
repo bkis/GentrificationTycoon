@@ -5,7 +5,6 @@ import com.jme3.app.SimpleApplication;
 import com.jme3.niftygui.NiftyJmeDisplay;
 import de.bkiss.gt.states.MainState;
 import de.lessvoid.nifty.Nifty;
-import de.lessvoid.nifty.controls.window.WindowControl;
 import de.lessvoid.nifty.elements.Element;
 import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
@@ -70,7 +69,7 @@ public class GUIController implements ScreenController {
         popup = nifty.createPopup("popup_layer");
         
 //        if (key.startsWith("info")){
-//            popup.findControl("window", WindowControl.class).setTitle("Inforrrrmazzionné");
+//            
 //        }
         
         nifty.showPopup(screen, popup.getId(), null);

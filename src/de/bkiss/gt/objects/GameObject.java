@@ -16,8 +16,12 @@ public abstract class GameObject {
     public static final String TYPE_HOUSE_2      = "house_2";
     public static final String TYPE_HOUSE_3      = "house_3";
     
+    public static final String TYPE_CONSTRUCTION = "construction";
+    public static final String TYPE_LAND         = "land";
+    
     private String type;
     private String name;
+    
     private Spatial spatial;
     private SimpleApplication app;
     
@@ -27,9 +31,12 @@ public abstract class GameObject {
         this.name = name;
         this.app = (SimpleApplication) app;
         
-        spatial = ModelLoader.loadSpatial(app.getAssetManager(),
-                            "Models/buildings/", type
-                            + randomABC());
+        loadSpatial();
+        
+        if (spatial != null)
+            System.out.println("Created GameObject: " + this);
+        else
+            System.out.println("ERROR LOADING SPATIAL: " + this);
     }
     
     
@@ -44,11 +51,36 @@ public abstract class GameObject {
     }
     
     
+    private void loadSpatial(){
+        if (type.contains("house")){
+            spatial = ModelLoader.loadSpatial(app.getAssetManager(),
+                                "Models/GameObjects/", type
+                                + randomABC());
+        } else if (type.equals(TYPE_CONSTRUCTION)){
+            spatial = ModelLoader.loadSpatial(app.getAssetManager(),
+                                "Models/GameObjects/", type);
+        } else if (type.equals(TYPE_LAND)){
+            spatial = ModelLoader.loadSpatial(app.getAssetManager(),
+                                "Models/GameObjects/", type);
+        }
+    }
+    
+    
     private char randomABC(){
         int i = FastMath.rand.nextInt(9);
         if (i < 3) return 'a';
         if (i < 6) return 'b';
         if (i < 9) return 'c';
         return 'a';
+    }
+    
+    
+    public float getXPos(){
+        return spatial.getLocalTranslation().x;
+    }
+    
+    
+    public float getZPos(){
+        return spatial.getLocalTranslation().z;
     }
 }

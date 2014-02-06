@@ -19,7 +19,9 @@ import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Quad;
 import de.bkiss.gt.gui.GUIController;
 import de.bkiss.gt.objects.Car;
+import de.bkiss.gt.objects.ConstructionSite;
 import de.bkiss.gt.objects.House;
+import de.bkiss.gt.objects.Land;
 import de.bkiss.gt.utils.InputMapper;
 import de.bkiss.gt.utils.ModelLoader;
 
@@ -176,12 +178,12 @@ public class IngameState extends AbstractAppState{
                             .getSpatial();
                     spatial.rotate(0, FastMath.DEG_TO_RAD*180, 0);
                 } else if (curr.equals(CON)){
-                    spatial = ModelLoader.loadSpatial(assetManager,
-                            "Models/buildings/", "construction");
+                    spatial = new ConstructionSite(app,
+                            "ConstructionSite Nr." + i + "" + j).getSpatial();
                     spatial.rotate(0, FastMath.DEG_TO_RAD*90, 0);
                 } else if (curr.equals(LAN)){
-                    spatial = ModelLoader.loadSpatial(assetManager,
-                            "Models/tiles/", "land");
+                    spatial = new Land(app,
+                            "Land Nr." + i + "" + j).getSpatial();
                 }
                 
                 spatial.move(i-(matrix.length/2), 0, j-(matrix[0].length/2));
