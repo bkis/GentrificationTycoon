@@ -67,11 +67,11 @@ public class GUIController implements ScreenController {
     
     
     public void openPopup(String key){
-        popup = nifty.createPopup("popup_window");
+        popup = nifty.createPopup("popup_layer");
         
-        if (key.startsWith("info")){
-            popup.findControl("window", WindowControl.class).setTitle("Inforrrrmazzionné");
-        }
+//        if (key.startsWith("info")){
+//            popup.findControl("window", WindowControl.class).setTitle("Inforrrrmazzionné");
+//        }
         
         nifty.showPopup(screen, popup.getId(), null);
     }

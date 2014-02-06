@@ -87,12 +87,18 @@
   	</screen>
   	
   	
-  	<popup id="popup_window" childLayout="absolute" backgroundColor="#00000088">
-		<control id="window" name="window" style="custom-window" title="Window Title!" width="300px" height="200px" x="100" y="100">
-			<panel id="window_content" width="100%" height="100%" childLayout="center">
-				<text id="text" text="AAARRRGGGHHHH!!!!!" style="base-font" color="#eeef" valign="center" width="100%" />
+  	<popup id="popup_layer" childLayout="center" backgroundColor="#00000088" visibleToMouse="true">
+		<panel id="popup_spacer_top" width="100%" height="20%"></panel>
+		
+		<panel id="popup_window" width="60%" height="60%" childLayout="vertical" backgroundColor="#000000ff">
+			<panel id="popup_window_titlebar" width="100%" height="20" childLayout="center" backgroundColor="#444444ff">
+				<text text="TITLE!" font="Interface/Fonts/Default.fnt" width="100%" height="100%" wrap="false"/>
 			</panel>
-		</control>
+			
+			<panel id="popup_window_content" width="100%" height="100%" childLayout="vertical" backgroundColor="#000000ff">
+				<text text="CONTENT!" font="Interface/Fonts/Default.fnt" width="100%" height="100%" wrap="false"/>
+			</panel>
+		</panel>
 	</popup>
 	
 </nifty>
