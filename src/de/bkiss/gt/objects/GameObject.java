@@ -19,8 +19,9 @@ public abstract class GameObject {
     public static final String TYPE_CONSTRUCTION = "construction";
     public static final String TYPE_LAND         = "land";
     
-    private String type;
+    protected String type;
     private String name;
+    private int moneyValue;
     
     private Spatial spatial;
     private SimpleApplication app;
@@ -33,10 +34,12 @@ public abstract class GameObject {
         
         loadSpatial();
         
-        if (spatial != null)
+        if (spatial != null){
             System.out.println("Created GameObject: " + this);
-        else
+        } else {
             System.out.println("ERROR LOADING SPATIAL: " + this);
+            app.stop();
+        }
     }
     
     
@@ -82,5 +85,20 @@ public abstract class GameObject {
     
     public float getZPos(){
         return spatial.getLocalTranslation().z;
+    }
+    
+    
+    public int getPrice(){
+        return moneyValue;
+    }
+    
+    
+    public void setPrice(int price){
+        this.moneyValue = price;
+    }
+    
+    
+    public String getName(){
+        return name;
     }
 }
