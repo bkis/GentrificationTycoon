@@ -77,7 +77,7 @@ public class GUIController implements ScreenController {
     }
     
     
-    public void closeWindow(){
+    public void closePopup(){
         nifty.closePopup(popup.getId());
     }
 

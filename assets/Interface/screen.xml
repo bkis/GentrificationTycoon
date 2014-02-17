@@ -6,10 +6,8 @@
 	
 	<useStyles filename="nifty-default-styles.xml" />
 	<useStyles filename="Interface/button/custom-button.xml" />
-	<useStyles filename="Interface/window/custom-window.xml" />
 	
 	<useControls filename="nifty-default-controls.xml" />
-	<useControls filename="Interface/window/custom-window-control.xml" />
   
   
   
@@ -125,7 +123,7 @@
 		
 		<panel id="popup_window" width="60%" height="60%" childLayout="vertical" backgroundColor="#000000ff">
 			<panel id="popup_window_titlebar" width="100%" height="20" childLayout="center" backgroundColor="#a55731ff">
-				<text text="TITLE!" font="Interface/Fonts/Default.fnt" width="100%" height="100%" wrap="false"/>
+				<text text="TITLE!" font="Interface/Fonts/Default.fnt" width="100%" height="100%" wrap="false" align="center"/>
 			</panel>
 			
 			<panel id="popup_window_content" width="100%" height="100%" childLayout="vertical" backgroundColor="#000000ff">
