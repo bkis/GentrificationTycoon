@@ -53,9 +53,7 @@
 		</layer>
 		
 		<layer id="foreground" childLayout="vertical">
-			<panel id="panel_hud_spacer" width="100%" height="" childLayout="center">  
-					<!-- spacer -->
-			</panel>
+			<panel id="panel_hud_spacer" width="100%" height="" childLayout="center"></panel>
 			
 			<panel id="panel_hud_buttons" width="100%" height="" childLayout="center">
 				<panel id="panel_hud_buttons_inner" width="" height="" childLayout="horizontal">
@@ -75,12 +73,47 @@
 				</panel>
 			</panel>
 			
-			<panel id="panel_hud_info" width="100%" height="115" childLayout="horizontal">  
-				<panel id="panel_hud_info_left" width="30%" height="100%" childLayout="center">  
-				</panel>
-				
-				<panel id="panel_hud_info_right" width="70%" height="100%" childLayout="center">  
-				</panel>
+			<panel id="panel_hud_info" width="100%" height="115" childLayout="horizontal" visibleToMouse="true">
+					<panel id="panel_hud_info_spacer1" width="56" height="100%" childLayout="center"></panel>
+					
+					<panel id="panel_hud_info_stats" width="30%" height="100%" childLayout="vertical">
+						<panel id="panel_hud_info_stats_spacer" height="15" childLayout="center"></panel>
+						<text text="STAT" font="Interface/Fonts/Default.fnt" height="18" align="left" wrap="false"/>
+						<text text="STAT" font="Interface/Fonts/Default.fnt" height="18" align="left" wrap="false"/>
+						<text text="STAT" font="Interface/Fonts/Default.fnt" height="18" align="left" wrap="false"/>
+						<text text="STAT" font="Interface/Fonts/Default.fnt" height="18" align="left" wrap="false"/>
+						<text text="STAT" font="Interface/Fonts/Default.fnt" height="18" align="left" wrap="false"/>
+					</panel>
+					
+					<panel id="panel_hud_info_object" height="100%" childLayout="horizontal">
+						<panel id="panel_hud_info_object_spacer1" height="100%" childLayout="center"></panel>
+						
+						<panel id="panel_hud_info_object_cat" height="100%" align="right" childLayout="vertical" backgroundColor="#ff000033">
+							<panel id="panel_hud_info_cat_spacer" height="15" childLayout="center"></panel>
+							<text text="cat" font="Interface/Fonts/Default.fnt" height="18" align="left" wrap="false"/>
+							<text text="catcatcat" font="Interface/Fonts/Default.fnt" height="18" align="left" wrap="false"/>
+							<text text="catatat" font="Interface/Fonts/Default.fnt" height="18" align="left" wrap="false"/>
+							<text text="prrrzz" font="Interface/Fonts/Default.fnt" height="18"  align="left" wrap="false"/>
+							<text text="haha" font="Interface/Fonts/Default.fnt" height="18" align="left" wrap="false"/>
+						</panel>
+						
+						<panel id="panel_hud_info_object_spacer2" width="10" height="100%" childLayout="center"></panel>
+						
+						<panel id="panel_hud_info_object_data" width="100" height="100%" align="right" childLayout="vertical" backgroundColor="#00ff0033">
+							<panel id="panel_hud_info_data_spacer" height="15" childLayout="center"></panel>
+							<control name="label" text="datadata" align="left" height="18"/>
+							<control name="label" text="data" align="left" height="18"/>
+							<control name="label" text="datadatadata" align="left" height="18"/>
+							<control name="label" text="data" align="left" height="18"/>
+							<control name="label" text="data" align="left" height="18"/>
+						</panel>
+						
+						<panel id="panel_hud_info_image" width="120" height="100%" align="right" childLayout="center" backgroundColor="#000ff33">
+							<image filename="${CALL.getImgPath()}" height="100" width="100"></image>
+						</panel>
+					</panel>
+					
+					<panel id="panel_hud_info_spacer2" width="56" height="100%" childLayout="center"></panel>
 			</panel>
 		</layer>
 
@@ -88,7 +121,7 @@
   	
   	
   	<popup id="popup_layer" childLayout="center" backgroundColor="#00000088" visibleToMouse="true">
-		<panel id="popup_spacer_top" width="100%" height="20%"></panel>
+		<panel id="popup_spacer_top" width="100%" height="10%"></panel>
 		
 		<panel id="popup_window" width="60%" height="60%" childLayout="vertical" backgroundColor="#000000ff">
 			<panel id="popup_window_titlebar" width="100%" height="20" childLayout="center" backgroundColor="#a55731ff">

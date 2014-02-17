@@ -6,6 +6,7 @@ import com.jme3.niftygui.NiftyJmeDisplay;
 import de.bkiss.gt.states.MainState;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.elements.Element;
+import de.lessvoid.nifty.elements.render.TextRenderer;
 import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
 
@@ -108,6 +109,21 @@ public class GUIController implements ScreenController {
                 + "and greedy real estate agent in a "
                 + "working-class district hit by gentrification!\n\n"
                 + "Take from the poor - give to the rich!";
+    }
+    
+    
+    public String getImgPath(){
+        return "Interface/hud/house.png";
+    }
+    
+    
+    private void setLabelText(String id, String text){
+        getElement(id).getRenderer(TextRenderer.class).setText(text);
+    }
+    
+    
+    private Element getElement(final String id) {
+	return nifty.getCurrentScreen().findElementByName(id);
     }
     
 }

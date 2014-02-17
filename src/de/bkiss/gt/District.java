@@ -4,6 +4,8 @@ import com.jme3.scene.Spatial;
 import de.bkiss.gt.objects.GameObject;
 import de.bkiss.gt.objects.House;
 import java.util.HashSet;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 /**
@@ -12,27 +14,24 @@ import java.util.Set;
  */
 public class District {
     
-    private Set<GameObject> objects;
+    private Map<String, GameObject> objects;
     
     
-    public void addGameObject(GameObject object){
-        objects.add(object);
+    public void addGameObject(String id, GameObject object){
+        objects.put(id, object);
         System.out.println("Added " + object + " to the District.");
     }
     
     
-    public GameObject getGameObject(String name){
-        for (GameObject go : objects)
-            if (go.getName().equals(name))
-                    return go;
-        return null;
+    public GameObject getGameObject(String id){
+        return objects.get(id);
     }
     
     
     public GameObject getGameObject(Spatial spatial){
-        for (GameObject go : objects)
-            if (go.getSpatial() == spatial)
-                    return go;
+        for (Entry<String, GameObject> go : objects.entrySet())
+            if (go.getValue().getSpatial() == spatial)
+                    return go.getValue();
         return null;
     }
     
@@ -41,10 +40,10 @@ public class District {
         float dist = extended ? 2.0f : 1.0f; //TODO distance values
         Set<GameObject> neighborhood = new HashSet<GameObject>();
         
-        for (GameObject go : objects)
+        for (Entry<String, GameObject> go : objects.entrySet())
             if (object.getSpatial().getLocalTranslation().distance(
-                    go.getSpatial().getLocalTranslation()) < dist)
-                neighborhood.add(go);
+                    go.getValue().getSpatial().getLocalTranslation()) < dist)
+                neighborhood.add(go.getValue());
         
         return neighborhood;
     }

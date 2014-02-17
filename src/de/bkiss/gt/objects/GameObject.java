@@ -25,12 +25,14 @@ public abstract class GameObject {
     
     private Spatial spatial;
     private SimpleApplication app;
+    private String imagePath;
     
     
     public GameObject(Application app, String type, String name){
         this.type = type;
         this.name = name;
         this.app = (SimpleApplication) app;
+        this.imagePath = "Interface/hud/" + type;
         
         loadSpatial();
         
