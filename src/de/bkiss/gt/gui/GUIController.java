@@ -2,7 +2,12 @@ package de.bkiss.gt.gui;
 
 import com.jme3.app.Application;
 import com.jme3.app.SimpleApplication;
+import com.jme3.math.Vector3f;
 import com.jme3.niftygui.NiftyJmeDisplay;
+import com.jme3.scene.Geometry;
+import com.jme3.scene.Spatial;
+import de.bkiss.gt.District;
+import de.bkiss.gt.objects.GameObject;
 import de.bkiss.gt.states.MainState;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.elements.Element;
@@ -24,13 +29,14 @@ public class GUIController implements ScreenController {
 
     private SimpleApplication app;
     private MainState mainState;
+    private District district;
     private Nifty nifty;
     private Screen screen;    
     private NiftyJmeDisplay niftyDisplay;
     private Element popup;
     
     
-    public GUIController(Application app, MainState mainState){
+    public GUIController(Application app, MainState mainState, District district){
         this.app = (SimpleApplication) app;
         this.mainState = mainState;
         niftyDisplay = new NiftyJmeDisplay(
@@ -38,6 +44,7 @@ public class GUIController implements ScreenController {
             app.getInputManager(),
             app.getAudioRenderer(),
             app.getViewPort());
+        this.district = district;
         nifty = niftyDisplay.getNifty();
         app.getGuiViewPort().addProcessor(niftyDisplay);
         
@@ -124,6 +131,18 @@ public class GUIController implements ScreenController {
     
     private Element getElement(final String id) {
 	return nifty.getCurrentScreen().findElementByName(id);
+    }
+    
+    
+    public void showInfo(Vector3f click){
+        if (click == null) return;
+        System.out.println("CLICKED: " + click);
+        GameObject go = district.getGameObject(click);
+        
+        if (go == null)
+            return;
+        
+        setLabelText("info_1", go.getName());
     }
     
 }

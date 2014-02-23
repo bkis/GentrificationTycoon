@@ -1,7 +1,6 @@
 package de.bkiss.gt.utils;
 
 import com.jme3.app.Application;
-import com.jme3.app.SimpleApplication;
 import com.jme3.collision.CollisionResults;
 import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;
@@ -17,7 +16,9 @@ import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.Geometry;
+import com.jme3.scene.Spatial;
 import de.bkiss.gt.Main;
+import de.bkiss.gt.gui.GUIController;
 
 /**
  *
@@ -32,6 +33,7 @@ public class InputMapper{
     private Main app;
     private Camera cam;
     private InputManager inputManager;
+    private GUIController guiController;
     private boolean showDiag;
     
     //GENERAL
@@ -63,10 +65,11 @@ public class InputMapper{
     
 
     
-    public InputMapper(Application app){
+    public InputMapper(Application app, GUIController guiController){
         this.app = (Main) app;
         this.cam = app.getCamera();
         this.inputManager = app.getInputManager();
+        this.guiController = guiController;
     }
     
     
@@ -114,7 +117,7 @@ public class InputMapper{
             if (name.equals(MAPPING_CAM_ZOOM) && !isPressed)
                 cycleCamZoom();
             if (name.equals(MAPPING_LCLICK) && !isPressed)
-                selectByClick();
+                guiController.showInfo(selectByClick());
             if (name.equals(MAPPING_GFX) && !isPressed)
                 toggleShowGfxDiag();
             if (name.equals(MAPPING_GFX) && isPressed)
@@ -137,8 +140,8 @@ public class InputMapper{
     };
     
     
-    private Geometry selectByClick(){
-        Geometry target = null;
+    private Vector3f selectByClick(){
+        Geometry target;
         // Reset results list.
         CollisionResults results = new CollisionResults();
         // Convert screen click to 3d position
@@ -153,11 +156,13 @@ public class InputMapper{
             // The closest result is the target that the player picked:
             target = results.getClosestCollision().getGeometry();
             // Here comes the action:
-            if (target.getName().equals("street")) return null;
+            if (target.getName().contains("plane")
+                    || target.getName().contains("street")
+                    || target.getName().contains("car")) return null;
             target.getMaterial().setColor("Diffuse", ColorRGBA.Green);
             target.getMaterial().setColor("Ambient", ColorRGBA.Green);
         }
-        return target;
+        return results.getClosestCollision().getContactPoint();
     }
     
     

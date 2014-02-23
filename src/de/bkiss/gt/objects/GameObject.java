@@ -2,8 +2,13 @@ package de.bkiss.gt.objects;
 
 import com.jme3.app.Application;
 import com.jme3.app.SimpleApplication;
+import com.jme3.asset.cache.AssetCache;
+import com.jme3.material.Material;
 import com.jme3.math.FastMath;
+import com.jme3.scene.Geometry;
 import com.jme3.scene.Spatial;
+import com.jme3.scene.shape.Quad;
+import de.bkiss.gt.District;
 import de.bkiss.gt.utils.ModelLoader;
 
 /**
@@ -19,11 +24,14 @@ public abstract class GameObject {
     public static final String TYPE_CONSTRUCTION = "construction";
     public static final String TYPE_LAND         = "land";
     
+    public static final String TYPE_PASSIVE      = "passive";
+    
+    
     protected String type;
     private String name;
     private int moneyValue;
     
-    private Spatial spatial;
+    protected Spatial spatial;
     private SimpleApplication app;
     private String imagePath;
     
@@ -34,13 +42,15 @@ public abstract class GameObject {
         this.app = (SimpleApplication) app;
         this.imagePath = "Interface/hud/" + type;
         
-        loadSpatial();
-        
-        if (spatial != null){
-            System.out.println("Created GameObject: " + this);
-        } else {
-            System.out.println("ERROR LOADING SPATIAL: " + this);
-            app.stop();
+        if (!type.equals(TYPE_PASSIVE)){
+            loadSpatial();
+            
+            if (spatial != null){
+                System.out.println("Created GameObject: " + this);
+            } else {
+                System.out.println("ERROR LOADING SPATIAL: " + this);
+                app.stop();
+            }
         }
     }
     
@@ -103,4 +113,5 @@ public abstract class GameObject {
     public String getName(){
         return name;
     }
+ 
 }

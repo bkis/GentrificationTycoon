@@ -4,6 +4,7 @@ import com.jme3.app.Application;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
+import de.bkiss.gt.District;
 import de.bkiss.gt.gui.GUIController;
 import de.bkiss.gt.utils.InputMapper;
 
@@ -20,6 +21,7 @@ public class MainState extends AbstractAppState {
     private AppStateManager stateManager;
     private InputMapper inputMapper;
     private GUIController guiController;
+    private District district;
     
     private AbstractAppState mainMenuState;
     private AbstractAppState ingameState;
@@ -32,12 +34,13 @@ public class MainState extends AbstractAppState {
         super.initialize(stateManager, app);
         this.app = (SimpleApplication) app;
         this.stateManager = stateManager;
-        
-        //init input mapper
-        inputMapper = new InputMapper(app);
+        this.district = new District(app);
         
         //init GUI controller
-        guiController = new GUIController(app, this);
+        guiController = new GUIController(app, this, district);
+        
+        //init input mapper
+        inputMapper = new InputMapper(app, guiController);
         
         //load main menu state
         loadState(STATE_MAINMENU);
@@ -55,7 +58,7 @@ public class MainState extends AbstractAppState {
             mainMenuState = new MainMenuState(inputMapper, guiController);
             stateManager.attach(mainMenuState);
         } else if (stateKey.equals(STATE_INGAME)){
-            ingameState = new IngameState(inputMapper, guiController);
+            ingameState = new IngameState(inputMapper, guiController, district);
             stateManager.attach(ingameState);
             stateManager.detach(mainMenuState);
         }

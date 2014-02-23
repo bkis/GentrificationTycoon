@@ -12,11 +12,11 @@ public class Game {
     private GameTimer timer;
     
     
-    public Game(String playerName, String playerIconPath){
+    public Game(String playerName, String playerIconPath, District district){
         player = new Player(playerName, playerIconPath);
         bank = new Bank();
-        district = new District();
         timer = new GameTimer();
+        this.district = district;
     }
     
 }
