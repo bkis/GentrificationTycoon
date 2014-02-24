@@ -171,14 +171,14 @@ public class District {
                             "Straße Nr." + i + "" + j,
                             ModelLoader.createStreetTile(app.getAssetManager(),
                             app.getAssetManager().loadTexture(
-                            "Textures/tiles/streets/street_fh.png")));
+                            "Textures/tiles/streets/street_fv.png")));
                 } else if (curr.equals(STV)){
                     go = new PassiveObject(app,
                             GameObject.TYPE_PASSIVE,
                             "Straße Nr." + i + "" + j,
                             ModelLoader.createStreetTile(app.getAssetManager(),
                             app.getAssetManager().loadTexture(
-                            "Textures/tiles/streets/street_fv.png")));
+                            "Textures/tiles/streets/street_fh.png")));
                 } else if (curr.equals(H01)){
                     go = new House(app,
                             House.TYPE_HOUSE_1, "Haus Nr." + i + "" + j);
@@ -201,7 +201,7 @@ public class District {
                 
                 if (go == null) return;
                 go.getSpatial().move(i-(getBoardWidth()/2), 0, j-(getBoardHeight()/2));
-                addGameObject(go.getSpatial().getName(), go);
+                addGameObject(go.getSpatial().getName() + "_" + i + "." + j, go);
             }
         }
     }
