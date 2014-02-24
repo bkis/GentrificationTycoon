@@ -117,7 +117,7 @@ public class InputMapper{
             if (name.equals(MAPPING_CAM_ZOOM) && !isPressed)
                 cycleCamZoom();
             if (name.equals(MAPPING_LCLICK) && !isPressed)
-                guiController.showInfo(selectByClick());
+                guiController.clicked(selectByClick());
             if (name.equals(MAPPING_GFX) && !isPressed)
                 toggleShowGfxDiag();
             if (name.equals(MAPPING_GFX) && isPressed)
@@ -140,8 +140,8 @@ public class InputMapper{
     };
     
     
-    private Vector3f selectByClick(){
-        Geometry target;
+    private Geometry selectByClick(){
+        Geometry target = null;
         // Reset results list.
         CollisionResults results = new CollisionResults();
         // Convert screen click to 3d position
@@ -159,10 +159,8 @@ public class InputMapper{
             if (target.getName().contains("plane")
                     || target.getName().contains("street")
                     || target.getName().contains("car")) return null;
-            target.getMaterial().setColor("Diffuse", ColorRGBA.Green);
-            target.getMaterial().setColor("Ambient", ColorRGBA.Green);
         }
-        return results.getClosestCollision().getContactPoint();
+        return target;
     }
     
     

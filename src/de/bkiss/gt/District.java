@@ -4,6 +4,7 @@ import com.jme3.app.Application;
 import com.jme3.app.SimpleApplication;
 import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
+import com.jme3.scene.Spatial;
 import de.bkiss.gt.objects.ConstructionSite;
 import de.bkiss.gt.objects.GameObject;
 import de.bkiss.gt.objects.House;
@@ -36,6 +37,7 @@ public class District {
     private Map<String, GameObject> objects;
     private SimpleApplication app;
     
+    private GameObject selected;
     
     
     public District(Application app){
@@ -56,13 +58,13 @@ public class District {
     }
     
     
-//    public GameObject getGameObject(Spatial spatial){
-//        for (Entry<String, GameObject> go : objects.entrySet()){
-//            if (go.getValue().getSpatial().getLocalTranslation() == spatial.getLocalTranslation())
-//                    return go.getValue();
-//        }
-//        return null;
-//    }
+    public GameObject getGameObject(Spatial spatial){
+        for (Entry<String, GameObject> go : objects.entrySet()){
+            if (go.getValue().getSpatial().getLocalTranslation() == spatial.getLocalTranslation())
+                    return go.getValue();
+        }
+        return null;
+    }
     
     
     public GameObject getGameObject(Vector3f translation){
@@ -105,7 +107,7 @@ public class District {
                 count++;
             }
         
-        return (value / count) + 1;
+        return (value / (count > 0 ? count : 1)) + 1;
     }
     
     
@@ -156,7 +158,6 @@ public class District {
             for (int j = 0; j < matrix[i].length; j++) {
                 
                 curr = matrix[i][j];
-                
                 
                 if        (curr.equals(STX)){
                     go = new PassiveObject(app,
@@ -215,5 +216,16 @@ public class District {
         
         return list;
     }
+
+    
+    public GameObject getSelected() {
+        return selected;
+    }
+
+    
+    public void setSelected(GameObject selected) {
+        this.selected = selected;
+    }
+    
     
 }

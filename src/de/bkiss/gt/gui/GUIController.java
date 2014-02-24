@@ -2,12 +2,16 @@ package de.bkiss.gt.gui;
 
 import com.jme3.app.Application;
 import com.jme3.app.SimpleApplication;
+import com.jme3.material.RenderState.BlendMode;
+import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.niftygui.NiftyJmeDisplay;
 import com.jme3.scene.Geometry;
+import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import de.bkiss.gt.District;
 import de.bkiss.gt.objects.GameObject;
+import de.bkiss.gt.objects.House;
 import de.bkiss.gt.states.MainState;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.elements.Element;
@@ -134,15 +138,50 @@ public class GUIController implements ScreenController {
     }
     
     
-    public void showInfo(Vector3f click){
-        if (click == null) return;
-        System.out.println("CLICKED: " + click);
-        GameObject go = district.getGameObject(click);
+    public void clicked(Geometry clicked){
+        if (clicked == null) return;
+        System.out.println("CLICKED: " + clicked.getParent().getName());
+        
+        GameObject go = district.getGameObject(clicked.getParent());
+        highlight(clicked);
+        district.setSelected(go);
         
         if (go == null)
-            return;
-        
+            clearObjectInfo();
+        else
+            displayObjectInfo(go);
+    }
+    
+    
+    private void displayObjectInfo(GameObject go){
         setLabelText("info_1", go.getName());
+        setLabelText("info_2", (go instanceof House ? ((House)go).getCondition() + "" : ""));
+        setLabelText("info_3", district.getNeighborhoodValue(go)+ "");
+        setLabelText("info_4", go.getPrice() + "$");
+        setLabelText("info_5", "??? $/m.");
+    }
+    
+    
+    private void clearObjectInfo(){
+        setLabelText("info_1", "");
+        setLabelText("info_2", "");
+        setLabelText("info_3", "");
+        setLabelText("info_4", "");
+        setLabelText("info_5", "");
+    }
+    
+    
+    private void highlight(Geometry geom){
+        //set new highlight
+        if (geom != null){
+            geom.getMaterial().setColor("Ambient", ColorRGBA.Green);
+        }
+        
+        //clear previous highlight
+        if (district.getSelected() != null){
+            geom = (Geometry) ((Node)district.getSelected().getSpatial()).getChild(0);
+            geom.getMaterial().setColor("Ambient", new ColorRGBA(1, 1, 1, 1));
+        }
     }
     
 }

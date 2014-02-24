@@ -1,6 +1,7 @@
 package de.bkiss.gt.objects;
 
 import com.jme3.app.Application;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -17,6 +18,7 @@ public class House extends GameObject {
     
     public House(Application app, String type, String name){
         super(app, type, name);
+        expansions = new HashSet<Expansion>();
     }
     
     
