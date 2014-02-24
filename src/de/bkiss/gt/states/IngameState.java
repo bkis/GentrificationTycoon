@@ -12,10 +12,13 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
+import com.jme3.post.FilterPostProcessor;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.shape.Quad;
+import com.jme3.shadow.DirectionalLightShadowFilter;
+import com.jme3.shadow.DirectionalLightShadowRenderer;
 import de.bkiss.gt.District;
 import de.bkiss.gt.gui.GUIController;
 import de.bkiss.gt.objects.Car;
@@ -59,6 +62,9 @@ public class IngameState extends AbstractAppState{
         //set input mapping
         inputMapper.loadInputMapping(InputMapper.INPUT_MODE_INGAME);
         
+        //construct district
+        this.district.construct();
+        
         //create district
         addObjects(district.getObjectList());
         
@@ -79,15 +85,8 @@ public class IngameState extends AbstractAppState{
                 district.getBoardHeight())
                 .getSpatial());
         
-        //lights
-        DirectionalLight sun = new DirectionalLight();
-        sun.setDirection((new Vector3f(-0.5f, -0.5f, -1f)));
-        sun.setColor(ColorRGBA.White);
-        rootNode.addLight(sun); 
-        
-        AmbientLight al = new AmbientLight();
-        al.setColor(new ColorRGBA(0.7f, 0.7f, 0.7f, 1f));
-        rootNode.addLight(al);
+        //lights and shadows
+        addLightsAndShadows();
         
         //load gui
         guiController.loadScreen(GUIController.SCREEN_INGAME);
@@ -127,4 +126,30 @@ public class IngameState extends AbstractAppState{
             rootNode.attachChild(go.getSpatial());
     }
 
+    
+    private void addLightsAndShadows(){
+        // directional light
+        DirectionalLight sun = new DirectionalLight();
+        sun.setDirection((new Vector3f(-0.5f, -0.5f, -1f)));
+        sun.setColor(ColorRGBA.White);
+        rootNode.addLight(sun); 
+        
+        // ambient light
+        AmbientLight al = new AmbientLight();
+        al.setColor(new ColorRGBA(0.7f, 0.7f, 0.7f, 1f));
+        rootNode.addLight(al);
+        
+        // drop shadows
+//        final int SHADOWMAP_SIZE=1024;
+//        DirectionalLightShadowRenderer dlsr = new DirectionalLightShadowRenderer(assetManager, SHADOWMAP_SIZE, 3);
+//        dlsr.setLight(sun);
+//        app.getViewPort().addProcessor(dlsr);
+// 
+//        DirectionalLightShadowFilter dlsf = new DirectionalLightShadowFilter(assetManager, SHADOWMAP_SIZE, 3);
+//        dlsf.setLight(sun);
+//        dlsf.setEnabled(true);
+//        FilterPostProcessor fpp = new FilterPostProcessor(assetManager);
+//        fpp.addFilter(dlsf);
+//        app.getViewPort().addProcessor(fpp);
+    }
 }

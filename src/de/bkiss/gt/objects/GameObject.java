@@ -35,7 +35,7 @@ public abstract class GameObject {
         this.type = type;
         this.name = name;
         this.app = (SimpleApplication) app;
-        this.imagePath = "Interface/hud/" + type;
+        this.imagePath = "Interface/hud/" + type + ".png";
         
         if (!type.equals(TYPE_PASSIVE)){
             loadSpatial();
@@ -108,5 +108,11 @@ public abstract class GameObject {
     public String getName(){
         return name;
     }
+
+    
+    public String getImagePath() {
+        return imagePath;
+    }
+
  
 }

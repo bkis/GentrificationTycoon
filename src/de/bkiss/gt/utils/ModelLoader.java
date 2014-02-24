@@ -39,7 +39,9 @@ public class ModelLoader {
     public static Spatial createStreetTile(AssetManager assetManager, Texture tex){
         Quad tile = new Quad(1,1);
         Material mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+//        Material mat = new Material(assetManager, "Common/MatDefs/Light/Lighting.j3md");
         mat.setTexture("ColorMap", tex);
+//        mat.setTexture("DiffuseMap", tex);
         Geometry geom = new Geometry("street", tile);
         geom.setMaterial(mat);
         geom.rotate(FastMath.DEG_TO_RAD*270, 0, 0);

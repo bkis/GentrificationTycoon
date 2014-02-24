@@ -2,20 +2,19 @@ package de.bkiss.gt.gui;
 
 import com.jme3.app.Application;
 import com.jme3.app.SimpleApplication;
-import com.jme3.material.RenderState.BlendMode;
 import com.jme3.math.ColorRGBA;
-import com.jme3.math.Vector3f;
 import com.jme3.niftygui.NiftyJmeDisplay;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
-import com.jme3.scene.Spatial;
 import de.bkiss.gt.District;
 import de.bkiss.gt.objects.GameObject;
 import de.bkiss.gt.objects.House;
 import de.bkiss.gt.states.MainState;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.elements.Element;
+import de.lessvoid.nifty.elements.render.ImageRenderer;
 import de.lessvoid.nifty.elements.render.TextRenderer;
+import de.lessvoid.nifty.render.NiftyImage;
 import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
 
@@ -123,13 +122,14 @@ public class GUIController implements ScreenController {
     }
     
     
-    public String getImgPath(){
-        return "Interface/hud/house.png";
+    public String getDefaultImgPath(){
+        return "Interface/hud/defaultIconImg.png";
     }
     
     
     private void setLabelText(String id, String text){
         getElement(id).getRenderer(TextRenderer.class).setText(text);
+        getElement(id).setWidth(getElement(id).getRenderer(TextRenderer.class).getTextWidth());
     }
     
     
@@ -159,6 +159,7 @@ public class GUIController implements ScreenController {
         setLabelText("info_3", district.getNeighborhoodValue(go)+ "");
         setLabelText("info_4", go.getPrice() + "$");
         setLabelText("info_5", "??? $/m.");
+        setIconImage(go.getImagePath());
     }
     
     
@@ -168,6 +169,13 @@ public class GUIController implements ScreenController {
         setLabelText("info_3", "");
         setLabelText("info_4", "");
         setLabelText("info_5", "");
+    }
+    
+    
+    private void setIconImage(String imagePath){
+        NiftyImage img = nifty.getRenderEngine().createImage(screen, imagePath, false);
+        Element e = nifty.getCurrentScreen().findElementByName("panel_hud_info_image");
+        e.getRenderer(ImageRenderer.class).setImage(img);
     }
     
     

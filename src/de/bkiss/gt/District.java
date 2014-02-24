@@ -43,7 +43,6 @@ public class District {
     public District(Application app){
         this.app = (SimpleApplication) app;
         this.objects = new HashMap<String, GameObject>();
-        constructDistrict();
     }
     
     
@@ -149,7 +148,7 @@ public class District {
     }
      
      
-    private void constructDistrict(){
+    public void construct(){
         String[][] matrix = getBoardMatrix();
         String curr;
         GameObject go = null;

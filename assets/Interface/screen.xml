@@ -97,17 +97,17 @@
 						
 						<panel id="panel_hud_info_object_spacer2" width="10" height="100%" childLayout="center"></panel>
 						
-						<panel id="panel_hud_info_object_data" width="100" height="100%" align="right" childLayout="vertical" backgroundColor="#00ff0033">
+						<panel id="panel_hud_info_object_data" width="120" height="100%" align="right" childLayout="vertical" backgroundColor="#00ff0033">
 							<panel id="panel_hud_info_data_spacer" height="15" childLayout="center"></panel>
-							<control id="info_1" name="label" text="" align="left" width="100" height="18"/>
-							<control id="info_2" name="label" text="" align="left" width="100" height="18"/>
-							<control id="info_3" name="label" text="" align="left" width="100" height="18"/>
-							<control id="info_4" name="label" text="" align="left" width="100" height="18"/>
-							<control id="info_5" name="label" text="" align="left" width="100" height="18"/>
+							<control id="info_1" name="label" text="" align="left" height="18"/>
+							<control id="info_2" name="label" text="" align="left" height="18"/>
+							<control id="info_3" name="label" text="" align="left" height="18"/>
+							<control id="info_4" name="label" text="" align="left" height="18"/>
+							<control id="info_5" name="label" text="" align="left" height="18"/>
 						</panel>
 						
 						<panel id="panel_hud_info_image" width="120" height="100%" align="right" childLayout="center" backgroundColor="#000ff33">
-							<image filename="${CALL.getImgPath()}" height="100" width="100"></image>
+							<image filename="${CALL.getDefaultImgPath()}" height="100" width="100"></image>
 						</panel>
 					</panel>
 					
