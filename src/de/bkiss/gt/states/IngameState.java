@@ -65,10 +65,10 @@ public class IngameState extends AbstractAppState{
         //construct district
         this.district.construct();
         
-        //create district
+        //load district
         addObjects(district.getObjectList());
         
-        //add ground planes
+        //add ground plane
         rootNode.attachChild(getGroundPlane());
         
         //add cars
@@ -130,7 +130,7 @@ public class IngameState extends AbstractAppState{
     private void addLightsAndShadows(){
         // directional light
         DirectionalLight sun = new DirectionalLight();
-        sun.setDirection((new Vector3f(-0.5f, -0.5f, -1f)));
+        sun.setDirection(new Vector3f(1f, 0f, -2f).normalizeLocal());
         sun.setColor(ColorRGBA.White);
         rootNode.addLight(sun); 
         

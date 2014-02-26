@@ -9,7 +9,11 @@
 	
 	<useControls filename="nifty-default-controls.xml" />
   
-  
+	<!-- 
+
+		!!! DON'T CHANGE THIS FILE, AS THIS WILL BREAK THE GAME !!!
+
+	-->
   
 	<screen id="start" controller="de.bkiss.gt.gui.GUIController">
 	
@@ -76,7 +80,7 @@
 					
 					<panel id="panel_hud_info_stats" width="30%" height="100%" childLayout="vertical">
 						<panel id="panel_hud_info_stats_spacer" height="15" childLayout="center"></panel>
-						<text text="STAT" font="Interface/Fonts/Default.fnt" height="18" align="left" wrap="false"/>
+						<text text="9999 $" font="Interface/Fonts/Default.fnt" height="18" align="left" wrap="false"/>
 						<text text="STAT" font="Interface/Fonts/Default.fnt" height="18" align="left" wrap="false"/>
 						<text text="STAT" font="Interface/Fonts/Default.fnt" height="18" align="left" wrap="false"/>
 						<text text="STAT" font="Interface/Fonts/Default.fnt" height="18" align="left" wrap="false"/>

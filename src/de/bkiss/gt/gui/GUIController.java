@@ -3,13 +3,16 @@ package de.bkiss.gt.gui;
 import com.jme3.app.Application;
 import com.jme3.app.SimpleApplication;
 import com.jme3.math.ColorRGBA;
+import com.jme3.math.Vector3f;
 import com.jme3.niftygui.NiftyJmeDisplay;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
+import com.jme3.scene.Spatial;
 import de.bkiss.gt.District;
 import de.bkiss.gt.objects.GameObject;
 import de.bkiss.gt.objects.House;
 import de.bkiss.gt.states.MainState;
+import de.bkiss.gt.utils.ModelLoader;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.elements.Element;
 import de.lessvoid.nifty.elements.render.ImageRenderer;
@@ -17,6 +20,8 @@ import de.lessvoid.nifty.elements.render.TextRenderer;
 import de.lessvoid.nifty.render.NiftyImage;
 import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -37,6 +42,7 @@ public class GUIController implements ScreenController {
     private Screen screen;    
     private NiftyJmeDisplay niftyDisplay;
     private Element popup;
+    private Spatial marker;
     
     
     public GUIController(Application app, MainState mainState, District district){
@@ -51,9 +57,13 @@ public class GUIController implements ScreenController {
         nifty = niftyDisplay.getNifty();
         app.getGuiViewPort().addProcessor(niftyDisplay);
         
+        //create selection marker
+        marker = ModelLoader.createSelectionMarker(app.getAssetManager());
+        this.app.getRootNode().attachChild(marker);
+        
         //set logging level
-        //Logger.getLogger("de.lessvoid.nifty").setLevel(Level.SEVERE); 
-        //Logger.getLogger("NiftyInputEventHandlingLog").setLevel(Level.SEVERE); 
+        Logger.getLogger("de.lessvoid.nifty").setLevel(Level.SEVERE); 
+        Logger.getLogger("NiftyInputEventHandlingLog").setLevel(Level.SEVERE); 
     }
     
     public void loadScreen(String screenKey){
@@ -133,17 +143,25 @@ public class GUIController implements ScreenController {
     }
     
     
+    public void setDebugText(String text){
+        setLabelText("info_5", text);
+    }
+    
+    
     private Element getElement(final String id) {
 	return nifty.getCurrentScreen().findElementByName(id);
     }
     
     
     public void clicked(Geometry clicked){
-        if (clicked == null) return;
+        if (clicked == null
+                || district.getGameObject(clicked.getParent())
+                == district.getSelected()) return;
+        
         System.out.println("CLICKED: " + clicked.getParent().getName());
         
         GameObject go = district.getGameObject(clicked.getParent());
-        highlight(clicked);
+        highlight((go == null ? null : clicked));
         district.setSelected(go);
         
         if (go == null)
@@ -183,13 +201,25 @@ public class GUIController implements ScreenController {
         //set new highlight
         if (geom != null){
             geom.getMaterial().setColor("Ambient", ColorRGBA.Green);
+            setMarker(geom.getParent().getLocalTranslation());
+        } else {
+            setMarker(null);
         }
         
         //clear previous highlight
-        if (district.getSelected() != null){
+        if (district.getSelected() != null && district.getSelected()
+                != district.getGameObject(geom)){
             geom = (Geometry) ((Node)district.getSelected().getSpatial()).getChild(0);
             geom.getMaterial().setColor("Ambient", new ColorRGBA(1, 1, 1, 1));
         }
+    }
+    
+    
+    private void setMarker(Vector3f target){
+        if (target != null)
+            marker.setLocalTranslation(target.x, 2, target.z);
+        else
+            marker.setLocalTranslation(100, 2, 100);
     }
     
 }

@@ -2,11 +2,14 @@ package de.bkiss.gt.utils;
 
 import com.jme3.asset.AssetManager;
 import com.jme3.material.Material;
+import com.jme3.math.ColorRGBA;
 import com.jme3.math.FastMath;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Spatial;
+import com.jme3.scene.shape.Dome;
 import com.jme3.scene.shape.Quad;
 import com.jme3.texture.Texture;
+import de.bkiss.gt.controls.MarkerControl;
 
 /**
  *
@@ -50,8 +53,19 @@ public class ModelLoader {
     }
     
     
-//    private static String getIdStamp(){
-//        return "_" + System.nanoTime();
-//    }
+    public static Spatial createSelectionMarker(AssetManager assetManager){
+        Dome shape = new Dome(2, 4, 0.5f);
+        Geometry geom = new Geometry("marker", shape);
+        Material mat = new Material(assetManager, "Common/MatDefs/Light/Lighting.j3md");
+        mat.setBoolean("UseMaterialColors", true);
+        mat.setColor("Diffuse", ColorRGBA.Green);
+        mat.setColor("Ambient", ColorRGBA.Green);
+        geom.setMaterial(mat);
+        geom.setLocalScale(0.5f, 1.5f, 0.5f);
+        geom.rotate(FastMath.DEG_TO_RAD*180, 0, 0);
+        geom.addControl(new MarkerControl());
+        geom.setLocalTranslation(0, -5, 0);
+        return geom;
+    }
     
 }

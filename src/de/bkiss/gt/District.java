@@ -69,7 +69,7 @@ public class District {
     public GameObject getGameObject(Vector3f translation){
         GameObject toReturn = null;
         float lastDist = 9999999;
-        float currDist = 0;
+        float currDist;
         
         for (Entry<String, GameObject> go : objects.entrySet()){
             currDist = go.getValue().getSpatial().getLocalTranslation().distance(translation);
@@ -83,7 +83,7 @@ public class District {
     
     
     public Set<GameObject> getNeighborhood(GameObject object, boolean extended){
-        float dist = extended ? 2.0f : 1.0f; //TODO distance values
+        float dist = extended ? 3.5f : 2.5f; //TODO distance values
         Set<GameObject> neighborhood = new HashSet<GameObject>();
         
         for (Entry<String, GameObject> go : objects.entrySet())
