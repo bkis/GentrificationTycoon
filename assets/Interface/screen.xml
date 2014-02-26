@@ -110,8 +110,8 @@
 							<control id="info_5" name="label" text="" align="left" height="18"/>
 						</panel>
 						
-						<panel id="panel_hud_info_image" width="120" height="100%" align="right" childLayout="center" backgroundColor="#000ff33">
-							<image filename="${CALL.getDefaultImgPath()}" height="100" width="100"></image>
+						<panel id="panel_hud_info_image_panel" width="120" height="100%" align="right" childLayout="center" backgroundColor="#000ff33">
+							<image id="panel_hud_info_image" filename="${CALL.getDefaultImgPath()}" height="100" width="100"></image>
 						</panel>
 					</panel>
 					
