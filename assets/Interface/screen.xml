@@ -95,13 +95,13 @@
 					<panel id="panel_hud_info_object" height="100%" childLayout="horizontal">
 						<panel id="panel_hud_info_object_spacer1" height="100%" childLayout="center"></panel>
 						
-						<panel id="panel_hud_info_object_cat" width="120" height="100%" align="right" childLayout="vertical" backgroundColor="#ff000033">
+						<panel id="panel_hud_info_object_cat" height="100" width="100" align="right" childLayout="vertical" backgroundColor="#ff000033">
 							<panel id="panel_hud_info_cat_spacer" height="15" childLayout="center"></panel>
-							<text text="Name:" font="Interface/Fonts/Default.fnt" height="18" align="left" wrap="false"/>
-							<text text="Condition:" font="Interface/Fonts/Default.fnt" height="18" align="left" wrap="false"/>
-							<text text="Neighbourhood:" font="Interface/Fonts/Default.fnt" height="18" align="left" wrap="false"/>
-							<text text="Value:" font="Interface/Fonts/Default.fnt" height="18"  align="left" wrap="false"/>
-							<text text="Rent:" font="Interface/Fonts/Default.fnt" height="18" align="left" wrap="false"/>
+							<control id="cat_1" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="18" backgroundColor="#ffffff33"/>
+							<control id="cat_2" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="18" backgroundColor="#ffffff33"/>
+							<control id="cat_3" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="18" backgroundColor="#ffffff33"/>
+							<control id="cat_4" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="18" backgroundColor="#ffffff33"/>
+							<control id="cat_5" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="18" backgroundColor="#ffffff33"/>
 						</panel>
 						
 						<panel id="panel_hud_info_object_spacer2" width="5" height="100%" childLayout="center"></panel>
@@ -137,6 +137,7 @@
 			
 			<panel id="popup_window_content" width="100%" height="100%" childLayout="vertical" backgroundColor="#000000ff">
 				<text text="CONTENT!" font="Interface/Fonts/Default.fnt" width="100%" height="100%" wrap="false"/>
+				<image filename="Interface/hud/close-window.png" visibleToMouse="true"><interact onRelease="closePopup()" /></image>
 			</panel>
 		</panel>
 	</popup>

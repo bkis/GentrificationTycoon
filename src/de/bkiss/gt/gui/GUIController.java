@@ -143,17 +143,17 @@ public class GUIController implements ScreenController {
         Element e = getElement(id);
         TextRenderer eRenderer = e.getRenderer(TextRenderer.class);
         eRenderer.setText(text);
-        e.layoutElements(); // to get correct text width on next line
+        e.layoutElements();
         e.setConstraintWidth(new SizeValue(eRenderer.getTextWidth()+"px"));
         
         getElement(id).setWidth(getElement(id).getRenderer(TextRenderer.class).getTextWidth());
         
-//        int width = 0;
-//        for (Element e : getElement(id).getParent().getElements())
-//            if (width < e.getWidth())
-//                width = e.getWidth();
-//        
-//        getElement(id).getParent().setWidth(width);
+        int width = 0;
+        for (Element el : getElement(id).getParent().getElements())
+            if (width < el.getWidth())
+                width = el.getWidth();
+        
+        getElement(id).getParent().setWidth(width);
     }
     
     
@@ -185,21 +185,37 @@ public class GUIController implements ScreenController {
     
     
     private void displayObjectInfo(GameObject go){
+        //properties
         setLabelText("info_1", go.getName());
         setLabelText("info_2", (go instanceof House ? ((House)go).getCondition() + "" : ""));
         setLabelText("info_3", district.getNeighborhoodValue(go)+ "");
         setLabelText("info_4", go.getPrice() + "$");
         setLabelText("info_5", "??? $/m.");
         setIconImage("panel_hud_info_image", go.getImagePath());
+        
+        //categories
+        setLabelText("cat_1", "Name:");
+        setLabelText("cat_2", "Luxury:");
+        setLabelText("cat_3", "Condition:");
+        setLabelText("cat_4", "Neighbourh.:");
+        setLabelText("cat_5", "Rent:");
     }
     
     
     private void clearObjectInfo(){
+        //properties
         setLabelText("info_1", "");
         setLabelText("info_2", "");
         setLabelText("info_3", "");
         setLabelText("info_4", "");
         setLabelText("info_5", "");
+        
+        //categories
+        setLabelText("cat_1", "");
+        setLabelText("cat_2", "");
+        setLabelText("cat_3", "");
+        setLabelText("cat_4", "");
+        setLabelText("cat_5", "");
     }
     
     
