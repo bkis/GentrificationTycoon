@@ -2,7 +2,10 @@ package de.bkiss.gt.objects;
 
 import com.jme3.app.Application;
 import com.jme3.app.SimpleApplication;
+import com.jme3.math.ColorRGBA;
 import com.jme3.math.FastMath;
+import com.jme3.scene.Geometry;
+import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import de.bkiss.gt.utils.ModelLoader;
 
@@ -26,7 +29,12 @@ public abstract class GameObject {
     private String name;
     private int moneyValue;
     
-    protected Spatial spatial;
+    protected Node spatial;
+    
+    private Geometry ownerMarker;
+    private Geometry occupiedMarker;
+    private float markerHideOffset;
+    
     private SimpleApplication app;
     private String imagePath;
     
@@ -36,6 +44,7 @@ public abstract class GameObject {
         this.name = name;
         this.app = (SimpleApplication) app;
         this.imagePath = "Interface/hud/" + type + ".png";
+        this.markerHideOffset = 100;
         
         if (!type.equals(TYPE_PASSIVE)){
             loadSpatial();
@@ -62,17 +71,43 @@ public abstract class GameObject {
     
     
     private void loadSpatial(){
+        spatial = new Node(name);
+        Spatial objSpatial = null;
+        
         if (type.contains("house")){
-            spatial = ModelLoader.loadSpatial(app.getAssetManager(),
+            objSpatial = ModelLoader.loadSpatial(app.getAssetManager(),
                                 "Models/GameObjects/", type
                                 + randomABC());
         } else if (type.equals(TYPE_CONSTRUCTION)){
-            spatial = ModelLoader.loadSpatial(app.getAssetManager(),
+            objSpatial = ModelLoader.loadSpatial(app.getAssetManager(),
                                 "Models/GameObjects/", type);
         } else if (type.equals(TYPE_LAND)){
-            spatial = ModelLoader.loadSpatial(app.getAssetManager(),
+            objSpatial = ModelLoader.loadSpatial(app.getAssetManager(),
                                 "Models/GameObjects/", type);
         }
+        
+        spatial.attachChild(objSpatial);
+        createOwnerMarker();
+        createOccupiedMarker();
+    }
+    
+    
+    private void createOwnerMarker(){
+        ownerMarker = ModelLoader.createAbstractMarkerGeometry(app.getAssetManager());
+        ownerMarker.setName("ownerMarker");
+        ownerMarker.getMaterial().setColor("Color", ColorRGBA.Green);
+        spatial.attachChild(ownerMarker);
+        ownerMarker.setLocalTranslation(0f, 0.45f, 0.51f);
+    }
+    
+    
+    private void createOccupiedMarker(){
+        occupiedMarker = ModelLoader.createAbstractMarkerGeometry(app.getAssetManager());
+        occupiedMarker.setName("occupiedMarker");
+        occupiedMarker.getMaterial().setColor("Color", ColorRGBA.Black);
+        occupiedMarker.scale(0.5f);
+        spatial.attachChild(occupiedMarker);
+        occupiedMarker.setLocalTranslation(0.05f, 0.5f, 0.52f);
     }
     
     
@@ -113,6 +148,30 @@ public abstract class GameObject {
     public String getImagePath() {
         return imagePath;
     }
+    
+    
+    public void setOccupiedMarker(boolean state){
+        if (state && spatial.getChild("occupiedMarker") == null){
+            occupiedMarker.getMaterial().setColor("Color", ColorRGBA.Black);
+        } else if (!state && spatial.getChild("occupiedMarker") != null) {
+            occupiedMarker.setMaterial(ownerMarker.getMaterial());
+        }
+    }
 
+    
+    public void setOwnerMarker(boolean state){
+        if (state && spatial.getChild("ownerMarker") == null){
+            ownerMarker.getMaterial().setColor("Color", ColorRGBA.Green);
+        } else if (!state && spatial.getChild("ownerMarker") != null) {
+            ownerMarker.getMaterial().setColor("Color", ColorRGBA.Gray);
+        }
+    }
  
+    
+    public void toggleMarkers(){
+        if (type.equals(GameObject.TYPE_PASSIVE)) return;
+        ownerMarker.move(0, markerHideOffset, 0);
+        occupiedMarker.move(0, markerHideOffset, 0);
+        markerHideOffset *= -1;
+    }
 }

@@ -60,7 +60,7 @@
 			<panel id="panel_hud_buttons" width="100%" height="" childLayout="center">
 				<panel id="panel_hud_buttons_inner" width="" height="" childLayout="horizontal">
 					<image filename="Interface/hud/spacer_l.png"></image>
-					<image filename="Interface/hud/hud-button-info.png"  visibleToMouse="true"><interact onRelease="openPopup(info)" /></image>
+					<image filename="Interface/hud/hud-button-info.png"  visibleToMouse="true"><interact onRelease="toggleObjectMarkers()" /></image>
 					<image filename="Interface/hud/spacer_m.png"></image>
 					<image filename="Interface/hud/hud-button-buil.png"  visibleToMouse="true"><interact onRelease="openPopup(build)" /></image>
 					<image filename="Interface/hud/spacer_m.png"></image>

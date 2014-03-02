@@ -156,12 +156,13 @@ public class InputMapper{
             // The closest result is the target that the player picked:
             target = results.getClosestCollision().getGeometry();
             int step = 1;
-            while (target.getName().equals("marker"))
+            while (target.getName().endsWith("arker"))
                 target = results.getCollision(step++).getGeometry();
             // Here comes the action:
             if (!target.getName().contains("house")
                     && !target.getName().contains("construction")
-                    && !target.getName().contains("land")) return null;
+                    && !target.getName().contains("land"))
+                return null;
         }
         return target;
     }

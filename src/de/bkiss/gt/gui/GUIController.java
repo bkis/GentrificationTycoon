@@ -155,12 +155,12 @@ public class GUIController implements ScreenController {
     
     public void clicked(Geometry clicked){
         if (clicked == null
-                || district.getGameObject(clicked.getParent())
+                || district.getGameObject(clicked.getParent().getParent())
                 == district.getSelected()) return;
         
         System.out.println("CLICKED: " + clicked.getParent().getName());
         
-        GameObject go = district.getGameObject(clicked.getParent());
+        GameObject go = district.getGameObject(clicked.getParent().getParent());
         highlight((go == null ? null : clicked));
         district.setSelected(go);
         
@@ -201,7 +201,7 @@ public class GUIController implements ScreenController {
         //set new highlight
         if (geom != null){
             geom.getMaterial().setColor("Ambient", ColorRGBA.Green);
-            setMarker(geom.getParent().getLocalTranslation());
+            setMarker(geom.getParent().getParent().getLocalTranslation());
         } else {
             setMarker(null);
         }
@@ -209,7 +209,7 @@ public class GUIController implements ScreenController {
         //clear previous highlight
         if (district.getSelected() != null && district.getSelected()
                 != district.getGameObject(geom)){
-            geom = (Geometry) ((Node)district.getSelected().getSpatial()).getChild(0);
+            geom = (Geometry) ((Node)((Node)district.getSelected().getSpatial()).getChild(0)).getChild(0);
             geom.getMaterial().setColor("Ambient", new ColorRGBA(1, 1, 1, 1));
         }
     }
@@ -220,6 +220,11 @@ public class GUIController implements ScreenController {
             marker.setLocalTranslation(target.x, 2, target.z);
         else
             marker.setLocalTranslation(100, 2, 100);
+    }
+    
+    
+    public void toggleObjectMarkers(){
+        district.toogleObjectMarkers();
     }
     
 }

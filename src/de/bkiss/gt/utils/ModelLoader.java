@@ -68,4 +68,14 @@ public class ModelLoader {
         return geom;
     }
     
+    
+    public static Geometry createAbstractMarkerGeometry(AssetManager assetManager){
+        Quad shape = new Quad(0.2f, 0.2f);
+        Geometry geom = new Geometry("marker", shape);
+        Material mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+        geom.setMaterial(mat);
+        //geom.rotate(FastMath.DEG_TO_RAD*-90, 0, 0);
+        return geom;
+    }
+    
 }

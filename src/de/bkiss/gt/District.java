@@ -2,7 +2,6 @@ package de.bkiss.gt;
 
 import com.jme3.app.Application;
 import com.jme3.app.SimpleApplication;
-import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Spatial;
 import de.bkiss.gt.objects.ConstructionSite;
@@ -185,15 +184,15 @@ public class District {
                 } else if (curr.equals(H02)){
                     go = new House(app,
                             House.TYPE_HOUSE_2, "Haus Nr." + i + "" + j);
-                    go.getSpatial().rotate(0, FastMath.DEG_TO_RAD*180, 0);
+                    //go.getSpatial().rotate(0, FastMath.DEG_TO_RAD*180, 0);
                 } else if (curr.equals(H03)){
                     go = new House(app,
                             House.TYPE_HOUSE_3, "Haus Nr." + i + "" + j);
-                    go.getSpatial().rotate(0, FastMath.DEG_TO_RAD*180, 0);
+                    //go.getSpatial().rotate(0, FastMath.DEG_TO_RAD*180, 0);
                 } else if (curr.equals(CON)){
                     go = new ConstructionSite(app,
                             "ConstructionSite Nr." + i + "" + j);
-                    go.getSpatial().rotate(0, FastMath.DEG_TO_RAD*90, 0);
+                    //go.getSpatial().rotate(0, FastMath.DEG_TO_RAD*90, 0);
                 } else if (curr.equals(LAN)){
                     go = new Land(app,
                             "Land Nr." + i + "" + j);
@@ -224,6 +223,13 @@ public class District {
     
     public void setSelected(GameObject selected) {
         this.selected = selected;
+    }
+
+    
+    public void toogleObjectMarkers() {
+        for (Entry<String, GameObject> e : objects.entrySet()){
+            e.getValue().toggleMarkers();
+        }
     }
     
     
