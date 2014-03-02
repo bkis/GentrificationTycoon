@@ -154,9 +154,13 @@ public class GUIController implements ScreenController {
     
     
     public void clicked(Geometry clicked){
-        if (clicked == null
-                || district.getGameObject(clicked.getParent().getParent())
-                == district.getSelected()) return;
+        if (clicked == null) return;
+        if (district.getGameObject(clicked.getParent().getParent())
+                == district.getSelected()){
+            highlight(null);
+            clearObjectInfo();
+            return;
+        }
         
         System.out.println("CLICKED: " + clicked.getParent().getName());
         
@@ -198,19 +202,24 @@ public class GUIController implements ScreenController {
     
     
     private void highlight(Geometry geom){
+        //clear previous highlight
+        Geometry current;
+        if (district.getSelected() != null){
+            current = (Geometry) ((Node)((Node)district.getSelected().getSpatial()).getChild(0)).getChild(0);
+            current.getMaterial().setColor("Ambient", new ColorRGBA(1, 1, 1, 1));
+            setMarker(null);
+            setIconImage(getDefaultImgPath());
+            district.setSelected(null);
+            if (geom == null) return;
+        }
+        
         //set new highlight
         if (geom != null){
             geom.getMaterial().setColor("Ambient", ColorRGBA.Green);
             setMarker(geom.getParent().getParent().getLocalTranslation());
+            district.setSelected(district.getGameObject(geom));
         } else {
             setMarker(null);
-        }
-        
-        //clear previous highlight
-        if (district.getSelected() != null && district.getSelected()
-                != district.getGameObject(geom)){
-            geom = (Geometry) ((Node)((Node)district.getSelected().getSpatial()).getChild(0)).getChild(0);
-            geom.getMaterial().setColor("Ambient", new ColorRGBA(1, 1, 1, 1));
         }
     }
     
