@@ -58,7 +58,8 @@ public class MainState extends AbstractAppState {
             mainMenuState = new MainMenuState(inputMapper, guiController);
             stateManager.attach(mainMenuState);
         } else if (stateKey.equals(STATE_INGAME)){
-            ingameState = new IngameState(inputMapper, guiController, district);
+            ingameState = new IngameState(inputMapper, guiController,
+                    district, "Rupert", "Interface/hud/avatars/player.png");
             stateManager.attach(ingameState);
             stateManager.detach(mainMenuState);
         }

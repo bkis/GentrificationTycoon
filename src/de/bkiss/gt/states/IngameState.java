@@ -17,6 +17,7 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.shape.Quad;
 import de.bkiss.gt.District;
+import de.bkiss.gt.Player;
 import de.bkiss.gt.gui.GUIController;
 import de.bkiss.gt.objects.Car;
 import de.bkiss.gt.objects.GameObject;
@@ -35,12 +36,17 @@ public class IngameState extends AbstractAppState{
     private AssetManager assetManager;
     private InputMapper inputMapper;
     private GUIController guiController;
-    private District district;
     
+    private District district;
+    private Player player;
     
     
     public IngameState(InputMapper inputMapper,
-                       GUIController guiController, District district){
+                       GUIController guiController,
+                       District district,
+                       String playerName,
+                       String playerIconPath){
+        this.player = new Player(playerName, playerIconPath);
         this.inputMapper = inputMapper;
         this.guiController = guiController;
         this.district = district;
@@ -87,6 +93,7 @@ public class IngameState extends AbstractAppState{
         
         //load gui
         guiController.loadScreen(GUIController.SCREEN_INGAME);
+        guiController.displayPlayerData(player.getName(), player.getMoney(), player.getIconPath());
         
         //set cam
         cam.setLocation(new Vector3f(0, 10, 9));

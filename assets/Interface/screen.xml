@@ -62,9 +62,9 @@
 					<image filename="Interface/hud/spacer_l.png"></image>
 					<image filename="Interface/hud/hud-button-info.png"  visibleToMouse="true"><interact onRelease="toggleObjectMarkers()" /></image>
 					<image filename="Interface/hud/spacer_m.png"></image>
-					<image filename="Interface/hud/hud-button-buil.png"  visibleToMouse="true"><interact onRelease="openPopup(build)" /></image>
+					<image filename="Interface/hud/hud-button-buil.png"  visibleToMouse="true"><interact onRelease="openPopup(bank)" /></image>
 					<image filename="Interface/hud/spacer_m.png"></image>
-					<image filename="Interface/hud/hud-button-wrck.png" visibleToMouse="true"><interact onRelease="openPopup(wreck)" /></image>
+					<image filename="Interface/hud/hud-button-wrck.png" visibleToMouse="true"><interact onRelease="openPopup(bank)" /></image>
 					<image filename="Interface/hud/spacer_m.png"></image>
 					<image filename="Interface/hud/hud-button-bank.png" visibleToMouse="true"><interact onRelease="openPopup(bank)" /></image>
 					<image filename="Interface/hud/spacer_m.png"></image>
@@ -77,14 +77,19 @@
 			
 			<panel id="panel_hud_info" width="100%" height="115" childLayout="horizontal" visibleToMouse="true">
 					<panel id="panel_hud_info_spacer1" width="56" height="100%" childLayout="center"></panel>
-					
-					<panel id="panel_hud_info_stats" width="30%" height="100%" childLayout="vertical">
-						<panel id="panel_hud_info_stats_spacer" height="15" childLayout="center"></panel>
-						<text text="9999 $" font="Interface/Fonts/Default.fnt" height="18" align="left" wrap="false"/>
-						<text text="STAT" font="Interface/Fonts/Default.fnt" height="18" align="left" wrap="false"/>
-						<text text="STAT" font="Interface/Fonts/Default.fnt" height="18" align="left" wrap="false"/>
-						<text text="STAT" font="Interface/Fonts/Default.fnt" height="18" align="left" wrap="false"/>
-						<text text="STAT" font="Interface/Fonts/Default.fnt" height="18" align="left" wrap="false"/>
+					<panel id="panel_hud_info_stats" height="100%" childLayout="vertical">
+						<panel id="panel_hud_info_stats_player" height="36" childLayout="horizontal">
+							<image id="panel_hud_info_avatar" filename="Interface/hud/land.png" height="36" width="36"></image>
+							<panel id="panel_hud_info_stats_spacer1" height="100%" width="5" backgroundColor="#ff00ff33"></panel>
+							<panel id="panel_hud_info_stats_player_data" height="100%" childLayout="vertical" backgroundColor="#ffffff33">
+								<control id="player_name" name="label" size="12" text="" align="left" height="18" backgroundColor="#ffffff33"/>
+								<control id="player_money" name="label" color="#f4fa58ff" font="Interface/Fonts/Default.fnt" text="" align="left" height="18" backgroundColor="#ffffff33"/>
+							</panel>
+						</panel>
+						<panel id="panel_hud_info_player_spacer1" height="15" childLayout="center"></panel>
+							<control id="game_stat_time" name="label" font="Interface/Fonts/Default.fnt" text="STAT" align="left" height="18" backgroundColor="#ffffff33"/>
+							<control id="game_stat_2" name="label" font="Interface/Fonts/Default.fnt" text="STAT" align="left" height="18" backgroundColor="#ffffff33"/>
+							<control id="game_stat_3" name="label" font="Interface/Fonts/Default.fnt" text="STAT" align="left" height="18" backgroundColor="#ffffff33"/>
 					</panel>
 					
 					<panel id="panel_hud_info_object" height="100%" childLayout="horizontal">
@@ -99,7 +104,7 @@
 							<text text="Rent:" font="Interface/Fonts/Default.fnt" height="18" align="left" wrap="false"/>
 						</panel>
 						
-						<panel id="panel_hud_info_object_spacer2" width="10" height="100%" childLayout="center"></panel>
+						<panel id="panel_hud_info_object_spacer2" width="5" height="100%" childLayout="center"></panel>
 						
 						<panel id="panel_hud_info_object_data" width="120" height="100%" align="right" childLayout="vertical" backgroundColor="#00ff0033">
 							<panel id="panel_hud_info_data_spacer" height="15" childLayout="center"></panel>

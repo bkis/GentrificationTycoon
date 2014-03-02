@@ -20,6 +20,7 @@ import de.lessvoid.nifty.elements.render.TextRenderer;
 import de.lessvoid.nifty.render.NiftyImage;
 import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
+import de.lessvoid.nifty.tools.SizeValue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -45,7 +46,8 @@ public class GUIController implements ScreenController {
     private Spatial marker;
     
     
-    public GUIController(Application app, MainState mainState, District district){
+    public GUIController(Application app, MainState mainState,
+            District district){
         this.app = (SimpleApplication) app;
         this.mainState = mainState;
         niftyDisplay = new NiftyJmeDisplay(
@@ -67,7 +69,7 @@ public class GUIController implements ScreenController {
     }
     
     public void loadScreen(String screenKey){
-        if (screenKey.equals("start"))
+        if (screenKey.equals(SCREEN_MAINMENU))
             nifty.fromXml("Interface/screen.xml", screenKey, this);
         else
             nifty.gotoScreen(screenKey);
@@ -138,18 +140,25 @@ public class GUIController implements ScreenController {
     
     
     private void setLabelText(String id, String text){
-        getElement(id).getRenderer(TextRenderer.class).setText(text);
+        Element e = getElement(id);
+        TextRenderer eRenderer = e.getRenderer(TextRenderer.class);
+        eRenderer.setText(text);
+        e.layoutElements(); // to get correct text width on next line
+        e.setConstraintWidth(new SizeValue(eRenderer.getTextWidth()+"px"));
+        
         getElement(id).setWidth(getElement(id).getRenderer(TextRenderer.class).getTextWidth());
-    }
-    
-    
-    public void setDebugText(String text){
-        setLabelText("info_5", text);
+        
+//        int width = 0;
+//        for (Element e : getElement(id).getParent().getElements())
+//            if (width < e.getWidth())
+//                width = e.getWidth();
+//        
+//        getElement(id).getParent().setWidth(width);
     }
     
     
     private Element getElement(final String id) {
-	return nifty.getCurrentScreen().findElementByName(id);
+	return nifty.getScreen(SCREEN_INGAME).findElementByName(id);
     }
     
     
@@ -181,7 +190,7 @@ public class GUIController implements ScreenController {
         setLabelText("info_3", district.getNeighborhoodValue(go)+ "");
         setLabelText("info_4", go.getPrice() + "$");
         setLabelText("info_5", "??? $/m.");
-        setIconImage(go.getImagePath());
+        setIconImage("panel_hud_info_image", go.getImagePath());
     }
     
     
@@ -194,9 +203,9 @@ public class GUIController implements ScreenController {
     }
     
     
-    private void setIconImage(String imagePath){
+    private void setIconImage(String imageID, String imagePath){
         NiftyImage img = nifty.getRenderEngine().createImage(screen, imagePath, false);
-        Element e = nifty.getCurrentScreen().findElementByName("panel_hud_info_image");
+        Element e = nifty.getScreen(SCREEN_INGAME).findElementByName(imageID);
         e.getRenderer(ImageRenderer.class).setImage(img);
     }
     
@@ -208,7 +217,7 @@ public class GUIController implements ScreenController {
             current = (Geometry) ((Node)((Node)district.getSelected().getSpatial()).getChild(0)).getChild(0);
             current.getMaterial().setColor("Ambient", new ColorRGBA(1, 1, 1, 1));
             setMarker(null);
-            setIconImage(getDefaultImgPath());
+            setIconImage("panel_hud_info_image", getDefaultImgPath());
             district.setSelected(null);
             if (geom == null) return;
         }
@@ -236,4 +245,27 @@ public class GUIController implements ScreenController {
         district.toogleObjectMarkers();
     }
     
+    
+    public void displayGameTime(int days){
+        setLabelText("game_stat_time",
+                "Day " + (days % 30)
+                + " of month no. " + (days / 30));
+    }
+
+    
+    public void displayPlayerData(String playerName, int playerMoney, String playerIconPath){
+        setLabelText("player_name", playerName);
+        setLabelText("player_money", playerMoney + "$");
+        setIconImage("panel_hud_info_avatar", playerIconPath);
+    }
+    
+    
+    public String getCurrentScreenId(){
+        return nifty.getCurrentScreen().getScreenId();
+    }
+    
+    
+    public void hudtest(){
+        setLabelText("player_name", "Rudolf Mooshammer");
+    }
 }

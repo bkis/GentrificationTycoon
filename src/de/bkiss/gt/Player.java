@@ -14,6 +14,27 @@ public class Player {
     public Player(String name, String iconPath){
         this.name = name;
         this.iconPath = iconPath;
+        this.money = 10000;
+    }
+    
+    
+    public String getName(){
+        return name;
+    }
+    
+    
+    public String getIconPath(){
+        return iconPath;
+    }
+    
+    
+    public int getMoney(){
+        return money;
+    }
+    
+    
+    public void setMoney(int money){
+        this.money = money;
     }
     
 }

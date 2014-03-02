@@ -89,6 +89,7 @@ public abstract class GameObject {
         spatial.attachChild(objSpatial);
         createOwnerMarker();
         createOccupiedMarker();
+        toggleMarkers();
     }
     
     
