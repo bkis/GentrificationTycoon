@@ -22,6 +22,8 @@ import de.lessvoid.nifty.render.NiftyImage;
 import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
 import de.lessvoid.nifty.tools.SizeValue;
+import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -290,4 +292,14 @@ public class GUIController implements ScreenController {
     private String moneyFormat(int money){
         return String.format("%,d", money);
     }
+    
+    
+//    public void hightlightNeighborhoodRadius(){
+//        Set<GameObject> nh = district.getNeighborhood(district.getSelected(), true);
+//        
+//        for (GameObject go : nh){
+//            if (go instanceof House)
+//                ((Geometry)((Node)((Node)go.getSpatial()).getChild(0)).getChild(0)).getMaterial().setColor("Diffuse", ColorRGBA.Yellow);
+//        }
+//    }
 }

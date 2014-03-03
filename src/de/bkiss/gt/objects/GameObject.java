@@ -189,7 +189,7 @@ public abstract class GameObject {
         return (int) (Math.pow(
                 (this instanceof House ? ((House)this).calcDefaultRent()
                 + this.getNeighborhoodValue() :
-                this.getNeighborhoodValue()*5)
+                this.getNeighborhoodValue()*10)+50
                 , 1.5f
                 )*10);
     }

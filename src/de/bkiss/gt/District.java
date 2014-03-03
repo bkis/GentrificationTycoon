@@ -82,12 +82,13 @@ public class District {
     
     
     public Set<GameObject> getNeighborhood(GameObject object, boolean extended){
-        float dist = extended ? 3.5f : 2.5f; //TODO distance values
+        float dist = extended ? 6f : 3f; //TODO distance values
         Set<GameObject> neighborhood = new HashSet<GameObject>();
         
         for (Entry<String, GameObject> go : objects.entrySet())
             if (object.getSpatial().getLocalTranslation().distance(
-                    go.getValue().getSpatial().getLocalTranslation()) < dist)
+                    go.getValue().getSpatial().getLocalTranslation()) < dist
+                    && go.getValue() != object)
                 neighborhood.add(go.getValue());
         
         return neighborhood;
@@ -96,8 +97,8 @@ public class District {
     
     public int getNeighborhoodValue(GameObject object){
         Set<GameObject> neighborhood = getNeighborhood(object, false);
-        int value = 0;
-        int count = 0;
+        int value = 50;
+        int count = 1;
         
         for (GameObject go : neighborhood)
             if (go instanceof House){
@@ -105,7 +106,7 @@ public class District {
                 count++;
             }
         
-        return (value / (count > 0 ? count : 1)) + 1;
+        return (value / count) + 1;
     }
     
     
