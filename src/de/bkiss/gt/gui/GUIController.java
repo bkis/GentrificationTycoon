@@ -274,7 +274,7 @@ public class GUIController implements ScreenController {
     
     public void displayPlayerData(String playerName, int playerMoney, String playerIconPath){
         setLabelText("player_name", playerName);
-        setLabelText("player_money", playerMoney + "$");
+        setLabelText("player_money", moneyFormat(playerMoney) + "$");
         setIconImage("panel_hud_info_avatar", playerIconPath);
     }
     
