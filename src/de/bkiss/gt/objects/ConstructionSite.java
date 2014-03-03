@@ -1,6 +1,7 @@
 package de.bkiss.gt.objects;
 
 import com.jme3.app.Application;
+import de.bkiss.gt.District;
 
 /**
  *
@@ -8,8 +9,8 @@ import com.jme3.app.Application;
  */
 public class ConstructionSite extends GameObject{
     
-    public ConstructionSite(Application app, String name){
-        super(app, GameObject.TYPE_CONSTRUCTION, name);
+    public ConstructionSite(Application app, String name, District district){
+        super(app, GameObject.TYPE_CONSTRUCTION, name, district);
     }
     
 }

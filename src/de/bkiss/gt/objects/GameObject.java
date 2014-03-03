@@ -7,6 +7,7 @@ import com.jme3.math.FastMath;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
+import de.bkiss.gt.District;
 import de.bkiss.gt.utils.ModelLoader;
 
 /**
@@ -37,11 +38,13 @@ public abstract class GameObject {
     
     private SimpleApplication app;
     private String imagePath;
+    private District district;
     
     
-    public GameObject(Application app, String type, String name){
+    public GameObject(Application app, String type, String name, District district){
         this.type = type;
         this.name = name;
+        this.district = district;
         this.app = (SimpleApplication) app;
         this.imagePath = "Interface/hud/" + type + ".png";
         this.markerHideOffset = 100;
@@ -174,5 +177,20 @@ public abstract class GameObject {
         ownerMarker.move(0, markerHideOffset, 0);
         occupiedMarker.move(0, markerHideOffset, 0);
         markerHideOffset *= -1;
+    }
+    
+    
+    public int getNeighborhoodValue(){
+        return district.getNeighborhoodValue(this);
+    }
+    
+    
+    public int getValue(){
+        return (int) (Math.pow(
+                (this instanceof House ? ((House)this).calcDefaultRent()
+                + this.getNeighborhoodValue() :
+                this.getNeighborhoodValue()*5)
+                , 1.5f
+                )*10);
     }
 }

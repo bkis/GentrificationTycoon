@@ -160,42 +160,42 @@ public class District {
                 if        (curr.equals(STX)){
                     go = new PassiveObject(app,
                             GameObject.TYPE_PASSIVE,
-                            "Straße Nr." + i + "" + j,
+                            "Straße Nr." + i + "" + j, this,
                             ModelLoader.createStreetTile(app.getAssetManager(),
                             app.getAssetManager().loadTexture(
                             "Textures/tiles/streets/street_fx.png")));
                 } else if (curr.equals(STH)){
                     go = new PassiveObject(app,
                             GameObject.TYPE_PASSIVE,
-                            "Straße Nr." + i + "" + j,
+                            "Straße Nr." + i + "" + j, this,
                             ModelLoader.createStreetTile(app.getAssetManager(),
                             app.getAssetManager().loadTexture(
                             "Textures/tiles/streets/street_fv.png")));
                 } else if (curr.equals(STV)){
                     go = new PassiveObject(app,
                             GameObject.TYPE_PASSIVE,
-                            "Straße Nr." + i + "" + j,
+                            "Straße Nr." + i + "" + j, this,
                             ModelLoader.createStreetTile(app.getAssetManager(),
                             app.getAssetManager().loadTexture(
                             "Textures/tiles/streets/street_fh.png")));
                 } else if (curr.equals(H01)){
                     go = new House(app,
-                            House.TYPE_HOUSE_1, "Haus Nr." + i + "" + j);
+                            House.TYPE_HOUSE_1, "Haus Nr." + i + "" + j, this);
                 } else if (curr.equals(H02)){
                     go = new House(app,
-                            House.TYPE_HOUSE_2, "Haus Nr." + i + "" + j);
+                            House.TYPE_HOUSE_2, "Haus Nr." + i + "" + j, this);
                     //go.getSpatial().rotate(0, FastMath.DEG_TO_RAD*180, 0);
                 } else if (curr.equals(H03)){
                     go = new House(app,
-                            House.TYPE_HOUSE_3, "Haus Nr." + i + "" + j);
+                            House.TYPE_HOUSE_3, "Haus Nr." + i + "" + j, this);
                     //go.getSpatial().rotate(0, FastMath.DEG_TO_RAD*180, 0);
                 } else if (curr.equals(CON)){
                     go = new ConstructionSite(app,
-                            "ConstructionSite Nr." + i + "" + j);
+                            "ConstructionSite Nr." + i + "" + j, this);
                     //go.getSpatial().rotate(0, FastMath.DEG_TO_RAD*90, 0);
                 } else if (curr.equals(LAN)){
                     go = new Land(app,
-                            "Land Nr." + i + "" + j);
+                            "Land Nr." + i + "" + j, this);
                 }
                 
                 if (go == null) return;
@@ -203,6 +203,10 @@ public class District {
                 addGameObject(go.getSpatial().getName() + "_" + i + "." + j, go);
             }
         }
+        
+        for (Entry<String, GameObject> e : objects.entrySet())
+            if (e.getValue() instanceof House)
+                ((House)e.getValue()).applyDefaultRent();
     }
     
     

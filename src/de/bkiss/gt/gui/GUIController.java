@@ -11,6 +11,7 @@ import com.jme3.scene.Spatial;
 import de.bkiss.gt.District;
 import de.bkiss.gt.objects.GameObject;
 import de.bkiss.gt.objects.House;
+import de.bkiss.gt.objects.Land;
 import de.bkiss.gt.states.MainState;
 import de.bkiss.gt.utils.ModelLoader;
 import de.lessvoid.nifty.Nifty;
@@ -187,18 +188,18 @@ public class GUIController implements ScreenController {
     private void displayObjectInfo(GameObject go){
         //properties
         setLabelText("info_1", go.getName());
-        setLabelText("info_2", (go instanceof House ? ((House)go).getCondition() + "" : ""));
-        setLabelText("info_3", district.getNeighborhoodValue(go)+ "");
-        setLabelText("info_4", go.getPrice() + "$");
-        setLabelText("info_5", "??? $/m.");
+        setLabelText("info_2", (go instanceof House ? ((House)go).getLuxury() + "" : ""));
+        setLabelText("info_3", go.getNeighborhoodValue()+ "");
+        setLabelText("info_4", (go instanceof House || go instanceof Land ? moneyFormat(go.getValue()) + "$" : ""));
+        setLabelText("info_5", (go instanceof House ? moneyFormat(((House)go).getRent()) + "$/m." : ""));
         setIconImage("panel_hud_info_image", go.getImagePath());
         
         //categories
         setLabelText("cat_1", "Name:");
-        setLabelText("cat_2", "Luxury:");
-        setLabelText("cat_3", "Condition:");
-        setLabelText("cat_4", "Neighbourh.:");
-        setLabelText("cat_5", "Rent:");
+        setLabelText("cat_2", (go instanceof House ? "Luxury:" : ""));
+        setLabelText("cat_3", "Neighbourh.:");
+        setLabelText("cat_4", (go instanceof House || go instanceof Land ? "Value:" : ""));
+        setLabelText("cat_5", (go instanceof House ? "Rent:" : ""));
     }
     
     
@@ -283,5 +284,10 @@ public class GUIController implements ScreenController {
     
     public void hudtest(){
         setLabelText("player_name", "Rudolf Mooshammer");
+    }
+    
+    
+    private String moneyFormat(int money){
+        return String.format("%,d", money);
     }
 }
