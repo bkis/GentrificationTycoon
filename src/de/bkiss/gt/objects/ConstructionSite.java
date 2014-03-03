@@ -9,8 +9,16 @@ import de.bkiss.gt.District;
  */
 public class ConstructionSite extends GameObject{
     
+    private int daysLeft;
+    private GameObject building;
+    
     public ConstructionSite(Application app, String name, District district){
         super(app, GameObject.TYPE_CONSTRUCTION, name, district);
+    }
+    
+    
+    public void startToBuild(GameObject building){
+        
     }
     
 }

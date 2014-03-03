@@ -22,8 +22,6 @@ import de.lessvoid.nifty.render.NiftyImage;
 import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
 import de.lessvoid.nifty.tools.SizeValue;
-import java.util.List;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -72,10 +70,12 @@ public class GUIController implements ScreenController {
     }
     
     public void loadScreen(String screenKey){
-        if (screenKey.equals(SCREEN_MAINMENU))
+        if (screenKey.equals(SCREEN_MAINMENU)){
             nifty.fromXml("Interface/screen.xml", screenKey, this);
-        else
+        } else if (screenKey.equals(SCREEN_INGAME)){
             nifty.gotoScreen(screenKey);
+            clearObjectInfo();
+        }
         
         this.screen = nifty.getCurrentScreen();
     }
@@ -208,9 +208,9 @@ public class GUIController implements ScreenController {
     private void clearObjectInfo(){
         //properties
         setLabelText("info_1", "");
-        setLabelText("info_2", "");
-        setLabelText("info_3", "");
-        setLabelText("info_4", "");
+        setLabelText("info_2", "select an");
+        setLabelText("info_3", "object to");
+        setLabelText("info_4", "view its stats");
         setLabelText("info_5", "");
         
         //categories
