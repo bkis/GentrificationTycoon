@@ -1,7 +1,8 @@
 package de.bkiss.gt.objects;
 
 import com.jme3.app.Application;
-import de.bkiss.gt.District;
+import de.bkiss.gt.logic.District;
+import de.bkiss.gt.logic.GameTimer;
 
 /**
  *
@@ -9,15 +10,23 @@ import de.bkiss.gt.District;
  */
 public class ConstructionSite extends GameObject{
     
-    private int daysLeft;
     private GameObject building;
+    private GameTimer countdown;
     
-    public ConstructionSite(Application app, String name, District district){
+    public ConstructionSite(Application app, String name,
+            District district, GameObject building){
         super(app, GameObject.TYPE_CONSTRUCTION, name, district);
+        this.building = building;
+        startToBuild(building);
     }
     
     
-    public void startToBuild(GameObject building){
+    private void startToBuild(GameObject building){
+        
+    }
+    
+    
+    public void finish(){
         
     }
     

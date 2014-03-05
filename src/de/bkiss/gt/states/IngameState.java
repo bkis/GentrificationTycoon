@@ -16,8 +16,9 @@ import com.jme3.renderer.Camera;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.shape.Quad;
-import de.bkiss.gt.District;
-import de.bkiss.gt.Player;
+import de.bkiss.gt.logic.District;
+import de.bkiss.gt.logic.Game;
+import de.bkiss.gt.logic.Player;
 import de.bkiss.gt.gui.GUIController;
 import de.bkiss.gt.objects.Car;
 import de.bkiss.gt.objects.GameObject;
@@ -36,9 +37,8 @@ public class IngameState extends AbstractAppState{
     private AssetManager assetManager;
     private InputMapper inputMapper;
     private GUIController guiController;
-    
+    private Game game;
     private District district;
-    private Player player;
     
     
     public IngameState(InputMapper inputMapper,
@@ -46,10 +46,10 @@ public class IngameState extends AbstractAppState{
                        District district,
                        String playerName,
                        String playerIconPath){
-        this.player = new Player(playerName, playerIconPath);
         this.inputMapper = inputMapper;
         this.guiController = guiController;
         this.district = district;
+        this.game = new Game(playerName, playerIconPath, district, guiController);
     }
     
     
@@ -91,13 +91,16 @@ public class IngameState extends AbstractAppState{
         //lights and shadows
         addLightsAndShadows();
         
-        //load gui
+        //load gui and game
         guiController.loadScreen(GUIController.SCREEN_INGAME);
-        guiController.displayPlayerData(player.getName(), player.getMoney(), player.getIconPath());
+        guiController.displayPlayerData(game.getPlayer().getName(), game.getPlayer().getMoney(), game.getPlayer().getIconPath());
         
         //set cam
         cam.setLocation(new Vector3f(0, 10, 9));
         cam.setRotation(new Quaternion(8.377186E-4f, 0.9033154f, -0.42897254f, 0.0017641005f));
+        
+        //start day timer ( calls game.nextDay() )
+        game.getTimer().addDayTimeTask(game, 2000);
     }
 
     

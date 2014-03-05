@@ -1,4 +1,4 @@
-package de.bkiss.gt;
+package de.bkiss.gt.logic;
 
 /**
  *

@@ -3,7 +3,7 @@ package de.bkiss.gt.objects;
 import com.jme3.app.Application;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
-import de.bkiss.gt.District;
+import de.bkiss.gt.logic.District;
 
 /**
  *

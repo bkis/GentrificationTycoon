@@ -1,7 +1,7 @@
 package de.bkiss.gt.objects;
 
 import com.jme3.app.Application;
-import de.bkiss.gt.District;
+import de.bkiss.gt.logic.District;
 
 /**
  *

@@ -1,4 +1,4 @@
-package de.bkiss.gt;
+package de.bkiss.gt.logic;
 
 import com.jme3.app.Application;
 import com.jme3.app.SimpleApplication;
@@ -192,7 +192,7 @@ public class District {
                     //go.getSpatial().rotate(0, FastMath.DEG_TO_RAD*180, 0);
                 } else if (curr.equals(CON)){
                     go = new ConstructionSite(app,
-                            "ConstructionSite Nr." + i + "" + j, this);
+                            "ConstructionSite Nr." + i + "" + j, this, null);
                     //go.getSpatial().rotate(0, FastMath.DEG_TO_RAD*90, 0);
                 } else if (curr.equals(LAN)){
                     go = new Land(app,

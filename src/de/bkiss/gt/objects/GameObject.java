@@ -7,7 +7,7 @@ import com.jme3.math.FastMath;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
-import de.bkiss.gt.District;
+import de.bkiss.gt.logic.District;
 import de.bkiss.gt.utils.ModelLoader;
 
 /**
@@ -28,7 +28,6 @@ public abstract class GameObject {
     
     protected String type;
     private String name;
-    private int moneyValue;
     
     protected Node spatial;
     
@@ -131,16 +130,6 @@ public abstract class GameObject {
     
     public float getZPos(){
         return spatial.getLocalTranslation().z;
-    }
-    
-    
-    public int getPrice(){
-        return moneyValue;
-    }
-    
-    
-    public void setPrice(int price){
-        this.moneyValue = price;
     }
     
     
