@@ -37,6 +37,7 @@ public class Game {
     }
     
     public void nextDay(){
+        System.out.println("NEXT DAY!!!!!");
         /**
          * EXECUTE
          * EVERY

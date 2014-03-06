@@ -22,8 +22,11 @@ import de.bkiss.gt.logic.Player;
 import de.bkiss.gt.gui.GUIController;
 import de.bkiss.gt.objects.Car;
 import de.bkiss.gt.objects.GameObject;
+import de.bkiss.gt.tenants.Tenant;
+import de.bkiss.gt.tenants.TenantGenerator;
 import de.bkiss.gt.utils.InputMapper;
 import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -101,6 +104,7 @@ public class IngameState extends AbstractAppState{
         
         //start day timer ( calls game.nextDay() )
         game.getTimer().addDayTimeTask(game, 2000);
+        
     }
 
     
