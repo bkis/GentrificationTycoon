@@ -1,6 +1,8 @@
 package de.bkiss.gt.logic;
 
 import de.bkiss.gt.gui.GUIController;
+import de.bkiss.gt.tenants.Tenant;
+import java.util.List;
 
 /**
  *
@@ -13,11 +15,14 @@ public class Game {
     private GameTimer timer;
     private GUIController guiController;
     
+    private long day;
+    
     public Game(String playerName,
             String playerIconPath,
             District district,
             GUIController guiController){
         
+        this.day = 0;
         player = new Player(playerName, playerIconPath);
         timer = new GameTimer();
         this.district = district;
@@ -37,7 +42,9 @@ public class Game {
     }
     
     public void nextDay(){
-        System.out.println("NEXT DAY!!!!!");
+        day++;
+        guiController.displayGameTime(day);
+        guiController.displayGentrificationState();
         /**
          * EXECUTE
          * EVERY

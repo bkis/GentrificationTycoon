@@ -116,7 +116,8 @@ public class IngameState extends AbstractAppState{
     
     @Override
     public void cleanup() {
-        
+        game.getTimer().cancel();
+        game.getTimer().purge();
     }
     
     

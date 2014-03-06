@@ -88,8 +88,8 @@
 						</panel>
 						<panel id="panel_hud_info_player_spacer1" height="15" childLayout="center"></panel>
 							<control id="game_stat_time" name="label" font="Interface/Fonts/Default.fnt" text="STAT" align="left" height="18" backgroundColor="#ffffff33"/>
-							<control id="game_stat_2" name="label" font="Interface/Fonts/Default.fnt" text="STAT" align="left" height="18" backgroundColor="#ffffff33"/>
-							<control id="game_stat_3" name="label" font="Interface/Fonts/Default.fnt" text="STAT" align="left" height="18" backgroundColor="#ffffff33"/>
+							<control id="game_stat_district_tot_luxury" name="label" font="Interface/Fonts/Default.fnt" text="STAT" align="left" height="18" backgroundColor="#ffffff33"/>
+							<control id="game_stat_district_avg_luxury" name="label" font="Interface/Fonts/Default.fnt" text="STAT" align="left" height="18" backgroundColor="#ffffff33"/>
 					</panel>
 					
 					<panel id="panel_hud_info_object" height="100%" childLayout="horizontal">

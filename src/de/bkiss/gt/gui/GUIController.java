@@ -22,6 +22,7 @@ import de.lessvoid.nifty.render.NiftyImage;
 import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
 import de.lessvoid.nifty.tools.SizeValue;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -265,10 +266,11 @@ public class GUIController implements ScreenController {
     }
     
     
-    public void displayGameTime(int days){
+    public void displayGameTime(long days){
         setLabelText("game_stat_time",
-                "Day " + (days % 30)
-                + " of month no. " + (days / 30));
+                "Day: " + days
+                + " (next month in " + (30 - (days % 30))
+                + " days)");
     }
 
     
@@ -284,14 +286,28 @@ public class GUIController implements ScreenController {
     }
     
     
-    public void hudtest(){
-        setLabelText("player_name", "Rudolf Mooshammer");
-    }
-    
-    
     private String moneyFormat(int money){
         return String.format("%,d", money);
     }
+    
+    
+    public void displayGentrificationState(){
+        List<GameObject> list = district.getObjectList();
+        int houseCount = 0;
+        int luxuryCount = 0;
+        
+        for (GameObject go : list){
+            if (go instanceof House){
+                houseCount++;
+                luxuryCount += ((House)go).getLuxury();
+            }
+        }
+        
+        setLabelText("game_stat_district_tot_luxury",
+                "District Luxury: " + luxuryCount
+                + " (Average: " + (luxuryCount/houseCount) + ")");
+    }
+ 
     
     
 //    public void hightlightNeighborhoodRadius(){

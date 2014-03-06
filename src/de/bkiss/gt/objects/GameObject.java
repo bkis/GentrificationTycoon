@@ -28,6 +28,8 @@ public abstract class GameObject {
     
     protected String type;
     private String name;
+    private boolean ownedByPlayer;
+    private boolean occupied;
     
     protected Node spatial;
     
@@ -37,7 +39,7 @@ public abstract class GameObject {
     
     private SimpleApplication app;
     private String imagePath;
-    private District district;
+    protected District district;
     
     
     public GameObject(Application app, String type, String name, District district){
@@ -64,7 +66,20 @@ public abstract class GameObject {
     public Spatial getSpatial(){
         return spatial;
     }
+
     
+    public boolean isOwnedByPlayer() {
+        return ownedByPlayer;
+    }
+
+    public boolean isOccupied() {
+        return occupied;
+    }
+    
+    public boolean isPassive(){
+        return type.equals(GameObject.TYPE_PASSIVE);
+    }
+
     
     @Override
     public String toString(){
@@ -91,6 +106,8 @@ public abstract class GameObject {
         spatial.attachChild(objSpatial);
         createOwnerMarker();
         createOccupiedMarker();
+        setOwned(false);
+        setOccupied(false);
         toggleMarkers();
     }
     
@@ -98,7 +115,6 @@ public abstract class GameObject {
     private void createOwnerMarker(){
         ownerMarker = ModelLoader.createAbstractMarkerGeometry(app.getAssetManager());
         ownerMarker.setName("ownerMarker");
-        ownerMarker.getMaterial().setColor("Color", ColorRGBA.Green);
         spatial.attachChild(ownerMarker);
         ownerMarker.setLocalTranslation(0f, 0.45f, 0.51f);
     }
@@ -107,7 +123,6 @@ public abstract class GameObject {
     private void createOccupiedMarker(){
         occupiedMarker = ModelLoader.createAbstractMarkerGeometry(app.getAssetManager());
         occupiedMarker.setName("occupiedMarker");
-        occupiedMarker.getMaterial().setColor("Color", ColorRGBA.Black);
         occupiedMarker.scale(0.5f);
         spatial.attachChild(occupiedMarker);
         occupiedMarker.setLocalTranslation(0.05f, 0.5f, 0.52f);
@@ -143,7 +158,8 @@ public abstract class GameObject {
     }
     
     
-    public void setOccupiedMarker(boolean state){
+    public void setOccupied(boolean state){
+        occupied = state;
         if (state && spatial.getChild("occupiedMarker") == null){
             occupiedMarker.getMaterial().setColor("Color", ColorRGBA.Black);
         } else if (!state && spatial.getChild("occupiedMarker") != null) {
@@ -152,11 +168,12 @@ public abstract class GameObject {
     }
 
     
-    public void setOwnerMarker(boolean state){
+    public void setOwned(boolean state){
+        ownedByPlayer = state;
         if (state && spatial.getChild("ownerMarker") == null){
             ownerMarker.getMaterial().setColor("Color", ColorRGBA.Green);
         } else if (!state && spatial.getChild("ownerMarker") != null) {
-            ownerMarker.getMaterial().setColor("Color", ColorRGBA.Gray);
+            ownerMarker.getMaterial().setColor("Color", ColorRGBA.Red);
         }
     }
  

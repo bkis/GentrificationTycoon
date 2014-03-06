@@ -16,6 +16,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Random;
 import java.util.Set;
 
 /**
@@ -201,7 +202,12 @@ public class District {
                 
                 if (go == null) return;
                 go.getSpatial().move(i-(getBoardWidth()/2), 0, j-(getBoardHeight()/2));
-                addGameObject(go.getSpatial().getName() + "_" + i + "." + j, go);
+                go.getSpatial().setName(go.getSpatial().getName() + "_" + i + "." + j);
+                addGameObject(go.getSpatial().getName(), go);
+                
+                //TEMP
+                if (!go.isPassive() && new Random().nextInt(10) < 5) go.setOccupied(false);
+                if (!go.isPassive() && new Random().nextInt(10) < 5) go.setOwned(false);
             }
         }
         
@@ -235,6 +241,16 @@ public class District {
         for (Entry<String, GameObject> e : objects.entrySet()){
             e.getValue().toggleMarkers();
         }
+    }
+    
+    
+    public void finishConstruction(ConstructionSite cs){
+        GameObject go = cs.getBuilding();
+        go.getSpatial().setName(cs.getSpatial().getName());
+        cs.getSpatial().removeFromParent();
+        objects.remove(go.getSpatial().getName());
+        addGameObject(go.getSpatial().getName(), go);
+        app.getRootNode().attachChild(go.getSpatial());
     }
     
     
