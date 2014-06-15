@@ -4,6 +4,7 @@ import com.jme3.app.Application;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
+import de.bkiss.gt.IngameState;
 import de.bkiss.gt.logic.District;
 import de.bkiss.gt.gui.GUIController;
 import de.bkiss.gt.utils.InputMapper;

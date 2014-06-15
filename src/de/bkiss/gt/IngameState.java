@@ -1,4 +1,6 @@
-package de.bkiss.gt.states;
+package de.bkiss.gt;
+
+
 
 import com.jme3.app.Application;
 import com.jme3.app.SimpleApplication;
@@ -18,15 +20,11 @@ import com.jme3.scene.Node;
 import com.jme3.scene.shape.Quad;
 import de.bkiss.gt.logic.District;
 import de.bkiss.gt.logic.Game;
-import de.bkiss.gt.logic.Player;
 import de.bkiss.gt.gui.GUIController;
 import de.bkiss.gt.objects.Car;
 import de.bkiss.gt.objects.GameObject;
-import de.bkiss.gt.tenants.Tenant;
-import de.bkiss.gt.tenants.TenantGenerator;
 import de.bkiss.gt.utils.InputMapper;
 import java.util.List;
-import java.util.Set;
 
 /**
  *
