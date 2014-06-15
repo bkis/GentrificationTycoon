@@ -37,6 +37,14 @@ public class GUIController implements ScreenController {
     
     public static final String SCREEN_MAINMENU = "start";
     public static final String SCREEN_INGAME   = "hud";
+    
+    private static final String HUD_IMG_PATH = "/Interface/hud/";
+    private static final String BTN_BUILD_ON = "hud-button-buil.png";
+    private static final String BTN_BUILD_OFF = "hud-button-buil-off.png";
+    private static final String BTN_DESTROY_ON = "hud-button-wrck.png";
+    private static final String BTN_DESTROY_OFF = "hud-button-wrck-off.png";
+    
+    private static final String HUD_DEFAULT_INFO_ICON = "defaultIconImg.png";
 
     private SimpleApplication app;
     private MainState mainState;
@@ -139,7 +147,7 @@ public class GUIController implements ScreenController {
     
     
     public String getDefaultImgPath(){
-        return "Interface/hud/defaultIconImg.png";
+        return HUD_IMG_PATH + HUD_DEFAULT_INFO_ICON;
     }
     
     
@@ -172,6 +180,8 @@ public class GUIController implements ScreenController {
                 == district.getSelected()){
             highlight(null);
             clearObjectInfo();
+            district.setSelected(null);
+            refreshButtonStates();
             return;
         }
         
@@ -185,6 +195,21 @@ public class GUIController implements ScreenController {
             clearObjectInfo();
         else
             displayObjectInfo(go);
+        
+        refreshButtonStates();
+    }
+    
+    
+    private void refreshButtonStates(){
+        if (district.getSelected() == null){
+            setIconImage("button_build", HUD_IMG_PATH + BTN_BUILD_OFF);
+            setIconImage("button_destroy", HUD_IMG_PATH + BTN_DESTROY_OFF);
+        } else {
+            if (district.getSelected().isOwnedByPlayer()){
+                setIconImage("button_build", HUD_IMG_PATH + BTN_BUILD_ON);
+                setIconImage("button_destroy", HUD_IMG_PATH + BTN_DESTROY_ON);
+            }
+        }
     }
     
     
