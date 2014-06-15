@@ -5,7 +5,7 @@ Anna
 Lisa
 Ann
 Lucia
-Petra 
+Petra
 Stefania
 Antea
 Alessia
@@ -13,7 +13,7 @@ Alicia
 Cathy
 Elisabeth
 Lia
-Uta 
+Uta
 Pia
 Michaela
 Daria
@@ -21,7 +21,7 @@ Klara
 Eva
 Susi
 Erna
-Betty 
+Betty
 Julia
 Isolde
 Angela

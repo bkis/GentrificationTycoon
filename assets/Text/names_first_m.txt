@@ -13,7 +13,7 @@ Giovanni
 Alex
 Helmut
 Christian
-Ronny 
+Ronny
 Lutz
 Andreas
 Konstantin
@@ -21,7 +21,7 @@ Juan
 Chris
 Felix
 Uwe
-Sigi 
+Sigi
 Boris
 Fabian
 Nils
@@ -29,7 +29,7 @@ Sascha
 John
 Holger
 Patrick
-Sven 
+Sven
 Arnold
 Steve
 Phillip
