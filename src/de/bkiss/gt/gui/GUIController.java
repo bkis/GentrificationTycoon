@@ -175,7 +175,7 @@ public class GUIController implements ScreenController {
             return;
         }
         
-        System.out.println("CLICKED: " + clicked.getParent().getName());
+        //System.out.println("CLICKED: " + clicked.getParent().getName());
         
         GameObject go = district.getGameObject(clicked.getParent().getParent());
         highlight((go == null ? null : clicked));
