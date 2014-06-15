@@ -45,6 +45,9 @@ public class IngameState extends AbstractAppState{
     private Game game;
     private District district;
     
+    private String playerName;
+    private String playerIconPath;
+    
     
     public IngameState(InputMapper inputMapper,
                        GUIController guiController,
@@ -54,11 +57,8 @@ public class IngameState extends AbstractAppState{
         this.inputMapper = inputMapper;
         this.guiController = guiController;
         this.district = district;
-        this.game = new Game(playerName,
-                playerIconPath,
-                district,
-                guiController,
-                assetManager);
+        this.playerName = playerName;
+        this.playerIconPath = playerIconPath;
     }
     
     
@@ -79,6 +79,13 @@ public class IngameState extends AbstractAppState{
         
         //register text loader
         assetManager.registerLoader(TextLoader.class, "txt");
+        
+        //initilize game logic
+        this.game = new Game(playerName,
+                playerIconPath,
+                district,
+                guiController,
+                assetManager);
         
         //load district
         addObjects(district.getObjectList());
