@@ -23,30 +23,26 @@ public class TenantGenerator {
     
     
     public Tenant generateTenant(boolean male, int socialClass){
-        Tenant tenant = new Tenant(
-                    gen.getName(male),
-                    getRndBudget(socialClass),
-                    gen.getProfession(socialClass),
-                    getRndMinLux(socialClass),
-                    "imgPath");
-        return tenant;
+        String name = gen.getName(male);
+        String prof = gen.getProfession(socialClass);
+        int budget = getRndBudget(socialClass);
+        int minLux = getRndMinLux(budget);
+        
+        return new Tenant(name, budget, prof, minLux, "imgPath");
     }
     
     
     private int getRndBudget(int socialClass){
         return (int)(
-                (500 + (800*(Math.random() - 0.5f)))
-                * (socialClass+1)
+                ((400 + (400*((Math.random() - 0.5f)/2)))
+                * (socialClass*2+1))
+                + (socialClass*(Math.random()*(400*socialClass)))
                 );
     }
     
     
-    private int getRndMinLux(int socialClass){
-        return (int)(
-                (socialClass * 30)
-                + ((socialClass+1)*3)
-                + ((Math.random() - 0.5f) * 10)
-                );
+    private int getRndMinLux(int budget){
+        return (int)(150 * ((float)(budget-100)/4000));
     }
     
     
