@@ -37,12 +37,15 @@ public class District {
     private Map<String, GameObject> objects;
     private SimpleApplication app;
     
+    private boolean objectMarkers;
+    
     private GameObject selected;
     
     
     public District(Application app){
         this.app = (SimpleApplication) app;
         this.objects = new HashMap<String, GameObject>();
+        this.objectMarkers = false;
     }
     
     
@@ -238,8 +241,9 @@ public class District {
 
     
     public void toogleObjectMarkers() {
+        objectMarkers = !objectMarkers;
         for (Entry<String, GameObject> e : objects.entrySet()){
-            e.getValue().toggleMarkers();
+            e.getValue().setMarkers(objectMarkers);
         }
     }
     

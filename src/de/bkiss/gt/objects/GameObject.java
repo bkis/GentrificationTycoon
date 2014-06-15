@@ -108,11 +108,12 @@ public abstract class GameObject {
         createOccupiedMarker();
         setOwned(false);
         setOccupied(false);
-        toggleMarkers();
+        setMarkers(false);
     }
     
     
     private void createOwnerMarker(){
+        if (type.equals(GameObject.TYPE_PASSIVE)) return;
         ownerMarker = ModelLoader.createAbstractMarkerGeometry(app.getAssetManager());
         ownerMarker.setName("ownerMarker");
         spatial.attachChild(ownerMarker);
@@ -121,6 +122,7 @@ public abstract class GameObject {
     
     
     private void createOccupiedMarker(){
+        if (type.equals(GameObject.TYPE_PASSIVE)) return;
         occupiedMarker = ModelLoader.createAbstractMarkerGeometry(app.getAssetManager());
         occupiedMarker.setName("occupiedMarker");
         occupiedMarker.scale(0.5f);
@@ -159,30 +161,43 @@ public abstract class GameObject {
     
     
     public void setOccupied(boolean state){
+        if (type.equals(GameObject.TYPE_PASSIVE)) return;
         occupied = state;
-        if (state && spatial.getChild("occupiedMarker") == null){
+        if (state){
             occupiedMarker.getMaterial().setColor("Color", ColorRGBA.Black);
-        } else if (!state && spatial.getChild("occupiedMarker") != null) {
+        } else {
             occupiedMarker.setMaterial(ownerMarker.getMaterial());
         }
     }
 
     
     public void setOwned(boolean state){
+        if (type.equals(GameObject.TYPE_PASSIVE)) return;
         ownedByPlayer = state;
-        if (state && spatial.getChild("ownerMarker") == null){
+        if (state){
             ownerMarker.getMaterial().setColor("Color", ColorRGBA.Green);
-        } else if (!state && spatial.getChild("ownerMarker") != null) {
+        } else {
             ownerMarker.getMaterial().setColor("Color", ColorRGBA.Red);
         }
     }
  
     
-    public void toggleMarkers(){
+    public void setMarkers(boolean on){
         if (type.equals(GameObject.TYPE_PASSIVE)) return;
-        ownerMarker.move(0, markerHideOffset, 0);
-        occupiedMarker.move(0, markerHideOffset, 0);
-        markerHideOffset *= -1;
+        if (on){
+            if (!spatial.hasChild(ownerMarker)){
+                spatial.attachChild(ownerMarker);
+                spatial.attachChild(occupiedMarker);
+                //ownerMarker.move(0, markerHideOffset, 0);
+            } else {
+                
+            }
+            //occupiedMarker.move(0, markerHideOffset, 0);
+            //markerHideOffset *= -1;
+        } else {
+            spatial.detachChild(ownerMarker);
+            spatial.detachChild(occupiedMarker);
+        }
     }
     
     
