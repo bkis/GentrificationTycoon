@@ -65,7 +65,12 @@ public class Tenant {
     
     @Override
     public String toString(){
-        return "TENANT - Name :" + name + " - Prof.: " + profession;
+        return "[TENANT] "
+                + "Name:'" + name
+                + "' Prof:'" + profession
+                + "' MinLux:'" + minLuxury
+                + "' Budget:'" + budget
+                + "'";
     }
     
 }
