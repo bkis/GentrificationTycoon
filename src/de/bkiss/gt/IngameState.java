@@ -23,11 +23,9 @@ import de.bkiss.gt.logic.Game;
 import de.bkiss.gt.gui.GUIController;
 import de.bkiss.gt.objects.Car;
 import de.bkiss.gt.objects.GameObject;
-import de.bkiss.gt.tenants.TenantGenerator;
 import de.bkiss.gt.utils.InputMapper;
 import de.bkiss.gt.utils.TextLoader;
 import java.util.List;
-import java.util.Random;
 
 /**
  *
@@ -46,7 +44,6 @@ public class IngameState extends AbstractAppState{
     private GUIController guiController;
     private Game game;
     private District district;
-    private TenantGenerator tenantGen;
     
     
     public IngameState(InputMapper inputMapper,
@@ -57,7 +54,11 @@ public class IngameState extends AbstractAppState{
         this.inputMapper = inputMapper;
         this.guiController = guiController;
         this.district = district;
-        this.game = new Game(playerName, playerIconPath, district, guiController);
+        this.game = new Game(playerName,
+                playerIconPath,
+                district,
+                guiController,
+                assetManager);
     }
     
     
@@ -78,9 +79,6 @@ public class IngameState extends AbstractAppState{
         
         //register text loader
         assetManager.registerLoader(TextLoader.class, "txt");
-        
-        //launch tenant generator
-        this.tenantGen = new TenantGenerator(assetManager);
         
         //load district
         addObjects(district.getObjectList());
@@ -115,12 +113,6 @@ public class IngameState extends AbstractAppState{
         
         //start day timer ( calls game.nextDay() )
         game.getTimer().addDayTimeTask(game, DAY_LENGTH_IN_MS);
-        
-        
-        //DEBUG TEST TENANTS
-        for (int i = 0; i < 50; i++) {
-            System.out.println(tenantGen.generateTenant(Math.random() < 0.5f, new Random().nextInt(3)));
-        }
     }
 
     
