@@ -55,6 +55,9 @@ public class GUIController implements ScreenController {
     private Element popup;
     private Spatial marker;
     
+    private boolean btnBuildActive;
+    private boolean btnDestroyActive;
+    
     
     public GUIController(Application app, MainState mainState,
             District district){
@@ -68,6 +71,9 @@ public class GUIController implements ScreenController {
         this.district = district;
         nifty = niftyDisplay.getNifty();
         app.getGuiViewPort().addProcessor(niftyDisplay);
+        
+        this.btnBuildActive = false;
+        this.btnDestroyActive = false;
         
         //create selection marker
         marker = ModelLoader.createSelectionMarker(app.getAssetManager());
@@ -101,13 +107,23 @@ public class GUIController implements ScreenController {
     
     
     public void openPopup(String key){
-        popup = nifty.createPopup("popup_layer");
+        popup = null;
         
-//        if (key.startsWith("info")){
-//            
-//        }
+        //select popup
+        if (key.startsWith("build")){
+            if (!btnBuildActive) return;
+            if (district.getSelected().isOwnedByPlayer()){
+                popup = nifty.createPopup("popup_edit");
+            } else {
+                popup = nifty.createPopup("popup_build");
+            }
+        } else if (key.startsWith("destroy")){
+            if (!btnDestroyActive) return;
+            popup = nifty.createPopup("popup_destroy");
+        }
         
-        nifty.showPopup(screen, popup.getId(), null);
+        //open popup
+        if (popup != null) nifty.showPopup(screen, popup.getId(), null);
     }
     
     
@@ -204,10 +220,14 @@ public class GUIController implements ScreenController {
         if (district.getSelected() == null){
             setIconImage("button_build", HUD_IMG_PATH + BTN_BUILD_OFF);
             setIconImage("button_destroy", HUD_IMG_PATH + BTN_DESTROY_OFF);
+            this.btnBuildActive = false;
+            this.btnDestroyActive = false;
         } else {
-            if (district.getSelected().isOwnedByPlayer()){
-                setIconImage("button_build", HUD_IMG_PATH + BTN_BUILD_ON);
+            setIconImage("button_build", HUD_IMG_PATH + BTN_BUILD_ON);
+            this.btnBuildActive = true;
+            if (district.getSelected().isOwnedByPlayer() && district.getSelected() instanceof House){
                 setIconImage("button_destroy", HUD_IMG_PATH + BTN_DESTROY_ON);
+                this.btnDestroyActive = true;
             }
         }
     }
