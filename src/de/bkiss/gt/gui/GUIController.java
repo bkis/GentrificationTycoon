@@ -112,10 +112,12 @@ public class GUIController implements ScreenController {
         //select popup
         if (key.startsWith("build")){
             if (!btnBuildActive) return;
-            if (district.getSelected().isOwnedByPlayer()){
-                popup = nifty.createPopup("popup_edit");
-            } else {
+            if (!district.getSelected().isOwnedByPlayer()){
+                popup = nifty.createPopup("popup_buy");
+            } else if (district.getSelected() instanceof Land){
                 popup = nifty.createPopup("popup_build");
+            } else if (district.getSelected() instanceof House){
+                popup = nifty.createPopup("popup_edit");
             }
         } else if (key.startsWith("destroy")){
             if (!btnDestroyActive) return;

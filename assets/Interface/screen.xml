@@ -60,11 +60,11 @@
 			<panel id="panel_hud_buttons" width="100%" height="" childLayout="center">
 				<panel id="panel_hud_buttons_inner" width="" height="" childLayout="horizontal">
 					<image filename="Interface/hud/spacer_l.png"></image>
-					<image id="button_info" filename="Interface/hud/hud-button-info.png"  visibleToMouse="true"><interact onRelease="toggleObjectMarkers()" /></image>
+					<image id="button_info" filename="Interface/hud/hud-button-info.png" visibleToMouse="true"><interact onRelease="toggleObjectMarkers()" /></image>
 					<image filename="Interface/hud/spacer_m.png"></image>
-					<image id="button_build" filename="Interface/hud/hud-button-buil.png"  visibleToMouse="true"><interact onRelease="openPopup(bank)" /></image>
+					<image id="button_build" filename="Interface/hud/hud-button-buil-off.png" visibleToMouse="true"><interact onRelease="openPopup(build)" /></image>
 					<image filename="Interface/hud/spacer_m.png"></image>
-					<image id="button_destroy" filename="Interface/hud/hud-button-wrck.png" visibleToMouse="true"><interact onRelease="openPopup(bank)" /></image>
+					<image id="button_destroy" filename="Interface/hud/hud-button-wrck-off.png" visibleToMouse="true"><interact onRelease="openPopup(destroy)" /></image>
 					<image filename="Interface/hud/spacer_m.png"></image>
 					<image id="button_bank" filename="Interface/hud/hud-button-bank.png" visibleToMouse="true"><interact onRelease="openPopup(bank)" /></image>
 					<image filename="Interface/hud/spacer_m.png"></image>
@@ -116,7 +116,7 @@
 						</panel>
 						
 						<panel id="panel_hud_info_image_panel" width="120" height="100%" align="right" childLayout="center">
-							<image id="panel_hud_info_image" filename="${CALL.getDefaultImgPath()}" height="100" width="100"></image>
+							<image id="panel_hud_info_image" filename="${CALL.getDefaultImgPath()}" height="100" width="100" visibleToMouse="true"><interact onRelease="openPopup(house)"/></image>
 						</panel>
 					</panel>
 					
@@ -127,19 +127,35 @@
   	</screen>
   	
   	
-  	<popup id="popup_layer" childLayout="center" backgroundColor="#00000088" visibleToMouse="true">
-		<panel id="popup_spacer_top" width="100%" height="10%"></panel>
+  	<popup id="popup_buy" childLayout="center" backgroundColor="#00000088" visibleToMouse="true">
+		<!-- <panel id="popup_spacer_top" width="100%" height="10%"></panel> -->
 		
-		<panel id="popup_window" width="60%" height="60%" childLayout="vertical" backgroundColor="#000000ff">
+		<panel id="popup_window" width="600" height="400" childLayout="vertical" backgroundColor="#000000ff">
 			<panel id="popup_window_titlebar" width="100%" height="20" childLayout="center" backgroundColor="#a55731ff">
 				<text text="TITLE!" font="Interface/Fonts/Default.fnt" width="100%" height="100%" wrap="false" align="center"/>
 			</panel>
 			
-			<panel id="popup_window_content" width="100%" height="100%" childLayout="vertical" backgroundColor="#000000ff">
+			<panel id="popup_window_content" width="100%" height="330" childLayout="vertical" backgroundColor="#000000ff">
 				<text text="CONTENT!" font="Interface/Fonts/Default.fnt" width="100%" height="100%" wrap="false"/>
-				<image filename="Interface/hud/close-window.png" visibleToMouse="true"><interact onRelease="closePopup()" /></image>
+			</panel>
+			
+			<panel id="popup_window_buttons" width="100%" height="50" childLayout="horizontal" backgroundColor="#000000ff">
+				<panel id="popup_window_buttons_spacer" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
+				
+				<control name="button" style="custom-button" label="OK" id="button_popup_ok" align="center" valign="center" width="100" height="30" visibleToMouse="true">
+					<interact onRelease="closePopup()()" />
+     			</control>
+				
+				<panel id="popup_window_buttons_spacer" width="20" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
+				
+				<control name="button" style="custom-button" label="Cancel" id="button_popup_cancel" align="center" valign="center" width="100" height="30" visibleToMouse="true">
+					<interact onRelease="closePopup()()" />
+     			</control>
+				
+				<panel id="popup_window_buttons_spacer" width="20" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
 			</panel>
 		</panel>
 	</popup>
+	
 	
 </nifty>
