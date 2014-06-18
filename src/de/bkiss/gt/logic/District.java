@@ -2,10 +2,8 @@ package de.bkiss.gt.logic;
 
 import com.jme3.app.Application;
 import com.jme3.app.SimpleApplication;
-import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Spatial;
-import de.bkiss.gt.objects.ConstructionSite;
 import de.bkiss.gt.objects.GameObject;
 import de.bkiss.gt.objects.House;
 import de.bkiss.gt.objects.Land;
@@ -118,25 +116,25 @@ public class District {
     private String[][] getBoardMatrix(){
         String[][] matrix = {
             {STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX},
-            {STV,CON,STV,H01,STV,H01,STV,H03,STV,H03,STV,CON,STV,H01,STV,H01,STV,H03,STV,H03,STV},
+            {STV,LAN,STV,H01,STV,H01,STV,H03,STV,H03,STV,LAN,STV,H01,STV,H01,STV,H03,STV,H03,STV},
             {STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX},
-            {STV,H01,STV,CON,STV,CON,STV,H01,STV,H03,STV,H01,STV,CON,STV,CON,STV,H01,STV,H03,STV},
-            {STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX},
-            {STV,H01,STV,LAN,STV,H02,STV,H02,STV,H02,STV,H01,STV,LAN,STV,H02,STV,H02,STV,H02,STV},
-            {STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX},
-            {STV,H01,STV,H01,STV,LAN,STV,H02,STV,CON,STV,H01,STV,H01,STV,LAN,STV,H02,STV,CON,STV},
-            {STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX},
-            {STV,CON,STV,LAN,STV,H01,STV,H02,STV,H02,STV,CON,STV,LAN,STV,H01,STV,H02,STV,H02,STV},
-            {STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX},
-            {STV,CON,STV,H01,STV,H01,STV,H03,STV,H03,STV,CON,STV,H01,STV,H01,STV,H03,STV,H03,STV},
-            {STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX},
-            {STV,H01,STV,CON,STV,CON,STV,H01,STV,H03,STV,H01,STV,CON,STV,CON,STV,H01,STV,H03,STV},
+            {STV,H01,STV,LAN,STV,LAN,STV,H01,STV,H03,STV,H01,STV,LAN,STV,LAN,STV,H01,STV,H03,STV},
             {STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX},
             {STV,H01,STV,LAN,STV,H02,STV,H02,STV,H02,STV,H01,STV,LAN,STV,H02,STV,H02,STV,H02,STV},
             {STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX},
-            {STV,H01,STV,H01,STV,LAN,STV,H02,STV,CON,STV,H01,STV,H01,STV,LAN,STV,H02,STV,CON,STV},
+            {STV,H01,STV,H01,STV,LAN,STV,H02,STV,LAN,STV,H01,STV,H01,STV,LAN,STV,H02,STV,LAN,STV},
             {STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX},
-            {STV,CON,STV,LAN,STV,H01,STV,H02,STV,H02,STV,CON,STV,LAN,STV,H01,STV,H02,STV,H02,STV},
+            {STV,LAN,STV,LAN,STV,H01,STV,H02,STV,H02,STV,LAN,STV,LAN,STV,H01,STV,H02,STV,H02,STV},
+            {STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX},
+            {STV,LAN,STV,H01,STV,H01,STV,H03,STV,H03,STV,LAN,STV,H01,STV,H01,STV,H03,STV,H03,STV},
+            {STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX},
+            {STV,H01,STV,LAN,STV,LAN,STV,H01,STV,H03,STV,H01,STV,LAN,STV,LAN,STV,H01,STV,H03,STV},
+            {STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX},
+            {STV,H01,STV,LAN,STV,H02,STV,H02,STV,H02,STV,H01,STV,LAN,STV,H02,STV,H02,STV,H02,STV},
+            {STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX},
+            {STV,H01,STV,H01,STV,LAN,STV,H02,STV,LAN,STV,H01,STV,H01,STV,LAN,STV,H02,STV,LAN,STV},
+            {STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX},
+            {STV,LAN,STV,LAN,STV,H01,STV,H02,STV,H02,STV,LAN,STV,LAN,STV,H01,STV,H02,STV,H02,STV},
             {STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX}
         };
         return matrix;
@@ -193,10 +191,6 @@ public class District {
                 } else if (curr.equals(H03)){
                     go = new House(app,
                             House.TYPE_HOUSE_3, "Haus Nr." + i + "" + j, this);
-                } else if (curr.equals(CON)){
-                    go = new ConstructionSite(app,
-                            "ConstructionSite Nr." + i + "" + j, this, null);
-                    //go.getSpatial().rotate(0, FastMath.DEG_TO_RAD*90, 0);
                 } else if (curr.equals(LAN)){
                     go = new Land(app,
                             "Land Nr." + i + "" + j, this);
@@ -244,16 +238,6 @@ public class District {
         for (Entry<String, GameObject> e : objects.entrySet()){
             e.getValue().setMarkers(objectMarkers);
         }
-    }
-    
-    
-    public void finishConstruction(ConstructionSite cs){
-        GameObject go = cs.getBuilding();
-        go.getSpatial().setName(cs.getSpatial().getName());
-        cs.getSpatial().removeFromParent();
-        objects.remove(go.getSpatial().getName());
-        addGameObject(go.getSpatial().getName(), go);
-        app.getRootNode().attachChild(go.getSpatial());
     }
     
     
