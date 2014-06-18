@@ -114,6 +114,8 @@ public class GUIController implements ScreenController {
             if (!btnBuildActive) return;
             if (!district.getSelected().isOwnedByPlayer()){
                 popup = nifty.createPopup("popup_buy");
+                setLabelText(popup.findElementByName("popup_buy_window_title"),
+                        "Buy '" + district.getSelected().getName() + "'?");
             } else if (district.getSelected() instanceof Land){
                 popup = nifty.createPopup("popup_build");
             } else if (district.getSelected() instanceof House){
@@ -171,19 +173,24 @@ public class GUIController implements ScreenController {
     
     private void setLabelText(String id, String text){
         Element e = getElement(id);
+        setLabelText(e, text);
+    }
+    
+    
+    private void setLabelText(Element e, String text){
         TextRenderer eRenderer = e.getRenderer(TextRenderer.class);
         eRenderer.setText(text);
         e.layoutElements();
         e.setConstraintWidth(new SizeValue(eRenderer.getTextWidth()+"px"));
         
-        getElement(id).setWidth(getElement(id).getRenderer(TextRenderer.class).getTextWidth());
+        e.setWidth(e.getRenderer(TextRenderer.class).getTextWidth());
         
         int width = 0;
-        for (Element el : getElement(id).getParent().getElements())
+        for (Element el : e.getParent().getElements())
             if (width < el.getWidth())
                 width = el.getWidth();
         
-        getElement(id).getParent().setWidth(width);
+        e.getParent().setWidth(width);
     }
     
     
