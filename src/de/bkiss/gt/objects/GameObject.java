@@ -95,6 +95,8 @@ public abstract class GameObject {
             objSpatial = ModelLoader.loadSpatial(app.getAssetManager(),
                                 "Models/GameObjects/", type
                                 + randomABC());
+            if (type.equals(TYPE_HOUSE_2) || type.equals(TYPE_HOUSE_3))
+                objSpatial.rotate(0, FastMath.DEG_TO_RAD*180, 0);
         } else if (type.equals(TYPE_CONSTRUCTION)){
             objSpatial = ModelLoader.loadSpatial(app.getAssetManager(),
                                 "Models/GameObjects/", type);
