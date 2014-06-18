@@ -164,7 +164,7 @@
 		
 		<panel id="popup_build_window" width="600" height="400" childLayout="vertical" backgroundColor="#000000ff">
 			<panel id="popup_build_window_titlebar" width="100%" height="20" childLayout="center" backgroundColor="#a55731ff">
-				<text text="TITLE!" font="Interface/Fonts/Default.fnt" width="100%" height="100%" wrap="false" align="center"/>
+				<control id="popup_build_window_title" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="100%"/>
 			</panel>
 			
 			<panel id="popup_build_window_content" width="100%" height="330" childLayout="vertical" backgroundColor="#000000ff">
@@ -194,7 +194,7 @@
 		
 		<panel id="popup_edit_window" width="600" height="400" childLayout="vertical" backgroundColor="#000000ff">
 			<panel id="popup_edit_window_titlebar" width="100%" height="20" childLayout="center" backgroundColor="#a55731ff">
-				<text text="TITLE!" font="Interface/Fonts/Default.fnt" width="100%" height="100%" wrap="false" align="center"/>
+				<control id="popup_edit_window_title" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="100%"/>
 			</panel>
 			
 			<panel id="popup_edit_window_content" width="100%" height="330" childLayout="vertical" backgroundColor="#000000ff">
@@ -224,7 +224,7 @@
 		
 		<panel id="popup_destroy_window" width="600" height="400" childLayout="vertical" backgroundColor="#000000ff">
 			<panel id="popup_destroy_window_titlebar" width="100%" height="20" childLayout="center" backgroundColor="#a55731ff">
-				<text text="TITLE!" font="Interface/Fonts/Default.fnt" width="100%" height="100%" wrap="false" align="center"/>
+				<control id="popup_destroy_window_title" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="100%"/>
 			</panel>
 			
 			<panel id="popup_destroy_window_content" width="100%" height="330" childLayout="vertical" backgroundColor="#000000ff">
