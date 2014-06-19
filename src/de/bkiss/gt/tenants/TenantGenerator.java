@@ -30,7 +30,8 @@ public class TenantGenerator {
         
         Tenant t = new Tenant(name, budget, prof, minLux, "imgPath");
         for (int i = 0; i < (socialClass+1)*2; i++)
-            t.addNeed(gen.getRndExpansionFor(socialClass));
+            if (Math.random() > 0.3f)
+                t.addNeed(gen.getRndExpansionFor(socialClass));
         
         return t;
     }
