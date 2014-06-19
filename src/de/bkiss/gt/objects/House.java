@@ -42,13 +42,10 @@ public class House extends GameObject {
 
     
     public void addExpansion(Expansion exp){
-        if (expansions.contains(exp)){
-            System.out.println("Could not add expansion '" + exp + "' to '"
-                    + this);
-        } else {
-            expansions.add(exp);
-            System.out.println("Added expansion '" + exp + "' to '" + this);
-        }
+        for (Expansion e : expansions)
+            if (e.getName().equals(exp.getName()))
+                return;
+        expansions.add(exp);
     }
     
     
