@@ -28,7 +28,11 @@ public class TenantGenerator {
         int budget = getRndBudget(socialClass);
         int minLux = getRndMinLux(budget);
         
-        return new Tenant(name, budget, prof, minLux, "imgPath");
+        Tenant t = new Tenant(name, budget, prof, minLux, "imgPath");
+        for (int i = 0; i < (socialClass+1)*2; i++)
+            t.addNeed(gen.getRndExpansionFor(socialClass));
+        
+        return t;
     }
     
     

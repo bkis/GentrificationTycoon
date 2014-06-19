@@ -1,5 +1,9 @@
 package de.bkiss.gt.tenants;
 
+import de.bkiss.gt.objects.Expansion;
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  *
  * @author boss
@@ -11,6 +15,7 @@ public class Tenant {
     private String profession;
     private int minLuxury;
     private String imgPath;
+    private Set<Expansion> needs;
 
     
     
@@ -20,6 +25,18 @@ public class Tenant {
         this.profession = profession;
         this.minLuxury = minLuxury;
         this.imgPath = imgPath;
+        this.needs = new HashSet<Expansion>();
+    }
+    
+    public void addNeed(Expansion need){
+        for (Expansion n : needs)
+            if (n.getName().equals(need.getName()))
+                return;
+        needs.add(need);
+    }
+    
+    public Set<Expansion> getNeeds(){
+        return needs;
     }
 
     public String getName() {
@@ -70,7 +87,7 @@ public class Tenant {
                 + "' Prof:'" + profession
                 + "' MinLux:'" + minLuxury
                 + "' Budget:'" + budget
-                + "'";
+                + "' Needs: " + needs;
     }
     
 }

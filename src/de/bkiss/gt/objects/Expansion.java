@@ -31,7 +31,8 @@ public class Expansion implements Comparable<Expansion>{
         return name;
     }
 
-
+    
+    @Override
     public int compareTo(Expansion t) {
         return t.getName().compareTo(getName());
     }
@@ -39,7 +40,7 @@ public class Expansion implements Comparable<Expansion>{
     
     @Override
     public String toString(){
-        return name;
+        return name + "(" + price + "," + effect + ")";
     }
     
 }
