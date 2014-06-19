@@ -200,10 +200,6 @@ public class District {
                 go.getSpatial().move(i-(getBoardWidth()/2), 0, j-(getBoardHeight()/2));
                 go.getSpatial().setName(go.getSpatial().getName() + "_" + i + "." + j);
                 addGameObject(go.getSpatial().getName(), go);
-                
-                //TEMP
-                if (!go.isPassive() && new Random().nextInt(10) < 5) go.setOccupied(false);
-                if (!go.isPassive() && new Random().nextInt(10) < 5) go.setOwned(false);
             }
         }
         

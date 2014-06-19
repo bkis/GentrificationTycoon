@@ -73,10 +73,10 @@ public class Game {
                     new Random().nextInt(3)));
         }
         
-        //DEBUG
-        for (int i = 0; i < tenants.size(); i++) {
-            System.out.println(tenants.get(i));
-        }
+//        //DEBUG
+//        for (int i = 0; i < tenants.size(); i++) {
+//            System.out.println(tenants.get(i));
+//        }
     }
     
 }
