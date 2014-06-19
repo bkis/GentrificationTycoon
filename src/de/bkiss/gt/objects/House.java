@@ -12,10 +12,8 @@ import java.util.Set;
 public class House extends GameObject {
     
     private int rent;
-    //private int luxury;         // 0-100    type (+expansions bonuses)
-    //private int neighborhood;   // 0-100    streets, infrastructure
-    
     private Set<Expansion> expansions;
+    
     
     public House(Application app, String type, String name, District district){
         super(app, type, name, district);
