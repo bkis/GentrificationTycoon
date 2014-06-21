@@ -35,7 +35,6 @@ public abstract class GameObject {
     
     private Geometry ownerMarker;
     private Geometry occupiedMarker;
-    private float markerHideOffset;
     
     private SimpleApplication app;
     private String imagePath;
@@ -48,7 +47,6 @@ public abstract class GameObject {
         this.district = district;
         this.app = (SimpleApplication) app;
         this.imagePath = "Interface/hud/" + type + ".png";
-        this.markerHideOffset = 100;
         
         if (!type.equals(TYPE_PASSIVE)){
             loadSpatial();
