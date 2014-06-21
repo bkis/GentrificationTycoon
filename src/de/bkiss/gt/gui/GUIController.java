@@ -9,6 +9,8 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import de.bkiss.gt.logic.District;
+import de.bkiss.gt.logic.Game;
+import de.bkiss.gt.logic.Player;
 import de.bkiss.gt.objects.GameObject;
 import de.bkiss.gt.objects.House;
 import de.bkiss.gt.objects.Land;
@@ -54,6 +56,8 @@ public class GUIController implements ScreenController {
     private NiftyJmeDisplay niftyDisplay;
     private Element popup;
     private Spatial marker;
+    private Game game;
+    private Player player;
     
     private boolean btnBuildActive;
     private boolean btnDestroyActive;
@@ -113,9 +117,7 @@ public class GUIController implements ScreenController {
         if (key.startsWith("build")){
             if (!btnBuildActive) return;
             if (!district.getSelected().isOwnedByPlayer()){
-                popup = nifty.createPopup("popup_buy");
-                setLabelText(popup.findElementByName("popup_buy_window_title"),
-                        "Buy '" + district.getSelected().getName() + "'?");
+                prepareBuyPopup();
             } else if (district.getSelected() instanceof Land){
                 popup = nifty.createPopup("popup_build");
             } else if (district.getSelected() instanceof House){
@@ -126,8 +128,30 @@ public class GUIController implements ScreenController {
             popup = nifty.createPopup("popup_destroy");
         }
         
-        //open popup
         if (popup != null) nifty.showPopup(screen, popup.getId(), null);
+    }
+    
+    
+    private void prepareBuyPopup(){
+        //choose popup layout
+        popup = nifty.createPopup("popup_buy");
+        
+        //set popup title
+        setLabelText(popup.findElementByName("popup_buy_window_title"),
+                        "Buy '" + district.getSelected().getName() + "'?");
+        
+        //check preconditions
+        if (player.getMoney() >= district.getSelected().getValue()){
+            setLabelText(popup.findElementByName("popup_buy_text"),
+                    "Would you like to buy '" + district.getSelected().getName()
+                    + "' (" + moneyFormat(district.getSelected().getValue()) + "$)?");
+            popup.findElementByName("button_popup_buy_ok").setVisible(true);
+        } else {
+            setLabelText(popup.findElementByName("popup_buy_text"),
+                    "You don't have enough money to buy '" + district.getSelected().getName()
+                    + "' (" + moneyFormat(district.getSelected().getValue()) + "$).");
+            popup.findElementByName("button_popup_buy_ok").setVisible(false);
+        }
     }
     
     
@@ -139,6 +163,14 @@ public class GUIController implements ScreenController {
     public void bind(Nifty nifty, Screen screen) {
         this.nifty = nifty;
         this.screen = screen;
+    }
+    
+    
+    public void buyHouse(){
+        player.reduceMoney(district.getSelected().getValue());
+        district.getSelected().setOwned(true);
+        refreshPlayerMoneyDisplay();
+        closePopup();
     }
 
     
@@ -168,6 +200,11 @@ public class GUIController implements ScreenController {
     
     public String getDefaultImgPath(){
         return HUD_IMG_PATH + HUD_DEFAULT_INFO_ICON;
+    }
+    
+    
+    public String getCurrentImgPath(){
+        return district.getSelected().getImagePath();
     }
     
     
@@ -222,6 +259,12 @@ public class GUIController implements ScreenController {
             displayObjectInfo(go);
         
         refreshButtonStates();
+    }
+    
+    
+    public void setGame(Game game){
+        this.game = game;
+        this.player = game.getPlayer();
     }
     
     
@@ -332,6 +375,11 @@ public class GUIController implements ScreenController {
         setLabelText("player_name", playerName);
         setLabelText("player_money", moneyFormat(playerMoney) + "$");
         setIconImage("panel_hud_info_avatar", playerIconPath);
+    }
+    
+    
+    private void refreshPlayerMoneyDisplay(){
+        setLabelText("player_money", moneyFormat(player.getMoney()) + "$");
     }
     
     

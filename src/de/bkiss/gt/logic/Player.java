@@ -14,7 +14,7 @@ public class Player {
     public Player(String name, String iconPath){
         this.name = name;
         this.iconPath = iconPath;
-        this.money = 10000;
+        this.money = 1000000;
     }
     
     
@@ -35,6 +35,11 @@ public class Player {
     
     public void setMoney(int money){
         this.money = money;
+    }
+    
+    
+    public void reduceMoney(int by){
+        this.money -= by;
     }
     
 }

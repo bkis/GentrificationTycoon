@@ -116,7 +116,7 @@
 						</panel>
 						
 						<panel id="panel_hud_info_image_panel" width="120" height="100%" align="right" childLayout="center">
-							<image id="panel_hud_info_image" filename="${CALL.getDefaultImgPath()}" height="100" width="100" visibleToMouse="true"><interact onRelease="openPopup(house)"/></image>
+							<image id="panel_hud_info_image" filename="${CALL.getDefaultImgPath()}" height="100" width="100"></image>
 						</panel>
 					</panel>
 					
@@ -138,14 +138,16 @@
 			</panel>
 			
 			<panel id="popup_buy_window_content" width="100%" height="330" childLayout="vertical" backgroundColor="#000000ff">
-				<text text="CONTENT!" font="Interface/Fonts/Default.fnt" width="100%" height="100%" wrap="false"/>
+				<panel id="popup_buy_window_content_spacer" width="100%" height="90" childLayout="horizontal"></panel>
+				<image id="popup_buy_img" filename="${CALL.getCurrentImgPath()}" align="center" height="100" width="100"></image>
+				<control id="popup_buy_text" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="50"/>
 			</panel>
 			
 			<panel id="popup_buy_window_buttons" width="100%" height="50" childLayout="horizontal" backgroundColor="#000000ff">
 				<panel id="popup_buy_window_buttons_spacer" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
 				
-				<control name="button" style="custom-button" label="OK" id="button_popup_buy_ok" align="center" valign="center" width="100" height="30" visibleToMouse="true">
-					<interact onRelease="closePopup()" />
+				<control name="button" style="custom-button" label="Buy!" id="button_popup_buy_ok" align="center" valign="center" width="100" height="30" visibleToMouse="true">
+					<interact onRelease="buyHouse()" />
      			</control>
 				
 				<panel id="popup_buy_window_buttons_spacer" width="20" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>

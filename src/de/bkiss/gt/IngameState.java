@@ -113,6 +113,7 @@ public class IngameState extends AbstractAppState{
         //load gui and game
         guiController.loadScreen(GUIController.SCREEN_INGAME);
         guiController.displayPlayerData(game.getPlayer().getName(), game.getPlayer().getMoney(), game.getPlayer().getIconPath());
+        guiController.setGame(game);
         
         //set cam
         cam.setLocation(new Vector3f(0, 10, 9));
