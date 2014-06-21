@@ -15,7 +15,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Random;
 import java.util.Set;
 
 /**
@@ -51,6 +50,33 @@ public class District {
     public void addGameObject(String id, GameObject object){
         objects.put(id, object);
         System.out.println("Added " + object.getName() + " to the District.");
+    }
+    
+    
+    public GameObject buildHouse(String type, Land land){
+        GameObject go;
+        
+        if (type.startsWith("HOUSE")){
+            go = new House(app, type, "Haus by Player " + Math.random(), this);
+        } else {
+            //TODO Extra
+            go = new House(app, type, "Haus by Player " + Math.random(), this);
+        }
+        
+        //replace land with house
+        app.getRootNode().attachChild(go.getSpatial());
+        go.getSpatial().setLocalTranslation(land.getSpatial().getLocalTranslation());
+        app.getRootNode().detachChild(land.getSpatial());
+        
+        if (go instanceof House){
+            ((House)go).setRent(((House)go).calcDefaultRent());
+            ((House)go).setOwned(true);
+        }
+        
+        objects.remove(land.getName());
+        objects.put(go.getName(), go);
+        
+        return go;
     }
     
     

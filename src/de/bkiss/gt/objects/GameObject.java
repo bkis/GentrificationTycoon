@@ -103,6 +103,9 @@ public abstract class GameObject {
                                 "Models/GameObjects/", type);
         }
         
+        if (objSpatial == null) return;
+        
+        objSpatial.setName("building-"+name);
         spatial.attachChild(objSpatial);
         createOwnerMarker();
         createOccupiedMarker();

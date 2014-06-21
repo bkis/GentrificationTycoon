@@ -46,6 +46,13 @@ public class GUIController implements ScreenController {
     private static final String BTN_DESTROY_ON = "hud-button-wrck.png";
     private static final String BTN_DESTROY_OFF = "hud-button-wrck-off.png";
     
+    private static final int PRICE_BUILD_H1 = 100000;
+    private static final int PRICE_BUILD_H2 = 300000;
+    private static final int PRICE_BUILD_H3 = 800000;
+    private static final int PRICE_BUILD_E1 = 500000;
+    private static final int PRICE_BUILD_E2 = 1000000;
+    private static final int PRICE_BUILD_E3 = 3000000;
+    
     private static final String HUD_DEFAULT_INFO_ICON = "defaultIconImg.png";
 
     private SimpleApplication app;
@@ -58,6 +65,7 @@ public class GUIController implements ScreenController {
     private Spatial marker;
     private Game game;
     private Player player;
+    private String currBuildSelection;
     
     private boolean btnBuildActive;
     private boolean btnDestroyActive;
@@ -101,6 +109,9 @@ public class GUIController implements ScreenController {
     
     
     public void startGame(){
+        popup = nifty.createPopup("popup_loading");
+        nifty.showPopup(screen, popup.getId(), null);
+        
         mainState.loadState(MainState.STATE_INGAME);
     }
     
@@ -119,7 +130,7 @@ public class GUIController implements ScreenController {
             if (!district.getSelected().isOwnedByPlayer()){
                 prepareBuyPopup();
             } else if (district.getSelected() instanceof Land){
-                popup = nifty.createPopup("popup_build");
+                prepareBuildPopup();
             } else if (district.getSelected() instanceof House){
                 popup = nifty.createPopup("popup_edit");
             }
@@ -155,6 +166,30 @@ public class GUIController implements ScreenController {
     }
     
     
+    private void prepareBuildPopup(){
+        //choose popup layout
+        popup = nifty.createPopup("popup_build");
+        
+        //set popup title
+        setLabelText(popup.findElementByName("popup_build_window_title"),
+                        "Build on '" + district.getSelected().getName() + "'?");
+        
+        //set prices display
+        setLabelText(popup.findElementByName("popup_build_price_h1"),
+                        moneyFormat(PRICE_BUILD_H1) + "");
+        setLabelText(popup.findElementByName("popup_build_price_h2"),
+                        moneyFormat(PRICE_BUILD_H2) + "");
+        setLabelText(popup.findElementByName("popup_build_price_h3"),
+                        moneyFormat(PRICE_BUILD_H3) + "");
+        setLabelText(popup.findElementByName("popup_build_price_h21"),
+                        moneyFormat(PRICE_BUILD_E1) + "");
+        setLabelText(popup.findElementByName("popup_build_price_h22"),
+                        moneyFormat(PRICE_BUILD_E2) + "");
+        setLabelText(popup.findElementByName("popup_build_price_h23"),
+                        moneyFormat(PRICE_BUILD_E3) + "");
+    }
+    
+    
     public void closePopup(){
         nifty.closePopup(popup.getId());
     }
@@ -171,6 +206,49 @@ public class GUIController implements ScreenController {
         district.getSelected().setOwned(true);
         refreshPlayerMoneyDisplay();
         closePopup();
+    }
+    
+    
+    public void buildHouse(){
+        String type;
+        if      (currBuildSelection.equals("H1")) type = House.TYPE_HOUSE_1;
+        else if (currBuildSelection.equals("H2")) type = House.TYPE_HOUSE_2;
+        else if (currBuildSelection.equals("H3")) type = House.TYPE_HOUSE_3;
+        else if (currBuildSelection.equals("E1")) type = House.TYPE_HOUSE_1;
+        else if (currBuildSelection.equals("E2")) type = House.TYPE_HOUSE_2;
+        else if (currBuildSelection.equals("E3")) type = House.TYPE_HOUSE_3;
+        else                                      type = House.TYPE_HOUSE_1;
+        
+        player.reduceMoney(district.buildHouse(type, (Land) district.getSelected()).getValue());
+        refreshPlayerMoneyDisplay();
+        district.setSelected(null);
+        clearObjectInfo();
+        refreshButtonStates();
+        closePopup();
+    }
+    
+    
+    public void selectBuild(String selectionKey){
+        currBuildSelection = selectionKey;
+        
+        if (player.getMoney() >= getDefPrice(currBuildSelection)){
+            setLabelText("popup_build_selection", "Build for " + moneyFormat(getDefPrice(currBuildSelection)) + "$ ?");
+            popup.findElementByName("button_popup_build_ok").setVisible(true);
+        } else {
+            setLabelText("popup_build_selection", "You don't have enough money (" + moneyFormat(getDefPrice(currBuildSelection)) + "$).");
+            popup.findElementByName("button_popup_build_ok").setVisible(false);
+        }
+    }
+    
+    
+    private int getDefPrice(String buildingKey){
+        if      (buildingKey.equals("H1")) return PRICE_BUILD_H1;
+        else if (buildingKey.equals("H2")) return PRICE_BUILD_H2;
+        else if (buildingKey.equals("H3")) return PRICE_BUILD_H3;
+        else if (buildingKey.equals("E1")) return PRICE_BUILD_E1;
+        else if (buildingKey.equals("E2")) return PRICE_BUILD_E2;
+        else if (buildingKey.equals("E3")) return PRICE_BUILD_E3;
+        else    return 0;
     }
 
     
@@ -240,7 +318,7 @@ public class GUIController implements ScreenController {
         if (clicked == null) return;
         if (district.getGameObject(clicked.getParent().getParent())
                 == district.getSelected()){
-            highlight(null);
+            highlight(new Geometry("null"));
             clearObjectInfo();
             district.setSelected(null);
             refreshButtonStates();
