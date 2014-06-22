@@ -20,7 +20,10 @@ public abstract class GameObject {
     public static final String TYPE_HOUSE_2      = "house_2";
     public static final String TYPE_HOUSE_3      = "house_3";
     
-    public static final String TYPE_CONSTRUCTION = "construction";
+    public static final String PUBLIC_CLUB       = "public_club";
+    public static final String PUBLIC_GALLERY    = "public_gallery";
+    public static final String PUBLIC_SCHOOL     = "public_school";
+    
     public static final String TYPE_LAND         = "land";
     
     public static final String TYPE_PASSIVE      = "passive";
@@ -64,6 +67,11 @@ public abstract class GameObject {
     public Spatial getSpatial(){
         return spatial;
     }
+    
+    
+    public String getType(){
+        return type;
+    }
 
     
     public boolean isOwnedByPlayer() {
@@ -95,12 +103,14 @@ public abstract class GameObject {
                                 + randomABC());
             if (type.equals(TYPE_HOUSE_2) || type.equals(TYPE_HOUSE_3))
                 objSpatial.rotate(0, FastMath.DEG_TO_RAD*180, 0);
-        } else if (type.equals(TYPE_CONSTRUCTION)){
-            objSpatial = ModelLoader.loadSpatial(app.getAssetManager(),
-                                "Models/GameObjects/", type);
         } else if (type.equals(TYPE_LAND)){
             objSpatial = ModelLoader.loadSpatial(app.getAssetManager(),
                                 "Models/GameObjects/", type);
+        } else if (type.contains("public")){
+            objSpatial = ModelLoader.loadSpatial(app.getAssetManager(),
+                                "Models/GameObjects/", type);
+            if (type.equals(PUBLIC_SCHOOL))
+                objSpatial.rotate(0, FastMath.DEG_TO_RAD*180, 0);
         }
         
         if (objSpatial == null) return;

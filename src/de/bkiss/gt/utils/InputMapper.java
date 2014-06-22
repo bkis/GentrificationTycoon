@@ -10,13 +10,11 @@ import com.jme3.input.controls.AnalogListener;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.input.controls.MouseButtonTrigger;
 import com.jme3.input.controls.Trigger;
-import com.jme3.math.ColorRGBA;
 import com.jme3.math.Ray;
 import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.Geometry;
-import com.jme3.scene.Spatial;
 import de.bkiss.gt.Main;
 import de.bkiss.gt.gui.GUIController;
 
@@ -160,8 +158,8 @@ public class InputMapper{
                 target = results.getCollision(step++).getGeometry();
             // Here comes the action:
             if (!target.getName().contains("house")
-                    && !target.getName().contains("construction")
-                    && !target.getName().contains("land"))
+                    && !target.getName().contains("land")
+                    && !target.getName().contains("public"))
                 return null;
         }
         return target;

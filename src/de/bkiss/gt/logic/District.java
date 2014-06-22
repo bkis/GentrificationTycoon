@@ -8,6 +8,7 @@ import de.bkiss.gt.objects.GameObject;
 import de.bkiss.gt.objects.House;
 import de.bkiss.gt.objects.Land;
 import de.bkiss.gt.objects.PassiveObject;
+import de.bkiss.gt.objects.PublicBuilding;
 import de.bkiss.gt.utils.ModelLoader;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -59,8 +60,7 @@ public class District {
         if (type.startsWith("HOUSE")){
             go = new House(app, type, "Haus by Player " + Math.random(), this);
         } else {
-            //TODO Extra
-            go = new House(app, type, "Haus by Player " + Math.random(), this);
+            go = new PublicBuilding(app, type, type.split("_")[1].toUpperCase() + " " + Math.random(), this);
         }
         
         //replace land with house
@@ -68,10 +68,10 @@ public class District {
         go.getSpatial().setLocalTranslation(land.getSpatial().getLocalTranslation());
         app.getRootNode().detachChild(land.getSpatial());
         
-        if (go instanceof House){
+        if (go instanceof House)
             ((House)go).setRent(((House)go).calcDefaultRent());
-            ((House)go).setOwned(true);
-        }
+        
+        go.setOwned(true);
         
         objects.remove(land.getName());
         objects.put(go.getName(), go);
@@ -164,6 +164,15 @@ public class District {
             {STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX,STH,STX}
         };
         return matrix;
+    }
+    
+    
+    public int getNrOfBuildings(String type){
+        int count = 0;
+        for (Entry<String,GameObject> e : objects.entrySet())
+            if (e.getValue().getType().equals(type))
+                count++;
+        return count;
     }
     
     

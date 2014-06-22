@@ -199,24 +199,24 @@
 				
 				<panel id="popup_build_window_content_gallery2" width="100%" childLayout="horizontal" backgroundColor="#000000ff">
 					<panel id="popup_build_window_content_gallery2_1" childLayout="vertical" width="200" backgroundColor="#000000ff">
-						<image id="popup_build_img_h21" filename="Interface/hud/house_1.png" align="center" height="100" width="100" visibleToMouse="true">
+						<image id="popup_build_img_h21" filename="Interface/hud/public_club.png" align="center" height="100" width="100" visibleToMouse="true">
 							<interact onRelease="selectBuild(E1)" />
 						</image>
-						<control id="popup_build_desc_h21" name="label" text="Extra1" align="center" height="18"/>
+						<control id="popup_build_desc_h21" name="label" text="Club" align="center" height="18"/>
 						<control id="popup_build_price_h21" name="label" text="" align="center" height="18"/>
 					</panel>
 					<panel id="popup_build_window_content_gallery2_2" childLayout="vertical" width="200" backgroundColor="#000000ff">
-						<image id="popup_build_img_h22" filename="Interface/hud/house_2.png" align="center" height="100" width="100" visibleToMouse="true">
+						<image id="popup_build_img_h22" filename="Interface/hud/public_gallery.png" align="center" height="100" width="100" visibleToMouse="true">
 							<interact onRelease="selectBuild(E2)" />
 						</image>
-						<control id="popup_build_desc_h22" name="label" text="Extra2" align="center" height="18"/>
+						<control id="popup_build_desc_h22" name="label" text="Art Gallery" align="center" height="18"/>
 						<control id="popup_build_price_h22" name="label" text="" align="center" height="18"/>
 					</panel>
 					<panel id="popup_build_window_content_gallery2_3" childLayout="vertical" width="200" backgroundColor="#000000ff">
-						<image id="popup_build_img_h23" filename="Interface/hud/house_3.png" align="center" height="100" width="100" visibleToMouse="true">
+						<image id="popup_build_img_h23" filename="Interface/hud/public_school.png" align="center" height="100" width="100" visibleToMouse="true">
 							<interact onRelease="selectBuild(E3)" />
 						</image>
-						<control id="popup_build_desc_h23" name="label" text="Extra3" align="center" height="18"/>
+						<control id="popup_build_desc_h23" name="label" text="Elementary School" align="center" height="18"/>
 						<control id="popup_build_price_h23" name="label" text="" align="center" height="18"/>
 					</panel>
 				</panel>

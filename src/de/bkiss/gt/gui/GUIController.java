@@ -14,6 +14,7 @@ import de.bkiss.gt.logic.Player;
 import de.bkiss.gt.objects.GameObject;
 import de.bkiss.gt.objects.House;
 import de.bkiss.gt.objects.Land;
+import de.bkiss.gt.objects.PublicBuilding;
 import de.bkiss.gt.states.MainState;
 import de.bkiss.gt.utils.ModelLoader;
 import de.lessvoid.nifty.Nifty;
@@ -49,9 +50,9 @@ public class GUIController implements ScreenController {
     private static final int PRICE_BUILD_H1 = 100000;
     private static final int PRICE_BUILD_H2 = 300000;
     private static final int PRICE_BUILD_H3 = 800000;
-    private static final int PRICE_BUILD_E1 = 500000;
-    private static final int PRICE_BUILD_E2 = 1000000;
-    private static final int PRICE_BUILD_E3 = 3000000;
+    private static final int PRICE_BUILD_E1 = 500000;   //CLUB
+    private static final int PRICE_BUILD_E2 = 1000000;  //GALLERY
+    private static final int PRICE_BUILD_E3 = 3000000;  //SCHOOL
     
     private static final String HUD_DEFAULT_INFO_ICON = "defaultIconImg.png";
 
@@ -214,9 +215,9 @@ public class GUIController implements ScreenController {
         if      (currBuildSelection.equals("H1")) type = House.TYPE_HOUSE_1;
         else if (currBuildSelection.equals("H2")) type = House.TYPE_HOUSE_2;
         else if (currBuildSelection.equals("H3")) type = House.TYPE_HOUSE_3;
-        else if (currBuildSelection.equals("E1")) type = House.TYPE_HOUSE_1;
-        else if (currBuildSelection.equals("E2")) type = House.TYPE_HOUSE_2;
-        else if (currBuildSelection.equals("E3")) type = House.TYPE_HOUSE_3;
+        else if (currBuildSelection.equals("E1")) type = GameObject.PUBLIC_CLUB;
+        else if (currBuildSelection.equals("E2")) type = GameObject.PUBLIC_GALLERY;
+        else if (currBuildSelection.equals("E3")) type = GameObject.PUBLIC_SCHOOL;
         else                                      type = House.TYPE_HOUSE_1;
         
         player.reduceMoney(district.buildHouse(type, (Land) district.getSelected()).getValue());
@@ -353,8 +354,13 @@ public class GUIController implements ScreenController {
             this.btnBuildActive = false;
             this.btnDestroyActive = false;
         } else {
-            setIconImage("button_build", HUD_IMG_PATH + BTN_BUILD_ON);
-            this.btnBuildActive = true;
+            if (district.getSelected() instanceof PublicBuilding){
+                setIconImage("button_build", HUD_IMG_PATH + BTN_BUILD_OFF);
+                this.btnBuildActive = false;
+            } else {
+                setIconImage("button_build", HUD_IMG_PATH + BTN_BUILD_ON);
+                this.btnBuildActive = true;
+            }
             if (district.getSelected().isOwnedByPlayer() && district.getSelected() instanceof House){
                 setIconImage("button_destroy", HUD_IMG_PATH + BTN_DESTROY_ON);
                 this.btnDestroyActive = true;
