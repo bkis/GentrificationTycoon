@@ -80,6 +80,20 @@ public class District {
     }
     
     
+    public void destroyBuilding(GameObject go){
+        Land land = new Land(app, "Land " + Math.random(), this);
+        
+        //replace building with land
+        app.getRootNode().attachChild(land.getSpatial());
+        land.getSpatial().setLocalTranslation(go.getSpatial().getLocalTranslation());
+        app.getRootNode().detachChild(go.getSpatial());
+        
+        objects.remove(go.getName());
+        objects.put(land.getName(), land);
+        land.setOwned(false);
+    }
+    
+    
     public GameObject getGameObject(String id){
         return objects.get(id);
     }

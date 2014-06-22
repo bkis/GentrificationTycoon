@@ -137,7 +137,7 @@ public class GUIController implements ScreenController {
             }
         } else if (key.startsWith("destroy")){
             if (!btnDestroyActive) return;
-            popup = nifty.createPopup("popup_destroy");
+            prepareDestroyPopup();
         }
         
         if (popup != null) nifty.showPopup(screen, popup.getId(), null);
@@ -191,6 +191,27 @@ public class GUIController implements ScreenController {
     }
     
     
+    private void prepareDestroyPopup(){
+        //choose popup layout
+        popup = nifty.createPopup("popup_destroy");
+        
+        //set popup title
+        setLabelText(popup.findElementByName("popup_destroy_window_title"),
+                        "Really destroy '" + district.getSelected().getName() + "'?");
+        
+        //and
+        if (district.getSelected().isOwnedByPlayer()){
+            setLabelText(popup.findElementByName("popup_destroy_text"),
+                        "Do you want to destroy '" + district.getSelected().getName() + "'?");
+        } else {
+            setLabelText(popup.findElementByName("popup_destroy_text"),
+                        "Impossible! There are still people living in '" + district.getSelected().getName() + "'!");
+            popup.findElementByName("button_popup_destroy_ok").setVisible(false);
+        }
+        
+    }
+    
+    
     public void closePopup(){
         nifty.closePopup(popup.getId());
     }
@@ -207,6 +228,7 @@ public class GUIController implements ScreenController {
         district.getSelected().setOwned(true);
         refreshPlayerMoneyDisplay();
         closePopup();
+        refreshButtonStates();
     }
     
     
@@ -239,6 +261,13 @@ public class GUIController implements ScreenController {
             setLabelText("popup_build_selection", "You don't have enough money (" + moneyFormat(getDefPrice(currBuildSelection)) + "$).");
             popup.findElementByName("button_popup_build_ok").setVisible(false);
         }
+    }
+    
+    
+    public void destroyBuilding(){
+        district.destroyBuilding(district.getSelected());
+        closePopup();
+        refreshButtonStates();
     }
     
     
@@ -361,9 +390,12 @@ public class GUIController implements ScreenController {
                 setIconImage("button_build", HUD_IMG_PATH + BTN_BUILD_ON);
                 this.btnBuildActive = true;
             }
-            if (district.getSelected().isOwnedByPlayer() && district.getSelected() instanceof House){
+            if (district.getSelected().isOwnedByPlayer()){
                 setIconImage("button_destroy", HUD_IMG_PATH + BTN_DESTROY_ON);
                 this.btnDestroyActive = true;
+            } else {
+                setIconImage("button_destroy", HUD_IMG_PATH + BTN_DESTROY_OFF);
+                this.btnDestroyActive = false;
             }
         }
     }
