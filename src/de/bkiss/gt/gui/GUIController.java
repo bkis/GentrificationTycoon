@@ -318,7 +318,7 @@ public class GUIController implements ScreenController {
         if (clicked == null) return;
         if (district.getGameObject(clicked.getParent().getParent())
                 == district.getSelected()){
-            highlight(new Geometry("null"));
+            highlight(null);
             clearObjectInfo();
             district.setSelected(null);
             refreshButtonStates();

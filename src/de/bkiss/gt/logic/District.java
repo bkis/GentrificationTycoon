@@ -263,4 +263,9 @@ public class District {
     }
     
     
+    public boolean isObjectMarkersOn(){
+        return objectMarkers;
+    }
+    
+    
 }

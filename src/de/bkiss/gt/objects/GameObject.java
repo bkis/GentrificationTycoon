@@ -112,6 +112,7 @@ public abstract class GameObject {
         setOwned(false);
         setOccupied(false);
         setMarkers(false);
+        setMarkers(district.isObjectMarkersOn());
     }
     
     
