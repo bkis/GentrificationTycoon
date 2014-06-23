@@ -68,7 +68,7 @@
 					<image filename="Interface/hud/spacer_m.png"></image>
 					<image id="button_bank" filename="Interface/hud/hud-button-bank.png" visibleToMouse="true"><interact onRelease="openPopup(bank)" /></image>
 					<image filename="Interface/hud/spacer_m.png"></image>
-					<image id="" filename="Interface/hud/hud-button-opin.png" visibleToMouse="true"><interact onRelease="openPopup(opinions)" /></image>
+					<image id="" filename="Interface/hud/hud-button-opin.png" visibleToMouse="true"><interact onRelease="openPopup(tenants)" /></image>
 					<image filename="Interface/hud/spacer_m.png"></image>
 					<image id="" filename="Interface/hud/hud-button-quit.png" visibleToMouse="true"><interact onRelease="quitGame()" /></image>
 					<image filename="Interface/hud/spacer_r.png"></image>
@@ -300,6 +300,55 @@
      			</control>
 				
 				<panel id="popup_destroy_window_buttons_spacer" width="20" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
+			</panel>
+		</panel>
+	</popup>
+	
+	
+	<popup id="popup_tenants" childLayout="center" backgroundColor="#00000088" visibleToMouse="true">
+		
+		<panel id="popup_tenants_window" width="600" height="400" childLayout="vertical" backgroundColor="#000000ff">
+			<panel id="popup_tenants_window_titlebar" width="100%" height="20" childLayout="center" backgroundColor="#a55731ff">
+				<control id="popup_tenants_window_title" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="100%"/>
+			</panel>
+			
+			<panel id="popup_tenants_window_content" width="100%" height="330" childLayout="horizontal" backgroundColor="#000000ff">
+				<panel id="popup_tenants_names" width="30%" height="100%" childLayout="vertical">
+					<control id="tenant0" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%" visibleToMouse="true"><interact onRelease="selectTenant(0)"/></control>
+					<control id="tenant1" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%" visibleToMouse="true"><interact onRelease="selectTenant(1)"/></control>
+					<control id="tenant2" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%" visibleToMouse="true"><interact onRelease="selectTenant(2)"/></control>
+					<control id="tenant3" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%" visibleToMouse="true"><interact onRelease="selectTenant(3)"/></control>
+					<control id="tenant4" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%" visibleToMouse="true"><interact onRelease="selectTenant(4)"/></control>
+					<control id="tenant5" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%" visibleToMouse="true"><interact onRelease="selectTenant(5)"/></control>
+					<control id="tenant6" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%" visibleToMouse="true"><interact onRelease="selectTenant(6)"/></control>
+					<control id="tenant7" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%" visibleToMouse="true"><interact onRelease="selectTenant(7)"/></control>
+					<control id="tenant8" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%" visibleToMouse="true"><interact onRelease="selectTenant(8)"/></control>
+					<control id="tenant9" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%" visibleToMouse="true"><interact onRelease="selectTenant(9)"/></control>
+				</panel>
+				<panel id="popup_tenants_details" width="70%" height="100%" childLayout="vertical">
+					<control id="tenant_name" name="label" font="Interface/Fonts/Default.fnt" text="n" align="left" height="10%" width="100%"/>
+					<control id="tenant_prof" name="label" font="Interface/Fonts/Default.fnt" text="p" align="left" height="10%" width="100%"/>
+					<control id="tenant_budget" name="label" font="Interface/Fonts/Default.fnt" text="b" align="left" height="10%" width="100%"/>
+					<control id="tenant_minlux" name="label" font="Interface/Fonts/Default.fnt" text="ml" align="left" height="10%" width="100%"/>
+					<control id="tenant_needs" name="label" font="Interface/Fonts/Default.fnt" text="n" align="left" height="10%" width="100%" wrap="true"/>
+					<control id="tenant_public" name="label" font="Interface/Fonts/Default.fnt" text="p" align="left" height="10%" width="100%"/>
+				</panel>
+			</panel>
+			
+			<panel id="popup_tenants_window_buttons" width="100%" height="50" childLayout="horizontal" backgroundColor="#000000ff">
+				<panel id="popup_tenants_window_buttons_spacer" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
+				
+				<control name="button" style="custom-button" label="OK" id="button_popup_tenants_ok" align="center" valign="center" width="100" height="30" visibleToMouse="true">
+					<interact onRelease="closePopup()" />
+     			</control>
+				
+				<panel id="popup_tenants_window_buttons_spacer" width="20" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
+				
+				<control name="button" style="custom-button" label="Cancel" id="button_popup_tenants_cancel" align="center" valign="center" width="100" height="30" visibleToMouse="true">
+					<interact onRelease="closePopup()" />
+     			</control>
+				
+				<panel id="popup_tenants_window_buttons_spacer" width="20" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
 			</panel>
 		</panel>
 	</popup>

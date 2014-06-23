@@ -78,4 +78,9 @@ public class Game {
 //        }
     }
     
+    
+    public List<Tenant> getTenants(){
+        return tenants;
+    }
+    
 }

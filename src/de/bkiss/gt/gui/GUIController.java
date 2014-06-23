@@ -11,13 +11,16 @@ import com.jme3.scene.Spatial;
 import de.bkiss.gt.logic.District;
 import de.bkiss.gt.logic.Game;
 import de.bkiss.gt.logic.Player;
+import de.bkiss.gt.objects.Expansion;
 import de.bkiss.gt.objects.GameObject;
 import de.bkiss.gt.objects.House;
 import de.bkiss.gt.objects.Land;
 import de.bkiss.gt.objects.PublicBuilding;
 import de.bkiss.gt.states.MainState;
+import de.bkiss.gt.tenants.Tenant;
 import de.bkiss.gt.utils.ModelLoader;
 import de.lessvoid.nifty.Nifty;
+import de.lessvoid.nifty.controls.ListBox;
 import de.lessvoid.nifty.elements.Element;
 import de.lessvoid.nifty.elements.render.ImageRenderer;
 import de.lessvoid.nifty.elements.render.TextRenderer;
@@ -67,6 +70,7 @@ public class GUIController implements ScreenController {
     private Game game;
     private Player player;
     private String currBuildSelection;
+    private List<Tenant> currTenants;
     
     private boolean btnBuildActive;
     private boolean btnDestroyActive;
@@ -138,6 +142,15 @@ public class GUIController implements ScreenController {
         } else if (key.startsWith("destroy")){
             if (!btnDestroyActive) return;
             prepareDestroyPopup();
+        } else if (key.startsWith("tenant")){
+            currTenants = game.getTenants();
+            popup = nifty.createPopup("popup_tenants");
+            setLabelText(popup.findElementByName("popup_tenants_window_title"),
+                        "View potential tenants for '" + district.getSelected().getName() + "'...");
+            for (int i = 0; i < 10; i++) {
+                setLabelText(popup.findElementByName("tenant" + i),
+                        currTenants.get(i).getName());
+            }
         }
         
         if (popup != null) nifty.showPopup(screen, popup.getId(), null);
@@ -261,6 +274,31 @@ public class GUIController implements ScreenController {
             setLabelText("popup_build_selection", "You don't have enough money (" + moneyFormat(getDefPrice(currBuildSelection)) + "$).");
             popup.findElementByName("button_popup_build_ok").setVisible(false);
         }
+    }
+    
+    
+    public void selectTenant(String tenant){
+        int index = Integer.parseInt(tenant);
+        
+        System.out.println("SELECT TENANT: " + currTenants.get(index));
+        
+        String needs = "";
+        for (Expansion e  : currTenants.get(index).getNeeds())
+            needs += e.getName() + ", ";
+        
+        String publicCond = currTenants.get(index).getPublicCondition();
+        publicCond = currTenants.get(index).getPublicConditionCount() + "x " + publicCond;
+        
+        System.out.println("needs: " + needs);
+        System.out.println("public cond.: " + publicCond + "=====\n");
+        
+        setLabelText("tenant_name", "Name: " + currTenants.get(index).getName());
+        setLabelText("tenant_prof", "Job: " + currTenants.get(index).getProfession());
+        setLabelText("tenant_budget", "Budget: " + moneyFormat(currTenants.get(index).getBudget()) + "$");
+        setLabelText("tenant_minlux", "min. Luxury: " + currTenants.get(index).getMinLuxury());
+        setLabelText("tenant_needs", "Wants in house: " + needs);
+        popup.findElementByName("tenant_needs").setWidth(400);
+        setLabelText("tenant_public", "Wants in district: " + publicCond);
     }
     
     
