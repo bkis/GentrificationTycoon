@@ -28,10 +28,20 @@ public class TenantGenerator {
         int budget = getRndBudget(socialClass);
         int minLux = getRndMinLux(budget);
         
+        if (socialClass == 0 && !prof.equalsIgnoreCase("student")) budget *= 0.7f;
+        
         Tenant t = new Tenant(name, budget, prof, minLux, "imgPath");
         for (int i = 0; i < (socialClass+1)*2; i++)
             if (Math.random() > 0.3f)
                 t.addNeed(gen.getRndExpansionFor(socialClass));
+        
+        int i = (int)((Math.random() * 10) / 3) + 1;
+        switch(socialClass){
+            case 0: if (prof.equalsIgnoreCase("student")) t.setPublicCondition(i+"club"); break;
+            case 1: t.setPublicCondition(i+"gallery"); break;
+            case 2: t.setPublicCondition(i+"school"); break;
+            default: break;
+        }
         
         return t;
     }

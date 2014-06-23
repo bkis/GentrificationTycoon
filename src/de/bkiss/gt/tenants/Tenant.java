@@ -16,7 +16,7 @@ public class Tenant {
     private int minLuxury;
     private String imgPath;
     private Set<Expansion> needs;
-
+    private String publicCondition;
     
     
     public Tenant(String name, int budget, String profession, int minLuxury, String imgPath) {
@@ -34,6 +34,17 @@ public class Tenant {
                 return;
         needs.add(need);
     }
+    
+    
+    public void setPublicCondition(String type){
+        publicCondition = type;
+    }
+    
+    
+    public String getPublicCondition(){
+        return publicCondition;
+    }
+    
     
     public Set<Expansion> getNeeds(){
         return needs;
