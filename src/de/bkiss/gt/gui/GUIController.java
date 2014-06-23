@@ -59,8 +59,8 @@ public class GUIController implements ScreenController {
     
     private static final String HUD_DEFAULT_INFO_ICON = "defaultIconImg.png";
     
-    private static final Color COL_RED = new Color("#bb5555ff");
-    private static final Color COL_GREEN = new Color("#55bb55ff");
+    private static final Color COL_RED = new Color("#ff5555ff");
+    private static final Color COL_GREEN = new Color("#55ff55ff");
     
 
     private SimpleApplication app;
@@ -326,6 +326,8 @@ public class GUIController implements ScreenController {
         setLabelText("tenant_needs", "Wants: " + needs);
         setLabelText("tenant_public", "District: " + publicCond);
         
+        unmarkProblems();
+        
         //mark problems
         if (!currTenants.get(index).checkMatchBudget((House)district.getSelected()))
             setLabelTextColor(popup.findElementByName("tenant_budget"), COL_RED);
@@ -345,6 +347,14 @@ public class GUIController implements ScreenController {
     
     private void unhighlightTenant(int i){
         setLabelText("tenant"+i, currTenants.get(i).getName());
+    }
+    
+    
+    private void unmarkProblems(){
+        setLabelTextColor(popup.findElementByName("tenant_budget"), COL_GREEN);
+        setLabelTextColor(popup.findElementByName("tenant_minlux"), COL_GREEN);
+        setLabelTextColor(popup.findElementByName("tenant_needs"), COL_GREEN);
+        setLabelTextColor(popup.findElementByName("tenant_public"), COL_GREEN);
     }
     
     

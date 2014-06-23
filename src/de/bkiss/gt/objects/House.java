@@ -26,11 +26,11 @@ public class House extends GameObject {
         int lux = 0;
         
         if (type.equals(GameObject.TYPE_HOUSE_1))
-            lux += 5;
+            lux += 10;
         else if (type.equals(GameObject.TYPE_HOUSE_2))
-            lux += 20;
+            lux += 30;
         else if (type.equals(GameObject.TYPE_HOUSE_3))
-            lux += 50;
+            lux += 60;
         
         for (Expansion e : expansions)
             lux += e.getEffect();
