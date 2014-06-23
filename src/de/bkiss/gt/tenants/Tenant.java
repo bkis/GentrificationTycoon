@@ -1,6 +1,8 @@
 package de.bkiss.gt.tenants;
 
 import de.bkiss.gt.objects.Expansion;
+import de.bkiss.gt.objects.GameObject;
+import de.bkiss.gt.objects.House;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,6 +19,7 @@ public class Tenant {
     private String imgPath;
     private Set<Expansion> needs;
     private String publicCondition;
+    private int publicConditionCount;
     
     
     public Tenant(String name, int budget, String profession, int minLuxury, String imgPath) {
@@ -26,6 +29,8 @@ public class Tenant {
         this.minLuxury = minLuxury;
         this.imgPath = imgPath;
         this.needs = new HashSet<Expansion>();
+        this.publicCondition = "nothing";
+        this.publicConditionCount = 0;
     }
     
     public void addNeed(Expansion need){
@@ -37,17 +42,18 @@ public class Tenant {
     
     
     public void setPublicCondition(String type, int count){
-        publicCondition = count + type;
+        publicCondition = type;
+        publicConditionCount = count;
     }
     
     
     public String getPublicCondition(){
-        return publicCondition.substring(1);
+        return publicCondition;
     }
     
     
     public int getPublicConditionCount(){
-        return Integer.parseInt(publicCondition.charAt(0)+"");
+        return publicConditionCount;
     }
     
     
@@ -93,6 +99,51 @@ public class Tenant {
 
     public void setImgPath(String imgPath) {
         this.imgPath = imgPath;
+    }
+    
+    
+    public boolean checkMatchLuxury(House house){
+        if (house.getLuxury() >= minLuxury)
+            return true;
+        else
+            return false;
+    }
+    
+    
+    public boolean checkMatchBudget(House house){
+        if (house.getRent() <= budget)
+            return true;
+        else
+            return false;
+    }
+    
+    
+    public boolean checkMatchNeeds(House house){
+        for (Expansion e : needs)
+                if (!house.hasExpansion(e.getName()))
+                    return false;
+        return true;
+    }
+    
+    
+    public boolean checkMatchDistrict(House house){
+        if (house.getDistrict().getNrOfBuildings("public_"
+                    + getPublicCondition()) < getPublicConditionCount())
+                return false;
+        
+        return true;
+    }
+    
+    
+    public boolean acceptsHouse(House house){
+        if (checkMatchBudget(house)
+            && checkMatchLuxury(house)
+            && checkMatchDistrict(house)
+            && checkMatchNeeds(house))
+            return true;
+        else 
+            return false;
+        
     }
     
     

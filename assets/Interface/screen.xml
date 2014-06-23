@@ -312,7 +312,10 @@
 				<control id="popup_tenants_window_title" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="100%"/>
 			</panel>
 			
-			<panel id="popup_tenants_window_content" width="100%" height="330" childLayout="horizontal" backgroundColor="#000000ff">
+			<panel id="popup_tenants_window_spacer" width="100%" height="20" childLayout="center" ></panel>
+			
+			<panel id="popup_tenants_window_content" width="100%" height="310" childLayout="horizontal" backgroundColor="#000000ff">
+				<panel id="popup_tenants_spacer" width="20" height="100%" childLayout="vertical"></panel>
 				<panel id="popup_tenants_names" width="30%" height="100%" childLayout="vertical">
 					<control id="tenant0" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%" visibleToMouse="true"><interact onRelease="selectTenant(0)"/></control>
 					<control id="tenant1" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%" visibleToMouse="true"><interact onRelease="selectTenant(1)"/></control>
@@ -325,13 +328,13 @@
 					<control id="tenant8" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%" visibleToMouse="true"><interact onRelease="selectTenant(8)"/></control>
 					<control id="tenant9" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%" visibleToMouse="true"><interact onRelease="selectTenant(9)"/></control>
 				</panel>
-				<panel id="popup_tenants_details" width="70%" height="100%" childLayout="vertical">
-					<control id="tenant_name" name="label" font="Interface/Fonts/Default.fnt" text="n" align="left" height="10%" width="100%"/>
-					<control id="tenant_prof" name="label" font="Interface/Fonts/Default.fnt" text="p" align="left" height="10%" width="100%"/>
-					<control id="tenant_budget" name="label" font="Interface/Fonts/Default.fnt" text="b" align="left" height="10%" width="100%"/>
-					<control id="tenant_minlux" name="label" font="Interface/Fonts/Default.fnt" text="ml" align="left" height="10%" width="100%"/>
-					<control id="tenant_needs" name="label" font="Interface/Fonts/Default.fnt" text="n" align="left" height="10%" width="100%" wrap="true"/>
-					<control id="tenant_public" name="label" font="Interface/Fonts/Default.fnt" text="p" align="left" height="10%" width="100%"/>
+				<panel id="popup_tenants_details" height="100%" childLayout="vertical">
+					<control id="tenant_name" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%"/>
+					<control id="tenant_prof" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%"/>
+					<control id="tenant_budget" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%"/>
+					<control id="tenant_minlux" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%"/>
+					<control id="tenant_needs" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%"/>
+					<control id="tenant_public" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%"/>
 				</panel>
 			</panel>
 			

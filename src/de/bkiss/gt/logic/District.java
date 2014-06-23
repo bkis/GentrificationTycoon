@@ -10,6 +10,7 @@ import de.bkiss.gt.objects.Land;
 import de.bkiss.gt.objects.PassiveObject;
 import de.bkiss.gt.objects.PublicBuilding;
 import de.bkiss.gt.utils.ModelLoader;
+import de.bkiss.gt.utils.RandomContentGenerator;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -35,16 +36,18 @@ public class District {
     
     private Map<String, GameObject> objects;
     private SimpleApplication app;
+    private RandomContentGenerator gen;
     
     private boolean objectMarkers;
     
     private GameObject selected;
     
     
-    public District(Application app){
+    public District(Application app, RandomContentGenerator gen){
         this.app = (SimpleApplication) app;
         this.objects = new HashMap<String, GameObject>();
         this.objectMarkers = false;
+        this.gen = gen;
     }
     
     
@@ -231,21 +234,22 @@ public class District {
                             ModelLoader.createStreetTile(app.getAssetManager(),
                             app.getAssetManager().loadTexture(
                             "Textures/tiles/streets/street_fh.png")));
-                } else if (curr.equals(H01)){
-                    go = new House(app,
+                } else {
+                    double rnd = Math.random();
+                    if (rnd < 0.5f){
+                        go = new House(app,
                             House.TYPE_HOUSE_1, "Haus Nr." + i + "" + j, this);
-                } else if (curr.equals(H02)){
-                    go = new House(app,
+                        ((House)go).addExpansion(gen.getRndExpansionFor(0));
+                    } else if (rnd < 0.55f){
+                        go = new House(app,
                             House.TYPE_HOUSE_2, "Haus Nr." + i + "" + j, this);
-                } else if (curr.equals(H03)){
-                    go = new House(app,
-                            House.TYPE_HOUSE_3, "Haus Nr." + i + "" + j, this);
-                } else if (curr.equals(LAN)){
-                    go = new Land(app,
+                        ((House)go).addExpansion(gen.getRndExpansionFor(1));
+                    } else {
+                        go = new Land(app,
                             "Land Nr." + i + "" + j, this);
+                    }
                 }
                 
-                if (go == null) return;
                 go.getSpatial().move(i-(getBoardWidth()/2), 0, j-(getBoardHeight()/2));
                 go.getSpatial().setName(go.getSpatial().getName() + "_" + i + "." + j);
                 addGameObject(go.getSpatial().getName(), go);

@@ -4,6 +4,7 @@ import com.jme3.asset.AssetManager;
 import de.bkiss.gt.gui.GUIController;
 import de.bkiss.gt.tenants.Tenant;
 import de.bkiss.gt.tenants.TenantGenerator;
+import de.bkiss.gt.utils.RandomContentGenerator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -27,7 +28,8 @@ public class Game {
             String playerIconPath,
             District district,
             GUIController guiController,
-            AssetManager assetManager){
+            AssetManager assetManager,
+            RandomContentGenerator gen){
         
         this.day = 0;
         player = new Player(playerName, playerIconPath);
@@ -37,7 +39,7 @@ public class Game {
         this.tenants = new ArrayList<Tenant>();
         
         //launch tenant generator
-        this.tenantGen = new TenantGenerator(assetManager);
+        this.tenantGen = new TenantGenerator(assetManager, gen);
         refreshTenantList();
     }
     

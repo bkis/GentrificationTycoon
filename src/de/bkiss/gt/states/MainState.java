@@ -8,6 +8,8 @@ import de.bkiss.gt.IngameState;
 import de.bkiss.gt.logic.District;
 import de.bkiss.gt.gui.GUIController;
 import de.bkiss.gt.utils.InputMapper;
+import de.bkiss.gt.utils.RandomContentGenerator;
+import de.bkiss.gt.utils.TextLoader;
 
 /**
  *
@@ -26,16 +28,21 @@ public class MainState extends AbstractAppState {
     
     private AbstractAppState mainMenuState;
     private AbstractAppState ingameState;
+    private RandomContentGenerator gen;
     
     
     
     @Override
     public void initialize(AppStateManager stateManager, Application app) {
+        //register text loader
+        app.getAssetManager().registerLoader(TextLoader.class, "txt");
+        
         //initialize fields
         super.initialize(stateManager, app);
+        this.gen = new RandomContentGenerator(app.getAssetManager());
         this.app = (SimpleApplication) app;
         this.stateManager = stateManager;
-        this.district = new District(app);
+        this.district = new District(app, gen);
         
         //init GUI controller
         guiController = new GUIController(app, this, district);
@@ -60,7 +67,7 @@ public class MainState extends AbstractAppState {
             stateManager.attach(mainMenuState);
         } else if (stateKey.equals(STATE_INGAME)){
             ingameState = new IngameState(inputMapper, guiController,
-                    district, "Rupert", "Interface/hud/avatars/player.png");
+                    district, "Rupert", "Interface/hud/avatars/player.png", gen);
             stateManager.attach(ingameState);
             stateManager.detach(mainMenuState);
         }

@@ -220,6 +220,11 @@ public abstract class GameObject {
     }
     
     
+    public District getDistrict(){
+        return district;
+    }
+    
+    
     public int getValue(){
         return (int) (Math.pow(
                 (this instanceof House ? ((House)this).calcDefaultRent()

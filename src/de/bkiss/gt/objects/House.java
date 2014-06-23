@@ -66,4 +66,14 @@ public class House extends GameObject {
         this.rent = calcDefaultRent();
     }
     
+    
+    public boolean hasExpansion(String expName){
+        for(Expansion e : expansions)
+            if (e.getName().equalsIgnoreCase(expName))
+                return true;
+        return false;
+    }
+    
+    
+    
 }

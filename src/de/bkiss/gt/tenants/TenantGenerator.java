@@ -17,8 +17,8 @@ public class TenantGenerator {
     private RandomContentGenerator gen;
 
     
-    public TenantGenerator(AssetManager assetManager){
-        this.gen = new RandomContentGenerator(assetManager);
+    public TenantGenerator(AssetManager assetManager, RandomContentGenerator gen){
+        this.gen = gen;
     }
     
     
@@ -31,8 +31,8 @@ public class TenantGenerator {
         if (socialClass == 0 && !prof.equalsIgnoreCase("student")) budget *= 0.7f;
         
         Tenant t = new Tenant(name, budget, prof, minLux, "imgPath");
-        for (int i = 0; i < (socialClass+1)*2; i++)
-            if (Math.random() > 0.3f)
+        for (int i = 0; i < (socialClass+2)/2; i++)
+            if (Math.random() > 0.1f)
                 t.addNeed(gen.getRndExpansionFor(socialClass));
         
         int i = (int)((Math.random() * 10) / 3) + 1;

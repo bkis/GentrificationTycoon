@@ -20,13 +20,13 @@ import de.bkiss.gt.states.MainState;
 import de.bkiss.gt.tenants.Tenant;
 import de.bkiss.gt.utils.ModelLoader;
 import de.lessvoid.nifty.Nifty;
-import de.lessvoid.nifty.controls.ListBox;
 import de.lessvoid.nifty.elements.Element;
 import de.lessvoid.nifty.elements.render.ImageRenderer;
 import de.lessvoid.nifty.elements.render.TextRenderer;
 import de.lessvoid.nifty.render.NiftyImage;
 import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
+import de.lessvoid.nifty.tools.Color;
 import de.lessvoid.nifty.tools.SizeValue;
 import java.util.List;
 import java.util.logging.Level;
@@ -58,6 +58,10 @@ public class GUIController implements ScreenController {
     private static final int PRICE_BUILD_E3 = 3000000;  //SCHOOL
     
     private static final String HUD_DEFAULT_INFO_ICON = "defaultIconImg.png";
+    
+    private static final Color COL_RED = new Color("#bb5555ff");
+    private static final Color COL_GREEN = new Color("#55bb55ff");
+    
 
     private SimpleApplication app;
     private MainState mainState;
@@ -71,6 +75,7 @@ public class GUIController implements ScreenController {
     private Player player;
     private String currBuildSelection;
     private List<Tenant> currTenants;
+    private int currTenantIndex;
     
     private boolean btnBuildActive;
     private boolean btnDestroyActive;
@@ -99,6 +104,8 @@ public class GUIController implements ScreenController {
         //set logging level
         Logger.getLogger("de.lessvoid.nifty").setLevel(Level.SEVERE); 
         Logger.getLogger("NiftyInputEventHandlingLog").setLevel(Level.SEVERE); 
+        
+        this.currTenantIndex = 0;
     }
     
     public void loadScreen(String screenKey){
@@ -143,14 +150,7 @@ public class GUIController implements ScreenController {
             if (!btnDestroyActive) return;
             prepareDestroyPopup();
         } else if (key.startsWith("tenant")){
-            currTenants = game.getTenants();
-            popup = nifty.createPopup("popup_tenants");
-            setLabelText(popup.findElementByName("popup_tenants_window_title"),
-                        "View potential tenants for '" + district.getSelected().getName() + "'...");
-            for (int i = 0; i < 10; i++) {
-                setLabelText(popup.findElementByName("tenant" + i),
-                        currTenants.get(i).getName());
-            }
+            prepareTenantsPopup();
         }
         
         if (popup != null) nifty.showPopup(screen, popup.getId(), null);
@@ -221,7 +221,26 @@ public class GUIController implements ScreenController {
                         "Impossible! There are still people living in '" + district.getSelected().getName() + "'!");
             popup.findElementByName("button_popup_destroy_ok").setVisible(false);
         }
+    }
+    
+    
+    private void prepareTenantsPopup(){
+        currTenants = game.getTenants();
+        popup = nifty.createPopup("popup_tenants");
         
+        setLabelText(popup.findElementByName("popup_tenants_window_title"),
+                    "View potential tenants for '" + district.getSelected().getName() + "'...");
+        
+        for (int i = 0; i < currTenants.size(); i++) {
+            setLabelText(popup.findElementByName("tenant" + i),
+                    currTenants.get(i).getName());
+            if (district.getSelected() instanceof House
+                    && currTenants.get(i).acceptsHouse((House)district.getSelected())){
+                setLabelTextColor(popup.findElementByName("tenant" + i), COL_GREEN);
+            } else {
+                setLabelTextColor(popup.findElementByName("tenant" + i), COL_RED);
+            }
+        }
     }
     
     
@@ -278,27 +297,54 @@ public class GUIController implements ScreenController {
     
     
     public void selectTenant(String tenant){
+        unhighlightTenant(currTenantIndex);
         int index = Integer.parseInt(tenant);
-        
-        System.out.println("SELECT TENANT: " + currTenants.get(index));
+        currTenantIndex = index;
+        highlightTenant(index);
         
         String needs = "";
         for (Expansion e  : currTenants.get(index).getNeeds())
             needs += e.getName() + ", ";
+        if (needs.length() == 0){
+            needs = "-";
+        } else {
+            needs = needs.concat("END");
+            needs = needs.replaceFirst(", END", "");
+        }
         
         String publicCond = currTenants.get(index).getPublicCondition();
-        publicCond = currTenants.get(index).getPublicConditionCount() + "x " + publicCond;
-        
-        System.out.println("needs: " + needs);
-        System.out.println("public cond.: " + publicCond + "=====\n");
+        if (!publicCond.contains("nothing")){
+            publicCond = currTenants.get(index).getPublicConditionCount() + "x " + publicCond;
+        } else {
+            publicCond = "-";
+        }
         
         setLabelText("tenant_name", "Name: " + currTenants.get(index).getName());
         setLabelText("tenant_prof", "Job: " + currTenants.get(index).getProfession());
-        setLabelText("tenant_budget", "Budget: " + moneyFormat(currTenants.get(index).getBudget()) + "$");
+        setLabelText("tenant_budget", "Budget: " + moneyFormat(currTenants.get(index).getBudget()) + " $");
         setLabelText("tenant_minlux", "min. Luxury: " + currTenants.get(index).getMinLuxury());
-        setLabelText("tenant_needs", "Wants in house: " + needs);
-        popup.findElementByName("tenant_needs").setWidth(400);
-        setLabelText("tenant_public", "Wants in district: " + publicCond);
+        setLabelText("tenant_needs", "Wants: " + needs);
+        setLabelText("tenant_public", "District: " + publicCond);
+        
+        //mark problems
+        if (!currTenants.get(index).checkMatchBudget((House)district.getSelected()))
+            setLabelTextColor(popup.findElementByName("tenant_budget"), COL_RED);
+        if (!currTenants.get(index).checkMatchLuxury((House)district.getSelected()))
+            setLabelTextColor(popup.findElementByName("tenant_minlux"), COL_RED);
+        if (!currTenants.get(index).checkMatchNeeds((House)district.getSelected()))
+            setLabelTextColor(popup.findElementByName("tenant_needs"), COL_RED);
+        if (!currTenants.get(index).checkMatchDistrict((House)district.getSelected()))
+            setLabelTextColor(popup.findElementByName("tenant_public"), COL_RED);
+    }
+    
+    
+    private void highlightTenant(int i){
+        setLabelText("tenant"+i, ">>> " + currTenants.get(i).getName());
+    }
+    
+    
+    private void unhighlightTenant(int i){
+        setLabelText("tenant"+i, currTenants.get(i).getName());
     }
     
     
@@ -374,6 +420,12 @@ public class GUIController implements ScreenController {
                 width = el.getWidth();
         
         e.getParent().setWidth(width);
+    }
+    
+    
+    private void setLabelTextColor(Element e, Color col){
+        TextRenderer eRenderer = e.getRenderer(TextRenderer.class);
+        eRenderer.setColor(col);
     }
     
     

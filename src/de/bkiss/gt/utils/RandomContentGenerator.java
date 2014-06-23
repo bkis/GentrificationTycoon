@@ -80,7 +80,8 @@ public class RandomContentGenerator {
         i *= (socialClass+1);
         if (socialClass == PROFESSION_UPPER) i = expansions.length;
         
-        String[] e = expansions[rnd.nextInt(i)].split("#");
+        int min = i - (expansions.length/3);
+        String[] e = expansions[min+(int)(Math.random()*(i-min))].split("#");
         return new Expansion(
                 Integer.parseInt(e[1]),
                 Integer.parseInt(e[2]),
