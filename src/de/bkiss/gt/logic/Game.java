@@ -69,8 +69,7 @@ public class Game {
     private void refreshTenantList(){
         tenants.clear();
         for (int i = 0; i < 10; i++) {
-            tenants.add(tenantGen.generateTenant(Math.random()<0.5f,
-                    new Random().nextInt(3)));
+            tenants.add(tenantGen.generateTenant(new Random().nextInt(3)));
         }
         
 //        //DEBUG

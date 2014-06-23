@@ -103,7 +103,8 @@ public class Tenant {
                 + "' Prof:'" + profession
                 + "' MinLux:'" + minLuxury
                 + "' Budget:'" + budget
-                + "' Needs: " + needs;
+                + "' Needs: " + needs
+                + "' Public: " + publicCondition;
     }
     
 }

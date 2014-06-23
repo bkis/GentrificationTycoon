@@ -22,8 +22,8 @@ public class TenantGenerator {
     }
     
     
-    public Tenant generateTenant(boolean male, int socialClass){
-        String name = gen.getName(male);
+    public Tenant generateTenant(int socialClass){
+        String name = gen.getName(Math.random() < 0.5f);
         String prof = gen.getProfession(socialClass);
         int budget = getRndBudget(socialClass);
         int minLux = getRndMinLux(budget);
