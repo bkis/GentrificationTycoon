@@ -57,7 +57,7 @@ public class District {
     public GameObject buildHouse(String type, Land land){
         GameObject go;
         
-        if (type.startsWith("HOUSE")){
+        if (type.contains("house")){
             go = new House(app, type, "Haus by Player " + Math.random(), this);
         } else {
             go = new PublicBuilding(app, type, type.split("_")[1].toUpperCase() + " " + Math.random(), this);
