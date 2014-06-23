@@ -37,9 +37,9 @@ public class TenantGenerator {
         
         int i = (int)((Math.random() * 10) / 3) + 1;
         switch(socialClass){
-            case 0: if (prof.equalsIgnoreCase("student")) t.setPublicCondition(i+"club"); break;
-            case 1: t.setPublicCondition(i+"gallery"); break;
-            case 2: t.setPublicCondition(i+"school"); break;
+            case 0: if (prof.equalsIgnoreCase("student")) t.setPublicCondition("club",i); break;
+            case 1: t.setPublicCondition("gallery",i); break;
+            case 2: t.setPublicCondition("school",i); break;
             default: break;
         }
         

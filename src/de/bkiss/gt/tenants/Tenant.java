@@ -36,13 +36,18 @@ public class Tenant {
     }
     
     
-    public void setPublicCondition(String type){
-        publicCondition = type;
+    public void setPublicCondition(String type, int count){
+        publicCondition = count + type;
     }
     
     
     public String getPublicCondition(){
-        return publicCondition;
+        return publicCondition.substring(1);
+    }
+    
+    
+    public int getPublicConditionCount(){
+        return Integer.parseInt(publicCondition.charAt(0)+"");
     }
     
     
