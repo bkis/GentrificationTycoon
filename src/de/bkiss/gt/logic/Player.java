@@ -7,7 +7,7 @@ package de.bkiss.gt.logic;
 public class Player {
     
     private String name;
-    private int money;
+    private long money;
     private String iconPath;
     
     
@@ -28,7 +28,7 @@ public class Player {
     }
     
     
-    public int getMoney(){
+    public long getMoney(){
         return money;
     }
     

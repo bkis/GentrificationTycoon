@@ -9,6 +9,7 @@ import de.bkiss.gt.objects.House;
 import de.bkiss.gt.objects.Land;
 import de.bkiss.gt.objects.PassiveObject;
 import de.bkiss.gt.objects.PublicBuilding;
+import de.bkiss.gt.tenants.TenantGenerator;
 import de.bkiss.gt.utils.ModelLoader;
 import de.bkiss.gt.utils.RandomContentGenerator;
 import java.util.ArrayList;
@@ -37,23 +38,25 @@ public class District {
     private Map<String, GameObject> objects;
     private SimpleApplication app;
     private RandomContentGenerator gen;
+    private TenantGenerator tenGen;
     
     private boolean objectMarkers;
     
     private GameObject selected;
     
     
-    public District(Application app, RandomContentGenerator gen){
+    public District(Application app, RandomContentGenerator gen, TenantGenerator tenGen){
         this.app = (SimpleApplication) app;
         this.objects = new HashMap<String, GameObject>();
         this.objectMarkers = false;
         this.gen = gen;
+        this.tenGen = tenGen;
     }
     
     
     public void addGameObject(String id, GameObject object){
         objects.put(id, object);
-        System.out.println("Added " + object.getName() + " to the District.");
+        //System.out.println("Added " + object.getName() + " to the District.");
     }
     
     
@@ -93,7 +96,7 @@ public class District {
         
         objects.remove(go.getName());
         objects.put(land.getName(), land);
-        land.setOwned(false);
+        land.setOwned(true);
     }
     
     
@@ -240,6 +243,7 @@ public class District {
                         go = new House(app,
                             House.TYPE_HOUSE_1, "Haus Nr." + i + "" + j, this);
                         ((House)go).addExpansion(gen.getRndExpansionFor(0));
+                        
                     } else if (rnd < 0.55f){
                         go = new House(app,
                             House.TYPE_HOUSE_2, "Haus Nr." + i + "" + j, this);

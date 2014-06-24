@@ -7,6 +7,7 @@ import com.jme3.app.state.AppStateManager;
 import de.bkiss.gt.IngameState;
 import de.bkiss.gt.logic.District;
 import de.bkiss.gt.gui.GUIController;
+import de.bkiss.gt.tenants.TenantGenerator;
 import de.bkiss.gt.utils.InputMapper;
 import de.bkiss.gt.utils.RandomContentGenerator;
 import de.bkiss.gt.utils.TextLoader;
@@ -29,6 +30,7 @@ public class MainState extends AbstractAppState {
     private AbstractAppState mainMenuState;
     private AbstractAppState ingameState;
     private RandomContentGenerator gen;
+    private TenantGenerator tenGen;
     
     
     
@@ -40,9 +42,10 @@ public class MainState extends AbstractAppState {
         //initialize fields
         super.initialize(stateManager, app);
         this.gen = new RandomContentGenerator(app.getAssetManager());
+        this.tenGen = new TenantGenerator(app.getAssetManager(), gen);
         this.app = (SimpleApplication) app;
         this.stateManager = stateManager;
-        this.district = new District(app, gen);
+        this.district = new District(app, gen, tenGen);
         
         //init GUI controller
         guiController = new GUIController(app, this, district);
@@ -67,7 +70,7 @@ public class MainState extends AbstractAppState {
             stateManager.attach(mainMenuState);
         } else if (stateKey.equals(STATE_INGAME)){
             ingameState = new IngameState(inputMapper, guiController,
-                    district, "Rupert", "Interface/hud/avatars/player.png", gen);
+                    district, "Rupert", "Interface/hud/avatars/player.png", gen, tenGen);
             stateManager.attach(ingameState);
             stateManager.detach(mainMenuState);
         }

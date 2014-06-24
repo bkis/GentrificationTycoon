@@ -51,16 +51,8 @@ public abstract class GameObject {
         this.app = (SimpleApplication) app;
         this.imagePath = "Interface/hud/" + type + ".png";
         
-        if (!type.equals(TYPE_PASSIVE)){
+        if (!type.equals(TYPE_PASSIVE))
             loadSpatial();
-            
-            if (spatial != null){
-                System.out.println("Created GameObject: " + this);
-            } else {
-                System.out.println("ERROR LOADING SPATIAL: " + this);
-                app.stop();
-            }
-        }
     }
     
     

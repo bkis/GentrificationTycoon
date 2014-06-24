@@ -2,6 +2,7 @@ package de.bkiss.gt.objects;
 
 import com.jme3.app.Application;
 import de.bkiss.gt.logic.District;
+import de.bkiss.gt.tenants.Tenant;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,6 +14,8 @@ public class House extends GameObject {
     
     private int rent;
     private Set<Expansion> expansions;
+    
+    private Tenant tenant;
     
     
     public House(Application app, String type, String name, District district){
@@ -75,5 +78,20 @@ public class House extends GameObject {
     }
     
     
+    public void setTenant(Tenant tenant){
+        this.tenant = tenant;
+        setOccupied(true);
+    }
+    
+    
+    public void removeTenant(){
+        tenant = null;
+        setOccupied(false);
+    }
+    
+    
+    public Tenant getTenant(){
+        return tenant;
+    }
     
 }

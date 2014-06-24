@@ -23,6 +23,7 @@ import de.bkiss.gt.logic.Game;
 import de.bkiss.gt.gui.GUIController;
 import de.bkiss.gt.objects.Car;
 import de.bkiss.gt.objects.GameObject;
+import de.bkiss.gt.tenants.TenantGenerator;
 import de.bkiss.gt.utils.InputMapper;
 import de.bkiss.gt.utils.RandomContentGenerator;
 import de.bkiss.gt.utils.TextLoader;
@@ -46,6 +47,7 @@ public class IngameState extends AbstractAppState{
     private Game game;
     private District district;
     private RandomContentGenerator gen;
+    private TenantGenerator tenGen;
     
     private String playerName;
     private String playerIconPath;
@@ -56,13 +58,15 @@ public class IngameState extends AbstractAppState{
                        District district,
                        String playerName,
                        String playerIconPath,
-                       RandomContentGenerator gen){
+                       RandomContentGenerator gen,
+                       TenantGenerator tenGen){
         this.inputMapper = inputMapper;
         this.guiController = guiController;
         this.district = district;
         this.playerName = playerName;
         this.playerIconPath = playerIconPath;
         this.gen = gen;
+        this.tenGen = tenGen;
     }
     
     
@@ -87,7 +91,8 @@ public class IngameState extends AbstractAppState{
                 district,
                 guiController,
                 assetManager,
-                gen);
+                gen,
+                tenGen);
         
         //load district
         addObjects(district.getObjectList());

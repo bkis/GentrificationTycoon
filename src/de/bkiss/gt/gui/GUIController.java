@@ -28,7 +28,9 @@ import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
 import de.lessvoid.nifty.tools.Color;
 import de.lessvoid.nifty.tools.SizeValue;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -69,7 +71,7 @@ public class GUIController implements ScreenController {
     private Nifty nifty;
     private Screen screen;    
     private NiftyJmeDisplay niftyDisplay;
-    private Element popup;
+    private Map<String, Element> popups;
     private Spatial marker;
     private Game game;
     private Player player;
@@ -85,6 +87,7 @@ public class GUIController implements ScreenController {
             District district){
         this.app = (SimpleApplication) app;
         this.mainState = mainState;
+        popups = new HashMap<String, Element>();
         niftyDisplay = new NiftyJmeDisplay(
             app.getAssetManager(),
             app.getInputManager(),
@@ -121,8 +124,7 @@ public class GUIController implements ScreenController {
     
     
     public void startGame(){
-        popup = nifty.createPopup("popup_loading");
-        nifty.showPopup(screen, popup.getId(), null);
+        nifty.showPopup(screen, popup("loading").getId(), null);
         
         mainState.loadState(MainState.STATE_INGAME);
     }
@@ -133,119 +135,170 @@ public class GUIController implements ScreenController {
     }
     
     
+    private Element popup(String key){
+        if (popups.get("popup_"+key) == null){
+            popups.put("popup_"+key, nifty.createPopup("popup_"+key));
+            return popup(key);
+        } else {
+            return popups.get("popup_"+key);
+        }
+    }
+    
+    
     public void openPopup(String key){
-        popup = null;
-        
         //select popup
         if (key.startsWith("build")){
             if (!btnBuildActive) return;
             if (!district.getSelected().isOwnedByPlayer()){
                 prepareBuyPopup();
+                nifty.showPopup(screen, popup("buy").getId(), null);
             } else if (district.getSelected() instanceof Land){
                 prepareBuildPopup();
+                nifty.showPopup(screen, popup("build").getId(), null);
             } else if (district.getSelected() instanceof House){
-                popup = nifty.createPopup("popup_edit");
+                prepareEditPopup();
+                nifty.showPopup(screen, popup("edit").getId(), null);
             }
         } else if (key.startsWith("destroy")){
             if (!btnDestroyActive) return;
             prepareDestroyPopup();
+            nifty.showPopup(screen, popup("destroy").getId(), null);
         } else if (key.startsWith("tenant")){
             prepareTenantsPopup();
+            nifty.showPopup(screen, popup("tenants").getId(), null);
         }
-        
-        if (popup != null) nifty.showPopup(screen, popup.getId(), null);
     }
     
     
     private void prepareBuyPopup(){
-        //choose popup layout
-        popup = nifty.createPopup("popup_buy");
-        
         //set popup title
-        setLabelText(popup.findElementByName("popup_buy_window_title"),
+        setLabelText(popup("buy").findElementByName("popup_buy_window_title"),
                         "Buy '" + district.getSelected().getName() + "'?");
         
         //check preconditions
         if (player.getMoney() >= district.getSelected().getValue()){
-            setLabelText(popup.findElementByName("popup_buy_text"),
+            setLabelText(popup("buy").findElementByName("popup_buy_text"),
                     "Would you like to buy '" + district.getSelected().getName()
                     + "' (" + moneyFormat(district.getSelected().getValue()) + "$)?");
-            popup.findElementByName("button_popup_buy_ok").setVisible(true);
+            popup("buy").findElementByName("button_popup_buy_ok").setVisible(true);
         } else {
-            setLabelText(popup.findElementByName("popup_buy_text"),
+            setLabelText(popup("buy").findElementByName("popup_buy_text"),
                     "You don't have enough money to buy '" + district.getSelected().getName()
                     + "' (" + moneyFormat(district.getSelected().getValue()) + "$).");
-            popup.findElementByName("button_popup_buy_ok").setVisible(false);
+            popup("buy").findElementByName("button_popup_buy_ok").setVisible(false);
         }
     }
     
     
     private void prepareBuildPopup(){
-        //choose popup layout
-        popup = nifty.createPopup("popup_build");
-        
         //set popup title
-        setLabelText(popup.findElementByName("popup_build_window_title"),
+        setLabelText(popup("build").findElementByName("popup_build_window_title"),
                         "Build on '" + district.getSelected().getName() + "'?");
         
         //set prices display
-        setLabelText(popup.findElementByName("popup_build_price_h1"),
+        setLabelText(popup("build").findElementByName("popup_build_price_h1"),
                         moneyFormat(PRICE_BUILD_H1) + "");
-        setLabelText(popup.findElementByName("popup_build_price_h2"),
+        setLabelText(popup("build").findElementByName("popup_build_price_h2"),
                         moneyFormat(PRICE_BUILD_H2) + "");
-        setLabelText(popup.findElementByName("popup_build_price_h3"),
+        setLabelText(popup("build").findElementByName("popup_build_price_h3"),
                         moneyFormat(PRICE_BUILD_H3) + "");
-        setLabelText(popup.findElementByName("popup_build_price_h21"),
+        setLabelText(popup("build").findElementByName("popup_build_price_h21"),
                         moneyFormat(PRICE_BUILD_E1) + "");
-        setLabelText(popup.findElementByName("popup_build_price_h22"),
+        setLabelText(popup("build").findElementByName("popup_build_price_h22"),
                         moneyFormat(PRICE_BUILD_E2) + "");
-        setLabelText(popup.findElementByName("popup_build_price_h23"),
+        setLabelText(popup("build").findElementByName("popup_build_price_h23"),
                         moneyFormat(PRICE_BUILD_E3) + "");
+        
+        //color price tags
+        if (game.getPlayer().getMoney() < PRICE_BUILD_H1)
+            setLabelTextColor(popup("build").findElementByName("popup_build_price_h1"), COL_RED);
+        if (game.getPlayer().getMoney() < PRICE_BUILD_H2)
+            setLabelTextColor(popup("build").findElementByName("popup_build_price_h2"), COL_RED);
+        if (game.getPlayer().getMoney() < PRICE_BUILD_H3)
+            setLabelTextColor(popup("build").findElementByName("popup_build_price_h3"), COL_RED);
+        if (game.getPlayer().getMoney() < PRICE_BUILD_E1)
+            setLabelTextColor(popup("build").findElementByName("popup_build_price_h21"), COL_RED);
+        if (game.getPlayer().getMoney() < PRICE_BUILD_E2)
+            setLabelTextColor(popup("build").findElementByName("popup_build_price_h22"), COL_RED);
+        if (game.getPlayer().getMoney() < PRICE_BUILD_E3)
+            setLabelTextColor(popup("build").findElementByName("popup_build_price_h23"), COL_RED);
+    }
+    
+    
+    private void prepareEditPopup(){
+        House h = (House) district.getSelected();
+        
+        //set popup title
+        setLabelText(popup("edit").findElementByName("popup_edit_window_title"),
+                        "Properties of '" + h.getName() + "'...");
+        
+        //set object info
+        displayObjectInfoEdit(h);
+        
+        //set tenant data
+        if (h.isOccupied()){
+            setLabelText(popup("edit").findElementByName("edit_tenant_name"), "Name: " + h.getTenant().getName());
+            setLabelText(popup("edit").findElementByName("edit_tenant_prof"), "Job: " + h.getTenant().getProfession());
+            setLabelText(popup("edit").findElementByName("edit_tenant_budget"), "Budget: " + moneyFormat(h.getTenant().getBudget()) + " $");
+            setLabelText(popup("edit").findElementByName("edit_tenant_minlux"), "min. Luxury: " + h.getTenant().getMinLuxury());
+            setLabelText(popup("edit").findElementByName("edit_tenant_needs"), "Wants: " + h.getTenant().getNeeds());
+            setLabelText(popup("edit").findElementByName("edit_tenant_public"), "District: " + h.getTenant()
+                    .getPublicConditionCount() + "x " + h.getTenant().getPublicCondition());
+            setLabelText(popup("edit").findElementByName("edit_tenant_occupied"), "");
+        } else {
+            setLabelText(popup("edit").findElementByName("edit_tenant_name"), "");
+            setLabelText(popup("edit").findElementByName("edit_tenant_prof"), "");
+            setLabelText(popup("edit").findElementByName("edit_tenant_budget"), "");
+            setLabelText(popup("edit").findElementByName("edit_tenant_minlux"), "");
+            setLabelText(popup("edit").findElementByName("edit_tenant_needs"), "");
+            setLabelText(popup("edit").findElementByName("edit_tenant_public"), "");
+            setLabelText(popup("edit").findElementByName("edit_tenant_occupied"), "not occupied...");
+            setLabelTextColor(popup("edit").findElementByName("edit_tenant_occupied"), COL_RED);
+        }
+        
     }
     
     
     private void prepareDestroyPopup(){
-        //choose popup layout
-        popup = nifty.createPopup("popup_destroy");
-        
         //set popup title
-        setLabelText(popup.findElementByName("popup_destroy_window_title"),
+        setLabelText(popup("destroy").findElementByName("popup_destroy_window_title"),
                         "Really destroy '" + district.getSelected().getName() + "'?");
         
         //and
         if (district.getSelected().isOwnedByPlayer()){
-            setLabelText(popup.findElementByName("popup_destroy_text"),
+            setLabelText(popup("destroy").findElementByName("popup_destroy_text"),
                         "Do you want to destroy '" + district.getSelected().getName() + "'?");
         } else {
-            setLabelText(popup.findElementByName("popup_destroy_text"),
+            setLabelText(popup("destroy").findElementByName("popup_destroy_text"),
                         "Impossible! There are still people living in '" + district.getSelected().getName() + "'!");
-            popup.findElementByName("button_popup_destroy_ok").setVisible(false);
+            popup("destroy").findElementByName("button_popup_destroy_ok").setVisible(false);
         }
     }
     
     
     private void prepareTenantsPopup(){
         currTenants = game.getTenants();
-        popup = nifty.createPopup("popup_tenants");
         
-        setLabelText(popup.findElementByName("popup_tenants_window_title"),
+        setLabelText(popup("tenants").findElementByName("popup_tenants_window_title"),
                     "View potential tenants for '" + district.getSelected().getName() + "'...");
         
         for (int i = 0; i < currTenants.size(); i++) {
-            setLabelText(popup.findElementByName("tenant" + i),
+            setLabelText(popup("tenants").findElementByName("tenant" + i),
                     currTenants.get(i).getName());
             if (district.getSelected() instanceof House
                     && currTenants.get(i).acceptsHouse((House)district.getSelected())){
-                setLabelTextColor(popup.findElementByName("tenant" + i), COL_GREEN);
+                setLabelTextColor(popup("tenants").findElementByName("tenant" + i), COL_GREEN);
             } else {
-                setLabelTextColor(popup.findElementByName("tenant" + i), COL_RED);
+                setLabelTextColor(popup("tenants").findElementByName("tenant" + i), COL_RED);
             }
         }
+        
+        popup("tenants").findElementByName("button_popup_tenants_ok").setVisible(false);
     }
     
     
-    public void closePopup(){
-        nifty.closePopup(popup.getId());
+    public void closePopup(String key){
+        nifty.closePopup(popups.get("popup_" + key).getId());
     }
 
     
@@ -259,7 +312,7 @@ public class GUIController implements ScreenController {
         player.reduceMoney(district.getSelected().getValue());
         district.getSelected().setOwned(true);
         refreshPlayerMoneyDisplay();
-        closePopup();
+        closePopup("buy");
         refreshButtonStates();
     }
     
@@ -279,7 +332,7 @@ public class GUIController implements ScreenController {
         district.setSelected(null);
         clearObjectInfo();
         refreshButtonStates();
-        closePopup();
+        closePopup("build");
     }
     
     
@@ -288,10 +341,12 @@ public class GUIController implements ScreenController {
         
         if (player.getMoney() >= getDefPrice(currBuildSelection)){
             setLabelText("popup_build_selection", "Build for " + moneyFormat(getDefPrice(currBuildSelection)) + "$ ?");
-            popup.findElementByName("button_popup_build_ok").setVisible(true);
+            popup("build").findElementByName("button_popup_build_ok").setVisible(true);
+            setLabelTextColor(popup("build").findElementByName("popup_build_selection"), COL_GREEN);
         } else {
             setLabelText("popup_build_selection", "You don't have enough money (" + moneyFormat(getDefPrice(currBuildSelection)) + "$).");
-            popup.findElementByName("button_popup_build_ok").setVisible(false);
+            popup("build").findElementByName("button_popup_build_ok").setVisible(false);
+            setLabelTextColor(popup("build").findElementByName("popup_build_selection"), COL_RED);
         }
     }
     
@@ -329,14 +384,17 @@ public class GUIController implements ScreenController {
         unmarkProblems();
         
         //mark problems
-        if (!currTenants.get(index).checkMatchBudget((House)district.getSelected()))
-            setLabelTextColor(popup.findElementByName("tenant_budget"), COL_RED);
-        if (!currTenants.get(index).checkMatchLuxury((House)district.getSelected()))
-            setLabelTextColor(popup.findElementByName("tenant_minlux"), COL_RED);
-        if (!currTenants.get(index).checkMatchNeeds((House)district.getSelected()))
-            setLabelTextColor(popup.findElementByName("tenant_needs"), COL_RED);
-        if (!currTenants.get(index).checkMatchDistrict((House)district.getSelected()))
-            setLabelTextColor(popup.findElementByName("tenant_public"), COL_RED);
+        boolean match = true;
+        if (!currTenants.get(index).checkMatchBudget((House)district.getSelected())){
+            setLabelTextColor(popup("tenants").findElementByName("tenant_budget"), COL_RED); match = false;}
+        if (!currTenants.get(index).checkMatchLuxury((House)district.getSelected())){
+            setLabelTextColor(popup("tenants").findElementByName("tenant_minlux"), COL_RED); match = false;}
+        if (!currTenants.get(index).checkMatchNeeds((House)district.getSelected())){
+            setLabelTextColor(popup("tenants").findElementByName("tenant_needs"), COL_RED); match = false;}
+        if (!currTenants.get(index).checkMatchDistrict((House)district.getSelected())){
+            setLabelTextColor(popup("tenants").findElementByName("tenant_public"), COL_RED); match = false;}
+        
+        popup("tenants").findElementByName("button_popup_tenants_ok").setVisible(match);
     }
     
     
@@ -351,16 +409,16 @@ public class GUIController implements ScreenController {
     
     
     private void unmarkProblems(){
-        setLabelTextColor(popup.findElementByName("tenant_budget"), COL_GREEN);
-        setLabelTextColor(popup.findElementByName("tenant_minlux"), COL_GREEN);
-        setLabelTextColor(popup.findElementByName("tenant_needs"), COL_GREEN);
-        setLabelTextColor(popup.findElementByName("tenant_public"), COL_GREEN);
+        setLabelTextColor(popup("tenants").findElementByName("tenant_budget"), COL_GREEN);
+        setLabelTextColor(popup("tenants").findElementByName("tenant_minlux"), COL_GREEN);
+        setLabelTextColor(popup("tenants").findElementByName("tenant_needs"), COL_GREEN);
+        setLabelTextColor(popup("tenants").findElementByName("tenant_public"), COL_GREEN);
     }
     
     
     public void destroyBuilding(){
         district.destroyBuilding(district.getSelected());
-        closePopup();
+        closePopup("destroy");
         refreshButtonStates();
     }
     
@@ -490,7 +548,7 @@ public class GUIController implements ScreenController {
                 setIconImage("button_build", HUD_IMG_PATH + BTN_BUILD_ON);
                 this.btnBuildActive = true;
             }
-            if (district.getSelected().isOwnedByPlayer()){
+            if (district.getSelected().isOwnedByPlayer() && !(district.getSelected() instanceof Land)){
                 setIconImage("button_destroy", HUD_IMG_PATH + BTN_DESTROY_ON);
                 this.btnDestroyActive = true;
             } else {
@@ -519,6 +577,24 @@ public class GUIController implements ScreenController {
     }
     
     
+    private void displayObjectInfoEdit(House go){
+        //properties
+        setLabelText(popup("edit").findElementByName("popup_edit_info_1"), go.getName());
+        setLabelText(popup("edit").findElementByName("popup_edit_info_2"), go.getLuxury() + "");
+        setLabelText(popup("edit").findElementByName("popup_edit_info_3"), go.getNeighborhoodValue()+ "");
+        setLabelText(popup("edit").findElementByName("popup_edit_info_4"), go.getValue() + " $");
+        setLabelText(popup("edit").findElementByName("popup_edit_info_5"), moneyFormat(go.getRent()) + " $/m.");
+        setIconImage(popup("edit").findElementByName("popup_edit_info_image"), go.getImagePath());
+        
+        //categories
+        setLabelText(popup("edit").findElementByName("popup_edit_cat_1"), "Name:");
+        setLabelText(popup("edit").findElementByName("popup_edit_cat_2"), "Luxury:");
+        setLabelText(popup("edit").findElementByName("popup_edit_cat_3"), "Neighbourh.:");
+        setLabelText(popup("edit").findElementByName("popup_edit_cat_4"), "Value:");
+        setLabelText(popup("edit").findElementByName("popup_edit_cat_5"), "Rent:");
+    }
+    
+    
     private void clearObjectInfo(){
         //properties
         setLabelText("info_1", "");
@@ -537,8 +613,13 @@ public class GUIController implements ScreenController {
     
     
     private void setIconImage(String imageID, String imagePath){
-        NiftyImage img = nifty.getRenderEngine().createImage(screen, imagePath, false);
         Element e = nifty.getScreen(SCREEN_INGAME).findElementByName(imageID);
+        setIconImage(e, imagePath);
+    }
+    
+    
+    private void setIconImage(Element e, String imagePath){
+        NiftyImage img = nifty.getRenderEngine().createImage(screen, imagePath, false);
         e.getRenderer(ImageRenderer.class).setImage(img);
     }
     
@@ -587,7 +668,7 @@ public class GUIController implements ScreenController {
     }
 
     
-    public void displayPlayerData(String playerName, int playerMoney, String playerIconPath){
+    public void displayPlayerData(String playerName, long playerMoney, String playerIconPath){
         setLabelText("player_name", playerName);
         setLabelText("player_money", moneyFormat(playerMoney) + "$");
         setIconImage("panel_hud_info_avatar", playerIconPath);
@@ -604,7 +685,7 @@ public class GUIController implements ScreenController {
     }
     
     
-    private String moneyFormat(int money){
+    private String moneyFormat(long money){
         return String.format("%,d", money);
     }
     

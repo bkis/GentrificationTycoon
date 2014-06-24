@@ -29,7 +29,8 @@ public class Game {
             District district,
             GUIController guiController,
             AssetManager assetManager,
-            RandomContentGenerator gen){
+            RandomContentGenerator gen,
+            TenantGenerator tenGen){
         
         this.day = 0;
         player = new Player(playerName, playerIconPath);
@@ -39,7 +40,7 @@ public class Game {
         this.tenants = new ArrayList<Tenant>();
         
         //launch tenant generator
-        this.tenantGen = new TenantGenerator(assetManager, gen);
+        this.tenantGen = tenGen;
         refreshTenantList();
     }
     
