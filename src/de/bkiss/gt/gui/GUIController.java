@@ -161,8 +161,12 @@ public class GUIController implements ScreenController {
             }
         } else if (key.startsWith("destroy")){
             if (!btnDestroyActive) return;
-            prepareDestroyPopup();
-            nifty.showPopup(screen, popup("destroy").getId(), null);
+            if (district.getSelected().isOccupied()){
+                nifty.showPopup(screen, popup("nodestroy").getId(), null);
+            } else {
+                prepareDestroyPopup();
+                nifty.showPopup(screen, popup("destroy").getId(), null);
+            }
         } else if (key.startsWith("tenant")){
             prepareTenantsPopup();
             nifty.showPopup(screen, popup("tenants").getId(), null);
@@ -307,6 +311,8 @@ public class GUIController implements ScreenController {
     
     public void closePopup(String key){
         nifty.closePopup(popups.get("popup_" + key).getId());
+        highlight(null);
+        clearObjectInfo();
     }
 
     
@@ -606,9 +612,9 @@ public class GUIController implements ScreenController {
     private void clearObjectInfo(){
         //properties
         setLabelText("info_1", "");
-        setLabelText("info_2", "select an");
-        setLabelText("info_3", "object to");
-        setLabelText("info_4", "view its stats");
+        setLabelText("info_2", "");
+        setLabelText("info_3", "");
+        setLabelText("info_4", "");
         setLabelText("info_5", "");
         
         //categories
