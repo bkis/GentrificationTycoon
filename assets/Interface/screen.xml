@@ -251,29 +251,22 @@
 			</panel>
 			
 			<panel id="popup_edit_window_content" width="100%" height="330" childLayout="horizontal" backgroundColor="#000000ff">
-				
-				<panel id="popup_edit_panel_left" width="30%" height="100%" childLayout="vertical">
-					<image id="popup_edit_tenant_image" filename="Interface/hud/tenant_shape.png" align="center" height="100" width="100"></image>
-					
-					<panel id="popup_edit_tenant_spacer" height="20" width="100%"></panel>
-					
-					<control id="popup_edit_tenant_title" name="label" font="Interface/Fonts/Default.fnt" text="Tenant" align="center" height="18"/>
+				<panel id="popup_edit_content_spacer" height="100%" width="20"></panel>
+				<panel id="popup_edit_panel_left" width="150" height="100%" childLayout="vertical">
+					<image id="popup_edit_tenant_image" filename="Interface/hud/tenant_shape.png" align="left" height="100" width="100"></image>
 					
 					<control id="edit_tenant_occupied" name="label" font="Interface/Fonts/Default.fnt" align="center" text="" height="18" width="100%"/>
 					
 					<panel id="popup_edit_tenant_details" width="100%" childLayout="vertical">
 						<control id="edit_tenant_name" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="18" width="100%"/>
+						<panel id="popup_edit_tenant_spacer" height="15" width="100%"></panel>
 						<control id="edit_tenant_prof" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="18" width="100%"/>
 						<control id="edit_tenant_data_spacer" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="6" width="100%"/>
 						<control id="edit_tenant_budget" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="18" width="100%"/>
-						<control id="edit_tenant_minlux" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="18" width="100%"/>
-						<control id="edit_tenant_needs" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="18" width="100%"/>
-						<control id="edit_tenant_public" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="18" width="100%"/>
 					</panel>
 				</panel>
 				
 				<panel id="popup_edit_panel_right" height="100%" childLayout="vertical">
-				
 					
 					<panel id="popup_edit_info_object" height="115" childLayout="horizontal">
 						<panel id="popup_edit_info_object_spacer1" height="100%" childLayout="center"></panel>

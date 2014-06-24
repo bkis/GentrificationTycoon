@@ -118,6 +118,12 @@ public class Tenant {
     }
     
     
+    public void setOnlyNeed(Expansion need){
+        needs.clear();
+        needs.add(need);
+    }
+    
+    
     public boolean checkMatchNeeds(House house){
         for (Expansion e : needs)
                 if (!house.hasExpansion(e.getName()))

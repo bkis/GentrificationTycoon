@@ -9,6 +9,7 @@ import de.bkiss.gt.objects.House;
 import de.bkiss.gt.objects.Land;
 import de.bkiss.gt.objects.PassiveObject;
 import de.bkiss.gt.objects.PublicBuilding;
+import de.bkiss.gt.tenants.Tenant;
 import de.bkiss.gt.tenants.TenantGenerator;
 import de.bkiss.gt.utils.ModelLoader;
 import de.bkiss.gt.utils.RandomContentGenerator;
@@ -209,7 +210,7 @@ public class District {
     public void construct(){
         String[][] matrix = getBoardMatrix();
         String curr;
-        GameObject go = null;
+        GameObject go;
         
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[i].length; j++) {
@@ -243,11 +244,18 @@ public class District {
                         go = new House(app,
                             House.TYPE_HOUSE_1, "Haus Nr." + i + "" + j, this);
                         ((House)go).addExpansion(gen.getRndExpansionFor(0));
-                        
+                        if (Math.random() < 0.5f){
+                            ((House)go).setTenant(prepareMatch((House)go));
+                            ((House)go).setRent(((House)go).getTenant().getBudget() - 11);
+                        }
                     } else if (rnd < 0.55f){
                         go = new House(app,
                             House.TYPE_HOUSE_2, "Haus Nr." + i + "" + j, this);
                         ((House)go).addExpansion(gen.getRndExpansionFor(1));
+                        if (Math.random() < 0.5f){
+                            ((House)go).setTenant(prepareMatch((House)go));
+                            ((House)go).setRent(((House)go).getTenant().getBudget() - 11);
+                        }
                     } else {
                         go = new Land(app,
                             "Land Nr." + i + "" + j, this);
@@ -263,6 +271,16 @@ public class District {
         for (Entry<String, GameObject> e : objects.entrySet())
             if (e.getValue() instanceof House)
                 ((House)e.getValue()).applyDefaultRent();
+    }
+    
+    
+    private Tenant prepareMatch(House h){
+        Tenant t = tenGen.generateTenant(Integer.parseInt(h.getType()
+                .substring(h.getType().length()-1))-1);
+        t.setMinLuxury(h.getLuxury() - 1);
+        t.setPublicCondition("nothing", 0);
+        t.setOnlyNeed(h.getExpansion());
+        return t;
     }
     
     

@@ -52,10 +52,10 @@ public class GUIController implements ScreenController {
     private static final String BTN_DESTROY_ON = "hud-button-wrck.png";
     private static final String BTN_DESTROY_OFF = "hud-button-wrck-off.png";
     
-    private static final int PRICE_BUILD_H1 = 100000;
-    private static final int PRICE_BUILD_H2 = 300000;
-    private static final int PRICE_BUILD_H3 = 800000;
-    private static final int PRICE_BUILD_E1 = 500000;   //CLUB
+    private static final int PRICE_BUILD_H1 = 200000;
+    private static final int PRICE_BUILD_H2 = 500000;
+    private static final int PRICE_BUILD_H3 = 1500000;
+    private static final int PRICE_BUILD_E1 = 450000;   //CLUB
     private static final int PRICE_BUILD_E2 = 1000000;  //GALLERY
     private static final int PRICE_BUILD_E3 = 3000000;  //SCHOOL
     
@@ -235,23 +235,38 @@ public class GUIController implements ScreenController {
         //set object info
         displayObjectInfoEdit(h);
         
+        //set buttons
+        if (h.isOccupied()) popup("edit")
+                .findElementByName("button_popup_edit_tenants").setVisible(false);
+        
+        
         //set tenant data
         if (h.isOccupied()){
+            String needs = "";
+            for (Expansion e  : h.getTenant().getNeeds())
+                needs += e.getName() + ", ";
+            if (needs.length() == 0){
+                needs = "-";
+            } else {
+                needs = needs.concat("END");
+                needs = needs.replaceFirst(", END", "");
+            }
+
+            String publicCond = h.getTenant().getPublicCondition();
+            if (!publicCond.contains("nothing")){
+                publicCond = h.getTenant().getPublicConditionCount() + "x " + publicCond;
+            } else {
+                publicCond = "-";
+            }
+
             setLabelText(popup("edit").findElementByName("edit_tenant_name"), "Name: " + h.getTenant().getName());
             setLabelText(popup("edit").findElementByName("edit_tenant_prof"), "Job: " + h.getTenant().getProfession());
             setLabelText(popup("edit").findElementByName("edit_tenant_budget"), "Budget: " + moneyFormat(h.getTenant().getBudget()) + " $");
-            setLabelText(popup("edit").findElementByName("edit_tenant_minlux"), "min. Luxury: " + h.getTenant().getMinLuxury());
-            setLabelText(popup("edit").findElementByName("edit_tenant_needs"), "Wants: " + h.getTenant().getNeeds());
-            setLabelText(popup("edit").findElementByName("edit_tenant_public"), "District: " + h.getTenant()
-                    .getPublicConditionCount() + "x " + h.getTenant().getPublicCondition());
             setLabelText(popup("edit").findElementByName("edit_tenant_occupied"), "");
         } else {
             setLabelText(popup("edit").findElementByName("edit_tenant_name"), "");
             setLabelText(popup("edit").findElementByName("edit_tenant_prof"), "");
             setLabelText(popup("edit").findElementByName("edit_tenant_budget"), "");
-            setLabelText(popup("edit").findElementByName("edit_tenant_minlux"), "");
-            setLabelText(popup("edit").findElementByName("edit_tenant_needs"), "");
-            setLabelText(popup("edit").findElementByName("edit_tenant_public"), "");
             setLabelText(popup("edit").findElementByName("edit_tenant_occupied"), "not occupied...");
             setLabelTextColor(popup("edit").findElementByName("edit_tenant_occupied"), COL_RED);
         }

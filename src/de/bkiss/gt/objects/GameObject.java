@@ -122,7 +122,7 @@ public abstract class GameObject {
         if (type.equals(GameObject.TYPE_PASSIVE)) return;
         ownerMarker = ModelLoader.createAbstractMarkerGeometry(app.getAssetManager());
         ownerMarker.setName("ownerMarker");
-        spatial.attachChild(ownerMarker);
+        //spatial.attachChild(ownerMarker);
         ownerMarker.setLocalTranslation(0f, 0.45f, 0.51f);
     }
     
@@ -132,7 +132,8 @@ public abstract class GameObject {
         occupiedMarker = ModelLoader.createAbstractMarkerGeometry(app.getAssetManager());
         occupiedMarker.setName("occupiedMarker");
         occupiedMarker.scale(0.5f);
-        spatial.attachChild(occupiedMarker);
+        occupiedMarker.getMaterial().setColor("Color", ColorRGBA.Black);
+        //spatial.attachChild(occupiedMarker);
         occupiedMarker.setLocalTranslation(0.05f, 0.5f, 0.52f);
     }
     
@@ -169,11 +170,6 @@ public abstract class GameObject {
     public void setOccupied(boolean state){
         if (type.equals(GameObject.TYPE_PASSIVE)) return;
         occupied = state;
-        if (state){
-            occupiedMarker.getMaterial().setColor("Color", ColorRGBA.Black);
-        } else {
-            occupiedMarker.setMaterial(ownerMarker.getMaterial());
-        }
     }
 
     
@@ -191,18 +187,15 @@ public abstract class GameObject {
     public void setMarkers(boolean on){
         if (type.equals(GameObject.TYPE_PASSIVE)) return;
         if (on){
-            if (!spatial.hasChild(ownerMarker)){
+            if (!spatial.hasChild(ownerMarker))
                 spatial.attachChild(ownerMarker);
+            if (occupied && !spatial.hasChild(occupiedMarker))
                 spatial.attachChild(occupiedMarker);
-                //ownerMarker.move(0, markerHideOffset, 0);
-            } else {
-                
-            }
-            //occupiedMarker.move(0, markerHideOffset, 0);
-            //markerHideOffset *= -1;
         } else {
-            spatial.detachChild(ownerMarker);
-            spatial.detachChild(occupiedMarker);
+            if (spatial.hasChild(ownerMarker))
+                spatial.detachChild(ownerMarker);
+            if (spatial.hasChild(occupiedMarker))
+                spatial.detachChild(occupiedMarker);
         }
     }
     
@@ -218,11 +211,11 @@ public abstract class GameObject {
     
     
     public int getValue(){
-        return (int) (Math.pow(
+        return (int) Math.pow(
                 (this instanceof House ? ((House)this).calcDefaultRent()
                 + this.getNeighborhoodValue() :
                 this.getNeighborhoodValue()*10)+50
                 , 1.5f
-                )*10);
+                )*4;
     }
 }
