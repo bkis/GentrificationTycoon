@@ -26,7 +26,6 @@ import de.bkiss.gt.objects.GameObject;
 import de.bkiss.gt.tenants.TenantGenerator;
 import de.bkiss.gt.utils.InputMapper;
 import de.bkiss.gt.utils.RandomContentGenerator;
-import de.bkiss.gt.utils.TextLoader;
 import java.util.List;
 
 /**
@@ -35,7 +34,7 @@ import java.util.List;
  */
 public class IngameState extends AbstractAppState{
     
-    private static final int DAY_LENGTH_IN_MS = 2000;
+    private static final int DAY_LENGTH_IN_MS = 500;
     
     
     private Camera cam;

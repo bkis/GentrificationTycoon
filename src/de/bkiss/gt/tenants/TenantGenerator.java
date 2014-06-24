@@ -49,7 +49,7 @@ public class TenantGenerator {
     
     private int getRndBudget(int socialClass){
         return (int)(
-                ((400 + (400*((Math.random() - 0.5f)/2)))
+                ((800 + (400*((Math.random() - 0.5f)/2)))
                 * (socialClass*2+1))
                 + (socialClass*(Math.random()*(400*socialClass)))
                 );

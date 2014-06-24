@@ -105,8 +105,8 @@ public class GUIController implements ScreenController {
         this.app.getRootNode().attachChild(marker);
         
         //set logging level
-        Logger.getLogger("de.lessvoid.nifty").setLevel(Level.SEVERE); 
-        Logger.getLogger("NiftyInputEventHandlingLog").setLevel(Level.SEVERE); 
+//        Logger.getLogger("de.lessvoid.nifty").setLevel(Level.SEVERE); 
+//        Logger.getLogger("NiftyInputEventHandlingLog").setLevel(Level.SEVERE); 
         
         this.currTenantIndex = 0;
     }
@@ -166,6 +166,8 @@ public class GUIController implements ScreenController {
         } else if (key.startsWith("tenant")){
             prepareTenantsPopup();
             nifty.showPopup(screen, popup("tenants").getId(), null);
+        } else if (key.startsWith("quit")){
+            nifty.showPopup(screen, popup("quit").getId(), null);
         }
     }
     
@@ -175,16 +177,24 @@ public class GUIController implements ScreenController {
         setLabelText(popup("buy").findElementByName("popup_buy_window_title"),
                         "Buy '" + district.getSelected().getName() + "'?");
         
+        //set image
+        setIconImage(popup("buy").findElementByName("popup_buy_img"),
+                district.getSelected().getImagePath());
+        
+        //set price label
+        setLabelText(popup("buy").findElementByName("popup_buy_price"),
+                    moneyFormat(district.getSelected().getValue()) + " $");
+        
         //check preconditions
         if (player.getMoney() >= district.getSelected().getValue()){
+            setLabelTextColor(popup("buy").findElementByName("popup_buy_price"), COL_GREEN);
             setLabelText(popup("buy").findElementByName("popup_buy_text"),
-                    "Would you like to buy '" + district.getSelected().getName()
-                    + "' (" + moneyFormat(district.getSelected().getValue()) + "$)?");
+                    "Would you like to buy '" + district.getSelected().getName() + "'?");
             popup("buy").findElementByName("button_popup_buy_ok").setVisible(true);
         } else {
+            setLabelTextColor(popup("buy").findElementByName("popup_buy_price"), COL_RED);
             setLabelText(popup("buy").findElementByName("popup_buy_text"),
-                    "You don't have enough money to buy '" + district.getSelected().getName()
-                    + "' (" + moneyFormat(district.getSelected().getValue()) + "$).");
+                    "You don't have enough money to buy '" + district.getSelected().getName() + "'.");
             popup("buy").findElementByName("button_popup_buy_ok").setVisible(false);
         }
     }
@@ -242,23 +252,6 @@ public class GUIController implements ScreenController {
         
         //set tenant data
         if (h.isOccupied()){
-            String needs = "";
-            for (Expansion e  : h.getTenant().getNeeds())
-                needs += e.getName() + ", ";
-            if (needs.length() == 0){
-                needs = "-";
-            } else {
-                needs = needs.concat("END");
-                needs = needs.replaceFirst(", END", "");
-            }
-
-            String publicCond = h.getTenant().getPublicCondition();
-            if (!publicCond.contains("nothing")){
-                publicCond = h.getTenant().getPublicConditionCount() + "x " + publicCond;
-            } else {
-                publicCond = "-";
-            }
-
             setLabelText(popup("edit").findElementByName("edit_tenant_name"), "Name: " + h.getTenant().getName());
             setLabelText(popup("edit").findElementByName("edit_tenant_prof"), "Job: " + h.getTenant().getProfession());
             setLabelText(popup("edit").findElementByName("edit_tenant_budget"), "Budget: " + moneyFormat(h.getTenant().getBudget()) + " $");
@@ -597,7 +590,7 @@ public class GUIController implements ScreenController {
         setLabelText(popup("edit").findElementByName("popup_edit_info_1"), go.getName());
         setLabelText(popup("edit").findElementByName("popup_edit_info_2"), go.getLuxury() + "");
         setLabelText(popup("edit").findElementByName("popup_edit_info_3"), go.getNeighborhoodValue()+ "");
-        setLabelText(popup("edit").findElementByName("popup_edit_info_4"), go.getValue() + " $");
+        setLabelText(popup("edit").findElementByName("popup_edit_info_4"), moneyFormat(go.getValue()) + " $");
         setLabelText(popup("edit").findElementByName("popup_edit_info_5"), moneyFormat(go.getRent()) + " $/m.");
         setIconImage(popup("edit").findElementByName("popup_edit_info_image"), go.getImagePath());
         

@@ -245,7 +245,7 @@ public class District {
                             House.TYPE_HOUSE_1, "Haus Nr." + i + "" + j, this);
                         ((House)go).addExpansion(gen.getRndExpansionFor(0));
                         if (Math.random() < 0.5f){
-                            ((House)go).setTenant(prepareMatch((House)go));
+                            ((House)go).setTenant(tenGen.generateTenant(0));
                             ((House)go).setRent(((House)go).getTenant().getBudget() - 11);
                         }
                     } else if (rnd < 0.55f){
@@ -253,7 +253,7 @@ public class District {
                             House.TYPE_HOUSE_2, "Haus Nr." + i + "" + j, this);
                         ((House)go).addExpansion(gen.getRndExpansionFor(1));
                         if (Math.random() < 0.5f){
-                            ((House)go).setTenant(prepareMatch((House)go));
+                            ((House)go).setTenant(tenGen.generateTenant(1));
                             ((House)go).setRent(((House)go).getTenant().getBudget() - 11);
                         }
                     } else {
@@ -269,18 +269,8 @@ public class District {
         }
         
         for (Entry<String, GameObject> e : objects.entrySet())
-            if (e.getValue() instanceof House)
+            if (e.getValue() instanceof House && !((House)e.getValue()).isOccupied())
                 ((House)e.getValue()).applyDefaultRent();
-    }
-    
-    
-    private Tenant prepareMatch(House h){
-        Tenant t = tenGen.generateTenant(Integer.parseInt(h.getType()
-                .substring(h.getType().length()-1))-1);
-        t.setMinLuxury(h.getLuxury() - 1);
-        t.setPublicCondition("nothing", 0);
-        t.setOnlyNeed(h.getExpansion());
-        return t;
     }
     
     
