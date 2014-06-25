@@ -71,24 +71,16 @@ public class Game {
         refreshTenantList();
         
         //pay rent / moving out
-        int c = 0;
         for (GameObject go : district.getObjectList()){
             if (go instanceof House && ((House)go).isOccupied() && ((House)go).isOwnedByPlayer()){
                 if (((House)go).getRent() > ((House)go).getTenant().getBudget()){
                     ((House)go).removeTenant();
-                    c++;
                 } else {
                     player.addMoney(((House)go).getRent());
                 }
             }
         }
         guiController.refreshPlayerMoneyDisplay();
-        if (c != 0){
-            guiController.showAlert("Boohoo...",
-                    "This month, " + c + " tenants moved out",
-                    "because they couldn't afford their rent.");
-            guiController.closePopup("edit");
-        }
         
         //zinsen
         player.setMoney(player.getMoney() + (long)(player.getMoney()*0.005));

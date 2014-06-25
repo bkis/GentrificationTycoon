@@ -124,6 +124,8 @@ public class IngameState extends AbstractAppState{
         
         //start day timer ( calls game.nextDay() )
         game.getTimer().addDayTimeTask();
+        guiController.displayGameTime(1);
+        guiController.displayGentrificationState();
     }
 
     

@@ -191,6 +191,7 @@ public class GUIController implements ScreenController {
             nifty.showPopup(screen, popup("sell").getId(), null);
         } else if (key.startsWith("rent")){
             popup("rent").findNiftyControl("rent_input", TextField.class).enableInputFilter(tif);
+            popup("rent").findElementByName("button_popup_rent_cancel").setVisible(((House)sel()).isOccupied());
             nifty.showPopup(screen, popup("rent").getId(), null);
         } else if (key.startsWith("extras")){
             prepareExtrasPopup();
@@ -379,11 +380,7 @@ public class GUIController implements ScreenController {
         displayObjectInfoEdit(h);
         
         //set buttons
-        if (h.isOccupied())
-            popup("edit").findElementByName("button_popup_edit_tenants").setVisible(false);
-        else
-            popup("edit").findElementByName("button_popup_edit_tenants").setVisible(true);
-        
+        popup("edit").findElementByName("button_popup_edit_tenants").setVisible(!h.isOccupied());
         
         //set tenant data
         if (h.isOccupied()){
@@ -460,7 +457,7 @@ public class GUIController implements ScreenController {
             }
         }
         
-        popup("tenants").findElementByName("button_popup_tenants_ok").setVisible(false);
+        //popup("tenants").findElementByName("button_popup_tenants_ok").setVisible(false);
     }
     
     
@@ -490,10 +487,20 @@ public class GUIController implements ScreenController {
     
     
     public void acceptTenant(){
+        if (!tenantIsMatch()){
+            showAlert("No, thank's...", "This tenant is not interested in you house.",
+                    "Maybe you should improve it a litte?");
+            return;
+        }
         closePopup("tenants");
         ((House)sel()).setTenant(currTenants.get(currTenantIndex));
         ((House)sel()).setOccupied(true);
-        prepareEditPopup();
+        
+        setLabelText(popup("edit").findElementByName("edit_tenant_name"), "Name: " + ((House)sel()).getTenant().getName());
+        setLabelText(popup("edit").findElementByName("edit_tenant_prof"), "Job: " + ((House)sel()).getTenant().getProfession());
+        setLabelText(popup("edit").findElementByName("edit_tenant_budget"), "Budget: " + moneyFormat(((House)sel()).getTenant().getBudget()) + " $");
+        setLabelText(popup("edit").findElementByName("edit_tenant_occupied"), "");
+        popup("edit").findElementByName("button_popup_edit_tenants").setVisible(false);
     }
     
     
@@ -587,17 +594,23 @@ public class GUIController implements ScreenController {
         unmarkProblems();
         
         //mark problems
-        boolean match = true;
-        if (!currTenants.get(index).checkMatchBudget((House)sel())){
-            setLabelTextColor(popup("tenants").findElementByName("tenant_budget"), COL_RED); match = false;}
-        if (!currTenants.get(index).checkMatchLuxury((House)sel())){
-            setLabelTextColor(popup("tenants").findElementByName("tenant_minlux"), COL_RED); match = false;}
-        if (!currTenants.get(index).checkMatchNeeds((House)sel())){
-            setLabelTextColor(popup("tenants").findElementByName("tenant_needs"), COL_RED); match = false;}
-        if (!currTenants.get(index).checkMatchDistrict((House)sel())){
-            setLabelTextColor(popup("tenants").findElementByName("tenant_public"), COL_RED); match = false;}
+        tenantIsMatch();
         
-        popup("tenants").findElementByName("button_popup_tenants_ok").setVisible(match);
+        //popup("tenants").findElementByName("button_popup_tenants_ok").setVisible(match);
+    }
+    
+    
+    private boolean tenantIsMatch(){
+        boolean match = true;
+        if (!currTenants.get(currTenantIndex).checkMatchBudget((House)sel())){
+            setLabelTextColor(popup("tenants").findElementByName("tenant_budget"), COL_RED); match = false;}
+        if (!currTenants.get(currTenantIndex).checkMatchLuxury((House)sel())){
+            setLabelTextColor(popup("tenants").findElementByName("tenant_minlux"), COL_RED); match = false;}
+        if (!currTenants.get(currTenantIndex).checkMatchNeeds((House)sel())){
+            setLabelTextColor(popup("tenants").findElementByName("tenant_needs"), COL_RED); match = false;}
+        if (!currTenants.get(currTenantIndex).checkMatchDistrict((House)sel())){
+            setLabelTextColor(popup("tenants").findElementByName("tenant_public"), COL_RED); match = false;}
+        return match;
     }
     
     

@@ -14,7 +14,7 @@ public class Player {
     public Player(String name, String iconPath){
         this.name = name;
         this.iconPath = iconPath;
-        this.money = 1000000;
+        this.money = 3000000;
     }
     
     
