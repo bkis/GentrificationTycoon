@@ -605,6 +605,7 @@ public class GUIController implements ScreenController {
                 this.btnDestroyActive = false;
             }
         }
+        setMarkerState();
     }
     
     
@@ -661,6 +662,18 @@ public class GUIController implements ScreenController {
     }
     
     
+    private void setMarkerState(){
+        if (sel() == null) return;
+        if (sel().isOwnedByPlayer()){
+            ((Geometry)marker).getMaterial().setColor("Diffuse", ColorRGBA.Green);
+            ((Geometry)marker).getMaterial().setColor("Ambient", ColorRGBA.Green);
+        } else {
+            ((Geometry)marker).getMaterial().setColor("Diffuse", ColorRGBA.Red);
+            ((Geometry)marker).getMaterial().setColor("Ambient", ColorRGBA.Red);
+        }
+    }
+    
+    
     private void setIconImage(String imageID, String imagePath){
         Element e = nifty.getScreen(SCREEN_INGAME).findElementByName(imageID);
         setIconImage(e, imagePath);
@@ -670,11 +683,6 @@ public class GUIController implements ScreenController {
     private void setIconImage(Element e, String imagePath){
         NiftyImage img = nifty.getRenderEngine().createImage(screen, imagePath, false);
         e.getRenderer(ImageRenderer.class).setImage(img);
-    }
-    
-    
-    private void highlightGameObject(GameObject go){
-        highlight(go.getObjectGeometry());
     }
     
     
@@ -694,7 +702,7 @@ public class GUIController implements ScreenController {
         if (geom != null){
             geom.getMaterial().setColor("Ambient", ColorRGBA.Green);
             setMarker(geom.getParent().getParent().getLocalTranslation());
-            district.setSelected(district.getGameObject(geom));
+            district.setSelected(district.getGameObject(geom.getLocalTranslation()));
         } else {
             setMarker(null);
         }
@@ -702,10 +710,12 @@ public class GUIController implements ScreenController {
     
     
     private void setMarker(Vector3f target){
-        if (target != null)
+        if (target != null){
+            app.getRootNode().attachChild(marker);
             marker.setLocalTranslation(target.x, 2, target.z);
-        else
-            marker.setLocalTranslation(100, 2, 100);
+        } else {
+            app.getRootNode().detachChild(marker);
+        }
     }
     
     
