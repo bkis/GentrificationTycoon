@@ -90,13 +90,13 @@ public class House extends GameObject {
     }
     
     
-    public Expansion getExpansion(){
-        return (Expansion)expansions.toArray()[0];
+    public Tenant getTenant(){
+        return tenant;
     }
     
     
-    public Tenant getTenant(){
-        return tenant;
+    public Set<Expansion> getExpansions(){
+        return expansions;
     }
     
 }

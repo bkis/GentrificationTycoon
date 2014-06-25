@@ -293,6 +293,12 @@ public class GUIController implements ScreenController {
             setLabelTextColor(popup("edit").findElementByName("edit_tenant_occupied"), COL_RED);
         }
         
+        //display expansions
+        int i = 0;
+        for (Expansion e : h.getExpansions()){
+            setLabelText(popup("edit").findElementByName("popup_edit_exp" + i), e.getName());
+            i++;
+        }
     }
     
     
