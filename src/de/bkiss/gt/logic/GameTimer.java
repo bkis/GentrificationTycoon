@@ -9,26 +9,26 @@ import java.util.TimerTask;
  */
 public class GameTimer extends Timer {
 
-    private int millisEqualOneDay;
+    private int millisEqualOneMonth;
     private Game game;
     
-    public GameTimer(int millisEqualOneDay, Game game){
+    public GameTimer(int millisEqualOneMonth, Game game){
         super();
-        this.millisEqualOneDay = millisEqualOneDay;
+        this.millisEqualOneMonth = millisEqualOneMonth;
         this.game = game;
     }
     
     
     public void addDayTimeTask(){
-        this.schedule(new DayTimeTask(), millisEqualOneDay);
+        this.schedule(new DayTimeTask(), millisEqualOneMonth);
     }
     
     
     private class DayTimeTask extends TimerTask {
         @Override
         public void run() {
-            game.nextDay();
-            schedule(new DayTimeTask() , millisEqualOneDay);
+            game.nextMonth();
+            schedule(new DayTimeTask() , millisEqualOneMonth);
         }
     }
     

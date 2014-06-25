@@ -2,6 +2,8 @@ package de.bkiss.gt.utils;
 
 import com.jme3.asset.AssetManager;
 import de.bkiss.gt.objects.Expansion;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -86,6 +88,21 @@ public class RandomContentGenerator {
                 Integer.parseInt(e[1]),
                 Integer.parseInt(e[2]),
                 e[0]);
+    }
+    
+    
+    public List<Expansion> getAllExpansions(){
+        List<Expansion> list = new ArrayList<Expansion>();
+        
+        for (String s : expansions){
+            String[] e = s.split("#");
+            list.add(0, new Expansion(
+                Integer.parseInt(e[1]),
+                Integer.parseInt(e[2]),
+                e[0]));
+        }
+        
+        return list;
     }
     
     

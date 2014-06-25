@@ -48,7 +48,7 @@ public class MainState extends AbstractAppState {
         this.district = new District(app, gen, tenGen);
         
         //init GUI controller
-        guiController = new GUIController(app, this, district);
+        guiController = new GUIController(app, this, district, gen);
         
         //init input mapper
         inputMapper = new InputMapper(app, guiController);

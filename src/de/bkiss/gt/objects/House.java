@@ -61,7 +61,7 @@ public class House extends GameObject {
     
     
     public int calcDefaultRent(){
-        return (int)(Math.pow(getLuxury()*2 + getNeighborhoodValue(), 1.5f)+400);
+        return (int)(Math.pow(getLuxury()*2 + getNeighborhoodValue(), 1.5f));
     }
     
     

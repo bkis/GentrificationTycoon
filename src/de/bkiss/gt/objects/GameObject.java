@@ -33,6 +33,8 @@ public abstract class GameObject {
     private String name;
     private boolean ownedByPlayer;
     private boolean occupied;
+    private boolean markers;
+    private int boughtFor;
     
     protected Node spatial;
     
@@ -51,6 +53,7 @@ public abstract class GameObject {
         this.district = district;
         this.app = (SimpleApplication) app;
         this.imagePath = "Interface/hud/" + type + ".png";
+        boughtFor = 0;
         
         if (!type.equals(TYPE_PASSIVE))
             loadSpatial();
@@ -180,8 +183,7 @@ public abstract class GameObject {
     public void setOccupied(boolean state){
         if (type.equals(GameObject.TYPE_PASSIVE)) return;
         occupied = state;
-        if (spatial.hasChild(occupiedMarker))
-                spatial.detachChild(occupiedMarker);
+        setMarkers(markers);
     }
 
     
@@ -190,19 +192,23 @@ public abstract class GameObject {
         ownedByPlayer = state;
         if (state){
             ownerMarker.getMaterial().setColor("Color", ColorRGBA.Green);
+            boughtFor = getValue();
         } else {
             ownerMarker.getMaterial().setColor("Color", ColorRGBA.Red);
+            boughtFor = 0;
         }
     }
- 
+    
     
     public void setMarkers(boolean on){
+        markers = on;
         if (type.equals(GameObject.TYPE_PASSIVE)) return;
         if (on){
             if (!spatial.hasChild(ownerMarker))
                 spatial.attachChild(ownerMarker);
             if (occupied && !spatial.hasChild(occupiedMarker))
                 spatial.attachChild(occupiedMarker);
+            if (!occupied) spatial.detachChild(occupiedMarker);
         } else {
             if (spatial.hasChild(ownerMarker))
                 spatial.detachChild(ownerMarker);
@@ -223,11 +229,21 @@ public abstract class GameObject {
     
     
     public int getValue(){
-        return (int) Math.pow(
-                (this instanceof House ? ((House)this).calcDefaultRent()
+        if (boughtFor != 0){
+            int i = 0;
+            if (this instanceof House){
+                for (Expansion e : ((House)this).getExpansions()){
+                    i += e.getPrice();
+                }
+            }
+            return boughtFor + i;
+        } else {
+            return (int) Math.pow(
+                (this instanceof House ? ((House)this).calcDefaultRent()+400
                 + this.getNeighborhoodValue() :
                 this.getNeighborhoodValue()*10)+50
                 , 1.5f
                 )*4;
+        }
     }
 }

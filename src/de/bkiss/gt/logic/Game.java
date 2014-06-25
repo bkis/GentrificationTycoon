@@ -2,6 +2,7 @@ package de.bkiss.gt.logic;
 
 import com.jme3.asset.AssetManager;
 import de.bkiss.gt.gui.GUIController;
+import de.bkiss.gt.objects.Expansion;
 import de.bkiss.gt.objects.GameObject;
 import de.bkiss.gt.objects.House;
 import de.bkiss.gt.tenants.Tenant;
@@ -17,7 +18,7 @@ import java.util.Random;
  */
 public class Game {
     
-    private static final int DAY_LENGTH_IN_MS = 500;
+    private static final int MONTH_LENGTH_IN_MS = 5000;
     
     private Player player;
     private District district;
@@ -26,7 +27,7 @@ public class Game {
     private TenantGenerator tenantGen;
     private List<Tenant> tenants;
     
-    private long day;
+    private long month;
     
     public Game(String playerName,
             String playerIconPath,
@@ -36,9 +37,9 @@ public class Game {
             RandomContentGenerator gen,
             TenantGenerator tenGen){
         
-        this.day = 0;
+        this.month = 0;
         player = new Player(playerName, playerIconPath);
-        timer = new GameTimer(DAY_LENGTH_IN_MS, this);
+        timer = new GameTimer(MONTH_LENGTH_IN_MS, this);
         this.district = district;
         this.guiController = guiController;
         this.tenants = new ArrayList<Tenant>();
@@ -60,36 +61,37 @@ public class Game {
         return district;
     }
     
-    public void nextDay(){
+    public void nextMonth(){
         //time
-        day++;
-        guiController.displayGameTime(day);
+        month++;
+        guiController.displayGameTime(month);
         guiController.displayGentrificationState();
         
         //new tenants?
-        if (day % 30 == 0) refreshTenantList();
+        refreshTenantList();
         
         //pay rent / moving out
         int c = 0;
-        if (day % 30 == 0){
-            for (GameObject go : district.getObjectList()){
-                if (go instanceof House && ((House)go).isOccupied()){
-                    if (((House)go).getRent() > ((House)go).getTenant().getBudget()){
-                        ((House)go).removeTenant();
-                        c++;
-                    } else {
-                        player.addMoney(((House)go).getRent());
-                    }
+        for (GameObject go : district.getObjectList()){
+            if (go instanceof House && ((House)go).isOccupied() && ((House)go).isOwnedByPlayer()){
+                if (((House)go).getRent() > ((House)go).getTenant().getBudget()){
+                    ((House)go).removeTenant();
+                    c++;
+                } else {
+                    player.addMoney(((House)go).getRent());
                 }
             }
-            guiController.refreshPlayerMoneyDisplay();
-            if (c != 0){
-                guiController.showAlert("Boohoo...",
-                        "This month, " + c + " tenants moved out",
-                        "because they couldn't afford their rent.");
-                guiController.closePopup("edit");
-            }
         }
+        guiController.refreshPlayerMoneyDisplay();
+        if (c != 0){
+            guiController.showAlert("Boohoo...",
+                    "This month, " + c + " tenants moved out",
+                    "because they couldn't afford their rent.");
+            guiController.closePopup("edit");
+        }
+        
+        //zinsen
+        player.setMoney(player.getMoney() + (long)(player.getMoney()*0.005));
 
         /* EXECUTE
          * EVERY

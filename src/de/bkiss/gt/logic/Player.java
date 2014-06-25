@@ -33,17 +33,17 @@ public class Player {
     }
     
     
-    public void setMoney(int money){
+    public void setMoney(long money){
         this.money = money;
     }
     
     
-    public void reduceMoney(int by){
+    public void reduceMoney(long by){
         this.money -= by;
     }
     
     
-    public void addMoney(int by){
+    public void addMoney(long by){
         this.money += by;
     }
     

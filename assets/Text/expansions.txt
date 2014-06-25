@@ -1,8 +1,10 @@
-Cable TV#200#5
-Bathtub#500#8
-Garage#2000#15
-Balcony#3000#18
-Pool#5000#20
-Mahagony Floor#6000#25
-Sauna#8000#30
-Car Loft#10000#35
+Cable TV#2000#3
+Bathtub#3500#4
+Garage#10000#5
+Balcony#20000#6
+Fireplace#22000#8
+Pool#30000#10
+Floor Heating#40000#12
+Mahagony Floor#50000#15
+Sauna#55000#18
+Car Loft#60000#20

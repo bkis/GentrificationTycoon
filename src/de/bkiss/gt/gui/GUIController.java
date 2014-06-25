@@ -20,6 +20,7 @@ import de.bkiss.gt.objects.PublicBuilding;
 import de.bkiss.gt.states.MainState;
 import de.bkiss.gt.tenants.Tenant;
 import de.bkiss.gt.utils.ModelLoader;
+import de.bkiss.gt.utils.RandomContentGenerator;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.NiftyEventSubscriber;
 import de.lessvoid.nifty.controls.TextField;
@@ -33,6 +34,7 @@ import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
 import de.lessvoid.nifty.tools.Color;
 import de.lessvoid.nifty.tools.SizeValue;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -83,6 +85,9 @@ public class GUIController implements ScreenController {
     private String currBuildSelection;
     private List<Tenant> currTenants;
     private int currTenantIndex;
+    private List<Expansion> expansions;
+    private List<Expansion> selExtras;
+    private int selectedExtra;
     
     private boolean btnBuildActive;
     private boolean btnDestroyActive;
@@ -90,7 +95,7 @@ public class GUIController implements ScreenController {
     
     
     public GUIController(Application app, MainState mainState,
-            District district){
+            District district, RandomContentGenerator gen){
         this.app = (SimpleApplication) app;
         this.mainState = mainState;
         popups = new HashMap<String, Element>();
@@ -105,6 +110,9 @@ public class GUIController implements ScreenController {
         
         this.btnBuildActive = false;
         this.btnDestroyActive = false;
+        this.expansions = gen.getAllExpansions();
+        this.selExtras = new ArrayList<Expansion>();
+        this.currTenants = new ArrayList<Tenant>();
         
         //create selection marker
         marker = ModelLoader.createSelectionMarker(app.getAssetManager());
@@ -184,6 +192,9 @@ public class GUIController implements ScreenController {
         } else if (key.startsWith("rent")){
             popup("rent").findNiftyControl("rent_input", TextField.class).enableInputFilter(tif);
             nifty.showPopup(screen, popup("rent").getId(), null);
+        } else if (key.startsWith("extras")){
+            prepareExtrasPopup();
+            nifty.showPopup(screen, popup("extras").getId(), null);
         }
     }
     
@@ -221,6 +232,57 @@ public class GUIController implements ScreenController {
             return true;
         }
     };
+    
+    
+    private void prepareExtrasPopup(){
+        selExtras.clear();
+        
+        for (Expansion e : expansions){
+            if (!((House)sel()).hasExpansion(e.getName())){
+                selExtras.add(0, e);
+            }
+        }
+        
+        markExtras();
+    }
+    
+    
+    private void markExtras(){
+        for (int i = 0; i < 10; i++) {
+            if (selExtras.size() > i){
+                setLabelText(popup("extras").findElementByName("popup_extra"+i),
+                    selExtras.get(i).getName() + " ("
+                        + selExtras.get(i).getPrice() + "$, Luxury +"
+                        + selExtras.get(i).getEffect() + ")");
+                if (player.getMoney() >= selExtras.get(i).getPrice())
+                    setLabelTextColor(popup("extras").findElementByName("popup_extra"+i), COL_GREEN);
+                else
+                    setLabelTextColor(popup("extras").findElementByName("popup_extra"+i), COL_RED);
+            } else {
+                setLabelText(popup("extras").findElementByName("popup_extra"+i), "");
+            }
+        }
+    }
+    
+    
+    public void selectExtra(String index){
+        int i = Integer.parseInt(index);
+        if (player.getMoney() >= selExtras.get(i).getPrice()){
+            markExtras();
+            setLabelTextColor(popup("extras").findElementByName("popup_extra"+i), Color.WHITE);
+            selectedExtra = i;
+        }
+    }
+    
+    
+    public void buyExtra(){
+        ((House)sel()).addExpansion(selExtras.get(selectedExtra));
+        refreshExpansionList((House)sel());
+        displayObjectInfoEdit((House)sel());
+        player.reduceMoney(selExtras.get(selectedExtra).getPrice());
+        refreshPlayerMoneyDisplay();
+        closePopup("extras");
+    }
 
     
     private void prepareSellPopup(){
@@ -338,6 +400,11 @@ public class GUIController implements ScreenController {
         }
         
         //display expansions
+        refreshExpansionList(h);
+    }
+    
+    
+    private void refreshExpansionList(House h){
         int i = 0;
         for (Expansion e : h.getExpansions()){
             setLabelText(popup("edit").findElementByName("popup_edit_exp" + i), e.getName());
@@ -367,7 +434,8 @@ public class GUIController implements ScreenController {
     
     
     private void prepareTenantsPopup(){
-        currTenants = game.getTenants();
+        currTenants.clear();
+        currTenants.addAll(game.getTenants());
         
         setLabelText(popup("tenants").findElementByName("popup_tenants_window_title"),
                     "View potential tenants for '" + sel().getName() + "'...");
@@ -381,11 +449,11 @@ public class GUIController implements ScreenController {
         setLabelText(popup("tenants").findElementByName("tenant_public"), "");
         
         
-        for (int i = 0; i < currTenants.size(); i++) {
+        for (int i = 0; i < 10; i++) {
+            if (currTenants.size() < i+1) break;
             setLabelText(popup("tenants").findElementByName("tenant" + i),
                     currTenants.get(i).getName());
-            if (sel() instanceof House
-                    && currTenants.get(i).acceptsHouse((House)sel())){
+            if (currTenants.get(i).acceptsHouse((House)sel())){
                 setLabelTextColor(popup("tenants").findElementByName("tenant" + i), COL_GREEN);
             } else {
                 setLabelTextColor(popup("tenants").findElementByName("tenant" + i), COL_RED);
@@ -433,6 +501,13 @@ public class GUIController implements ScreenController {
         int r = Integer.parseInt(popup("rent").findNiftyControl("rent_input",
                 TextField.class).getRealText());
         ((House)sel()).setRent(r);
+        closePopup("rent");
+        setLabelText(popup("edit").findElementByName("popup_edit_info_5"), moneyFormat(((House)sel()).getRent())+" $/m");
+    }
+    
+    
+    public void maxRent(){
+        ((House)sel()).setRent(((House)sel()).getTenant().getBudget());
         closePopup("rent");
         setLabelText(popup("edit").findElementByName("popup_edit_info_5"), moneyFormat(((House)sel()).getRent())+" $/m");
     }
@@ -486,7 +561,7 @@ public class GUIController implements ScreenController {
         highlightTenant(index);
         
         String needs = "";
-        for (Expansion e  : currTenants.get(index).getNeeds())
+        for (Expansion e : currTenants.get(index).getNeeds())
             needs += e.getName() + ", ";
         if (needs.length() == 0){
             needs = "-";
@@ -803,11 +878,9 @@ public class GUIController implements ScreenController {
     }
     
     
-    public void displayGameTime(long days){
+    public void displayGameTime(long months){
         setLabelText("game_stat_time",
-                "Day: " + days
-                + " (next month in " + (30 - (days % 30))
-                + " days)");
+                "Month: " + months);
     }
 
     
