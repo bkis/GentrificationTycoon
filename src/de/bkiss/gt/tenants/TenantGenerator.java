@@ -57,7 +57,7 @@ public class TenantGenerator {
     
     
     private int getRndMinLux(int budget){
-        return (int)(150 * ((float)(budget-100)/4000));
+        return (int)(100 * ((float)(budget-100)/4000));
     }
     
     

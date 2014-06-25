@@ -404,6 +404,7 @@ public class GUIController implements ScreenController {
     public void acceptTenant(){
         closePopup("tenants");
         ((House)sel()).setTenant(currTenants.get(currTenantIndex));
+        ((House)sel()).setOccupied(true);
         prepareEditPopup();
     }
     
