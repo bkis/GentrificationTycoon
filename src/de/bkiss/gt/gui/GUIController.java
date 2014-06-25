@@ -8,6 +8,7 @@ import com.jme3.niftygui.NiftyJmeDisplay;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
+import de.bkiss.gt.IngameState;
 import de.bkiss.gt.logic.District;
 import de.bkiss.gt.logic.Game;
 import de.bkiss.gt.logic.Player;
@@ -85,6 +86,7 @@ public class GUIController implements ScreenController {
     
     private boolean btnBuildActive;
     private boolean btnDestroyActive;
+    private boolean alert;
     
     
     public GUIController(Application app, MainState mainState,
@@ -179,10 +181,28 @@ public class GUIController implements ScreenController {
         } else if (key.startsWith("sell")){
             prepareSellPopup();
             nifty.showPopup(screen, popup("sell").getId(), null);
-        }  else if (key.startsWith("rent")){
+        } else if (key.startsWith("rent")){
             popup("rent").findNiftyControl("rent_input", TextField.class).enableInputFilter(tif);
             nifty.showPopup(screen, popup("rent").getId(), null);
         }
+    }
+    
+    
+    public void showAlert(String title, String line1, String line2){
+        if (alert)
+            closePopup("note");
+        
+        setLabelText(popup("note").findElementByName("popup_note_window_title"), title);
+        setLabelText(popup("note").findElementByName("popup_note_text1"), line1);
+        setLabelText(popup("note").findElementByName("popup_note_text2"), line2);
+        nifty.showPopup(screen, popup("note").getId(), null);
+        alert = true;
+    }
+    
+    
+    public void closeAlert(){
+        alert = false;
+        closePopup("note");
     }
     
     
@@ -803,7 +823,7 @@ public class GUIController implements ScreenController {
     }
     
     
-    private void refreshPlayerMoneyDisplay(){
+    public void refreshPlayerMoneyDisplay(){
         setLabelText("player_money", moneyFormat(player.getMoney()) + " $");
     }
     

@@ -559,6 +559,33 @@
 	</popup>
 	
 	
+	<popup id="popup_note" childLayout="center" backgroundColor="#00000088" visibleToMouse="true">
+		
+		<panel id="popup_note_window" width="350" height="150" childLayout="vertical" backgroundColor="#000000ff">
+			<panel id="popup_note_window_titlebar" width="100%" height="20" childLayout="center" backgroundColor="#a55731ff">
+				<control id="popup_note_window_title" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="100%"/>
+			</panel>
+			
+			<panel id="popup_note_window_content" width="100%" height="80" childLayout="vertical" backgroundColor="#000000ff">
+				<panel id="popup_note_window_content_spacer" width="100%" childLayout="horizontal"></panel>
+				<control id="popup_note_text1" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="18"/>
+				<control id="popup_note_text2" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="18"/>
+				<panel id="popup_note_window_content_spacer2" width="100%" childLayout="horizontal"></panel>
+			</panel>
+			
+			<panel id="popup_note_window_buttons" width="100%" height="50" childLayout="horizontal" backgroundColor="#000000ff">
+				<panel id="popup_note_window_buttons_spacer" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
+				
+				<control name="button" style="custom-button" label="OK" id="button_popup_note_ok" align="center" valign="center" width="100" height="30" visibleToMouse="true">
+					<interact onRelease="closeAlert()" />
+     			</control>
+				
+				<panel id="popup_note_window_buttons_spacer3" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
+			</panel>
+		</panel>
+	</popup>
+	
+	
 	<popup id="popup_nodestroy" childLayout="center" backgroundColor="#00000088" visibleToMouse="true">
 		
 		<panel id="popup_nodestroy_window" width="300" height="150" childLayout="vertical" backgroundColor="#000000ff">

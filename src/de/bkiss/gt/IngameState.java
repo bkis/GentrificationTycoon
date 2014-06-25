@@ -34,9 +34,6 @@ import java.util.List;
  */
 public class IngameState extends AbstractAppState{
     
-    private static final int DAY_LENGTH_IN_MS = 500;
-    
-    
     private Camera cam;
     private Node rootNode;
     private SimpleApplication app;
@@ -126,7 +123,7 @@ public class IngameState extends AbstractAppState{
         cam.setRotation(new Quaternion(8.377186E-4f, 0.9033154f, -0.42897254f, 0.0017641005f));
         
         //start day timer ( calls game.nextDay() )
-        game.getTimer().addDayTimeTask(game, DAY_LENGTH_IN_MS);
+        game.getTimer().addDayTimeTask();
     }
 
     

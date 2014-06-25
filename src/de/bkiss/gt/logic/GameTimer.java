@@ -9,15 +9,18 @@ import java.util.TimerTask;
  */
 public class GameTimer extends Timer {
 
+    private int millisEqualOneDay;
+    private DayTimeTask dtt;
     
-    public GameTimer(){
+    public GameTimer(int millisEqualOneDay, Game game){
         super();
+        this.millisEqualOneDay = millisEqualOneDay;
+        this.dtt = new DayTimeTask(game);
     }
     
     
-    public void addDayTimeTask(Game game, int millisEqualOneDay){
-        DayTimeTask dtt = new DayTimeTask(game);
-        this.scheduleAtFixedRate(dtt, 0, millisEqualOneDay);
+    public void addDayTimeTask(){
+        this.schedule(dtt, millisEqualOneDay);
     }
     
     
@@ -32,6 +35,7 @@ public class GameTimer extends Timer {
         @Override
         public void run() {
             game.nextDay();
+            schedule(dtt , millisEqualOneDay);
         }
         
     }

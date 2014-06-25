@@ -2,6 +2,8 @@ package de.bkiss.gt.logic;
 
 import com.jme3.asset.AssetManager;
 import de.bkiss.gt.gui.GUIController;
+import de.bkiss.gt.objects.GameObject;
+import de.bkiss.gt.objects.House;
 import de.bkiss.gt.tenants.Tenant;
 import de.bkiss.gt.tenants.TenantGenerator;
 import de.bkiss.gt.utils.RandomContentGenerator;
@@ -14,6 +16,8 @@ import java.util.Random;
  * @author boss
  */
 public class Game {
+    
+    private static final int DAY_LENGTH_IN_MS = 500;
     
     private Player player;
     private District district;
@@ -34,7 +38,7 @@ public class Game {
         
         this.day = 0;
         player = new Player(playerName, playerIconPath);
-        timer = new GameTimer();
+        timer = new GameTimer(DAY_LENGTH_IN_MS, this);
         this.district = district;
         this.guiController = guiController;
         this.tenants = new ArrayList<Tenant>();
@@ -57,12 +61,34 @@ public class Game {
     }
     
     public void nextDay(){
+        //time
         day++;
         guiController.displayGameTime(day);
         guiController.displayGentrificationState();
         
+        //new tenants?
         if (day % 30 == 0) refreshTenantList();
         
+        //pay rent / moving out
+        int c = 0;
+        if (day % 30 == 0){
+            for (GameObject go : district.getObjectList()){
+                if (go instanceof House && ((House)go).isOccupied()){
+                    if (((House)go).getRent() > ((House)go).getTenant().getBudget()){
+                        ((House)go).removeTenant();
+                        c++;
+                    } else {
+                        player.addMoney(((House)go).getRent());
+                    }
+                }
+            }
+            guiController.refreshPlayerMoneyDisplay();
+            if (c != 0)
+                guiController.showAlert("Boohoo...",
+                        "This month, " + c + " tenants moved out",
+                        "because they couldn't afford their rent.");
+        }
+
         /* EXECUTE
          * EVERY
          * DAY !!!
