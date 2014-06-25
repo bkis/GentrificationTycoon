@@ -20,6 +20,10 @@ import de.bkiss.gt.states.MainState;
 import de.bkiss.gt.tenants.Tenant;
 import de.bkiss.gt.utils.ModelLoader;
 import de.lessvoid.nifty.Nifty;
+import de.lessvoid.nifty.NiftyEventSubscriber;
+import de.lessvoid.nifty.controls.TextField;
+import de.lessvoid.nifty.controls.TextFieldChangedEvent;
+import de.lessvoid.nifty.controls.textfield.filter.input.TextFieldInputFilter;
 import de.lessvoid.nifty.elements.Element;
 import de.lessvoid.nifty.elements.render.ImageRenderer;
 import de.lessvoid.nifty.elements.render.TextRenderer;
@@ -175,9 +179,29 @@ public class GUIController implements ScreenController {
         } else if (key.startsWith("sell")){
             prepareSellPopup();
             nifty.showPopup(screen, popup("sell").getId(), null);
+        }  else if (key.startsWith("rent")){
+            popup("rent").findNiftyControl("rent_input", TextField.class).enableInputFilter(tif);
+            nifty.showPopup(screen, popup("rent").getId(), null);
         }
     }
     
+    
+    private TextFieldInputFilter tif = new TextFieldInputFilter() {
+        public boolean acceptInput(int i, char c) {
+            if (!(c + "").matches("[0-9]")) return false;
+            String s = popup("rent").findNiftyControl("rent_input", TextField.class).getRealText();
+            if (s.length() >= 6) return false;
+            return true;
+        }
+
+        public boolean acceptInput(int i, CharSequence cs) {
+            if (!(cs + "").matches("[0-9]+")) return false;
+            String s = popup("rent").findNiftyControl("rent_input", TextField.class).getRealText();
+            if (s.length() >= 6) return false;
+            return true;
+        }
+    };
+
     
     private void prepareSellPopup(){
         //set popup title
@@ -299,6 +323,9 @@ public class GUIController implements ScreenController {
             setLabelText(popup("edit").findElementByName("popup_edit_exp" + i), e.getName());
             i++;
         }
+        for (int j = i; j < 10; j++) {
+            setLabelText(popup("edit").findElementByName("popup_edit_exp" + j), "-");
+        }
     }
     
     
@@ -325,6 +352,15 @@ public class GUIController implements ScreenController {
         setLabelText(popup("tenants").findElementByName("popup_tenants_window_title"),
                     "View potential tenants for '" + sel().getName() + "'...");
         
+        
+        setLabelText(popup("tenants").findElementByName("tenant_name"), "");
+        setLabelText(popup("tenants").findElementByName("tenant_prof"), "");
+        setLabelText(popup("tenants").findElementByName("tenant_budget"), "");
+        setLabelText(popup("tenants").findElementByName("tenant_minlux"), "");
+        setLabelText(popup("tenants").findElementByName("tenant_needs"), "");
+        setLabelText(popup("tenants").findElementByName("tenant_public"), "");
+        
+        
         for (int i = 0; i < currTenants.size(); i++) {
             setLabelText(popup("tenants").findElementByName("tenant" + i),
                     currTenants.get(i).getName());
@@ -341,7 +377,7 @@ public class GUIController implements ScreenController {
     
     
     public void closePopup(String key){
-        nifty.closePopup(popups.get("popup_" + key).getId());
+        nifty.closePopup(popup(key).getId());
 //        highlight(null);
 //        clearObjectInfo();
 //        highlightGameObject(sel());
@@ -362,6 +398,22 @@ public class GUIController implements ScreenController {
         refreshPlayerMoneyDisplay();
         closePopup("buy");
         refreshButtonStates();
+    }
+    
+    
+    public void acceptTenant(){
+        closePopup("tenants");
+        ((House)sel()).setTenant(currTenants.get(currTenantIndex));
+        prepareEditPopup();
+    }
+    
+    
+    public void setRent(){
+        int r = Integer.parseInt(popup("rent").findNiftyControl("rent_input",
+                TextField.class).getRealText());
+        ((House)sel()).setRent(r);
+        closePopup("rent");
+        setLabelText(popup("edit").findElementByName("popup_edit_info_5"), ((House)sel()).getRent()+" $/m");
     }
     
     
@@ -639,7 +691,7 @@ public class GUIController implements ScreenController {
         setLabelText(popup("edit").findElementByName("popup_edit_info_2"), go.getLuxury() + "");
         setLabelText(popup("edit").findElementByName("popup_edit_info_3"), go.getNeighborhoodValue()+ "");
         setLabelText(popup("edit").findElementByName("popup_edit_info_4"), moneyFormat(go.getValue()) + " $");
-        setLabelText(popup("edit").findElementByName("popup_edit_info_5"), moneyFormat(go.getRent()) + " $/m.");
+        setLabelText(popup("edit").findElementByName("popup_edit_info_5"), moneyFormat(go.getRent()) + " $/m");
         setIconImage(popup("edit").findElementByName("popup_edit_info_image"), go.getImagePath());
         
         //categories
@@ -740,13 +792,18 @@ public class GUIController implements ScreenController {
     
     public void displayPlayerData(String playerName, long playerMoney, String playerIconPath){
         setLabelText("player_name", playerName);
-        setLabelText("player_money", moneyFormat(playerMoney) + "$");
+        setLabelText("player_money", moneyFormat(playerMoney) + " $");
         setIconImage("panel_hud_info_avatar", playerIconPath);
     }
     
     
+    public String getSelectedRent(){
+        return ((House)sel()).getRent() + "";
+    }
+    
+    
     private void refreshPlayerMoneyDisplay(){
-        setLabelText("player_money", moneyFormat(player.getMoney()) + "$");
+        setLabelText("player_money", moneyFormat(player.getMoney()) + " $");
     }
     
     
@@ -773,15 +830,26 @@ public class GUIController implements ScreenController {
         }
         
         setLabelText("game_stat_district_tot_luxury",
-                "District Luxury: " + luxuryCount
-                + " (Average: " + (luxuryCount/houseCount) + ")");
+                "Avg. Luxury: " + (luxuryCount/houseCount));
+        
+        int g = ((luxuryCount/houseCount) / 150) * 100;
+        
+        setLabelText("game_stat_gentrified",
+                "Gentrified: " + g + "%");
+        
+        if (g >= 100) win();
     }
     
     
     private GameObject sel(){
         return district.getSelected();
     }
- 
+    
+    
+    private void win(){
+        //TODO
+    }
+    
     
     
 //    public void hightlightNeighborhoodRadius(){
