@@ -38,6 +38,7 @@ public abstract class GameObject {
     
     private Geometry ownerMarker;
     private Geometry occupiedMarker;
+    private Geometry houseGeom;
     
     private SimpleApplication app;
     private String imagePath;
@@ -115,6 +116,15 @@ public abstract class GameObject {
         setOccupied(false);
         setMarkers(false);
         setMarkers(district.isObjectMarkersOn());
+        
+        for (Spatial s : ((Node)objSpatial).getChildren())
+            if (s instanceof Geometry)
+                houseGeom = (Geometry) s;
+    }
+    
+    
+    public Geometry getObjectGeometry(){
+        return houseGeom;
     }
     
     

@@ -149,19 +149,19 @@ public class GUIController implements ScreenController {
         //select popup
         if (key.startsWith("build")){
             if (!btnBuildActive) return;
-            if (!district.getSelected().isOwnedByPlayer()){
+            if (!sel().isOwnedByPlayer()){
                 prepareBuyPopup();
                 nifty.showPopup(screen, popup("buy").getId(), null);
-            } else if (district.getSelected() instanceof Land){
+            } else if (sel() instanceof Land){
                 prepareBuildPopup();
                 nifty.showPopup(screen, popup("build").getId(), null);
-            } else if (district.getSelected() instanceof House){
+            } else if (sel() instanceof House){
                 prepareEditPopup();
                 nifty.showPopup(screen, popup("edit").getId(), null);
             }
         } else if (key.startsWith("destroy")){
             if (!btnDestroyActive) return;
-            if (district.getSelected().isOccupied()){
+            if (sel().isOccupied()){
                 nifty.showPopup(screen, popup("nodestroy").getId(), null);
             } else {
                 prepareDestroyPopup();
@@ -172,33 +172,56 @@ public class GUIController implements ScreenController {
             nifty.showPopup(screen, popup("tenants").getId(), null);
         } else if (key.startsWith("quit")){
             nifty.showPopup(screen, popup("quit").getId(), null);
+        } else if (key.startsWith("sell")){
+            prepareSellPopup();
+            nifty.showPopup(screen, popup("sell").getId(), null);
         }
+    }
+    
+    
+    private void prepareSellPopup(){
+        //set popup title
+        setLabelText(popup("sell").findElementByName("popup_sell_window_title"),
+                        "Sell '" + sel().getName() + "'?");
+        
+        //set image
+        setIconImage(popup("sell").findElementByName("popup_sell_img"),
+                sel().getImagePath());
+        
+        //set price label
+        setLabelText(popup("sell").findElementByName("popup_sell_price"),
+                    moneyFormat(sel().getValue()) + " $");
+        
+        //check preconditions
+        setLabelTextColor(popup("sell").findElementByName("popup_sell_price"), COL_GREEN);
+        setLabelText(popup("sell").findElementByName("popup_sell_text"),
+                "Do you want to sell '" + sel().getName() + "'?");
     }
     
     
     private void prepareBuyPopup(){
         //set popup title
         setLabelText(popup("buy").findElementByName("popup_buy_window_title"),
-                        "Buy '" + district.getSelected().getName() + "'?");
+                        "Buy '" + sel().getName() + "'?");
         
         //set image
         setIconImage(popup("buy").findElementByName("popup_buy_img"),
-                district.getSelected().getImagePath());
+                sel().getImagePath());
         
         //set price label
         setLabelText(popup("buy").findElementByName("popup_buy_price"),
-                    moneyFormat(district.getSelected().getValue()) + " $");
+                    moneyFormat(sel().getValue()) + " $");
         
         //check preconditions
-        if (player.getMoney() >= district.getSelected().getValue()){
+        if (player.getMoney() >= sel().getValue()){
             setLabelTextColor(popup("buy").findElementByName("popup_buy_price"), COL_GREEN);
             setLabelText(popup("buy").findElementByName("popup_buy_text"),
-                    "Would you like to buy '" + district.getSelected().getName() + "'?");
+                    "Would you like to buy '" + sel().getName() + "'?");
             popup("buy").findElementByName("button_popup_buy_ok").setVisible(true);
         } else {
             setLabelTextColor(popup("buy").findElementByName("popup_buy_price"), COL_RED);
             setLabelText(popup("buy").findElementByName("popup_buy_text"),
-                    "You don't have enough money to buy '" + district.getSelected().getName() + "'.");
+                    "You don't have enough money to buy '" + sel().getName() + "'.");
             popup("buy").findElementByName("button_popup_buy_ok").setVisible(false);
         }
     }
@@ -207,7 +230,7 @@ public class GUIController implements ScreenController {
     private void prepareBuildPopup(){
         //set popup title
         setLabelText(popup("build").findElementByName("popup_build_window_title"),
-                        "Build on '" + district.getSelected().getName() + "'?");
+                        "Build on '" + sel().getName() + "'?");
         
         //set prices display
         setLabelText(popup("build").findElementByName("popup_build_price_h1"),
@@ -240,7 +263,7 @@ public class GUIController implements ScreenController {
     
     
     private void prepareEditPopup(){
-        House h = (House) district.getSelected();
+        House h = (House) sel();
         
         //set popup title
         setLabelText(popup("edit").findElementByName("popup_edit_window_title"),
@@ -250,8 +273,10 @@ public class GUIController implements ScreenController {
         displayObjectInfoEdit(h);
         
         //set buttons
-        if (h.isOccupied()) popup("edit")
-                .findElementByName("button_popup_edit_tenants").setVisible(false);
+        if (h.isOccupied())
+            popup("edit").findElementByName("button_popup_edit_tenants").setVisible(false);
+        else
+            popup("edit").findElementByName("button_popup_edit_tenants").setVisible(true);
         
         
         //set tenant data
@@ -274,15 +299,15 @@ public class GUIController implements ScreenController {
     private void prepareDestroyPopup(){
         //set popup title
         setLabelText(popup("destroy").findElementByName("popup_destroy_window_title"),
-                        "Really destroy '" + district.getSelected().getName() + "'?");
+                        "Really destroy '" + sel().getName() + "'?");
         
         //and
-        if (district.getSelected().isOwnedByPlayer()){
+        if (sel().isOwnedByPlayer()){
             setLabelText(popup("destroy").findElementByName("popup_destroy_text"),
-                        "Do you want to destroy '" + district.getSelected().getName() + "'?");
+                        "Do you want to destroy '" + sel().getName() + "'?");
         } else {
             setLabelText(popup("destroy").findElementByName("popup_destroy_text"),
-                        "Impossible! There are still people living in '" + district.getSelected().getName() + "'!");
+                        "Impossible! There are still people living in '" + sel().getName() + "'!");
             popup("destroy").findElementByName("button_popup_destroy_ok").setVisible(false);
         }
     }
@@ -292,13 +317,13 @@ public class GUIController implements ScreenController {
         currTenants = game.getTenants();
         
         setLabelText(popup("tenants").findElementByName("popup_tenants_window_title"),
-                    "View potential tenants for '" + district.getSelected().getName() + "'...");
+                    "View potential tenants for '" + sel().getName() + "'...");
         
         for (int i = 0; i < currTenants.size(); i++) {
             setLabelText(popup("tenants").findElementByName("tenant" + i),
                     currTenants.get(i).getName());
-            if (district.getSelected() instanceof House
-                    && currTenants.get(i).acceptsHouse((House)district.getSelected())){
+            if (sel() instanceof House
+                    && currTenants.get(i).acceptsHouse((House)sel())){
                 setLabelTextColor(popup("tenants").findElementByName("tenant" + i), COL_GREEN);
             } else {
                 setLabelTextColor(popup("tenants").findElementByName("tenant" + i), COL_RED);
@@ -311,8 +336,11 @@ public class GUIController implements ScreenController {
     
     public void closePopup(String key){
         nifty.closePopup(popups.get("popup_" + key).getId());
-        highlight(null);
-        clearObjectInfo();
+//        highlight(null);
+//        clearObjectInfo();
+//        highlightGameObject(sel());
+        displayObjectInfo(sel());
+        refreshButtonStates();
     }
 
     
@@ -323,10 +351,20 @@ public class GUIController implements ScreenController {
     
     
     public void buyHouse(){
-        player.reduceMoney(district.getSelected().getValue());
-        district.getSelected().setOwned(true);
+        player.reduceMoney(sel().getValue());
+        sel().setOwned(true);
         refreshPlayerMoneyDisplay();
         closePopup("buy");
+        refreshButtonStates();
+    }
+    
+    
+    public void sellHouse(){
+        player.addMoney(sel().getValue());
+        sel().setOwned(false);
+        refreshPlayerMoneyDisplay();
+        closePopup("sell");
+        closePopup("edit");
         refreshButtonStates();
     }
     
@@ -341,11 +379,8 @@ public class GUIController implements ScreenController {
         else if (currBuildSelection.equals("E3")) type = GameObject.PUBLIC_SCHOOL;
         else                                      type = House.TYPE_HOUSE_1;
         
-        player.reduceMoney(district.buildHouse(type, (Land) district.getSelected()).getValue());
+        player.reduceMoney(district.buildHouse(type, (Land) sel()).getValue());
         refreshPlayerMoneyDisplay();
-        district.setSelected(null);
-        clearObjectInfo();
-        refreshButtonStates();
         closePopup("build");
     }
     
@@ -399,13 +434,13 @@ public class GUIController implements ScreenController {
         
         //mark problems
         boolean match = true;
-        if (!currTenants.get(index).checkMatchBudget((House)district.getSelected())){
+        if (!currTenants.get(index).checkMatchBudget((House)sel())){
             setLabelTextColor(popup("tenants").findElementByName("tenant_budget"), COL_RED); match = false;}
-        if (!currTenants.get(index).checkMatchLuxury((House)district.getSelected())){
+        if (!currTenants.get(index).checkMatchLuxury((House)sel())){
             setLabelTextColor(popup("tenants").findElementByName("tenant_minlux"), COL_RED); match = false;}
-        if (!currTenants.get(index).checkMatchNeeds((House)district.getSelected())){
+        if (!currTenants.get(index).checkMatchNeeds((House)sel())){
             setLabelTextColor(popup("tenants").findElementByName("tenant_needs"), COL_RED); match = false;}
-        if (!currTenants.get(index).checkMatchDistrict((House)district.getSelected())){
+        if (!currTenants.get(index).checkMatchDistrict((House)sel())){
             setLabelTextColor(popup("tenants").findElementByName("tenant_public"), COL_RED); match = false;}
         
         popup("tenants").findElementByName("button_popup_tenants_ok").setVisible(match);
@@ -431,7 +466,7 @@ public class GUIController implements ScreenController {
     
     
     public void destroyBuilding(){
-        district.destroyBuilding(district.getSelected());
+        district.destroyBuilding(sel());
         closePopup("destroy");
         refreshButtonStates();
     }
@@ -478,7 +513,7 @@ public class GUIController implements ScreenController {
     
     
     public String getCurrentImgPath(){
-        return district.getSelected().getImagePath();
+        return sel().getImagePath();
     }
     
     
@@ -519,7 +554,7 @@ public class GUIController implements ScreenController {
     public void clicked(Geometry clicked){
         if (clicked == null) return;
         if (district.getGameObject(clicked.getParent().getParent())
-                == district.getSelected()){
+                == sel()){
             highlight(null);
             clearObjectInfo();
             district.setSelected(null);
@@ -549,20 +584,20 @@ public class GUIController implements ScreenController {
     
     
     private void refreshButtonStates(){
-        if (district.getSelected() == null){
+        if (sel() == null){
             setIconImage("button_build", HUD_IMG_PATH + BTN_BUILD_OFF);
             setIconImage("button_destroy", HUD_IMG_PATH + BTN_DESTROY_OFF);
             this.btnBuildActive = false;
             this.btnDestroyActive = false;
         } else {
-            if (district.getSelected() instanceof PublicBuilding){
+            if (sel() instanceof PublicBuilding){
                 setIconImage("button_build", HUD_IMG_PATH + BTN_BUILD_OFF);
                 this.btnBuildActive = false;
             } else {
                 setIconImage("button_build", HUD_IMG_PATH + BTN_BUILD_ON);
                 this.btnBuildActive = true;
             }
-            if (district.getSelected().isOwnedByPlayer() && !(district.getSelected() instanceof Land)){
+            if (sel().isOwnedByPlayer() && !(sel() instanceof Land)){
                 setIconImage("button_destroy", HUD_IMG_PATH + BTN_DESTROY_ON);
                 this.btnDestroyActive = true;
             } else {
@@ -579,7 +614,7 @@ public class GUIController implements ScreenController {
         setLabelText("info_2", (go instanceof House ? ((House)go).getLuxury() + "" : ""));
         setLabelText("info_3", go.getNeighborhoodValue()+ "");
         setLabelText("info_4", (go instanceof House || go instanceof Land ? moneyFormat(go.getValue()) + "$" : ""));
-        setLabelText("info_5", (go instanceof House ? moneyFormat(((House)go).getRent()) + "$/m." : ""));
+        setLabelText("info_5", (go instanceof House ? moneyFormat(((House)go).getRent()) + " $/m." : ""));
         setIconImage("panel_hud_info_image", go.getImagePath());
         
         //categories
@@ -638,11 +673,16 @@ public class GUIController implements ScreenController {
     }
     
     
+    private void highlightGameObject(GameObject go){
+        highlight(go.getObjectGeometry());
+    }
+    
+    
     private void highlight(Geometry geom){
         //clear previous highlight
         Geometry current;
-        if (district.getSelected() != null){
-            current = (Geometry) ((Node)((Node)district.getSelected().getSpatial()).getChild(0)).getChild(0);
+        if (sel() != null){
+            current = (Geometry) ((Node)((Node)sel().getSpatial()).getChild(0)).getChild(0);
             current.getMaterial().setColor("Ambient", new ColorRGBA(1, 1, 1, 1));
             setMarker(null);
             setIconImage("panel_hud_info_image", getDefaultImgPath());
@@ -720,11 +760,16 @@ public class GUIController implements ScreenController {
                 "District Luxury: " + luxuryCount
                 + " (Average: " + (luxuryCount/houseCount) + ")");
     }
+    
+    
+    private GameObject sel(){
+        return district.getSelected();
+    }
  
     
     
 //    public void hightlightNeighborhoodRadius(){
-//        Set<GameObject> nh = district.getNeighborhood(district.getSelected(), true);
+//        Set<GameObject> nh = district.getNeighborhood(sel(), true);
 //        
 //        for (GameObject go : nh){
 //            if (go instanceof House)

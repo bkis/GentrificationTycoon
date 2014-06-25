@@ -82,7 +82,7 @@ public class District {
         
         objects.remove(land.getName());
         objects.put(go.getName(), go);
-        
+        selected = go;
         return go;
     }
     
@@ -98,6 +98,7 @@ public class District {
         objects.remove(go.getName());
         objects.put(land.getName(), land);
         land.setOwned(true);
+        selected = land;
     }
     
     

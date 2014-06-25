@@ -42,4 +42,9 @@ public class Player {
         this.money -= by;
     }
     
+    
+    public void addMoney(int by){
+        this.money += by;
+    }
+    
 }
