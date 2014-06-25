@@ -180,6 +180,8 @@ public abstract class GameObject {
     public void setOccupied(boolean state){
         if (type.equals(GameObject.TYPE_PASSIVE)) return;
         occupied = state;
+        if (spatial.hasChild(occupiedMarker))
+                spatial.detachChild(occupiedMarker);
     }
 
     

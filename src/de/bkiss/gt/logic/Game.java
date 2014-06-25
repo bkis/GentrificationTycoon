@@ -83,10 +83,12 @@ public class Game {
                 }
             }
             guiController.refreshPlayerMoneyDisplay();
-            if (c != 0)
+            if (c != 0){
                 guiController.showAlert("Boohoo...",
                         "This month, " + c + " tenants moved out",
                         "because they couldn't afford their rent.");
+                guiController.closePopup("edit");
+            }
         }
 
         /* EXECUTE

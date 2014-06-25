@@ -434,7 +434,7 @@ public class GUIController implements ScreenController {
                 TextField.class).getRealText());
         ((House)sel()).setRent(r);
         closePopup("rent");
-        setLabelText(popup("edit").findElementByName("popup_edit_info_5"), ((House)sel()).getRent()+" $/m");
+        setLabelText(popup("edit").findElementByName("popup_edit_info_5"), moneyFormat(((House)sel()).getRent())+" $/m");
     }
     
     
