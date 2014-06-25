@@ -478,11 +478,12 @@ public class GUIController implements ScreenController {
     
     
     public void buyHouse(){
+        closePopup("buy");
         player.reduceMoney(sel().getValue());
         sel().setOwned(true);
         refreshPlayerMoneyDisplay();
-        closePopup("buy");
         refreshButtonStates();
+        openPopup("edit");
     }
     
     
@@ -939,7 +940,7 @@ public class GUIController implements ScreenController {
         setLabelText("game_stat_district_tot_luxury",
                 "Avg. Luxury: " + (luxuryCount/houseCount));
         
-        int g = ((luxuryCount/houseCount) / 150) * 100;
+        float g = (float)((float)(luxuryCount/houseCount) / 150) * 100;
         
         setLabelText("game_stat_gentrified",
                 "Gentrified: " + g + "%");
