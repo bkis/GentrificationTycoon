@@ -528,13 +528,13 @@
 	
 	<popup id="popup_extras" childLayout="center" backgroundColor="#00000088" visibleToMouse="true">
 		
-		<panel id="popup_extras_window" width="350" height="450" childLayout="vertical" backgroundColor="#000000ff">
+		<panel id="popup_extras_window" width="350" height="350" childLayout="vertical" backgroundColor="#000000ff">
 			<panel id="popup_extras_window_titlebar" width="100%" height="20" childLayout="center" backgroundColor="#a55731ff">
 				<text text="Add Some Bling" font="Interface/Fonts/Default.fnt" width="100%" height="100%" wrap="false" align="center"/>
 			</panel>
 			
 			<panel id="popup_extras_window_content" width="100%" childLayout="vertical" backgroundColor="#000000ff">
-				<text text="Choose extra to install:" font="Interface/Fonts/Default.fnt" width="100%" height="40" wrap="false"/>
+				<text text="Choose extras to install:" font="Interface/Fonts/Default.fnt" width="100%" height="40" wrap="false"/>
 				
 				<control id="popup_extra0" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="20" width="100%" visibleToMouse="true"><interact onRelease="selectExtra(0)"/></control>
 				<control id="popup_extra1" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="20" width="100%" visibleToMouse="true"><interact onRelease="selectExtra(1)"/></control>
@@ -548,6 +548,7 @@
 				<control id="popup_extra9" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="20" width="100%" visibleToMouse="true"><interact onRelease="selectExtra(9)"/></control>
 				
 				<panel id="popup_extras_window_content_spacer2" width="100%" childLayout="horizontal"></panel>
+				<control id="popup_extra_sum" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="20" width="100%"></control>
 			</panel>
 			
 			<panel id="popup_extras_window_buttons" width="100%" height="50" childLayout="horizontal" backgroundColor="#000000ff">

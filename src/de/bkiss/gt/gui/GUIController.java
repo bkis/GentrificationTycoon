@@ -85,8 +85,9 @@ public class GUIController implements ScreenController {
     private String currBuildSelection;
     private List<Tenant> currTenants;
     private int currTenantIndex;
-    private List<Expansion> expansions;
-    private List<Expansion> selExtras;
+    private List<Expansion> allExtras;
+    private List<Expansion> availableExtras;
+    private List<Expansion> selectedExtras;
     private int selectedExtra;
     
     private boolean btnBuildActive;
@@ -110,8 +111,9 @@ public class GUIController implements ScreenController {
         
         this.btnBuildActive = false;
         this.btnDestroyActive = false;
-        this.expansions = gen.getAllExpansions();
-        this.selExtras = new ArrayList<Expansion>();
+        this.allExtras = gen.getAllExpansions();
+        this.availableExtras = new ArrayList<Expansion>();
+        this.selectedExtras = new ArrayList<Expansion>();
         this.currTenants = new ArrayList<Tenant>();
         
         //create selection marker
@@ -236,11 +238,12 @@ public class GUIController implements ScreenController {
     
     
     private void prepareExtrasPopup(){
-        selExtras.clear();
+        availableExtras.clear();
+        selectedExtras.clear();
         
-        for (Expansion e : expansions){
+        for (Expansion e : allExtras){
             if (!((House)sel()).hasExpansion(e.getName())){
-                selExtras.add(0, e);
+                availableExtras.add(0, e);
             }
         }
         
@@ -249,38 +252,58 @@ public class GUIController implements ScreenController {
     
     
     private void markExtras(){
+        int p = 0;
+        for (Expansion e : selectedExtras) p += e.getPrice();
+        
         for (int i = 0; i < 10; i++) {
-            if (selExtras.size() > i){
+            if (availableExtras.size() > i){
                 setLabelText(popup("extras").findElementByName("popup_extra"+i),
-                    selExtras.get(i).getName() + " ("
-                        + selExtras.get(i).getPrice() + "$, Luxury +"
-                        + selExtras.get(i).getEffect() + ")");
-                if (player.getMoney() >= selExtras.get(i).getPrice())
+                    availableExtras.get(i).getName() + " ("
+                        + availableExtras.get(i).getPrice() + "$, Luxury +"
+                        + availableExtras.get(i).getEffect() + ")");
+                if (player.getMoney() >= availableExtras.get(i).getPrice() + p)
                     setLabelTextColor(popup("extras").findElementByName("popup_extra"+i), COL_GREEN);
                 else
                     setLabelTextColor(popup("extras").findElementByName("popup_extra"+i), COL_RED);
+                
+                if (selectedExtras.contains(availableExtras.get(i)))
+                    setLabelTextColor(popup("extras").findElementByName("popup_extra"+i), Color.WHITE);
             } else {
-                setLabelText(popup("extras").findElementByName("popup_extra"+i), "");
+                setLabelText(popup("extras").findElementByName("popup_extra"+i), "-");
+                setLabelTextColor(popup("extras").findElementByName("popup_extra"+i), Color.WHITE);
             }
         }
+        
+        setLabelText(popup("extras").findElementByName("popup_extra_sum"),
+                "Total Cost: " + moneyFormat(p) + " $");
     }
     
     
     public void selectExtra(String index){
+        int p = 0;
+        for (Expansion e : selectedExtras) p += e.getPrice();
+        
         int i = Integer.parseInt(index);
-        if (player.getMoney() >= selExtras.get(i).getPrice()){
-            markExtras();
-            setLabelTextColor(popup("extras").findElementByName("popup_extra"+i), Color.WHITE);
-            selectedExtra = i;
+        if (selectedExtras.contains(availableExtras.get(i))){
+            selectedExtras.remove(availableExtras.get(i));
+        } else if (player.getMoney() >= p + availableExtras.get(i).getPrice()){
+            selectedExtras.add(availableExtras.get(i));
         }
+        markExtras();
     }
     
     
     public void buyExtra(){
-        ((House)sel()).addExpansion(selExtras.get(selectedExtra));
+        for (Expansion e : selectedExtras){
+            ((House)sel()).addExpansion(e);
+            player.reduceMoney(e.getPrice());
+        }
+        
+        availableExtras.clear();
+        selectedExtras.clear();
+        
         refreshExpansionList((House)sel());
         displayObjectInfoEdit((House)sel());
-        player.reduceMoney(selExtras.get(selectedExtra).getPrice());
         refreshPlayerMoneyDisplay();
         closePopup("extras");
     }
