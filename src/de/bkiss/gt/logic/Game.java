@@ -37,7 +37,7 @@ public class Game {
             RandomContentGenerator gen,
             TenantGenerator tenGen){
         
-        this.month = 0;
+        this.month = 1;
         player = new Player(playerName, playerIconPath);
         timer = new GameTimer(MONTH_LENGTH_IN_MS, this);
         this.district = district;

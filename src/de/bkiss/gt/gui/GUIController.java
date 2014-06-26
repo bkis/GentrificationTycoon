@@ -356,16 +356,33 @@ public class GUIController implements ScreenController {
         //color price tags
         if (game.getPlayer().getMoney() < PRICE_BUILD_H1)
             setLabelTextColor(popup("build").findElementByName("popup_build_price_h1"), COL_RED);
+        else
+            setLabelTextColor(popup("build").findElementByName("popup_build_price_h1"), COL_GREEN);
+        
         if (game.getPlayer().getMoney() < PRICE_BUILD_H2)
             setLabelTextColor(popup("build").findElementByName("popup_build_price_h2"), COL_RED);
+        else
+            setLabelTextColor(popup("build").findElementByName("popup_build_price_h2"), COL_GREEN);
+        
         if (game.getPlayer().getMoney() < PRICE_BUILD_H3)
             setLabelTextColor(popup("build").findElementByName("popup_build_price_h3"), COL_RED);
+        else
+            setLabelTextColor(popup("build").findElementByName("popup_build_price_h3"), COL_GREEN);
+        
         if (game.getPlayer().getMoney() < PRICE_BUILD_E1)
             setLabelTextColor(popup("build").findElementByName("popup_build_price_h21"), COL_RED);
+        else
+            setLabelTextColor(popup("build").findElementByName("popup_build_price_h21"), COL_GREEN);
+        
         if (game.getPlayer().getMoney() < PRICE_BUILD_E2)
             setLabelTextColor(popup("build").findElementByName("popup_build_price_h22"), COL_RED);
+        else
+            setLabelTextColor(popup("build").findElementByName("popup_build_price_h22"), COL_GREEN);
+        
         if (game.getPlayer().getMoney() < PRICE_BUILD_E3)
             setLabelTextColor(popup("build").findElementByName("popup_build_price_h23"), COL_RED);
+        else
+            setLabelTextColor(popup("build").findElementByName("popup_build_price_h23"), COL_GREEN);
     }
     
     
@@ -449,7 +466,7 @@ public class GUIController implements ScreenController {
         for (int i = 0; i < 10; i++) {
             if (currTenants.size() < i+1) break;
             setLabelText(popup("tenants").findElementByName("tenant" + i),
-                    currTenants.get(i).getName());
+                    currTenants.get(i).getName() + " (" + moneyFormat(currTenants.get(i).getBudget()) + "$)");
             if (currTenants.get(i).acceptsHouse((House)sel())){
                 setLabelTextColor(popup("tenants").findElementByName("tenant" + i), COL_GREEN);
             } else {
@@ -478,12 +495,11 @@ public class GUIController implements ScreenController {
     
     
     public void buyHouse(){
-        closePopup("buy");
         player.reduceMoney(sel().getValue());
         sel().setOwned(true);
         refreshPlayerMoneyDisplay();
         refreshButtonStates();
-        openPopup("edit");
+        closePopup("buy");
     }
     
     
@@ -541,7 +557,8 @@ public class GUIController implements ScreenController {
         else if (currBuildSelection.equals("E3")) type = GameObject.PUBLIC_SCHOOL;
         else                                      type = House.TYPE_HOUSE_1;
         
-        player.reduceMoney(district.buildHouse(type, (Land) sel()).getValue());
+        district.buildHouse(type, (Land) sel());
+        player.reduceMoney(getDefPrice(currBuildSelection));
         refreshPlayerMoneyDisplay();
         closePopup("build");
     }
@@ -616,12 +633,15 @@ public class GUIController implements ScreenController {
     
     
     private void highlightTenant(int i){
-        setLabelText("tenant"+i, ">>> " + currTenants.get(i).getName());
+        setLabelTextColor(popup("tenants").findElementByName("tenant"+i), Color.WHITE);
     }
     
     
     private void unhighlightTenant(int i){
-        setLabelText("tenant"+i, currTenants.get(i).getName());
+        if (tenantIsMatch())
+            setLabelTextColor(popup("tenants").findElementByName("tenant"+i), COL_GREEN);
+        else
+            setLabelTextColor(popup("tenants").findElementByName("tenant"+i), COL_RED);
     }
     
     
@@ -636,7 +656,6 @@ public class GUIController implements ScreenController {
     public void destroyBuilding(){
         district.destroyBuilding(sel());
         closePopup("destroy");
-        refreshButtonStates();
     }
     
     
