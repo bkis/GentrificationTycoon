@@ -88,8 +88,12 @@ public class Game {
         guiController.refreshPlayerMoneyDisplay();
         
         //BANK
-        if (bank.getBalance() + bank.getCurrentInterest(district.getOwnedRatio()) < Bank.MAX_DEBTS){
-            player.reduceMoney(bank.getCurrentInterest(district.getOwnedRatio()) - bank.take(bank.getBalance()));
+        if (bank.getCurrentInterest(district.getOwnedRatio()) < 0
+                && !bank.canTake(Math.abs(bank.getCurrentInterest(district.getOwnedRatio())))){
+            long i = Math.abs(bank.getCurrentInterest(district.getOwnedRatio()));
+            i -= bank.getBalance() + Bank.MAX_DEBTS;
+            bank.setBalanceToMin();
+            player.reduceMoney(i);
         } else {
             bank.applyInterest(district.getOwnedRatio());
         }

@@ -33,8 +33,13 @@ public class Bank {
     }
     
     
+    public void setBalanceToMin(){
+        account = -5000000;
+    }
+    
+    
     public boolean canTake(long amount){
-        if (account - amount > MAX_DEBTS)
+        if (account - amount > -MAX_DEBTS)
             return true;
         else
             return false;
