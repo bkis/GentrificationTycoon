@@ -214,21 +214,21 @@
 				<panel id="popup_build_window_content" width="100%" height="330" childLayout="vertical" backgroundColor="#000000ff">
 					<panel id="popup_build_window_content_spacer1" width="100%" height="20" childLayout="horizontal"></panel>
 					<panel id="popup_build_window_content_gallery1" width="100%" childLayout="horizontal" backgroundColor="#000000ff">
-						<panel id="popup_build_window_content_gallery1_1" childLayout="vertical" width="200" backgroundColor="#000000ff">
+						<panel id="popup_build_window_content_gallery_H1" childLayout="vertical" width="200" backgroundColor="#000000ff">
 							<image id="popup_build_img_H1" filename="Interface/hud/house_1.png" align="center" height="100" width="100" visibleToMouse="true">
 								<interact onRelease="selectBuild(H1)" />
 							</image>
 							<control id="popup_build_desc_h1" name="label" text="Hovel" align="center" height="18"/>
 							<control id="popup_build_price_h1" name="label" text="" align="center" height="18"/>
 						</panel>
-						<panel id="popup_build_window_content_gallery1_2" childLayout="vertical" width="200" backgroundColor="#000000ff">
+						<panel id="popup_build_window_content_gallery_H2" childLayout="vertical" width="200" backgroundColor="#000000ff">
 							<image id="popup_build_img_H2" filename="Interface/hud/house_2.png" align="center" height="100" width="100" visibleToMouse="true">
 								<interact onRelease="selectBuild(H2)" />
 							</image>
 							<control id="popup_build_desc_h2" name="label" text="Family House" align="center" height="18"/>
 							<control id="popup_build_price_h2" name="label" text="" align="center" height="18"/>
 						</panel> 
-						<panel id="popup_build_window_content_gallery1_3" childLayout="vertical" width="200" backgroundColor="#000000ff">
+						<panel id="popup_build_window_content_gallery_H3" childLayout="vertical" width="200" backgroundColor="#000000ff">
 							<image id="popup_build_img_H3" filename="Interface/hud/house_3.png" align="center" height="100" width="100" visibleToMouse="true">
 								<interact onRelease="selectBuild(H3)" />
 							</image>
@@ -240,21 +240,21 @@
 					<panel id="popup_build_window_content_spacer2" width="100%" height="20" childLayout="horizontal"></panel>
 					
 					<panel id="popup_build_window_content_gallery2" width="100%" childLayout="horizontal" backgroundColor="#000000ff">
-						<panel id="popup_build_window_content_gallery2_1" childLayout="vertical" width="200" backgroundColor="#000000ff">
+						<panel id="popup_build_window_content_gallery_E1" childLayout="vertical" width="200" backgroundColor="#000000ff">
 							<image id="popup_build_img_E1" filename="Interface/hud/public_club.png" align="center" height="100" width="100" visibleToMouse="true">
 								<interact onRelease="selectBuild(E1)" />
 							</image>
 							<control id="popup_build_desc_h21" name="label" text="Club" align="center" height="18"/>
 							<control id="popup_build_price_h21" name="label" text="" align="center" height="18"/>
 						</panel>
-						<panel id="popup_build_window_content_gallery2_2" childLayout="vertical" width="200" backgroundColor="#000000ff">
+						<panel id="popup_build_window_content_gallery_E2" childLayout="vertical" width="200" backgroundColor="#000000ff">
 							<image id="popup_build_img_E2" filename="Interface/hud/public_gallery.png" align="center" height="100" width="100" visibleToMouse="true">
 								<interact onRelease="selectBuild(E2)" />
 							</image>
 							<control id="popup_build_desc_h22" name="label" text="Art Gallery" align="center" height="18"/>
 							<control id="popup_build_price_h22" name="label" text="" align="center" height="18"/>
 						</panel>
-						<panel id="popup_build_window_content_gallery2_3" childLayout="vertical" width="200" backgroundColor="#000000ff">
+						<panel id="popup_build_window_content_gallery_E3" childLayout="vertical" width="200" backgroundColor="#000000ff">
 							<image id="popup_build_img_E3" filename="Interface/hud/public_school.png" align="center" height="100" width="100" visibleToMouse="true">
 								<interact onRelease="selectBuild(E3)" />
 							</image>

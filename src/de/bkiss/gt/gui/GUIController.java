@@ -28,6 +28,7 @@ import de.lessvoid.nifty.controls.TextFieldChangedEvent;
 import de.lessvoid.nifty.controls.textfield.filter.input.TextFieldInputFilter;
 import de.lessvoid.nifty.elements.Element;
 import de.lessvoid.nifty.elements.render.ImageRenderer;
+import de.lessvoid.nifty.elements.render.PanelRenderer;
 import de.lessvoid.nifty.elements.render.TextRenderer;
 import de.lessvoid.nifty.render.NiftyImage;
 import de.lessvoid.nifty.screen.Screen;
@@ -115,6 +116,7 @@ public class GUIController implements ScreenController {
         this.availableExtras = new ArrayList<Expansion>();
         this.selectedExtras = new ArrayList<Expansion>();
         this.currTenants = new ArrayList<Tenant>();
+        this.currBuildSelection = "H1";
         
         //create selection marker
         marker = ModelLoader.createSelectionMarker(app.getAssetManager());
@@ -377,6 +379,11 @@ public class GUIController implements ScreenController {
                         moneyFormat(PRICE_BUILD_E3) + "");
         
         //color price tags
+        colorPriceTags();
+    }
+    
+    
+    private void colorPriceTags(){
         if (game.getPlayer().getMoney() < PRICE_BUILD_H1)
             setLabelTextColor(popup("build").findElementByName("popup_build_price_h1"), COL_RED);
         else
@@ -603,17 +610,24 @@ public class GUIController implements ScreenController {
     
     
     public void selectBuild(String selectionKey){
-        currBuildSelection = selectionKey;
-        
-        if (player.getMoney() >= getDefPrice(currBuildSelection)){
-            setLabelText("popup_build_selection", "Build for " + moneyFormat(getDefPrice(currBuildSelection)) + "$ ?");
+        if (player.getMoney() >= getDefPrice(selectionKey)){
+            setLabelText("popup_build_selection", "Build for " + moneyFormat(getDefPrice(selectionKey)) + "$ ?");
             popup("build").findElementByName("button_popup_build_ok").setVisible(true);
             setLabelTextColor(popup("build").findElementByName("popup_build_selection"), COL_GREEN);
         } else {
-            setLabelText("popup_build_selection", "You don't have enough money (" + moneyFormat(getDefPrice(currBuildSelection)) + "$).");
+            setLabelText("popup_build_selection", "You don't have enough money (" + moneyFormat(getDefPrice(selectionKey)) + "$).");
             popup("build").findElementByName("button_popup_build_ok").setVisible(false);
             setLabelTextColor(popup("build").findElementByName("popup_build_selection"), COL_RED);
         }
+        
+        PanelRenderer pr = popup("build").findElementByName("popup_build_window_content_gallery_" + currBuildSelection).getRenderer(PanelRenderer.class);
+        pr.setBackgroundColor(new Color("#000000ff"));
+        
+        pr = popup("build").findElementByName("popup_build_window_content_gallery_" + selectionKey).getRenderer(PanelRenderer.class);
+        pr.setBackgroundColor(new Color("#232323ff"));
+        
+        currBuildSelection = selectionKey;
+        colorPriceTags();
     }
     
     
