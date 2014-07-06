@@ -580,6 +580,14 @@ public class GUIController implements ScreenController {
         else if (currBuildSelection.equals("E3")) type = GameObject.PUBLIC_SCHOOL;
         else                                      type = House.TYPE_HOUSE_1;
         
+        //check max public builds
+        if (type.contains("public") && district.getTypeCount(type) >= 3){
+            showAlert("Enough is enough!",
+                    "You can only build up to three",
+                    "community buildings of each type!");
+            return;
+        }
+        
         district.buildHouse(type, (Land) sel());
         player.reduceMoney(getDefPrice(currBuildSelection));
         refreshPlayerMoneyDisplay();
@@ -683,12 +691,12 @@ public class GUIController implements ScreenController {
     
     
     private int getDefPrice(String buildingKey){
-        if      (buildingKey.equals("H1")) return PRICE_BUILD_H1;
-        else if (buildingKey.equals("H2")) return PRICE_BUILD_H2;
-        else if (buildingKey.equals("H3")) return PRICE_BUILD_H3;
-        else if (buildingKey.equals("E1")) return PRICE_BUILD_E1;
-        else if (buildingKey.equals("E2")) return PRICE_BUILD_E2;
-        else if (buildingKey.equals("E3")) return PRICE_BUILD_E3;
+        if      (buildingKey.equalsIgnoreCase("H1")) return PRICE_BUILD_H1;
+        else if (buildingKey.equalsIgnoreCase("H2")) return PRICE_BUILD_H2;
+        else if (buildingKey.equalsIgnoreCase("H3")) return PRICE_BUILD_H3;
+        else if (buildingKey.equalsIgnoreCase("E1")) return PRICE_BUILD_E1;
+        else if (buildingKey.equalsIgnoreCase("E2")) return PRICE_BUILD_E2;
+        else if (buildingKey.equalsIgnoreCase("E3")) return PRICE_BUILD_E3;
         else    return 0;
     }
 

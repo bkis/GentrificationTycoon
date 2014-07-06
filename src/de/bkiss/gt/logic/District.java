@@ -275,6 +275,17 @@ public class District {
     }
     
     
+    public int getTypeCount(String type){
+        int count = 0;
+        for (Entry<String, GameObject> e : objects.entrySet()){
+            if (e.getValue().getType().equalsIgnoreCase(type))
+                    count++;
+        }
+        //System.out.println("COUNT FOR TYPE " + type + ": " + count);
+        return count;
+    }
+    
+    
     public List<GameObject> getObjectList(){
         List<GameObject> list = new ArrayList<GameObject>();
         

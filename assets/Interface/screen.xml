@@ -58,7 +58,7 @@
 		<layer id="foreground" childLayout="vertical">
 			<panel id="panel_hud_spacer" width="100%" height="" childLayout="center"></panel>
 			
-			<panel id="panel_hud_buttons" width="100%" height="" childLayout="center">
+			<panel id="panel_hud_buttons" width="100%" height="" childLayout="center" visibleToMouse="true">
 				<panel id="panel_hud_buttons_inner" width="" height="" childLayout="horizontal">
 					<image filename="Interface/hud/spacer_l.png"></image>
 					<image id="button_info" filename="Interface/hud/hud-button-info.png" visibleToMouse="true"><interact onRelease="toggleObjectMarkers()" /></image>
