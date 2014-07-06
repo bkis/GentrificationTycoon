@@ -9,6 +9,7 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import de.bkiss.gt.IngameState;
+import de.bkiss.gt.logic.Bank;
 import de.bkiss.gt.logic.District;
 import de.bkiss.gt.logic.Game;
 import de.bkiss.gt.logic.Player;
@@ -200,6 +201,9 @@ public class GUIController implements ScreenController {
         } else if (key.startsWith("extras")){
             prepareExtrasPopup();
             nifty.showPopup(screen, popup("extras").getId(), null);
+        } else if (key.startsWith("bank")){
+            prepareBankPopup();
+            nifty.showPopup(screen, popup("bank").getId(), null);
         }
     }
     
@@ -237,6 +241,46 @@ public class GUIController implements ScreenController {
             return true;
         }
     };
+    
+    
+    public void prepareBankPopup(){
+        setLabelText(popup("bank").findElementByName("bank_balance"),
+                "Balance: " + moneyFormat(game.getBank().getBalance()) + " $");
+        
+        if (game.getBank().getBalance() < 0) {
+            setLabelTextColor(popup("bank").findElementByName("bank_balance"), COL_RED);
+            setLabelTextColor(popup("bank").findElementByName("bank_interest"), COL_RED);
+            setLabelText(popup("bank").findElementByName("bank_interest"),
+                        "Interest: " + moneyFormat(game.getBank().getCurrentInterest(district.getOwnedRatio())) + " $/m.");
+        } else {
+            setLabelTextColor(popup("bank").findElementByName("bank_balance"), COL_GREEN);
+            setLabelTextColor(popup("bank").findElementByName("bank_interest"), COL_GREEN);
+            setLabelText(popup("bank").findElementByName("bank_interest"),
+                        "Interest: " + moneyFormat(game.getBank().getCurrentInterest(district.getOwnedRatio())) + " $/m.");
+        }
+    }
+    
+    
+    public void bankAction(String action){
+        if (action.equals("take")){
+            if (game.getBank().canTake(Bank.MIN_TRANS)){
+                player.addMoney(game.getBank().take(Bank.MIN_TRANS));
+                refreshPlayerMoneyDisplay();
+            } else {
+                showAlert("I'm afraid we can't do that...", "The bank won't give you more money.",
+                        "The maximum loan is " + moneyFormat(Bank.MAX_DEBTS) + "$.");
+            }
+        } else {
+            if (player.getMoney() >= Bank.MIN_TRANS){
+                player.reduceMoney(game.getBank().put(Bank.MIN_TRANS));
+                refreshPlayerMoneyDisplay();
+            } else {
+                showAlert("Sir, your pockets seem empty!", "You can't transfer any more money to your",
+                        "account, as the minimum transfer is " + moneyFormat(Bank.MIN_TRANS) + "$.");
+            }
+        }
+        prepareBankPopup();
+    }
     
     
     private void prepareExtrasPopup(){
@@ -851,6 +895,11 @@ public class GUIController implements ScreenController {
     
     
     private void displayObjectInfo(GameObject go){
+        if (go == null){
+            clearObjectInfo();
+            return;
+        }
+        
         //properties
         setLabelText("info_1", go.getName());
         setLabelText("info_2", (go instanceof House ? ((House)go).getLuxury() + "" : ""));
@@ -1027,10 +1076,14 @@ public class GUIController implements ScreenController {
     }
     
     
-    private void win(){
+    public void win(){
         //TODO
-    }
+    } 
     
+    
+    public void lose(){
+        //TODO
+    } 
     
     
 //    public void hightlightNeighborhoodRadius(){

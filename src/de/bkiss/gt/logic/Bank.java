@@ -8,9 +8,9 @@ public class Bank {
     
     public static final int MIN_TRANS = 100000;
     
-    private static final float INTEREST_POS = 1.01f;
-    private static final float INTEREST_NEG = 1.05f;
-    private static final int MAX_DEBTS = 5000000;
+    private static final float INTEREST_POS = 0.02f;
+    private static final float INTEREST_NEG = 0.05f;
+    public static final int MAX_DEBTS = 5000000;
     
     private long account;
     
@@ -21,8 +21,9 @@ public class Bank {
     }
     
     
-    public void put(long amount){
+    public long put(long amount){
         account += amount;
+        return amount;
     }
     
     
@@ -40,12 +41,19 @@ public class Bank {
     }
     
     
-    public void applyInterest(){
+    public void applyInterest(float ownedRatio){
+        account += getCurrentInterest(ownedRatio);
+    }
+    
+    
+    public long getCurrentInterest(float ownedRatio){
+        float i;
         if (account > 0){
-            account *= INTEREST_POS;
+            i = (INTEREST_POS * (0.8f + (ownedRatio * 2)));
         } else {
-            account *= INTEREST_NEG;
+            i = INTEREST_NEG;
         }
+        return (long)(account*i);
     }
     
     

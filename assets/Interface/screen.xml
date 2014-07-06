@@ -586,6 +586,63 @@
 	</popup>
 	
 	
+	<popup id="popup_bank" childLayout="center" backgroundColor="#00000088" visibleToMouse="true">
+		
+		<panel id="popup_bank_window_frame" width="404" height="374" childLayout="center" backgroundColor="#a55731ff" visibleToMouse="true" padding="2">
+			<panel id="popup_bank_window" width="400" height="370" childLayout="vertical" backgroundColor="#000000ff" visibleToMouse="true">
+				<panel id="popup_bank_window_titlebar" width="100%" height="20" childLayout="center" backgroundColor="#a55731ff">
+					<text text="Bank" font="Interface/Fonts/Default.fnt" width="100%" height="100%" wrap="false" align="center"/>
+				</panel>
+				
+				<panel id="popup_bank_window_content" width="100%" height="300" childLayout="vertical" backgroundColor="#000000ff">
+					<panel id="popup_bank_panel_description" width="100%" height="65%" childLayout="center" backgroundColor="#000000ff">
+						<text text="Here, you can deposit cash into your bank account and let your money grow. The more property you own, the higher the interests will be. If you take a loan from the bank, you have to pay 5% interests per month, no matter what. But be careful: The maximum loan is 5.000.000$. If you reach this limit, the bank will take the interest money from your cash!" font="Interface/Fonts/Default.fnt" width="100%" height="100%" wrap="true" align="center"/>
+					</panel>
+					
+					<panel id="popup_bank_panel_actions" width="100%" height="35%" childLayout="horizontal" backgroundColor="#000000ff">
+					
+						<panel id="popup_bank_panel_left" height="100%" childLayout="horizontal" backgroundColor="#000000ff">
+							<panel height="100%" width="30"></panel>
+							
+							<panel height="100%" childLayout="vertical">
+								<panel width="100%"></panel>
+								<control id="bank_balance" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="20"/>
+								<control id="bank_interest" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="20"/>
+								<panel width="100%"></panel>
+							</panel>
+						</panel>
+						
+						<panel id="popup_bank_panel_right" width="150" height="100%" childLayout="vertical" backgroundColor="#000000ff">
+							<panel width="100%"></panel> 
+							<control name="button" style="custom-button" label="Withdraw 100.000$" id="button_popup_bank_take" align="right" valign="center" width="120" height="30" visibleToMouse="true" visible="true">
+								<interact onRelease="bankAction(take)" />
+							</control>
+							
+							<panel width="100%" height="5"></panel> 
+							
+							<control name="button" style="custom-button" label="Deposit 100.000$" id="button_popup_bank_put" align="right" valign="center" width="120" height="30" visibleToMouse="true" visible="true">
+								<interact onRelease="bankAction(put)" />
+							</control>
+							<panel width="100%"></panel> 
+						</panel>
+						<panel width="20" height="100%"></panel>
+					</panel>
+				</panel>
+				
+				<panel id="popup_bank_window_buttons" width="100%" height="50" childLayout="horizontal" backgroundColor="#000000ff">
+					<panel id="popup_bank_window_buttons_spacer" height="50"></panel> 
+					
+					<control name="button" style="custom-button" label="OK" id="button_popup_bank_ok" align="center" valign="center" width="100" height="30" visibleToMouse="true" focus="true">
+						<interact onRelease="closePopup(bank)"/>
+					</control>
+					
+					<panel id="popup_bank_window_buttons_spacer4" width="20" height="50"></panel>
+				</panel> 
+			</panel>
+		</panel>
+	</popup>
+	
+	
 	<popup id="popup_quit" childLayout="center" backgroundColor="#00000088" visibleToMouse="true">
 		
 		<panel id="popup_quit_window_frame" width="304" height="154" childLayout="center" backgroundColor="#a55731ff" visibleToMouse="true" padding="2">

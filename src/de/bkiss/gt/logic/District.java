@@ -198,6 +198,19 @@ public class District {
     }
     
     
+    public float getOwnedRatio(){
+        float count = 0;
+        float owned = 0;
+        
+        for (Entry<String,GameObject> e : objects.entrySet()){
+            count++;
+            if (e.getValue().isOwnedByPlayer()) owned++;
+        }
+            
+        return owned/count;
+    }
+    
+    
     public int getBoardWidth(){
         return getBoardMatrix().length;
     }

@@ -2,7 +2,6 @@ package de.bkiss.gt.logic;
 
 import com.jme3.asset.AssetManager;
 import de.bkiss.gt.gui.GUIController;
-import de.bkiss.gt.objects.Expansion;
 import de.bkiss.gt.objects.GameObject;
 import de.bkiss.gt.objects.House;
 import de.bkiss.gt.tenants.Tenant;
@@ -21,6 +20,7 @@ public class Game {
     private static final int MONTH_LENGTH_IN_MS = 5000;
     
     private Player player;
+    private Bank bank;
     private District district;
     private GameTimer timer;
     private GUIController guiController;
@@ -38,6 +38,7 @@ public class Game {
             TenantGenerator tenGen){
         
         this.month = 1;
+        this.bank = new Bank();
         player = new Player(playerName, playerIconPath);
         timer = new GameTimer(MONTH_LENGTH_IN_MS, this);
         this.district = district;
@@ -51,6 +52,10 @@ public class Game {
     
     public Player getPlayer(){
         return player;
+    }
+    
+    public Bank getBank(){
+        return bank;
     }
     
     public GameTimer getTimer(){
@@ -82,13 +87,24 @@ public class Game {
         }
         guiController.refreshPlayerMoneyDisplay();
         
-        //zinsen
-        player.setMoney(player.getMoney() + (long)(player.getMoney()*0.005));
-
+        //BANK
+        if (bank.getBalance() + bank.getCurrentInterest(district.getOwnedRatio()) < Bank.MAX_DEBTS){
+            player.reduceMoney(bank.getCurrentInterest(district.getOwnedRatio()) - bank.take(bank.getBalance()));
+        } else {
+            bank.applyInterest(district.getOwnedRatio());
+        }
+        
         /* EXECUTE
          * EVERY
-         * DAY !!!
+         * MONTH !!!
          */
+        
+        
+        //WIN? LOSE?
+        if (player.getMoney() + bank.getBalance() <= -Bank.MAX_DEBTS) guiController.lose();
+        if (2==3) guiController.win();
+        
+        guiController.refreshPlayerMoneyDisplay();
     }
     
     private void refreshTenantList(){
