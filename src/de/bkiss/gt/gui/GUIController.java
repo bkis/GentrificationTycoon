@@ -124,7 +124,7 @@ public class GUIController implements ScreenController {
 //        Logger.getLogger("de.lessvoid.nifty").setLevel(Level.SEVERE); 
 //        Logger.getLogger("NiftyInputEventHandlingLog").setLevel(Level.SEVERE); 
         
-        this.currTenantIndex = 0;
+        this.currTenantIndex = 999;
     }
     
     public void loadScreen(String screenKey){
@@ -527,11 +527,17 @@ public class GUIController implements ScreenController {
     
     
     public void acceptTenant(){
+        if (currTenantIndex == 999){
+            showAlert("Well...", "You didn't select a tenant, yet.",
+                    "Which one do you want to pick?");
+            return;
+        }
         if (!tenantIsMatch()){
-            showAlert("No, thank's...", "This tenant is not interested in you house.",
+            showAlert("No, thank's...", "This tenant is not interested in your house.",
                     "Maybe you should improve it a litte?");
             return;
         }
+        
         closePopup("tenants");
         ((House)sel()).setTenant(currTenants.get(currTenantIndex));
         ((House)sel()).setOccupied(true);
@@ -541,6 +547,7 @@ public class GUIController implements ScreenController {
         setLabelText(popup("edit").findElementByName("edit_tenant_budget"), "Budget: " + moneyFormat(((House)sel()).getTenant().getBudget()) + " $");
         setLabelText(popup("edit").findElementByName("edit_tenant_occupied"), "");
         popup("edit").findElementByName("button_popup_edit_tenants").setVisible(false);
+        currTenantIndex = 999;
     }
     
     
@@ -611,6 +618,8 @@ public class GUIController implements ScreenController {
     
     
     public void selectTenant(String tenant){
+        if (currTenantIndex > 9) currTenantIndex = 0;
+        
         unhighlightTenant(currTenantIndex);
         int index = Integer.parseInt(tenant);
         currTenantIndex = index;

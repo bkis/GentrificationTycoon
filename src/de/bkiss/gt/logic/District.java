@@ -247,7 +247,7 @@ public class District {
                         ((House)go).addExpansion(gen.getRndExpansionFor(0));
                         if (Math.random() < 0.5f){
                             ((House)go).setTenant(tenGen.generateTenant(0));
-                            ((House)go).setRent(((House)go).getTenant().getBudget() - 11);
+                            ((House)go).getTenant().setBudget(((House)go).getRent() + 11);
                         }
                     } else if (rnd < 0.55f){
                         go = new House(app,
@@ -255,7 +255,7 @@ public class District {
                         ((House)go).addExpansion(gen.getRndExpansionFor(1));
                         if (Math.random() < 0.5f){
                             ((House)go).setTenant(tenGen.generateTenant(1));
-                            ((House)go).setRent(((House)go).getTenant().getBudget() - 11);
+                            ((House)go).getTenant().setBudget(((House)go).getRent() + 11);
                         }
                     } else {
                         go = new Land(app,
