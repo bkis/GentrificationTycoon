@@ -133,33 +133,35 @@
   	
   	<popup id="popup_buy" childLayout="center" backgroundColor="#00000088" visibleToMouse="true">
 		
-		<panel id="popup_buy_window" width="400" height="270" childLayout="vertical" backgroundColor="#000000ff" visibleToMouse="true">
-			<panel id="popup_buy_window_titlebar" width="100%" height="20" childLayout="center" backgroundColor="#a55731ff">
-				<control id="popup_buy_window_title" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="100%"/>
-			</panel>
-			
-			<panel id="popup_buy_window_content" width="100%" height="200" childLayout="vertical">
-				<panel id="popup_buy_window_content_spacer" width="100%" height="25"></panel>
-				<image id="popup_buy_img" filename="Interface/hud/defaultIconImg.png" align="center" height="100" width="100"></image>
-				<control id="popup_buy_price" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="20"/>
-				<panel id="popup_buy_window_content_spacer2" width="100%" height="12"></panel>
-				<control id="popup_buy_text" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="20"/>
-			</panel>
-			
-			<panel id="popup_buy_window_buttons" width="100%" height="50" childLayout="horizontal">
-				<panel id="popup_buy_window_buttons_spacer" height="50" childLayout="horizontal" ></panel>
+		<panel id="popup_buy_window_frame" width="404" height="274" childLayout="center" backgroundColor="#a55731ff" visibleToMouse="true" padding="2">
+			<panel id="popup_buy_window" width="400" height="270" childLayout="vertical" backgroundColor="#000000ff" visibleToMouse="true">
+				<panel id="popup_buy_window_titlebar" width="100%" height="20" childLayout="center" backgroundColor="#a55731ff">
+					<control id="popup_buy_window_title" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="100%"/>
+				</panel>
 				
-				<control name="button" style="custom-button" label="Buy" id="button_popup_buy_ok" align="center" valign="center" width="100" height="30" visibleToMouse="true">
-					<interact onRelease="buyHouse()" />
-     			</control>
+				<panel id="popup_buy_window_content" width="100%" height="200" childLayout="vertical">
+					<panel id="popup_buy_window_content_spacer" width="100%" height="25"></panel>
+					<image id="popup_buy_img" filename="Interface/hud/defaultIconImg.png" align="center" height="100" width="100"></image>
+					<control id="popup_buy_price" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="20"/>
+					<panel id="popup_buy_window_content_spacer2" width="100%" height="12"></panel>
+					<control id="popup_buy_text" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="20"/>
+				</panel>
 				
-				<panel id="popup_buy_window_buttons_spacer2" width="20" height="50" childLayout="horizontal"></panel>
-				
-				<control name="button" style="custom-button" label="Cancel" id="button_popup_buy_cancel" align="center" valign="center" width="100" height="30" visibleToMouse="true">
-					<interact onRelease="closePopup(buy)" />
-     			</control>
-				
-				<panel id="popup_buy_window_buttons_spacer3" width="20" height="50" childLayout="horizontal" ></panel>
+				<panel id="popup_buy_window_buttons" width="100%" height="50" childLayout="horizontal">
+					<panel id="popup_buy_window_buttons_spacer" height="50" childLayout="horizontal" ></panel>
+					
+					<control name="button" style="custom-button" label="Buy" id="button_popup_buy_ok" align="center" valign="center" width="100" height="30" visibleToMouse="true">
+						<interact onRelease="buyHouse()" />
+					</control>
+					
+					<panel id="popup_buy_window_buttons_spacer2" width="20" height="50" childLayout="horizontal"></panel>
+					
+					<control name="button" style="custom-button" label="Cancel" id="button_popup_buy_cancel" align="center" valign="center" width="100" height="30" visibleToMouse="true">
+						<interact onRelease="closePopup(buy)" />
+					</control>
+					
+					<panel id="popup_buy_window_buttons_spacer3" width="20" height="50" childLayout="horizontal" ></panel>
+				</panel>
 			</panel>
 		</panel>
 	</popup>
@@ -167,33 +169,35 @@
 	
 	<popup id="popup_sell" childLayout="center" backgroundColor="#00000088" visibleToMouse="true">
 		
-		<panel id="popup_sell_window" width="400" height="270" childLayout="vertical" backgroundColor="#000000ff" visibleToMouse="true">
-			<panel id="popup_sell_window_titlebar" width="100%" height="20" childLayout="center" backgroundColor="#a55731ff">
-				<control id="popup_sell_window_title" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="100%"/>
-			</panel>
-			
-			<panel id="popup_sell_window_content" width="100%" height="200" childLayout="vertical">
-				<panel id="popup_sell_window_content_spacer" width="100%" height="25"></panel>
-				<image id="popup_sell_img" filename="Interface/hud/defaultIconImg.png" align="center" height="100" width="100"></image>
-				<control id="popup_sell_price" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="20"/>
-				<panel id="popup_sell_window_content_spacer2" width="100%" height="12"></panel>
-				<control id="popup_sell_text" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="20"/>
-			</panel>
-			
-			<panel id="popup_sell_window_buttons" width="100%" height="50" childLayout="horizontal">
-				<panel id="popup_sell_window_buttons_spacer" height="50" childLayout="horizontal" ></panel>
+		<panel id="popup_sell_window_frame" width="404" height="274" childLayout="center" backgroundColor="#a55731ff" visibleToMouse="true" padding="2">
+			<panel id="popup_sell_window" width="400" height="270" childLayout="vertical" backgroundColor="#000000ff" visibleToMouse="true">
+				<panel id="popup_sell_window_titlebar" width="100%" height="20" childLayout="center" backgroundColor="#a55731ff">
+					<control id="popup_sell_window_title" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="100%"/>
+				</panel>
 				
-				<control name="button" style="custom-button" label="Sell" id="button_popup_sell_ok" align="center" valign="center" width="100" height="30" visibleToMouse="true">
-					<interact onRelease="sellHouse()" />
-     			</control>
+				<panel id="popup_sell_window_content" width="100%" height="200" childLayout="vertical">
+					<panel id="popup_sell_window_content_spacer" width="100%" height="25"></panel>
+					<image id="popup_sell_img" filename="Interface/hud/defaultIconImg.png" align="center" height="100" width="100"></image>
+					<control id="popup_sell_price" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="20"/>
+					<panel id="popup_sell_window_content_spacer2" width="100%" height="12"></panel>
+					<control id="popup_sell_text" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="20"/>
+				</panel>
 				
-				<panel id="popup_sell_window_buttons_spacer2" width="20" height="50" childLayout="horizontal"></panel>
-				
-				<control name="button" style="custom-button" label="Cancel" id="button_popup_sell_cancel" align="center" valign="center" width="100" height="30" visibleToMouse="true">
-					<interact onRelease="closePopup(sell)" />
-     			</control>
-				
-				<panel id="popup_sell_window_buttons_spacer3" width="20" height="50" childLayout="horizontal" ></panel>
+				<panel id="popup_sell_window_buttons" width="100%" height="50" childLayout="horizontal">
+					<panel id="popup_sell_window_buttons_spacer" height="50" childLayout="horizontal" ></panel>
+					
+					<control name="button" style="custom-button" label="Sell" id="button_popup_sell_ok" align="center" valign="center" width="100" height="30" visibleToMouse="true">
+						<interact onRelease="sellHouse()" />
+					</control>
+					
+					<panel id="popup_sell_window_buttons_spacer2" width="20" height="50" childLayout="horizontal"></panel>
+					
+					<control name="button" style="custom-button" label="Cancel" id="button_popup_sell_cancel" align="center" valign="center" width="100" height="30" visibleToMouse="true">
+						<interact onRelease="closePopup(sell)" />
+					</control>
+					
+					<panel id="popup_sell_window_buttons_spacer3" width="20" height="50" childLayout="horizontal" ></panel>
+				</panel>
 			</panel>
 		</panel>
 	</popup>
@@ -201,206 +205,210 @@
 	
 	<popup id="popup_build" childLayout="center" backgroundColor="#00000088" visibleToMouse="true">
 		
-		<panel id="popup_build_window" width="600" height="400" childLayout="vertical" backgroundColor="#000000ff" visibleToMouse="true">
-			<panel id="popup_build_window_titlebar" width="100%" height="20" childLayout="center" backgroundColor="#a55731ff">
-				<control id="popup_build_window_title" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="100%"/>
-			</panel>
-			
-			<panel id="popup_build_window_content" width="100%" height="330" childLayout="vertical" backgroundColor="#000000ff">
-				<panel id="popup_build_window_content_spacer1" width="100%" height="20" childLayout="horizontal"></panel>
-				<panel id="popup_build_window_content_gallery1" width="100%" childLayout="horizontal" backgroundColor="#000000ff">
-					<panel id="popup_build_window_content_gallery1_1" childLayout="vertical" width="200" backgroundColor="#000000ff">
-						<image id="popup_build_img_H1" filename="Interface/hud/house_1.png" align="center" height="100" width="100" visibleToMouse="true">
-							<interact onRelease="selectBuild(H1)" />
-						</image>
-						<control id="popup_build_desc_h1" name="label" text="Hovel" align="center" height="18"/>
-						<control id="popup_build_price_h1" name="label" text="" align="center" height="18"/>
+		<panel id="popup_build_window_frame" width="604" height="404" childLayout="center" backgroundColor="#a55731ff" visibleToMouse="true" padding="2">
+			<panel id="popup_build_window" width="600" height="400" childLayout="vertical" backgroundColor="#000000ff" visibleToMouse="true">
+				<panel id="popup_build_window_titlebar" width="100%" height="20" childLayout="center" backgroundColor="#a55731ff">
+					<control id="popup_build_window_title" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="100%"/>
+				</panel>
+				
+				<panel id="popup_build_window_content" width="100%" height="330" childLayout="vertical" backgroundColor="#000000ff">
+					<panel id="popup_build_window_content_spacer1" width="100%" height="20" childLayout="horizontal"></panel>
+					<panel id="popup_build_window_content_gallery1" width="100%" childLayout="horizontal" backgroundColor="#000000ff">
+						<panel id="popup_build_window_content_gallery1_1" childLayout="vertical" width="200" backgroundColor="#000000ff">
+							<image id="popup_build_img_H1" filename="Interface/hud/house_1.png" align="center" height="100" width="100" visibleToMouse="true">
+								<interact onRelease="selectBuild(H1)" />
+							</image>
+							<control id="popup_build_desc_h1" name="label" text="Hovel" align="center" height="18"/>
+							<control id="popup_build_price_h1" name="label" text="" align="center" height="18"/>
+						</panel>
+						<panel id="popup_build_window_content_gallery1_2" childLayout="vertical" width="200" backgroundColor="#000000ff">
+							<image id="popup_build_img_H2" filename="Interface/hud/house_2.png" align="center" height="100" width="100" visibleToMouse="true">
+								<interact onRelease="selectBuild(H2)" />
+							</image>
+							<control id="popup_build_desc_h2" name="label" text="Family House" align="center" height="18"/>
+							<control id="popup_build_price_h2" name="label" text="" align="center" height="18"/>
+						</panel> 
+						<panel id="popup_build_window_content_gallery1_3" childLayout="vertical" width="200" backgroundColor="#000000ff">
+							<image id="popup_build_img_H3" filename="Interface/hud/house_3.png" align="center" height="100" width="100" visibleToMouse="true">
+								<interact onRelease="selectBuild(H3)" />
+							</image>
+							<control id="popup_build_desc_h3" name="label" text="Mansion" align="center" height="18"/>
+							<control id="popup_build_price_h3" name="label" text="" align="center" height="18"/>
+						</panel>
 					</panel>
-					<panel id="popup_build_window_content_gallery1_2" childLayout="vertical" width="200" backgroundColor="#000000ff">
-						<image id="popup_build_img_H2" filename="Interface/hud/house_2.png" align="center" height="100" width="100" visibleToMouse="true">
-							<interact onRelease="selectBuild(H2)" />
-						</image>
-						<control id="popup_build_desc_h2" name="label" text="Family House" align="center" height="18"/>
-						<control id="popup_build_price_h2" name="label" text="" align="center" height="18"/>
-					</panel> 
-					<panel id="popup_build_window_content_gallery1_3" childLayout="vertical" width="200" backgroundColor="#000000ff">
-						<image id="popup_build_img_H3" filename="Interface/hud/house_3.png" align="center" height="100" width="100" visibleToMouse="true">
-							<interact onRelease="selectBuild(H3)" />
-						</image>
-						<control id="popup_build_desc_h3" name="label" text="Mansion" align="center" height="18"/>
-						<control id="popup_build_price_h3" name="label" text="" align="center" height="18"/>
+					
+					<panel id="popup_build_window_content_spacer2" width="100%" height="20" childLayout="horizontal"></panel>
+					
+					<panel id="popup_build_window_content_gallery2" width="100%" childLayout="horizontal" backgroundColor="#000000ff">
+						<panel id="popup_build_window_content_gallery2_1" childLayout="vertical" width="200" backgroundColor="#000000ff">
+							<image id="popup_build_img_E1" filename="Interface/hud/public_club.png" align="center" height="100" width="100" visibleToMouse="true">
+								<interact onRelease="selectBuild(E1)" />
+							</image>
+							<control id="popup_build_desc_h21" name="label" text="Club" align="center" height="18"/>
+							<control id="popup_build_price_h21" name="label" text="" align="center" height="18"/>
+						</panel>
+						<panel id="popup_build_window_content_gallery2_2" childLayout="vertical" width="200" backgroundColor="#000000ff">
+							<image id="popup_build_img_E2" filename="Interface/hud/public_gallery.png" align="center" height="100" width="100" visibleToMouse="true">
+								<interact onRelease="selectBuild(E2)" />
+							</image>
+							<control id="popup_build_desc_h22" name="label" text="Art Gallery" align="center" height="18"/>
+							<control id="popup_build_price_h22" name="label" text="" align="center" height="18"/>
+						</panel>
+						<panel id="popup_build_window_content_gallery2_3" childLayout="vertical" width="200" backgroundColor="#000000ff">
+							<image id="popup_build_img_E3" filename="Interface/hud/public_school.png" align="center" height="100" width="100" visibleToMouse="true">
+								<interact onRelease="selectBuild(E3)" />
+							</image>
+							<control id="popup_build_desc_h23" name="label" text="Elementary School" align="center" height="18"/>
+							<control id="popup_build_price_h23" name="label" text="" align="center" height="18"/>
+						</panel>
 					</panel>
 				</panel>
 				
-				<panel id="popup_build_window_content_spacer2" width="100%" height="20" childLayout="horizontal"></panel>
-				
-				<panel id="popup_build_window_content_gallery2" width="100%" childLayout="horizontal" backgroundColor="#000000ff">
-					<panel id="popup_build_window_content_gallery2_1" childLayout="vertical" width="200" backgroundColor="#000000ff">
-						<image id="popup_build_img_E1" filename="Interface/hud/public_club.png" align="center" height="100" width="100" visibleToMouse="true">
-							<interact onRelease="selectBuild(E1)" />
-						</image>
-						<control id="popup_build_desc_h21" name="label" text="Club" align="center" height="18"/>
-						<control id="popup_build_price_h21" name="label" text="" align="center" height="18"/>
-					</panel>
-					<panel id="popup_build_window_content_gallery2_2" childLayout="vertical" width="200" backgroundColor="#000000ff">
-						<image id="popup_build_img_E2" filename="Interface/hud/public_gallery.png" align="center" height="100" width="100" visibleToMouse="true">
-							<interact onRelease="selectBuild(E2)" />
-						</image>
-						<control id="popup_build_desc_h22" name="label" text="Art Gallery" align="center" height="18"/>
-						<control id="popup_build_price_h22" name="label" text="" align="center" height="18"/>
-					</panel>
-					<panel id="popup_build_window_content_gallery2_3" childLayout="vertical" width="200" backgroundColor="#000000ff">
-						<image id="popup_build_img_E3" filename="Interface/hud/public_school.png" align="center" height="100" width="100" visibleToMouse="true">
-							<interact onRelease="selectBuild(E3)" />
-						</image>
-						<control id="popup_build_desc_h23" name="label" text="Elementary School" align="center" height="18"/>
-						<control id="popup_build_price_h23" name="label" text="" align="center" height="18"/>
-					</panel>
-				</panel>
+				<panel id="popup_build_window_buttons" width="100%" height="50" childLayout="horizontal" backgroundColor="#000000ff">
+					<panel id="popup_build_window_buttons_spacer" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel> 
+					<control id="popup_build_selection" name="label" text="Select the house you want to build!" size="12" align="center" height="50"/>
+					<panel id="popup_build_window_buttons_spacer2" width="30" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
+					
+					<control name="button" style="custom-button" label="Build" id="button_popup_build_ok" align="center" valign="center" width="100" height="30" visibleToMouse="true" visible="false">
+						<interact onRelease="buildHouse()" />
+					</control>
+					
+					<panel id="popup_build_window_buttons_spacer3" width="20" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
+					
+					<control name="button" style="custom-button" label="Cancel" id="button_popup_build_cancel" align="center" valign="center" width="100" height="30" visibleToMouse="true">
+						<interact onRelease="closePopup(build)" />
+					</control>
+					
+					<panel id="popup_build_window_buttons_spacer4" width="20" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
+				</panel> 
 			</panel>
-			
-			<panel id="popup_build_window_buttons" width="100%" height="50" childLayout="horizontal" backgroundColor="#000000ff">
-				<panel id="popup_build_window_buttons_spacer" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel> 
-				<control id="popup_build_selection" name="label" text="Select the house you want to build!" size="12" align="center" height="50"/>
-				<panel id="popup_build_window_buttons_spacer2" width="30" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
-				
-				<control name="button" style="custom-button" label="Build" id="button_popup_build_ok" align="center" valign="center" width="100" height="30" visibleToMouse="true" visible="false">
-					<interact onRelease="buildHouse()" />
-     			</control>
-				
-				<panel id="popup_build_window_buttons_spacer3" width="20" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
-				
-				<control name="button" style="custom-button" label="Cancel" id="button_popup_build_cancel" align="center" valign="center" width="100" height="30" visibleToMouse="true">
-					<interact onRelease="closePopup(build)" />
-     			</control>
-				
-				<panel id="popup_build_window_buttons_spacer4" width="20" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
-			</panel> 
 		</panel>
 	</popup>
 	
 	
 	<popup id="popup_edit" childLayout="center" backgroundColor="#00000088" visibleToMouse="true">
 		
-		<panel id="popup_edit_window" width="600" height="330" childLayout="vertical" backgroundColor="#000000ff" visibleToMouse="true">
-			<panel id="popup_edit_window_titlebar" width="100%" height="20" childLayout="center" backgroundColor="#a55731ff">
-				<control id="popup_edit_window_title" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="100%"/>
-			</panel>
-			
-			<panel id="popup_edit_window_titlebar_spacer" width="100%" height="10"></panel>
-			
-			<panel id="popup_edit_window_content" width="100%" height="250" childLayout="horizontal" backgroundColor="#000000ff">
-				<panel id="popup_edit_content_spacer" height="100%" width="20"></panel>
-				<panel id="popup_edit_panel_left" width="200" height="100%" childLayout="vertical">
-					<panel id="popup_edit_tenant_spacer" height="15" width="100%"></panel>
-					<image id="popup_edit_tenant_image" filename="Interface/hud/tenant_shape.png" align="left" height="80" width="80"></image>
-					
-					<control id="edit_tenant_occupied" name="label" font="Interface/Fonts/Default.fnt" align="left" text="" height="18" width="100%"/>
-					
-					<panel id="popup_edit_tenant_details" width="100%" childLayout="vertical">
-						<control id="edit_tenant_name" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="18" width="100%"/>
-						<panel id="popup_edit_tenant_spacer2" height="15" width="100%"></panel>
-						<control id="edit_tenant_prof" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="18" width="100%"/>
-						<control id="edit_tenant_data_spacer" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="6" width="100%"/>
-						<control id="edit_tenant_budget" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="18" width="100%"/>
-					</panel>
+		<panel id="popup_edit_window_frame" width="604" height="334" childLayout="center" backgroundColor="#a55731ff" visibleToMouse="true" padding="2">
+			<panel id="popup_edit_window" width="600" height="330" childLayout="vertical" backgroundColor="#000000ff" visibleToMouse="true">
+				<panel id="popup_edit_window_titlebar" width="100%" height="20" childLayout="center" backgroundColor="#a55731ff">
+					<control id="popup_edit_window_title" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="100%"/>
 				</panel>
 				
-				<panel id="popup_edit_panel_right" height="100%" childLayout="vertical">
-					
-					<panel id="popup_edit_info_object" height="115" childLayout="horizontal" backgroundColor="#202020ff">
-						<panel id="popup_edit_info_object_spacer1" height="100%" childLayout="center"></panel>
-						
-						<panel id="popup_edit_info_object_cat" height="100" width="100" align="right" childLayout="vertical">
-							<panel id="popup_edit_info_cat_spacer" height="15"></panel>
-							<control id="popup_edit_cat_1" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="18"/>
-							<control id="popup_edit_cat_2" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="18"/>
-							<control id="popup_edit_cat_3" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="18"/>
-							<control id="popup_edit_cat_4" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="18"/>
-							<control id="popup_edit_cat_5" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="18"/>
-						</panel>
-						
-						<panel id="popup_edit_info_object_spacer2" width="5" height="100%" childLayout="center"></panel>
-						
-						<panel id="popup_edit_info_object_data" width="120" height="100%" align="right" childLayout="vertical">
-							<panel id="popup_edit_info_data_spacer" height="15" childLayout="center"></panel>
-							<control id="popup_edit_info_1" name="label" text="" align="left" height="18"/>
-							<control id="popup_edit_info_2" name="label" text="" align="left" height="18"/>
-							<control id="popup_edit_info_3" name="label" text="" align="left" height="18"/>
-							<control id="popup_edit_info_4" name="label" text="" align="left" height="18"/>
-							<control id="popup_edit_info_5" name="label" text="" align="left" height="18"/>
-						</panel>
-						
-						<panel id="popup_edit_info_image_panel" width="120" height="100%" align="right" childLayout="center">
-							<image id="popup_edit_info_image" filename="${CALL.getDefaultImgPath()}" height="100" width="100"></image>
-						</panel>
-					</panel>
-					
-					<panel id="popup_edit_panel_right_spacer" width="100%" height="10"></panel>
-					
-					<panel id="popup_edit_panel_expansions" width="100%" height="115" childLayout="horizontal" backgroundColor="#202020ff">
-						<panel id="popup_edit_expansions_spacer" height="100%"></panel>
-					
-						<panel id="popup_edit_panel_expansions_1" width="100" height="100%" childLayout="vertical">
-							<panel id="popup_edit_expansions_spacer2" height="15"></panel>
-							<text text="Extras:" font="Interface/Fonts/Default.fnt" height="22" wrap="false" align="left"/>
-						</panel>
-						
-						<panel id="popup_edit_panel_expansions_2" width="115" height="100%" childLayout="vertical">
-							<panel id="popup_edit_expansions_spacer3" height="15"></panel>
-							<control id="popup_edit_exp0" name="label" text="EXTRA" align="left" height="18"/>
-							<control id="popup_edit_exp1" name="label" text="EXTRA" align="left" height="18"/>
-							<control id="popup_edit_exp2" name="label" text="EXTRA" align="left" height="18"/>
-							<control id="popup_edit_exp3" name="label" text="EXTRA" align="left" height="18"/>
-							<control id="popup_edit_exp4" name="label" text="EXTRA" align="left" height="18"/>
-						</panel>
-						
-						<panel id="popup_edit_panel_expansions_3" width="130" height="100%" childLayout="vertical">
-							<panel id="popup_edit_expansions_spacer4" height="15"></panel>
-							<control id="popup_edit_exp5" name="label" text="EXTRA" align="left" height="18"/>
-							<control id="popup_edit_exp6" name="label" text="EXTRA" align="left" height="18"/>
-							<control id="popup_edit_exp7" name="label" text="EXTRA" align="left" height="18"/>
-							<control id="popup_edit_exp8" name="label" text="EXTRA" align="left" height="18"/>
-							<control id="popup_edit_exp9" name="label" text="EXTRA" align="left" height="18"/>
-						</panel>
-					</panel>
+				<panel id="popup_edit_window_titlebar_spacer" width="100%" height="10"></panel>
 				
+				<panel id="popup_edit_window_content" width="100%" height="250" childLayout="horizontal" backgroundColor="#000000ff">
+					<panel id="popup_edit_content_spacer" height="100%" width="20"></panel>
+					<panel id="popup_edit_panel_left" width="200" height="100%" childLayout="vertical">
+						<panel id="popup_edit_tenant_spacer" height="15" width="100%"></panel>
+						<image id="popup_edit_tenant_image" filename="Interface/hud/tenant_shape.png" align="left" height="80" width="80"></image>
+						
+						<control id="edit_tenant_occupied" name="label" font="Interface/Fonts/Default.fnt" align="left" text="" height="18" width="100%"/>
+						
+						<panel id="popup_edit_tenant_details" width="100%" childLayout="vertical">
+							<control id="edit_tenant_name" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="18" width="100%"/>
+							<panel id="popup_edit_tenant_spacer2" height="15" width="100%"></panel>
+							<control id="edit_tenant_prof" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="18" width="100%"/>
+							<control id="edit_tenant_data_spacer" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="6" width="100%"/>
+							<control id="edit_tenant_budget" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="18" width="100%"/>
+						</panel>
+					</panel>
+					
+					<panel id="popup_edit_panel_right" height="100%" childLayout="vertical">
+						
+						<panel id="popup_edit_info_object" height="115" childLayout="horizontal" backgroundColor="#202020ff">
+							<panel id="popup_edit_info_object_spacer1" height="100%" childLayout="center"></panel>
+							
+							<panel id="popup_edit_info_object_cat" height="100" width="100" align="right" childLayout="vertical">
+								<panel id="popup_edit_info_cat_spacer" height="15"></panel>
+								<control id="popup_edit_cat_1" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="18"/>
+								<control id="popup_edit_cat_2" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="18"/>
+								<control id="popup_edit_cat_3" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="18"/>
+								<control id="popup_edit_cat_4" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="18"/>
+								<control id="popup_edit_cat_5" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="18"/>
+							</panel>
+							
+							<panel id="popup_edit_info_object_spacer2" width="5" height="100%" childLayout="center"></panel>
+							
+							<panel id="popup_edit_info_object_data" width="120" height="100%" align="right" childLayout="vertical">
+								<panel id="popup_edit_info_data_spacer" height="15" childLayout="center"></panel>
+								<control id="popup_edit_info_1" name="label" text="" align="left" height="18"/>
+								<control id="popup_edit_info_2" name="label" text="" align="left" height="18"/>
+								<control id="popup_edit_info_3" name="label" text="" align="left" height="18"/>
+								<control id="popup_edit_info_4" name="label" text="" align="left" height="18"/>
+								<control id="popup_edit_info_5" name="label" text="" align="left" height="18"/>
+							</panel>
+							
+							<panel id="popup_edit_info_image_panel" width="120" height="100%" align="right" childLayout="center">
+								<image id="popup_edit_info_image" filename="${CALL.getDefaultImgPath()}" height="100" width="100"></image>
+							</panel>
+						</panel>
+						
+						<panel id="popup_edit_panel_right_spacer" width="100%" height="10"></panel>
+						
+						<panel id="popup_edit_panel_expansions" width="100%" height="115" childLayout="horizontal" backgroundColor="#202020ff">
+							<panel id="popup_edit_expansions_spacer" height="100%"></panel>
+						
+							<panel id="popup_edit_panel_expansions_1" width="100" height="100%" childLayout="vertical">
+								<panel id="popup_edit_expansions_spacer2" height="15"></panel>
+								<text text="Extras:" font="Interface/Fonts/Default.fnt" height="22" wrap="false" align="left"/>
+							</panel>
+							
+							<panel id="popup_edit_panel_expansions_2" width="115" height="100%" childLayout="vertical">
+								<panel id="popup_edit_expansions_spacer3" height="15"></panel>
+								<control id="popup_edit_exp0" name="label" text="EXTRA" align="left" height="18"/>
+								<control id="popup_edit_exp1" name="label" text="EXTRA" align="left" height="18"/>
+								<control id="popup_edit_exp2" name="label" text="EXTRA" align="left" height="18"/>
+								<control id="popup_edit_exp3" name="label" text="EXTRA" align="left" height="18"/>
+								<control id="popup_edit_exp4" name="label" text="EXTRA" align="left" height="18"/>
+							</panel>
+							
+							<panel id="popup_edit_panel_expansions_3" width="130" height="100%" childLayout="vertical">
+								<panel id="popup_edit_expansions_spacer4" height="15"></panel>
+								<control id="popup_edit_exp5" name="label" text="EXTRA" align="left" height="18"/>
+								<control id="popup_edit_exp6" name="label" text="EXTRA" align="left" height="18"/>
+								<control id="popup_edit_exp7" name="label" text="EXTRA" align="left" height="18"/>
+								<control id="popup_edit_exp8" name="label" text="EXTRA" align="left" height="18"/>
+								<control id="popup_edit_exp9" name="label" text="EXTRA" align="left" height="18"/>
+							</panel>
+						</panel>
+					
+					</panel>
+					
 				</panel>
 				
-			</panel>
-			
-			<panel id="popup_edit_window_buttons" width="100%" height="50" childLayout="horizontal" backgroundColor="#000000ff">
-				<panel id="popup_edit_window_buttons_spacer" width="15" height="50" childLayout="horizontal"></panel>
-				
-				<control name="button" style="custom-button" label="Find Tenants" id="button_popup_edit_tenants" align="center" valign="center" width="100" height="30" visibleToMouse="true">
-					<interact onRelease="openPopup(tenants)" />
-     			</control>
-				
-				<panel id="popup_edit_window_buttons_spacer2" width="15" height="50" childLayout="horizontal"></panel>
-				
-				<control name="button" style="custom-button" label="Install Extras" id="button_popup_edit_expansions" align="center" valign="center" width="100" height="30" visibleToMouse="true">
-					<interact onRelease="openPopup(extras)" />
-     			</control>
-				
-				<panel id="popup_edit_window_buttons_spacer2a" width="15" height="50" childLayout="horizontal"></panel>
-				
-				<control name="button" style="custom-button" label="Sell House" id="button_popup_edit_sell" align="center" valign="center" width="100" height="30" visibleToMouse="true">
-					<interact onRelease="openPopup(sell)" />
-     			</control>
-				
-				<panel id="popup_edit_window_buttons_spacer2b" width="15" height="50" childLayout="horizontal"></panel>
-				
-				<control name="button" style="custom-button" label="Set Rent" id="button_popup_edit_rent" align="center" valign="center" width="100" height="30" visibleToMouse="true">
-					<interact onRelease="openPopup(rent)" />
-     			</control>
-				
-				<panel id="popup_edit_window_buttons_spacer3" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
-				
-				<control name="button" style="custom-button" label="OK" id="button_popup_edit_ok" align="center" valign="center" width="100" height="30" visibleToMouse="true">
-					<interact onRelease="closePopup(edit)" />
-     			</control>
-				
-				<panel id="popup_edit_window_buttons_spacer4" width="15" height="50" childLayout="horizontal"></panel>
+				<panel id="popup_edit_window_buttons" width="100%" height="50" childLayout="horizontal" backgroundColor="#000000ff">
+					<panel id="popup_edit_window_buttons_spacer" width="15" height="50" childLayout="horizontal"></panel>
+					
+					<control name="button" style="custom-button" label="Find Tenants" id="button_popup_edit_tenants" align="center" valign="center" width="100" height="30" visibleToMouse="true">
+						<interact onRelease="openPopup(tenants)" />
+					</control>
+					
+					<panel id="popup_edit_window_buttons_spacer2" width="15" height="50" childLayout="horizontal"></panel>
+					
+					<control name="button" style="custom-button" label="Install Extras" id="button_popup_edit_expansions" align="center" valign="center" width="100" height="30" visibleToMouse="true">
+						<interact onRelease="openPopup(extras)" />
+					</control>
+					
+					<panel id="popup_edit_window_buttons_spacer2a" width="15" height="50" childLayout="horizontal"></panel>
+					
+					<control name="button" style="custom-button" label="Sell House" id="button_popup_edit_sell" align="center" valign="center" width="100" height="30" visibleToMouse="true">
+						<interact onRelease="openPopup(sell)" />
+					</control>
+					
+					<panel id="popup_edit_window_buttons_spacer2b" width="15" height="50" childLayout="horizontal"></panel>
+					
+					<control name="button" style="custom-button" label="Set Rent" id="button_popup_edit_rent" align="center" valign="center" width="100" height="30" visibleToMouse="true">
+						<interact onRelease="openPopup(rent)" />
+					</control>
+					
+					<panel id="popup_edit_window_buttons_spacer3" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
+					
+					<control name="button" style="custom-button" label="OK" id="button_popup_edit_ok" align="center" valign="center" width="100" height="30" visibleToMouse="true">
+						<interact onRelease="closePopup(edit)" />
+					</control>
+					
+					<panel id="popup_edit_window_buttons_spacer4" width="15" height="50" childLayout="horizontal"></panel>
+				</panel>
 			</panel>
 		</panel>
 	</popup>
@@ -408,31 +416,33 @@
 	
 	<popup id="popup_destroy" childLayout="center" backgroundColor="#00000088" visibleToMouse="true">
 		
-		<panel id="popup_destroy_window" width="400" height="250" childLayout="vertical" backgroundColor="#000000ff" visibleToMouse="true">
-			<panel id="popup_destroy_window_titlebar" width="100%" height="20" childLayout="center" backgroundColor="#a55731ff">
-				<control id="popup_destroy_window_title" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="100%"/>
-			</panel>
-			
-			<panel id="popup_destroy_window_content" width="100%" height="180" childLayout="vertical" backgroundColor="#000000ff">
-				<panel id="popup_buy_window_content_spacer" width="100%" height="25"></panel>
-				<image id="popup_buy_img" filename="${CALL.getCurrentImgPath()}" align="center" height="100" width="100"></image>
-				<control id="popup_destroy_text" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="55"/>
-			</panel>
-			
-			<panel id="popup_destroy_window_buttons" width="100%" height="50" childLayout="horizontal" backgroundColor="#000000ff">
-				<panel id="popup_destroy_window_buttons_spacer" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
+		<panel id="popup_destroy_window_frame" width="404" height="254" childLayout="center" backgroundColor="#a55731ff" visibleToMouse="true" padding="2">
+			<panel id="popup_destroy_window" width="400" height="250" childLayout="vertical" backgroundColor="#000000ff" visibleToMouse="true">
+				<panel id="popup_destroy_window_titlebar" width="100%" height="20" childLayout="center" backgroundColor="#a55731ff">
+					<control id="popup_destroy_window_title" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="100%"/>
+				</panel>
 				
-				<control name="button" style="custom-button" label="Destroy" id="button_popup_destroy_ok" align="center" valign="center" width="100" height="30" visibleToMouse="true">
-					<interact onRelease="destroyBuilding()" />
-     			</control>
+				<panel id="popup_destroy_window_content" width="100%" height="180" childLayout="vertical" backgroundColor="#000000ff">
+					<panel id="popup_buy_window_content_spacer" width="100%" height="25"></panel>
+					<image id="popup_buy_img" filename="${CALL.getCurrentImgPath()}" align="center" height="100" width="100"></image>
+					<control id="popup_destroy_text" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="55"/>
+				</panel>
 				
-				<panel id="popup_destroy_window_buttons_spacer2" width="20" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
-				
-				<control name="button" style="custom-button" label="Cancel" id="button_popup_destroy_cancel" align="center" valign="center" width="100" height="30" visibleToMouse="true">
-					<interact onRelease="closePopup(destroy)" />
-     			</control>
-				
-				<panel id="popup_destroy_window_buttons_spacer3" width="20" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
+				<panel id="popup_destroy_window_buttons" width="100%" height="50" childLayout="horizontal" backgroundColor="#000000ff">
+					<panel id="popup_destroy_window_buttons_spacer" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
+					
+					<control name="button" style="custom-button" label="Destroy" id="button_popup_destroy_ok" align="center" valign="center" width="100" height="30" visibleToMouse="true">
+						<interact onRelease="destroyBuilding()" />
+					</control>
+					
+					<panel id="popup_destroy_window_buttons_spacer2" width="20" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
+					
+					<control name="button" style="custom-button" label="Cancel" id="button_popup_destroy_cancel" align="center" valign="center" width="100" height="30" visibleToMouse="true">
+						<interact onRelease="closePopup(destroy)" />
+					</control>
+					
+					<panel id="popup_destroy_window_buttons_spacer3" width="20" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
+				</panel>
 			</panel>
 		</panel>
 	</popup>
@@ -440,54 +450,56 @@
 	
 	<popup id="popup_tenants" childLayout="center" backgroundColor="#00000000" visibleToMouse="true">
 		
-		<panel id="popup_tenants_window" width="600" height="400" childLayout="vertical" backgroundColor="#000000ff" visibleToMouse="true">
-			<panel id="popup_tenants_window_titlebar" width="100%" height="20" childLayout="center" backgroundColor="#a55731ff">
-				<control id="popup_tenants_window_title" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="100%"/>
-			</panel>
-			
-			<panel id="popup_tenants_window_spacer" width="100%" height="20" childLayout="center" ></panel>
-			
-			<panel id="popup_tenants_window_content" width="100%" height="310" childLayout="horizontal" backgroundColor="#000000ff">
-				<panel id="popup_tenants_spacer" width="20" height="100%" childLayout="vertical"></panel>
-				<panel id="popup_tenants_names" width="280" height="100%" childLayout="vertical">
-					<control id="tenant0" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%" visibleToMouse="true"><interact onRelease="selectTenant(0)"/></control>
-					<control id="tenant1" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%" visibleToMouse="true"><interact onRelease="selectTenant(1)"/></control>
-					<control id="tenant2" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%" visibleToMouse="true"><interact onRelease="selectTenant(2)"/></control>
-					<control id="tenant3" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%" visibleToMouse="true"><interact onRelease="selectTenant(3)"/></control>
-					<control id="tenant4" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%" visibleToMouse="true"><interact onRelease="selectTenant(4)"/></control>
-					<control id="tenant5" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%" visibleToMouse="true"><interact onRelease="selectTenant(5)"/></control>
-					<control id="tenant6" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%" visibleToMouse="true"><interact onRelease="selectTenant(6)"/></control>
-					<control id="tenant7" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%" visibleToMouse="true"><interact onRelease="selectTenant(7)"/></control>
-					<control id="tenant8" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%" visibleToMouse="true"><interact onRelease="selectTenant(8)"/></control>
-					<control id="tenant9" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%" visibleToMouse="true"><interact onRelease="selectTenant(9)"/></control>
+		<panel id="popup_tenants_window_frame" width="604" height="404" childLayout="center" backgroundColor="#a55731ff" visibleToMouse="true" padding="2">
+			<panel id="popup_tenants_window" width="600" height="400" childLayout="vertical" backgroundColor="#000000ff" visibleToMouse="true">
+				<panel id="popup_tenants_window_titlebar" width="100%" height="20" childLayout="center" backgroundColor="#a55731ff">
+					<control id="popup_tenants_window_title" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="100%"/>
 				</panel>
-				<panel id="popup_tenants_details" height="100%" childLayout="vertical">
-					<control id="tenant_name" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%"/>
-					<control id="tenant_prof" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%"/>
-					<control id="tenant_data_spacer" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="6%" width="100%"/>
-					<control id="tenant_budget" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%"/>
-					<control id="tenant_minlux" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%"/>
-					<control id="tenant_needs" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%"/>
-					<control id="tenant_public" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%"/>
+				
+				<panel id="popup_tenants_window_spacer" width="100%" height="20" childLayout="center" ></panel>
+				
+				<panel id="popup_tenants_window_content" width="100%" height="310" childLayout="horizontal" backgroundColor="#000000ff">
+					<panel id="popup_tenants_spacer" width="20" height="100%" childLayout="vertical"></panel>
+					<panel id="popup_tenants_names" width="280" height="100%" childLayout="vertical">
+						<control id="tenant0" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%" visibleToMouse="true"><interact onRelease="selectTenant(0)"/></control>
+						<control id="tenant1" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%" visibleToMouse="true"><interact onRelease="selectTenant(1)"/></control>
+						<control id="tenant2" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%" visibleToMouse="true"><interact onRelease="selectTenant(2)"/></control>
+						<control id="tenant3" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%" visibleToMouse="true"><interact onRelease="selectTenant(3)"/></control>
+						<control id="tenant4" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%" visibleToMouse="true"><interact onRelease="selectTenant(4)"/></control>
+						<control id="tenant5" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%" visibleToMouse="true"><interact onRelease="selectTenant(5)"/></control>
+						<control id="tenant6" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%" visibleToMouse="true"><interact onRelease="selectTenant(6)"/></control>
+						<control id="tenant7" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%" visibleToMouse="true"><interact onRelease="selectTenant(7)"/></control>
+						<control id="tenant8" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%" visibleToMouse="true"><interact onRelease="selectTenant(8)"/></control>
+						<control id="tenant9" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%" visibleToMouse="true"><interact onRelease="selectTenant(9)"/></control>
+					</panel>
+					<panel id="popup_tenants_details" height="100%" childLayout="vertical">
+						<control id="tenant_name" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%"/>
+						<control id="tenant_prof" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%"/>
+						<control id="tenant_data_spacer" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="6%" width="100%"/>
+						<control id="tenant_budget" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%"/>
+						<control id="tenant_minlux" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%"/>
+						<control id="tenant_needs" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%"/>
+						<control id="tenant_public" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%"/>
+					</panel>
 				</panel>
-			</panel>
-			
-			<panel id="popup_tenants_window_buttons" width="100%" height="50" childLayout="horizontal" backgroundColor="#000000ff">
-				<panel id="popup_tenants_window_buttons_spacer" height="50" childLayout="horizontal"></panel> 
-				<control id="popup_tenants_tipp" name="label" text="There are new tenants every month!" size="18" align="center" height="50"/>
-				<panel id="popup_tenants_window_buttons_spacer2" width="30" height="50" childLayout="horizontal"></panel>
 				
-				<control name="button" style="custom-button" label="Accept tenant" id="button_popup_tenants_ok" align="center" valign="center" width="100" height="30" visibleToMouse="true">
-					<interact onRelease="acceptTenant()" />
-     			</control>
-				
-				<panel id="popup_tenants_window_buttons_spacer3" width="20" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
-				
-				<control name="button" style="custom-button" label="Cancel" id="button_popup_tenants_cancel" align="center" valign="center" width="100" height="30" visibleToMouse="true">
-					<interact onRelease="closePopup(tenants)" />
-     			</control>
-				
-				<panel id="popup_tenants_window_buttons_spacer4" width="20" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
+				<panel id="popup_tenants_window_buttons" width="100%" height="50" childLayout="horizontal" backgroundColor="#000000ff">
+					<panel id="popup_tenants_window_buttons_spacer" height="50" childLayout="horizontal"></panel> 
+					<control id="popup_tenants_tipp" name="label" text="There are new tenants every month!" size="18" align="center" height="50"/>
+					<panel id="popup_tenants_window_buttons_spacer2" width="30" height="50" childLayout="horizontal"></panel>
+					
+					<control name="button" style="custom-button" label="Accept tenant" id="button_popup_tenants_ok" align="center" valign="center" width="100" height="30" visibleToMouse="true">
+						<interact onRelease="acceptTenant()" />
+					</control>
+					
+					<panel id="popup_tenants_window_buttons_spacer3" width="20" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
+					
+					<control name="button" style="custom-button" label="Cancel" id="button_popup_tenants_cancel" align="center" valign="center" width="100" height="30" visibleToMouse="true">
+						<interact onRelease="closePopup(tenants)" />
+					</control>
+					
+					<panel id="popup_tenants_window_buttons_spacer4" width="20" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
+				</panel>
 			</panel>
 		</panel>
 	</popup>
@@ -495,32 +507,34 @@
 	
 	<popup id="popup_rent" childLayout="center" backgroundColor="#00000088" visibleToMouse="true">
 		
-		<panel id="popup_rent_window" width="300" height="150" childLayout="vertical" backgroundColor="#000000ff">
-			<panel id="popup_rent_window_titlebar" width="100%" height="20" childLayout="center" backgroundColor="#a55731ff">
-				<text text="Change Rent" font="Interface/Fonts/Default.fnt" width="100%" height="100%" wrap="false" align="center"/>
-			</panel>
-			
-			<panel id="popup_rent_window_content" width="100%" height="80" childLayout="vertical" backgroundColor="#000000ff">
-				<panel id="popup_rent_window_content_spacer" width="100%" childLayout="horizontal"></panel>
-				<text text="Set the new rent  here:" font="Interface/Fonts/Default.fnt" width="100%" height="20" wrap="false"/>
-				<control id="rent_input" align="center" name="textfield" width="100px" text="${CALL.getSelectedRent()}"/>
-				<panel id="popup_rent_window_content_spacer2" width="100%" childLayout="horizontal"></panel>
-			</panel>
-			
-			<panel id="popup_rent_window_buttons" width="100%" height="50" childLayout="horizontal" backgroundColor="#000000ff">
-				<panel id="popup_rent_window_buttons_spacer" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
+		<panel id="popup_rent_window_frame" width="304" height="154" childLayout="center" backgroundColor="#a55731ff" visibleToMouse="true" padding="2">
+			<panel id="popup_rent_window" width="300" height="150" childLayout="vertical" backgroundColor="#000000ff">
+				<panel id="popup_rent_window_titlebar" width="100%" height="20" childLayout="center" backgroundColor="#a55731ff">
+					<text text="Change Rent" font="Interface/Fonts/Default.fnt" width="100%" height="100%" wrap="false" align="center"/>
+				</panel>
 				
-				<control name="button" style="custom-button" label="OK" id="button_popup_rent_ok" align="center" valign="center" width="100" height="30" visibleToMouse="true">
-					<interact onRelease="setRent()" />
-     			</control>
+				<panel id="popup_rent_window_content" width="100%" height="80" childLayout="vertical" backgroundColor="#000000ff">
+					<panel id="popup_rent_window_content_spacer" width="100%" childLayout="horizontal"></panel>
+					<text text="Set the new rent  here:" font="Interface/Fonts/Default.fnt" width="100%" height="20" wrap="false"/>
+					<control id="rent_input" align="center" name="textfield" width="100px" text="${CALL.getSelectedRent()}"/>
+					<panel id="popup_rent_window_content_spacer2" width="100%" childLayout="horizontal"></panel>
+				</panel>
 				
-				<panel id="popup_rent_window_buttons_spacer2" width="20" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
-				
-				<control name="button" style="custom-button" label="= Budget" id="button_popup_rent_cancel" align="center" valign="center" width="100" height="30" visibleToMouse="true">
-					<interact onRelease="maxRent()" />
-     			</control>
-				
-				<panel id="popup_rent_window_buttons_spacer3" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
+				<panel id="popup_rent_window_buttons" width="100%" height="50" childLayout="horizontal" backgroundColor="#000000ff">
+					<panel id="popup_rent_window_buttons_spacer" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
+					
+					<control name="button" style="custom-button" label="OK" id="button_popup_rent_ok" align="center" valign="center" width="100" height="30" visibleToMouse="true">
+						<interact onRelease="setRent()" />
+					</control>
+					
+					<panel id="popup_rent_window_buttons_spacer2" width="20" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
+					
+					<control name="button" style="custom-button" label="= Budget" id="button_popup_rent_cancel" align="center" valign="center" width="100" height="30" visibleToMouse="true">
+						<interact onRelease="maxRent()" />
+					</control>
+					
+					<panel id="popup_rent_window_buttons_spacer3" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
+				</panel>
 			</panel>
 		</panel>
 	</popup>
@@ -528,43 +542,45 @@
 	
 	<popup id="popup_extras" childLayout="center" backgroundColor="#00000088" visibleToMouse="true">
 		
-		<panel id="popup_extras_window" width="350" height="350" childLayout="vertical" backgroundColor="#000000ff">
-			<panel id="popup_extras_window_titlebar" width="100%" height="20" childLayout="center" backgroundColor="#a55731ff">
-				<text text="Add Some Bling" font="Interface/Fonts/Default.fnt" width="100%" height="100%" wrap="false" align="center"/>
-			</panel>
-			
-			<panel id="popup_extras_window_content" width="100%" childLayout="vertical" backgroundColor="#000000ff">
-				<text text="Choose extras to install:" font="Interface/Fonts/Default.fnt" width="100%" height="40" wrap="false"/>
+		<panel id="popup_extras_window_frame" width="354" height="354" childLayout="center" backgroundColor="#a55731ff" visibleToMouse="true" padding="2">
+			<panel id="popup_extras_window" width="350" height="350" childLayout="vertical" backgroundColor="#000000ff">
+				<panel id="popup_extras_window_titlebar" width="100%" height="20" childLayout="center" backgroundColor="#a55731ff">
+					<text text="Add Some Bling" font="Interface/Fonts/Default.fnt" width="100%" height="100%" wrap="false" align="center"/>
+				</panel>
 				
-				<control id="popup_extra0" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="20" width="100%" visibleToMouse="true"><interact onRelease="selectExtra(0)"/></control>
-				<control id="popup_extra1" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="20" width="100%" visibleToMouse="true"><interact onRelease="selectExtra(1)"/></control>
-				<control id="popup_extra2" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="20" width="100%" visibleToMouse="true"><interact onRelease="selectExtra(2)"/></control>
-				<control id="popup_extra3" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="20" width="100%" visibleToMouse="true"><interact onRelease="selectExtra(3)"/></control>
-				<control id="popup_extra4" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="20" width="100%" visibleToMouse="true"><interact onRelease="selectExtra(4)"/></control>
-				<control id="popup_extra5" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="20" width="100%" visibleToMouse="true"><interact onRelease="selectExtra(5)"/></control>
-				<control id="popup_extra6" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="20" width="100%" visibleToMouse="true"><interact onRelease="selectExtra(6)"/></control>
-				<control id="popup_extra7" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="20" width="100%" visibleToMouse="true"><interact onRelease="selectExtra(7)"/></control>
-				<control id="popup_extra8" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="20" width="100%" visibleToMouse="true"><interact onRelease="selectExtra(8)"/></control>
-				<control id="popup_extra9" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="20" width="100%" visibleToMouse="true"><interact onRelease="selectExtra(9)"/></control>
+				<panel id="popup_extras_window_content" width="100%" childLayout="vertical" backgroundColor="#000000ff">
+					<text text="Choose extras to install:" font="Interface/Fonts/Default.fnt" width="100%" height="40" wrap="false"/>
+					
+					<control id="popup_extra0" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="20" width="100%" visibleToMouse="true"><interact onRelease="selectExtra(0)"/></control>
+					<control id="popup_extra1" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="20" width="100%" visibleToMouse="true"><interact onRelease="selectExtra(1)"/></control>
+					<control id="popup_extra2" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="20" width="100%" visibleToMouse="true"><interact onRelease="selectExtra(2)"/></control>
+					<control id="popup_extra3" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="20" width="100%" visibleToMouse="true"><interact onRelease="selectExtra(3)"/></control>
+					<control id="popup_extra4" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="20" width="100%" visibleToMouse="true"><interact onRelease="selectExtra(4)"/></control>
+					<control id="popup_extra5" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="20" width="100%" visibleToMouse="true"><interact onRelease="selectExtra(5)"/></control>
+					<control id="popup_extra6" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="20" width="100%" visibleToMouse="true"><interact onRelease="selectExtra(6)"/></control>
+					<control id="popup_extra7" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="20" width="100%" visibleToMouse="true"><interact onRelease="selectExtra(7)"/></control>
+					<control id="popup_extra8" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="20" width="100%" visibleToMouse="true"><interact onRelease="selectExtra(8)"/></control>
+					<control id="popup_extra9" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="20" width="100%" visibleToMouse="true"><interact onRelease="selectExtra(9)"/></control>
+					
+					<panel id="popup_extras_window_content_spacer2" width="100%" childLayout="horizontal"></panel>
+					<control id="popup_extra_sum" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="20" width="100%"></control>
+				</panel>
 				
-				<panel id="popup_extras_window_content_spacer2" width="100%" childLayout="horizontal"></panel>
-				<control id="popup_extra_sum" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="20" width="100%"></control>
-			</panel>
-			
-			<panel id="popup_extras_window_buttons" width="100%" height="50" childLayout="horizontal" backgroundColor="#000000ff">
-				<panel id="popup_extras_window_buttons_spacer" height="50"></panel>
-				
-				<control name="button" style="custom-button" label="OK" id="button_popup_extras_ok" align="center" valign="center" width="100" height="30" visibleToMouse="true">
-					<interact onRelease="buyExtra()"/>
-     			</control>
-				
-				<panel id="popup_extras_window_buttons_spacer2" width="20" height="50"></panel>
-				
-				<control name="button" style="custom-button" label="Cancel" id="button_popup_extras_cancel" align="center" valign="center" width="100" height="30" visibleToMouse="true">
-					<interact onRelease="closePopup(extras)" />
-     			</control>
-				
-				<panel id="popup_extras_window_buttons_spacer3" height="50"></panel>
+				<panel id="popup_extras_window_buttons" width="100%" height="50" childLayout="horizontal" backgroundColor="#000000ff">
+					<panel id="popup_extras_window_buttons_spacer" height="50"></panel>
+					
+					<control name="button" style="custom-button" label="OK" id="button_popup_extras_ok" align="center" valign="center" width="100" height="30" visibleToMouse="true">
+						<interact onRelease="buyExtra()"/>
+					</control>
+					
+					<panel id="popup_extras_window_buttons_spacer2" width="20" height="50"></panel>
+					
+					<control name="button" style="custom-button" label="Cancel" id="button_popup_extras_cancel" align="center" valign="center" width="100" height="30" visibleToMouse="true">
+						<interact onRelease="closePopup(extras)" />
+					</control>
+					
+					<panel id="popup_extras_window_buttons_spacer3" height="50"></panel>
+				</panel>
 			</panel>
 		</panel>
 	</popup>
@@ -572,32 +588,34 @@
 	
 	<popup id="popup_quit" childLayout="center" backgroundColor="#00000088" visibleToMouse="true">
 		
-		<panel id="popup_quit_window" width="300" height="150" childLayout="vertical" backgroundColor="#000000ff">
-			<panel id="popup_quit_window_titlebar" width="100%" height="20" childLayout="center" backgroundColor="#a55731ff">
-				<text text="Missed Business Immanent" font="Interface/Fonts/Default.fnt" width="100%" height="100%" wrap="false" align="center"/>
-			</panel>
-			
-			<panel id="popup_quit_window_content" width="100%" height="80" childLayout="vertical" backgroundColor="#000000ff">
-				<panel id="popup_quit_window_content_spacer" width="100%" childLayout="horizontal"></panel>
-				<text text="Do you really want to quit the game?" font="Interface/Fonts/Default.fnt" width="100%" height="20" wrap="false"/>
-				<text text="You will lose your precious wealth!" font="Interface/Fonts/Default.fnt" width="100%" height="20" wrap="false"/>
-				<panel id="popup_quit_window_content_spacer2" width="100%" childLayout="horizontal"></panel>
-			</panel>
-			
-			<panel id="popup_quit_window_buttons" width="100%" height="50" childLayout="horizontal" backgroundColor="#000000ff">
-				<panel id="popup_quit_window_buttons_spacer" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
+		<panel id="popup_quit_window_frame" width="304" height="154" childLayout="center" backgroundColor="#a55731ff" visibleToMouse="true" padding="2">
+			<panel id="popup_quit_window" width="300" height="150" childLayout="vertical" backgroundColor="#000000ff">
+				<panel id="popup_quit_window_titlebar" width="100%" height="20" childLayout="center" backgroundColor="#a55731ff">
+					<text text="Missed Business Immanent" font="Interface/Fonts/Default.fnt" width="100%" height="100%" wrap="false" align="center"/>
+				</panel>
 				
-				<control name="button" style="custom-button" label="Quit" id="button_popup_quit_ok" align="center" valign="center" width="100" height="30" visibleToMouse="true">
-					<interact onRelease="quitGame()" />
-     			</control>
+				<panel id="popup_quit_window_content" width="100%" height="80" childLayout="vertical" backgroundColor="#000000ff">
+					<panel id="popup_quit_window_content_spacer" width="100%" childLayout="horizontal"></panel>
+					<text text="Do you really want to quit the game?" font="Interface/Fonts/Default.fnt" width="100%" height="20" wrap="false"/>
+					<text text="You will lose your precious wealth!" font="Interface/Fonts/Default.fnt" width="100%" height="20" wrap="false"/>
+					<panel id="popup_quit_window_content_spacer2" width="100%" childLayout="horizontal"></panel>
+				</panel>
 				
-				<panel id="popup_quit_window_buttons_spacer2" width="20" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
-				
-				<control name="button" style="custom-button" label="Resume" id="button_popup_quit_cancel" align="center" valign="center" width="100" height="30" visibleToMouse="true">
-					<interact onRelease="closePopup(quit)" />
-     			</control>
-				
-				<panel id="popup_quit_window_buttons_spacer3" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
+				<panel id="popup_quit_window_buttons" width="100%" height="50" childLayout="horizontal" backgroundColor="#000000ff">
+					<panel id="popup_quit_window_buttons_spacer" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
+					
+					<control name="button" style="custom-button" label="Quit" id="button_popup_quit_ok" align="center" valign="center" width="100" height="30" visibleToMouse="true">
+						<interact onRelease="quitGame()" />
+					</control>
+					
+					<panel id="popup_quit_window_buttons_spacer2" width="20" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
+					
+					<control name="button" style="custom-button" label="Resume" id="button_popup_quit_cancel" align="center" valign="center" width="100" height="30" visibleToMouse="true">
+						<interact onRelease="closePopup(quit)" />
+					</control>
+					
+					<panel id="popup_quit_window_buttons_spacer3" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
+				</panel>
 			</panel>
 		</panel>
 	</popup>
@@ -605,26 +623,28 @@
 	
 	<popup id="popup_note" childLayout="center" backgroundColor="#00000088" visibleToMouse="true">
 		
-		<panel id="popup_note_window" width="350" height="150" childLayout="vertical" backgroundColor="#000000ff">
-			<panel id="popup_note_window_titlebar" width="100%" height="20" childLayout="center" backgroundColor="#a55731ff">
-				<control id="popup_note_window_title" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="100%"/>
-			</panel>
-			
-			<panel id="popup_note_window_content" width="100%" height="80" childLayout="vertical" backgroundColor="#000000ff">
-				<panel id="popup_note_window_content_spacer" width="100%" childLayout="horizontal"></panel>
-				<control id="popup_note_text1" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="18"/>
-				<control id="popup_note_text2" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="18"/>
-				<panel id="popup_note_window_content_spacer2" width="100%" childLayout="horizontal"></panel>
-			</panel>
-			
-			<panel id="popup_note_window_buttons" width="100%" height="50" childLayout="horizontal" backgroundColor="#000000ff">
-				<panel id="popup_note_window_buttons_spacer" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
+		<panel id="popup_note_window_frame" width="354" height="154" childLayout="center" backgroundColor="#a55731ff" visibleToMouse="true" padding="2">
+			<panel id="popup_note_window" width="350" height="150" childLayout="vertical" backgroundColor="#000000ff">
+				<panel id="popup_note_window_titlebar" width="100%" height="20" childLayout="center" backgroundColor="#a55731ff">
+					<control id="popup_note_window_title" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="100%"/>
+				</panel>
 				
-				<control name="button" style="custom-button" label="OK" id="button_popup_note_ok" align="center" valign="center" width="100" height="30" visibleToMouse="true">
-					<interact onRelease="closeAlert()" />
-     			</control>
+				<panel id="popup_note_window_content" width="100%" height="80" childLayout="vertical" backgroundColor="#000000ff">
+					<panel id="popup_note_window_content_spacer" width="100%" childLayout="horizontal"></panel>
+					<control id="popup_note_text1" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="18"/>
+					<control id="popup_note_text2" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="18"/>
+					<panel id="popup_note_window_content_spacer2" width="100%" childLayout="horizontal"></panel>
+				</panel>
 				
-				<panel id="popup_note_window_buttons_spacer3" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
+				<panel id="popup_note_window_buttons" width="100%" height="50" childLayout="horizontal" backgroundColor="#000000ff">
+					<panel id="popup_note_window_buttons_spacer" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
+					
+					<control name="button" style="custom-button" label="OK" id="button_popup_note_ok" align="center" valign="center" width="100" height="30" visibleToMouse="true">
+						<interact onRelease="closeAlert()" />
+					</control>
+					
+					<panel id="popup_note_window_buttons_spacer3" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
+				</panel>
 			</panel>
 		</panel>
 	</popup>
@@ -632,26 +652,28 @@
 	
 	<popup id="popup_nodestroy" childLayout="center" backgroundColor="#00000088" visibleToMouse="true">
 		
-		<panel id="popup_nodestroy_window" width="300" height="150" childLayout="vertical" backgroundColor="#000000ff">
-			<panel id="popup_nodestroy_window_titlebar" width="100%" height="20" childLayout="center" backgroundColor="#a55731ff">
-				<text text="Rare Moral Issue" font="Interface/Fonts/Default.fnt" width="100%" height="100%" wrap="false" align="center"/>
-			</panel>
-			
-			<panel id="popup_nodestroy_window_content" width="100%" height="80" childLayout="vertical" backgroundColor="#000000ff">
-				<panel id="popup_nodestroy_window_content_spacer" width="100%" childLayout="horizontal"></panel>
-				<text text="You can't destroy this house as long as" font="Interface/Fonts/Default.fnt" width="100%" height="20" wrap="false"/>
-				<text text="there are still people living in it..." font="Interface/Fonts/Default.fnt" width="100%" height="20" wrap="false"/>
-				<panel id="popup_nodestroy_window_content_spacer2" width="100%" childLayout="horizontal"></panel>
-			</panel>
-			
-			<panel id="popup_nodestroy_window_buttons" width="100%" height="50" childLayout="horizontal" backgroundColor="#000000ff">
-				<panel id="popup_nodestroy_window_buttons_spacer" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
+		<panel id="popup_nodestroy_window_frame" width="304" height="154" childLayout="center" backgroundColor="#a55731ff" visibleToMouse="true" padding="2">
+			<panel id="popup_nodestroy_window" width="300" height="150" childLayout="vertical" backgroundColor="#000000ff">
+				<panel id="popup_nodestroy_window_titlebar" width="100%" height="20" childLayout="center" backgroundColor="#a55731ff">
+					<text text="Rare Moral Issue" font="Interface/Fonts/Default.fnt" width="100%" height="100%" wrap="false" align="center"/>
+				</panel>
 				
-				<control name="button" style="custom-button" label="What a bummer!" id="button_popup_nodestroy_ok" align="center" valign="center" width="120" height="30" visibleToMouse="true">
-					<interact onRelease="closePopup(nodestroy)" />
-     			</control>
+				<panel id="popup_nodestroy_window_content" width="100%" height="80" childLayout="vertical" backgroundColor="#000000ff">
+					<panel id="popup_nodestroy_window_content_spacer" width="100%" childLayout="horizontal"></panel>
+					<text text="You can't destroy this house as long as" font="Interface/Fonts/Default.fnt" width="100%" height="20" wrap="false"/>
+					<text text="there are still people living in it..." font="Interface/Fonts/Default.fnt" width="100%" height="20" wrap="false"/>
+					<panel id="popup_nodestroy_window_content_spacer2" width="100%" childLayout="horizontal"></panel>
+				</panel>
 				
-				<panel id="popup_nodestroy_window_buttons_spacer2" width="20" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
+				<panel id="popup_nodestroy_window_buttons" width="100%" height="50" childLayout="horizontal" backgroundColor="#000000ff">
+					<panel id="popup_nodestroy_window_buttons_spacer" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
+					
+					<control name="button" style="custom-button" label="What a bummer!" id="button_popup_nodestroy_ok" align="center" valign="center" width="120" height="30" visibleToMouse="true">
+						<interact onRelease="closePopup(nodestroy)" />
+					</control>
+					
+					<panel id="popup_nodestroy_window_buttons_spacer2" width="20" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
+				</panel>
 			</panel>
 		</panel>
 	</popup>
