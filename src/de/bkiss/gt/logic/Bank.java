@@ -6,7 +6,7 @@ package de.bkiss.gt.logic;
  */
 public class Bank {
     
-    private static final float INTEREST_POS = 0.012f;
+    private static final float INTEREST_POS = 0.01f;
     private static final float INTEREST_NEG = 0.03f;
     public static final int MAX_DEBTS = 5000000;
     
@@ -57,7 +57,7 @@ public class Bank {
     public float getCurrentInterest(float ownedRatio){
         float i;
         if (account >= 0){
-            i = (INTEREST_POS * (ownedRatio * 2.2f));
+            i = (INTEREST_POS * ((0.05f + ownedRatio) * 2.5f));
         } else {
             i = INTEREST_NEG;
         }
