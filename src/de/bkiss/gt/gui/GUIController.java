@@ -724,8 +724,16 @@ public class GUIController implements ScreenController {
         setLabelText("tenant_minlux", "min. Luxury: " + currTenants.get(index).getMinLuxury());
         setLabelText("tenant_needs", "Wants: " + needs);
         setLabelText("tenant_public", "District: " + publicCond);
-        setLabelText("tenant_students", "min. Students: " + currTenants.get(index).getMinStudentsRatio() + "%");
-        setLabelText("tenant_avgbudget", "min. Wealth: " + Format.money(currTenants.get(index).getMinAverageBudget()) + "$ avg.");
+        
+        if (!currTenants.get(currTenantIndex).checkMatchStudentRatio((House)sel()))
+            setLabelText("tenant_students", "\"I want more students around!\" ("+ currTenants.get(index).getMinStudentsRatio() + "%)");
+        else
+            setLabelText("tenant_students", "");
+            
+        if (!currTenants.get(currTenantIndex).checkMatchAvgBudget((House)sel()))
+            setLabelText("tenant_avgbudget", "\"People are poor, here!\" (min. " + Format.money(currTenants.get(index).getMinAverageBudget()) + "$ avg.)");
+        else
+            setLabelText("tenant_avgbudget", "");
         
         unmarkProblems();
         
@@ -1069,24 +1077,23 @@ public class GUIController implements ScreenController {
     
     
     public void displayGentrificationState(){
-        List<GameObject> list = district.getObjectList();
-        int houseCount = 0;
+        int objectCount = 0;
         int luxuryCount = 0;
         
-        for (GameObject go : list){
+        for (GameObject go : district.getObjectList()){
+            objectCount++;
             if (go instanceof House){
-                houseCount++;
                 luxuryCount += ((House)go).getLuxury();
             }
         }
         
         setLabelText("game_stat_district_tot_luxury",
-                "Avg. Luxury: " + (luxuryCount/houseCount));
+                "Avg. Luxury: " + (luxuryCount/objectCount));
         
-        float g = (float)((float)(luxuryCount/houseCount) / 150) * 100;
+        float g = (float)((float)(luxuryCount/objectCount) / 120) * 100;
         
         setLabelText("game_stat_gentrified",
-                "Gentrified: " + g + "%");
+                "Gentrified: " + Format.twoDecimals(g) + "%");
         
         if (g >= 100) win();
     }

@@ -36,7 +36,7 @@ public class TenantGenerator {
                 t.addNeed(gen.getRndExpansionFor(socialClass));
         
         int i = gen.rndNumber(1, 3);        // social class
-        int s = gen.rndNumber(30, 50);      // min student ratio
+        int s = gen.rndNumber(10, 30);      // min student ratio
         int b = gen.rndNumber(1500, 2000);  // min avg budget
         switch(socialClass){
             case 0: if (prof.equalsIgnoreCase("student")) t.setPublicCondition("club",i); break;
