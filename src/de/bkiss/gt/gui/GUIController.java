@@ -421,7 +421,7 @@ public class GUIController implements ScreenController {
     private void prepareBuildPopup(){
         //set popup title
         setLabelText(popup("build").findElementByName("popup_build_window_title"),
-                        "Build on '" + sel().getName() + "'?");
+                        "Build on '" + sel().getName().replaceAll("[0-9.]", "") + "'?");
         
         //set prices display
         setLabelText(popup("build").findElementByName("popup_build_price_h1"),
@@ -480,7 +480,7 @@ public class GUIController implements ScreenController {
         
         //set popup title
         setLabelText(popup("edit").findElementByName("popup_edit_window_title"),
-                        "Properties of '" + h.getName() + "'...");
+                        "Properties of '" + h.getName().replaceAll("[0-9.]", "") + "'...");
         
         //set object info
         displayObjectInfoEdit(h);
