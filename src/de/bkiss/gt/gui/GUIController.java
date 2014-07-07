@@ -374,7 +374,7 @@ public class GUIController implements ScreenController {
     private void prepareSellPopup(){
         //set popup title
         setLabelText(popup("sell").findElementByName("popup_sell_window_title"),
-                        "Sell '" + sel().getName() + "'?");
+                        "Sell '" + sel().getName().replaceAll("[0-9.]", "") + "'?");
         
         //set image
         setIconImage(popup("sell").findElementByName("popup_sell_img"),
@@ -387,14 +387,14 @@ public class GUIController implements ScreenController {
         //check preconditions
         setLabelTextColor(popup("sell").findElementByName("popup_sell_price"), COL_GREEN);
         setLabelText(popup("sell").findElementByName("popup_sell_text"),
-                "Do you want to sell '" + sel().getName() + "'?");
+                "Do you want to sell '" + sel().getName().replaceAll("[0-9.]", "") + "'?");
     }
     
     
     private void prepareBuyPopup(){
         //set popup title
         setLabelText(popup("buy").findElementByName("popup_buy_window_title"),
-                        "Buy '" + sel().getName() + "'?");
+                        "Buy '" + sel().getName().replaceAll("[0-9.]", "") + "'?");
         
         //set image
         setIconImage(popup("buy").findElementByName("popup_buy_img"),
@@ -523,7 +523,7 @@ public class GUIController implements ScreenController {
     private void prepareDestroyPopup(){
         //set popup title
         setLabelText(popup("destroy").findElementByName("popup_destroy_window_title"),
-                        "Really destroy '" + sel().getName() + "'?");
+                        "Really destroy '" + sel().getName().replaceAll("[0-9.]", "") + "'?");
         
         //and
         if (sel().isOwnedByPlayer()){
@@ -542,7 +542,7 @@ public class GUIController implements ScreenController {
         currTenants.addAll(game.getTenants());
         
         setLabelText(popup("tenants").findElementByName("popup_tenants_window_title"),
-                    "View potential tenants for '" + sel().getName() + "'...");
+                    "View potential tenants for '" + sel().getName().replaceAll("[0-9.]", "") + "'...");
         
         
         setLabelText(popup("tenants").findElementByName("tenant_name"), "");
