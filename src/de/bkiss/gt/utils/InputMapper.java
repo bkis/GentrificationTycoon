@@ -68,6 +68,7 @@ public class InputMapper{
         this.cam = app.getCamera();
         this.inputManager = app.getInputManager();
         this.guiController = guiController;
+        //cam.lookAt(new Vector3f(0,0,5), Vector3f.UNIT_Y);
     }
     
     
@@ -112,8 +113,8 @@ public class InputMapper{
         public void onAction(String name, boolean isPressed, float tpf) {
             if (name.equals(MAPPING_ESC) && !isPressed)
                 app.stop();
-            if (name.equals(MAPPING_CAM_ZOOM) && !isPressed)
-                cycleCamZoom();
+//            if (name.equals(MAPPING_CAM_ZOOM) && !isPressed)
+//                cycleCamZoom();
             if (name.equals(MAPPING_LCLICK) && !isPressed)
                 guiController.clicked(selectByClick());
             if (name.equals(MAPPING_GFX) && !isPressed)
@@ -134,6 +135,8 @@ public class InputMapper{
                 moveCam(tpf*5,0);
             if (name.equals(MAPPING_CAM_S))
                 moveCam(0,tpf*5);
+            
+            //cam.lookAt(new Vector3f(0,0,5), Vector3f.UNIT_Y);
         }
     };
     
@@ -179,56 +182,40 @@ public class InputMapper{
     
     
     private boolean isCamInsideBoundsX(float x){
-        if (cam.getLocation().y <= 5.1f){
-            if (x < 0 && cam.getLocation().x <= -7.8f) return false;
-            if (x > 0 && cam.getLocation().x >=  7.8f) return false;
-        } else if (cam.getLocation().y <= 10.1f){
-            if (x < 0 && cam.getLocation().x <= -5.3f) return false;
-            if (x > 0 && cam.getLocation().x >=  5.3f) return false;
-        } else {
-            if (x < 0 && cam.getLocation().x <= -3.0f) return false;
-            if (x > 0 && cam.getLocation().x >=  3.0f) return false;
-        }
+        if (x < 0 && cam.getLocation().x <= -3.5f) return false;
+        if (x > 0 && cam.getLocation().x >=  3.5f) return false;
         return true;
     }
     
     
     private boolean isCamInsideBoundsZ(float z){
-        if (cam.getLocation().y <= 5.1f){
-            if (z < 0 && cam.getLocation().z <= -2.0f) return false;
-            if (z > 0 && cam.getLocation().z >= 13.8f) return false;
-        } else if (cam.getLocation().y <= 10.1f){
-            if (z < 0 && cam.getLocation().z <=  6.7f) return false;
-            if (z > 0 && cam.getLocation().z >= 15.8f) return false;
-        } else {
-            if (z < 0 && cam.getLocation().z <  15.0f) return false;
-            if (z > 0 && cam.getLocation().z >  17.5f) return false;
-        }
+        if (z < 0 && cam.getLocation().z <= 3.2f) return false;
+        if (z > 0 && cam.getLocation().z >= 12.8f) return false;
         return true;
     }
     
     
-    private void cycleCamZoom(){
-        float yPos = cam.getLocation().y;
-        float zVec;
-        
-        if (yPos <= 5.1f){
-            zVec = 10;
-            yPos = 15f;
-        } else if (yPos <= 10.1f){
-            zVec = -5;
-            yPos = 5f;
-        } else {
-           zVec = -5;
-           yPos = 10;
-        }
-        
-        cam.setLocation(
-                new Vector3f(
-                    cam.getLocation().x,
-                    yPos,
-                    cam.getLocation().z + zVec));
-    }
+//    private void cycleCamZoom(){
+//        float yPos = cam.getLocation().y;
+//        float zVec;
+//        
+//        if (yPos <= 5.1f){
+//            zVec = 10;
+//            yPos = 15f;
+//        } else if (yPos <= 10.1f){
+//            zVec = -5;
+//            yPos = 5f;
+//        } else {
+//           zVec = -5;
+//           yPos = 10;
+//        }
+//        
+//        cam.setLocation(
+//                new Vector3f(
+//                    cam.getLocation().x,
+//                    yPos,
+//                    cam.getLocation().z + zVec));
+//    }
     
     
     public void toggleShowGfxDiag(){

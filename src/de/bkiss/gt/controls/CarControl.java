@@ -130,6 +130,6 @@ public class CarControl extends AbstractControl{
     }
     
     private float getLaneOffset(){
-        return spatial.getLocalScale().x/6;
+        return spatial.getLocalScale().x/0.83f;  //6;
     }
 }

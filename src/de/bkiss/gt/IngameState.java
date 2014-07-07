@@ -121,7 +121,7 @@ public class IngameState extends AbstractAppState{
         guiController.setGame(game);
         
         //set cam
-        cam.setLocation(new Vector3f(0, 10, 9));
+        cam.setLocation(new Vector3f(0, 7, 10));
         cam.setRotation(new Quaternion(8.377186E-4f, 0.9033154f, -0.42897254f, 0.0017641005f));
         
         //start day timer ( calls game.nextDay() )
@@ -145,7 +145,7 @@ public class IngameState extends AbstractAppState{
     
     
     private Geometry getGroundPlane(){
-        Quad plane = new Quad(50,50);
+        Quad plane = new Quad(36,36);
         Material mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
         mat.setTexture("ColorMap", assetManager.loadTexture("Textures/world/plane.jpg"));
         Geometry geom = new Geometry("plane", plane);
