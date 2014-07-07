@@ -20,6 +20,7 @@ import de.bkiss.gt.objects.Land;
 import de.bkiss.gt.objects.PublicBuilding;
 import de.bkiss.gt.states.MainState;
 import de.bkiss.gt.tenants.Tenant;
+import de.bkiss.gt.utils.Format;
 import de.bkiss.gt.utils.ModelLoader;
 import de.bkiss.gt.utils.RandomContentGenerator;
 import de.lessvoid.nifty.Nifty;
@@ -247,16 +248,17 @@ public class GUIController implements ScreenController {
         setLabelText(popup("bank").findElementByName("bank_balance"),
                 "Balance: " + moneyFormat(game.getBank().getBalance()) + " $");
         
+        float owned = district.getOwnedRatio();
         if (game.getBank().getBalance() < 0) {
             setLabelTextColor(popup("bank").findElementByName("bank_balance"), COL_RED);
             setLabelTextColor(popup("bank").findElementByName("bank_interest"), COL_RED);
             setLabelText(popup("bank").findElementByName("bank_interest"),
-                        "Interest: " + moneyFormat(game.getBank().getCurrentInterest(district.getOwnedRatio())) + " $/m.");
+                        "Interest: " + moneyFormat(game.getBank().getCurrentInterestMoney(owned)) + " $/m. (" + Format.twoDecimals(game.getBank().getCurrentInterest(owned)*100) + "%)");
         } else {
             setLabelTextColor(popup("bank").findElementByName("bank_balance"), COL_GREEN);
             setLabelTextColor(popup("bank").findElementByName("bank_interest"), COL_GREEN);
             setLabelText(popup("bank").findElementByName("bank_interest"),
-                        "Interest: " + moneyFormat(game.getBank().getCurrentInterest(district.getOwnedRatio())) + " $/m.");
+                        "Interest: " + moneyFormat(game.getBank().getCurrentInterestMoney(owned)) + " $/m. (" + Format.twoDecimals(game.getBank().getCurrentInterest(owned)*100) + "%)");
         }
     }
     

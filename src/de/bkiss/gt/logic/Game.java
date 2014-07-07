@@ -91,8 +91,8 @@ public class Game {
         
         //BANK
         if (bank.getCurrentInterest(district.getOwnedRatio()) < 0
-                && !bank.canTake(Math.abs(bank.getCurrentInterest(district.getOwnedRatio())))){
-            long i = Math.abs(bank.getCurrentInterest(district.getOwnedRatio()));
+                && !bank.canTake(Math.abs(bank.getCurrentInterestMoney(district.getOwnedRatio())))){
+            long i = Math.abs(bank.getCurrentInterestMoney(district.getOwnedRatio()));
             i -= bank.getBalance() + Bank.MAX_DEBTS;
             bank.setBalanceToMin();
             player.reduceMoney(i);
