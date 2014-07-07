@@ -53,10 +53,12 @@ public class GUIController implements ScreenController {
     public static final String SCREEN_INGAME   = "hud";
     
     private static final String HUD_IMG_PATH = "/Interface/hud/";
-    private static final String BTN_BUILD_ON = "hud-button-buil.png";
-    private static final String BTN_BUILD_OFF = "hud-button-buil-off.png";
-    private static final String BTN_DESTROY_ON = "hud-button-wrck.png";
-    private static final String BTN_DESTROY_OFF = "hud-button-wrck-off.png";
+    private static final String BTN_HOUSE_BUILD = HUD_IMG_PATH + "hud-button-house-build.png";
+    private static final String BTN_HOUSE_BUY = HUD_IMG_PATH + "hud-button-house-buy.png";
+    private static final String BTN_HOUSE_EDIT = HUD_IMG_PATH + "hud-button-house-edit.png";
+    private static final String BTN_HOUSE_OFF = HUD_IMG_PATH + "hud-button-buil-off.png";
+    private static final String BTN_DESTROY_ON = HUD_IMG_PATH + "hud-button-wrck.png";
+    private static final String BTN_DESTROY_OFF = HUD_IMG_PATH + "hud-button-wrck-off.png";
     
     private static final int PRICE_BUILD_H1 = 200000;
     private static final int PRICE_BUILD_H2 = 500000;
@@ -904,23 +906,28 @@ public class GUIController implements ScreenController {
     
     private void refreshButtonStates(){
         if (sel() == null){
-            setIconImage("button_build", HUD_IMG_PATH + BTN_BUILD_OFF);
-            setIconImage("button_destroy", HUD_IMG_PATH + BTN_DESTROY_OFF);
+            setIconImage("button_build", BTN_HOUSE_OFF);
+            setIconImage("button_destroy", BTN_DESTROY_OFF);
             this.btnBuildActive = false;
             this.btnDestroyActive = false;
         } else {
             if (sel() instanceof PublicBuilding){
-                setIconImage("button_build", HUD_IMG_PATH + BTN_BUILD_OFF);
+                setIconImage("button_build", BTN_HOUSE_OFF);
                 this.btnBuildActive = false;
             } else {
-                setIconImage("button_build", HUD_IMG_PATH + BTN_BUILD_ON);
+                if (sel().isOwnedByPlayer()){
+                    if (sel() instanceof Land) setIconImage("button_build", BTN_HOUSE_BUILD);
+                    else setIconImage("button_build", BTN_HOUSE_EDIT);
+                } else {
+                    setIconImage("button_build", BTN_HOUSE_BUY);
+                }
                 this.btnBuildActive = true;
             }
             if (sel().isOwnedByPlayer() && !(sel() instanceof Land)){
-                setIconImage("button_destroy", HUD_IMG_PATH + BTN_DESTROY_ON);
+                setIconImage("button_destroy", BTN_DESTROY_ON);
                 this.btnDestroyActive = true;
             } else {
-                setIconImage("button_destroy", HUD_IMG_PATH + BTN_DESTROY_OFF);
+                setIconImage("button_destroy", BTN_DESTROY_OFF);
                 this.btnDestroyActive = false;
             }
         }
