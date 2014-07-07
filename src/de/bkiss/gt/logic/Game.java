@@ -2,11 +2,13 @@ package de.bkiss.gt.logic;
 
 import com.jme3.app.Application;
 import com.jme3.asset.AssetManager;
+import de.bkiss.gt.gui.Alert;
 import de.bkiss.gt.gui.GUIController;
 import de.bkiss.gt.objects.GameObject;
 import de.bkiss.gt.objects.House;
 import de.bkiss.gt.tenants.Tenant;
 import de.bkiss.gt.tenants.TenantGenerator;
+import de.bkiss.gt.utils.Format;
 import de.bkiss.gt.utils.RandomContentGenerator;
 import java.util.ArrayList;
 import java.util.List;
@@ -81,6 +83,9 @@ public class Game {
         for (GameObject go : district.getObjectList()){
             if (go instanceof House && ((House)go).isOccupied() && ((House)go).isOwnedByPlayer()){
                 if (((House)go).getRent() > ((House)go).getTenant().getBudget()){
+                    guiController.showAlert(new Alert("That was too much...",
+                            Format.money(((House)go).getRent()) + "$ were too much.",
+                            ((House)go).getTenant().getName() + " moved out."));
                     ((House)go).removeTenant();
                 } else {
                     player.addMoney(((House)go).getRent());

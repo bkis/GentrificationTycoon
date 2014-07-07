@@ -9,4 +9,9 @@ public class Format {
     }
     
     
+    public static String money(long money){
+        return String.format("%,d", money);
+    }
+    
+    
 }

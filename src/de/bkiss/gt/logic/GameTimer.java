@@ -2,6 +2,8 @@ package de.bkiss.gt.logic;
 
 import com.jme3.app.Application;
 import com.jme3.app.SimpleApplication;
+import de.bkiss.gt.IngameState;
+import de.bkiss.gt.gui.GUIController;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Callable;

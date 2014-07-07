@@ -133,7 +133,7 @@ public class IngameState extends AbstractAppState{
     
     @Override
     public void update(float tpf) {
-        
+        if (guiController != null) guiController.nextAlert();
     }
     
     
