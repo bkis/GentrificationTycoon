@@ -82,7 +82,8 @@ public class IngameState extends AbstractAppState{
         this.district.construct();
         
         //initilize game logic
-        this.game = new Game(playerName,
+        this.game = new Game(app,
+                playerName,
                 playerIconPath,
                 district,
                 guiController,

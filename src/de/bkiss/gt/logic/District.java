@@ -211,6 +211,39 @@ public class District {
     }
     
     
+    public float getStudentsRatio(){
+        float count = 0;
+        float hit = 0;
+        
+        for (Entry<String,GameObject> e : objects.entrySet()){
+            if (e.getValue() instanceof House && ((House)e.getValue()).isOccupied()){
+                count++;
+                if (((House)e.getValue()).getTenant().getProfession()
+                        .equalsIgnoreCase("student")){
+                    hit++;
+                }
+            }
+        }
+            
+        return hit/count;
+    }
+    
+    
+    public int getAverageBudget(){
+        int count = 0;
+        long budget = 0;
+        
+        for (Entry<String,GameObject> e : objects.entrySet()){
+            if (e.getValue() instanceof House && ((House)e.getValue()).isOccupied()){
+                count++;
+                budget += ((House)e.getValue()).getTenant().getBudget();
+            }
+        }
+            
+        return (int)budget/count;
+    }
+    
+    
     public int getBoardWidth(){
         return getBoardMatrix().length;
     }

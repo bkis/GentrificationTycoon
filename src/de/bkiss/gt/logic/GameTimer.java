@@ -1,7 +1,10 @@
 package de.bkiss.gt.logic;
 
+import com.jme3.app.Application;
+import com.jme3.app.SimpleApplication;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.Callable;
 
 /**
  *
@@ -11,9 +14,11 @@ public class GameTimer extends Timer {
 
     private int millisEqualOneMonth;
     private Game game;
+    private SimpleApplication app;
     
-    public GameTimer(int millisEqualOneMonth, Game game){
+    public GameTimer(Application app, int millisEqualOneMonth, Game game){
         super();
+        this.app = (SimpleApplication) app;
         this.millisEqualOneMonth = millisEqualOneMonth;
         this.game = game;
     }
@@ -27,10 +32,18 @@ public class GameTimer extends Timer {
     private class DayTimeTask extends TimerTask {
         @Override
         public void run() {
-            game.nextMonth();
+            app.enqueue(callNextDay);
             schedule(new DayTimeTask() , millisEqualOneMonth);
         }
     }
+    
+    
+    private Callable<Boolean> callNextDay = new Callable<Boolean>() {
+        public Boolean call(){
+            game.nextMonth();
+            return true;
+        }
+    };
     
     
 }

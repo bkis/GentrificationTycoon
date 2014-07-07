@@ -33,7 +33,7 @@ public abstract class GameObject {
     private String name;
     private boolean ownedByPlayer;
     private boolean occupied;
-    private boolean markers;
+    public boolean markers;
     private int boughtFor;
     
     protected Node spatial;

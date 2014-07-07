@@ -1,5 +1,6 @@
 package de.bkiss.gt.logic;
 
+import com.jme3.app.Application;
 import com.jme3.asset.AssetManager;
 import de.bkiss.gt.gui.GUIController;
 import de.bkiss.gt.objects.GameObject;
@@ -29,7 +30,8 @@ public class Game {
     
     private long month;
     
-    public Game(String playerName,
+    public Game(Application app,
+            String playerName,
             String playerIconPath,
             District district,
             GUIController guiController,
@@ -40,7 +42,7 @@ public class Game {
         this.month = 1;
         this.bank = new Bank();
         player = new Player(playerName, playerIconPath);
-        timer = new GameTimer(MONTH_LENGTH_IN_MS, this);
+        timer = new GameTimer(app, MONTH_LENGTH_IN_MS, this);
         this.district = district;
         this.guiController = guiController;
         this.tenants = new ArrayList<Tenant>();
