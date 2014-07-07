@@ -926,7 +926,7 @@ public class GUIController implements ScreenController {
         }
         
         //properties
-        setLabelText("info_1", go.getName());
+        setLabelText("info_1", go.getName().replaceAll("[0-9.]", ""));
         setLabelText("info_2", (go instanceof House ? ((House)go).getLuxury() + "" : ""));
         setLabelText("info_3", go.getNeighborhoodValue()+ "");
         setLabelText("info_4", (go instanceof House || go instanceof Land ? Format.money(go.getValue()) + "$" : ""));
@@ -934,7 +934,7 @@ public class GUIController implements ScreenController {
         setIconImage("panel_hud_info_image", go.getImagePath());
         
         //categories
-        setLabelText("cat_1", "Name:");
+        setLabelText("cat_1", "Type:");
         setLabelText("cat_2", (go instanceof House ? "Luxury:" : ""));
         setLabelText("cat_3", "Neighbourh.:");
         setLabelText("cat_4", (go instanceof House || go instanceof Land ? "Value:" : ""));
@@ -944,7 +944,7 @@ public class GUIController implements ScreenController {
     
     private void displayObjectInfoEdit(House go){
         //properties
-        setLabelText(popup("edit").findElementByName("popup_edit_info_1"), go.getName());
+        setLabelText(popup("edit").findElementByName("popup_edit_info_1"), go.getName().replaceAll("^[a-zA-Z]", ""));
         setLabelText(popup("edit").findElementByName("popup_edit_info_2"), go.getLuxury() + "");
         setLabelText(popup("edit").findElementByName("popup_edit_info_3"), go.getNeighborhoodValue()+ "");
         setLabelText(popup("edit").findElementByName("popup_edit_info_4"), Format.money(go.getValue()) + " $");
@@ -952,7 +952,7 @@ public class GUIController implements ScreenController {
         setIconImage(popup("edit").findElementByName("popup_edit_info_image"), go.getImagePath());
         
         //categories
-        setLabelText(popup("edit").findElementByName("popup_edit_cat_1"), "Name:");
+        setLabelText(popup("edit").findElementByName("popup_edit_cat_1"), "Type:");
         setLabelText(popup("edit").findElementByName("popup_edit_cat_2"), "Luxury:");
         setLabelText(popup("edit").findElementByName("popup_edit_cat_3"), "Neighbourh.:");
         setLabelText(popup("edit").findElementByName("popup_edit_cat_4"), "Value:");

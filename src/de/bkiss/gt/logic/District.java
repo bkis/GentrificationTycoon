@@ -65,9 +65,9 @@ public class District {
         GameObject go;
         
         if (type.contains("house")){
-            go = new House(app, type, "Haus by Player " + Math.random(), this);
+            go = new House(app, type, nameForType(type) + Math.random()*100000, this);
         } else {
-            go = new PublicBuilding(app, type, type.split("_")[1].toUpperCase() + " " + Math.random(), this);
+            go = new PublicBuilding(app, type, nameForType(type) + Math.random(), this);
         }
         
         //replace land with house
@@ -87,8 +87,19 @@ public class District {
     }
     
     
+    private String nameForType(String type){
+        if      (type.equalsIgnoreCase(GameObject.TYPE_HOUSE_1)) return "Hovel";
+        else if (type.equalsIgnoreCase(GameObject.TYPE_HOUSE_2)) return "Family House";
+        else if (type.equalsIgnoreCase(GameObject.TYPE_HOUSE_3)) return "Mansion";
+        else if (type.equalsIgnoreCase(GameObject.PUBLIC_CLUB)) return "Club";
+        else if (type.equalsIgnoreCase(GameObject.PUBLIC_GALLERY)) return "Art Gallery";
+        else if (type.equalsIgnoreCase(GameObject.PUBLIC_SCHOOL)) return "School";
+        else return "Land";
+    }
+    
+    
     public void destroyBuilding(GameObject go){
-        Land land = new Land(app, "Land " + Math.random(), this);
+        Land land = new Land(app, "Land" + Math.random(), this);
         
         //replace building with land
         app.getRootNode().attachChild(land.getSpatial());
@@ -209,7 +220,7 @@ public class District {
                 else owned++;
             }
         }
-        System.out.println("OWNED: " + owned/count);
+        //System.out.println("OWNED: " + owned/count);
         return owned/count;
     }
     
@@ -292,7 +303,7 @@ public class District {
                     double rnd = Math.random();
                     if (rnd < 0.5f){
                         go = new House(app,
-                            House.TYPE_HOUSE_1, "Haus Nr." + i + "" + j, this);
+                            House.TYPE_HOUSE_1, "Hovel" + i + "" + j, this);
                         ((House)go).addExpansion(gen.getRndExpansionFor(0));
                         if (Math.random() < 0.25f){
                             ((House)go).setTenant(tenGen.generateTenant(0));
@@ -301,7 +312,7 @@ public class District {
                         }
                     } else if (rnd < 0.55f){
                         go = new House(app,
-                            House.TYPE_HOUSE_2, "Haus Nr." + i + "" + j, this);
+                            House.TYPE_HOUSE_2, "Family House" + i + "" + j, this);
                         ((House)go).addExpansion(gen.getRndExpansionFor(1));
                         if (Math.random() < 0.25f){
                             ((House)go).setTenant(tenGen.generateTenant(1));
@@ -310,7 +321,7 @@ public class District {
                         }
                     } else {
                         go = new Land(app,
-                            "Land Nr." + i + "" + j, this);
+                            "Plot" + i + "" + j, this);
                     }
                 }
                 
