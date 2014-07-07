@@ -1,7 +1,6 @@
 package de.bkiss.gt.tenants;
 
 import de.bkiss.gt.objects.Expansion;
-import de.bkiss.gt.objects.GameObject;
 import de.bkiss.gt.objects.House;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,6 +19,8 @@ public class Tenant {
     private Set<Expansion> needs;
     private String publicCondition;
     private int publicConditionCount;
+    private int minStudentsRatio;
+    private int minAverageBudget;
     
     
     public Tenant(String name, int budget, String profession, int minLuxury, String imgPath) {
@@ -31,6 +32,9 @@ public class Tenant {
         this.needs = new HashSet<Expansion>();
         this.publicCondition = "nothing";
         this.publicConditionCount = 0;
+        
+        this.minStudentsRatio = 0;
+        this.minAverageBudget = 0;
     }
     
     public void addNeed(Expansion need){
@@ -93,6 +97,22 @@ public class Tenant {
         this.minLuxury = minLuxury;
     }
 
+    public int getMinStudentsRatio() {
+        return minStudentsRatio;
+    }
+
+    public void setMinStudentsRatio(int minStudentsRatio) {
+        this.minStudentsRatio = minStudentsRatio;
+    }
+
+    public int getMinAverageBudget() {
+        return minAverageBudget;
+    }
+
+    public void setMinAverageBudget(int minAverageBudget) {
+        this.minAverageBudget = minAverageBudget;
+    }
+    
     public String getImgPath() {
         return imgPath;
     }
@@ -141,15 +161,32 @@ public class Tenant {
     }
     
     
+    public boolean checkMatchStudentRatio(House house){
+        if (house.getDistrict().getStudentsRatio() < minStudentsRatio)
+            return false;
+        
+        return true;
+    }
+    
+    
+    public boolean checkMatchAvgBudget(House house){
+        if (house.getDistrict().getAverageBudget() < minAverageBudget)
+            return false;
+        
+        return true;
+    }
+    
+    
     public boolean acceptsHouse(House house){
         if (checkMatchBudget(house)
             && checkMatchLuxury(house)
             && checkMatchDistrict(house)
-            && checkMatchNeeds(house))
+            && checkMatchNeeds(house)
+            && checkMatchStudentRatio(house)
+            && checkMatchAvgBudget(house))
             return true;
         else 
             return false;
-        
     }
     
     

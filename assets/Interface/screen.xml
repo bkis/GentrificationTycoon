@@ -480,6 +480,8 @@
 						<control id="tenant_minlux" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%"/>
 						<control id="tenant_needs" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%"/>
 						<control id="tenant_public" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%"/>
+						<control id="tenant_students" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%"/>
+						<control id="tenant_avgbudget" name="label" font="Interface/Fonts/Default.fnt" text="" align="left" height="10%" width="100%"/>
 					</panel>
 				</panel>
 				

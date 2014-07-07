@@ -535,6 +535,8 @@ public class GUIController implements ScreenController {
         setLabelText(popup("tenants").findElementByName("tenant_minlux"), "");
         setLabelText(popup("tenants").findElementByName("tenant_needs"), "");
         setLabelText(popup("tenants").findElementByName("tenant_public"), "");
+        setLabelText(popup("tenants").findElementByName("tenant_students"), "");
+        setLabelText(popup("tenants").findElementByName("tenant_avgbudget"), "");
         
         
         for (int i = 0; i < 10; i++) {
@@ -706,6 +708,8 @@ public class GUIController implements ScreenController {
         setLabelText("tenant_minlux", "min. Luxury: " + currTenants.get(index).getMinLuxury());
         setLabelText("tenant_needs", "Wants: " + needs);
         setLabelText("tenant_public", "District: " + publicCond);
+        setLabelText("tenant_students", "min. Students: " + currTenants.get(index).getMinStudentsRatio() + "%");
+        setLabelText("tenant_avgbudget", "min. Wealth: " + moneyFormat(currTenants.get(index).getMinAverageBudget()) + "$ avg.");
         
         unmarkProblems();
         
@@ -726,6 +730,10 @@ public class GUIController implements ScreenController {
             setLabelTextColor(popup("tenants").findElementByName("tenant_needs"), COL_RED); match = false;}
         if (!currTenants.get(currTenantIndex).checkMatchDistrict((House)sel())){
             setLabelTextColor(popup("tenants").findElementByName("tenant_public"), COL_RED); match = false;}
+        if (!currTenants.get(currTenantIndex).checkMatchStudentRatio((House)sel())){
+            setLabelTextColor(popup("tenants").findElementByName("tenant_students"), COL_RED); match = false;}
+        if (!currTenants.get(currTenantIndex).checkMatchAvgBudget((House)sel())){
+            setLabelTextColor(popup("tenants").findElementByName("tenant_avgbudget"), COL_RED); match = false;}
         return match;
     }
     
@@ -748,6 +756,8 @@ public class GUIController implements ScreenController {
         setLabelTextColor(popup("tenants").findElementByName("tenant_minlux"), COL_GREEN);
         setLabelTextColor(popup("tenants").findElementByName("tenant_needs"), COL_GREEN);
         setLabelTextColor(popup("tenants").findElementByName("tenant_public"), COL_GREEN);
+        setLabelTextColor(popup("tenants").findElementByName("tenant_students"), COL_GREEN);
+        setLabelTextColor(popup("tenants").findElementByName("tenant_avgbudget"), COL_GREEN);
     }
     
     

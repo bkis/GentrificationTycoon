@@ -291,7 +291,7 @@ public class District {
                         go = new House(app,
                             House.TYPE_HOUSE_1, "Haus Nr." + i + "" + j, this);
                         ((House)go).addExpansion(gen.getRndExpansionFor(0));
-                        if (Math.random() < 0.5f){
+                        if (Math.random() < 0.25f){
                             ((House)go).setTenant(tenGen.generateTenant(0));
                             ((House)go).setRent(((House)go).calcDefaultRent());
                             ((House)go).getTenant().setBudget(((House)go).getRent() + 11);
@@ -300,7 +300,7 @@ public class District {
                         go = new House(app,
                             House.TYPE_HOUSE_2, "Haus Nr." + i + "" + j, this);
                         ((House)go).addExpansion(gen.getRndExpansionFor(1));
-                        if (Math.random() < 0.5f){
+                        if (Math.random() < 0.25f){
                             ((House)go).setTenant(tenGen.generateTenant(1));
                             ((House)go).setRent(((House)go).calcDefaultRent());
                             ((House)go).getTenant().setBudget(((House)go).getRent() + 11);

@@ -121,4 +121,9 @@ public class RandomContentGenerator {
         this.expansions = readContent(EXPANSIONS);
     }
     
+    
+    public int rndNumber(int min, int max){
+        return rnd.nextInt(max-min) + min;
+    }
+    
 }
