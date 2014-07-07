@@ -1067,7 +1067,8 @@ public class GUIController implements ScreenController {
     
     
     public void refreshPlayerMoneyDisplay(){
-        setLabelText("player_money", Format.money(player.getMoney()) + " $");
+        setLabelText("player_money", Format.money(player.getMoney()) + "$ (+"
+                + Format.money(district.getTotalRent()) + "$/m.)");
     }
     
     

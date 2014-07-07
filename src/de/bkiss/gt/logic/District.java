@@ -238,7 +238,7 @@ public class District {
                 }
             }
         }
-            
+        System.out.println("STUDENTS: " + hit/count + "%");
         return hit/count;
     }
     
@@ -390,6 +390,15 @@ public class District {
         }
         
         for (String s : mark) objects.remove(s);
+    }
+
+    
+    public long getTotalRent() {
+        long r = 0;
+        for (Entry<String, GameObject> e : objects.entrySet())
+            if (e.getValue() instanceof House && ((House)e.getValue()).isOwnedByPlayer())
+                r += ((House)e.getValue()).getRent();
+        return r;
     }
     
     
