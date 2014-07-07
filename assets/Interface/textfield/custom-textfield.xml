@@ -13,7 +13,7 @@
 
   <!-- the actual input field -->
   <style id="nifty-textfield#field">
-    <attributes childLayout="center" childClip="true" backgroundColor="#666f" padding="0px,2px"/>
+    <attributes childLayout="center" childClip="true" backgroundColor="#202020ff" padding="0px,2px"/>
     <effect>
       <onActive name="border" color="#a55731ff" post="true" inset="1px" />
       <onFocus name="colorBar" color="#202020ff" post="true" inset="1px" />

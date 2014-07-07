@@ -23,6 +23,7 @@ import de.bkiss.gt.utils.Format;
 import de.bkiss.gt.utils.ModelLoader;
 import de.bkiss.gt.utils.RandomContentGenerator;
 import de.lessvoid.nifty.Nifty;
+import de.lessvoid.nifty.controls.ImageSelect;
 import de.lessvoid.nifty.controls.TextField;
 import de.lessvoid.nifty.controls.textfield.filter.input.TextFieldInputFilter;
 import de.lessvoid.nifty.elements.Element;
@@ -141,9 +142,9 @@ public class GUIController implements ScreenController {
     
     
     public void startGame(){
-        nifty.showPopup(screen, popup("loading").getId(), null);
-        
-        mainState.loadState(MainState.STATE_INGAME);
+        mainState.loadState(MainState.STATE_INGAME,
+                screen.findNiftyControl("player_name_input", TextField.class).getRealText(),
+                "Interface/hud/avatars/" + screen.findNiftyControl("player_avatar_select", ImageSelect.class).getSelectedImageIndex() + ".png");
     }
     
     
