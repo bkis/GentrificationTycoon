@@ -90,14 +90,15 @@ public class Game {
         guiController.refreshPlayerMoneyDisplay();
         
         //BANK
-        if (bank.getCurrentInterest(district.getOwnedRatio()) < 0
-                && !bank.canTake(Math.abs(bank.getCurrentInterestMoney(district.getOwnedRatio())))){
-            long i = Math.abs(bank.getCurrentInterestMoney(district.getOwnedRatio()));
+        float owned = district.getOwnedRatio();
+        if (bank.getCurrentInterestMoney(owned) < 0
+                && !bank.canTake(Math.abs(bank.getCurrentInterestMoney(owned)))){
+            long i = Math.abs(bank.getCurrentInterestMoney(owned));
             i -= bank.getBalance() + Bank.MAX_DEBTS;
             bank.setBalanceToMin();
             player.reduceMoney(i);
         } else {
-            bank.applyInterest(district.getOwnedRatio());
+            bank.applyInterest(owned);
         }
         
         /* EXECUTE

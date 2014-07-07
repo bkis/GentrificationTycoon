@@ -264,21 +264,24 @@ public class GUIController implements ScreenController {
     
     
     public void bankAction(String action){
-        if (action.equals("take")){
-            if (game.getBank().canTake(Bank.MIN_TRANS)){
-                player.addMoney(game.getBank().take(Bank.MIN_TRANS));
+        int amount;
+        if (action.startsWith("-")){
+            amount = Integer.parseInt(action.substring(1));
+            if (game.getBank().canTake(amount)){
+                player.addMoney(game.getBank().take(amount));
                 refreshPlayerMoneyDisplay();
             } else {
                 showAlert("I'm afraid we can't do that...", "The bank won't give you more money.",
                         "The maximum loan is " + moneyFormat(Bank.MAX_DEBTS) + "$.");
             }
         } else {
-            if (player.getMoney() >= Bank.MIN_TRANS){
-                player.reduceMoney(game.getBank().put(Bank.MIN_TRANS));
+            amount = Integer.parseInt(action);
+            if (player.getMoney() >= amount){
+                player.reduceMoney(game.getBank().put(amount));
                 refreshPlayerMoneyDisplay();
             } else {
-                showAlert("Sir, your pockets seem empty!", "You can't transfer any more money to your",
-                        "account, as the minimum transfer is " + moneyFormat(Bank.MIN_TRANS) + "$.");
+                showAlert("Sir, your pockets seem empty!", "You can't transfer this sum to your",
+                        "account, as you don't have " + moneyFormat(amount) + "$ in cash.");
             }
         }
         prepareBankPopup();

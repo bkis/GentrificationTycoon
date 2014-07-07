@@ -93,6 +93,7 @@ public class IngameState extends AbstractAppState{
         
         //load district
         addObjects(district.getObjectList());
+        district.clearPassives();
         
         //add ground plane
         rootNode.attachChild(getGroundPlane());

@@ -147,7 +147,7 @@
 					<control id="popup_buy_text" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="20"/>
 				</panel>
 				
-				<panel id="popup_buy_window_buttons" width="100%" height="50" childLayout="horizontal">
+				<panel id="popup_buy_window_buttons" width="100%" height="50" childLayout="horizontal" visibleToMouse="true">
 					<panel id="popup_buy_window_buttons_spacer" height="50" childLayout="horizontal" ></panel>
 					
 					<control name="button" style="custom-button" label="Buy" id="button_popup_buy_ok" align="center" valign="center" width="100" height="30" visibleToMouse="true">
@@ -183,7 +183,7 @@
 					<control id="popup_sell_text" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="20"/>
 				</panel>
 				
-				<panel id="popup_sell_window_buttons" width="100%" height="50" childLayout="horizontal">
+				<panel id="popup_sell_window_buttons" width="100%" height="50" childLayout="horizontal" visibleToMouse="true">
 					<panel id="popup_sell_window_buttons_spacer" height="50" childLayout="horizontal" ></panel>
 					
 					<control name="button" style="custom-button" label="Sell" id="button_popup_sell_ok" align="center" valign="center" width="100" height="30" visibleToMouse="true">
@@ -264,7 +264,7 @@
 					</panel>
 				</panel>
 				
-				<panel id="popup_build_window_buttons" width="100%" height="50" childLayout="horizontal" backgroundColor="#000000ff">
+				<panel id="popup_build_window_buttons" width="100%" height="50" childLayout="horizontal" backgroundColor="#000000ff" visibleToMouse="true">
 					<panel id="popup_build_window_buttons_spacer" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel> 
 					<control id="popup_build_selection" name="label" text="Select the house you want to build!" size="12" align="center" height="50"/>
 					<panel id="popup_build_window_buttons_spacer2" width="30" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
@@ -376,7 +376,7 @@
 					
 				</panel>
 				
-				<panel id="popup_edit_window_buttons" width="100%" height="50" childLayout="horizontal" backgroundColor="#000000ff">
+				<panel id="popup_edit_window_buttons" width="100%" height="50" childLayout="horizontal" backgroundColor="#000000ff" visibleToMouse="true">
 					<panel id="popup_edit_window_buttons_spacer" width="15" height="50" childLayout="horizontal"></panel>
 					
 					<control name="button" style="custom-button" label="Find Tenants" id="button_popup_edit_tenants" align="center" valign="center" width="100" height="30" visibleToMouse="true">
@@ -428,7 +428,7 @@
 					<control id="popup_destroy_text" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="55"/>
 				</panel>
 				
-				<panel id="popup_destroy_window_buttons" width="100%" height="50" childLayout="horizontal" backgroundColor="#000000ff">
+				<panel id="popup_destroy_window_buttons" width="100%" height="50" childLayout="horizontal" backgroundColor="#000000ff" visibleToMouse="true">
 					<panel id="popup_destroy_window_buttons_spacer" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
 					
 					<control name="button" style="custom-button" label="Destroy" id="button_popup_destroy_ok" align="center" valign="center" width="100" height="30" visibleToMouse="true">
@@ -485,7 +485,7 @@
 					</panel>
 				</panel>
 				
-				<panel id="popup_tenants_window_buttons" width="100%" height="50" childLayout="horizontal" backgroundColor="#000000ff">
+				<panel id="popup_tenants_window_buttons" width="100%" height="50" childLayout="horizontal" backgroundColor="#000000ff" visibleToMouse="true">
 					<panel id="popup_tenants_window_buttons_spacer" height="50" childLayout="horizontal"></panel> 
 					<control id="popup_tenants_tipp" name="label" text="There are new tenants every month!" size="18" align="center" height="50"/>
 					<panel id="popup_tenants_window_buttons_spacer2" width="30" height="50" childLayout="horizontal"></panel>
@@ -522,7 +522,7 @@
 					<panel id="popup_rent_window_content_spacer2" width="100%" childLayout="horizontal"></panel>
 				</panel>
 				
-				<panel id="popup_rent_window_buttons" width="100%" height="50" childLayout="horizontal" backgroundColor="#000000ff">
+				<panel id="popup_rent_window_buttons" width="100%" height="50" childLayout="horizontal" backgroundColor="#000000ff" visibleToMouse="true">
 					<panel id="popup_rent_window_buttons_spacer" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
 					
 					<control name="button" style="custom-button" label="OK" id="button_popup_rent_ok" align="center" valign="center" width="100" height="30" visibleToMouse="true">
@@ -568,7 +568,7 @@
 					<control id="popup_extra_sum" name="label" font="Interface/Fonts/Default.fnt" text="" align="center" height="20" width="100%"></control>
 				</panel>
 				
-				<panel id="popup_extras_window_buttons" width="100%" height="50" childLayout="horizontal" backgroundColor="#000000ff">
+				<panel id="popup_extras_window_buttons" width="100%" height="50" childLayout="horizontal" backgroundColor="#000000ff" visibleToMouse="true">
 					<panel id="popup_extras_window_buttons_spacer" height="50"></panel>
 					
 					<control name="button" style="custom-button" label="OK" id="button_popup_extras_ok" align="center" valign="center" width="100" height="30" visibleToMouse="true">
@@ -604,7 +604,7 @@
 					<panel id="popup_bank_panel_actions" width="100%" height="35%" childLayout="horizontal" backgroundColor="#000000ff">
 					
 						<panel id="popup_bank_panel_left" height="100%" childLayout="horizontal" backgroundColor="#000000ff">
-							<panel height="100%" width="30"></panel>
+							<panel height="100%" width="10"></panel>
 							
 							<panel height="100%" childLayout="vertical">
 								<panel width="100%"></panel>
@@ -614,16 +614,28 @@
 							</panel>
 						</panel>
 						
-						<panel id="popup_bank_panel_right" width="150" height="100%" childLayout="vertical" backgroundColor="#000000ff">
+						<panel id="popup_bank_panel_right" width="125" height="100%" childLayout="vertical">
 							<panel width="100%"></panel> 
-							<control name="button" style="custom-button" label="Withdraw 100.000$" id="button_popup_bank_take" align="right" valign="center" width="120" height="30" visibleToMouse="true" visible="true">
-								<interact onRelease="bankAction(take)" />
+							<control name="button" id="bank_take1m" style="custom-button" label="Withdraw 1.000.000$" align="right" valign="center" width="125" height="20" visibleToMouse="true" visible="true">
+								<interact onRelease="bankAction(-1000000)" />
 							</control>
 							
 							<panel width="100%" height="5"></panel> 
 							
-							<control name="button" style="custom-button" label="Deposit 100.000$" id="button_popup_bank_put" align="right" valign="center" width="120" height="30" visibleToMouse="true" visible="true">
-								<interact onRelease="bankAction(put)" />
+							<control name="button" id="bank_take1k" style="custom-button" label="Withdraw 100.000$" align="right" valign="center" width="125" height="20" visibleToMouse="true" visible="true">
+								<interact onRelease="bankAction(-100000)" />
+							</control>
+							
+							<panel width="100%" height="5"></panel> 
+							
+							<control name="button" id="bank_put1k" style="custom-button" label="Deposit 100.000$" align="right" valign="center" width="125" height="20" visibleToMouse="true" visible="true">
+								<interact onRelease="bankAction(100000)" />
+							</control>
+							
+							<panel width="100%" height="5"></panel> 
+							
+							<control name="button" id="bank_put1m" style="custom-button" label="Deposit 1.000.000$" color="#fbff58ff" align="right" valign="center" width="125" height="20" visibleToMouse="true" visible="true">
+								<interact onRelease="bankAction(1000000)" />
 							</control>
 							<panel width="100%"></panel> 
 						</panel>
@@ -631,7 +643,7 @@
 					</panel>
 				</panel>
 				
-				<panel id="popup_bank_window_buttons" width="100%" height="50" childLayout="horizontal" backgroundColor="#000000ff">
+				<panel id="popup_bank_window_buttons" width="100%" height="50" childLayout="horizontal" backgroundColor="#000000ff" visibleToMouse="true">
 					<panel id="popup_bank_window_buttons_spacer" height="50"></panel> 
 					
 					<control name="button" style="custom-button" label="OK" id="button_popup_bank_ok" align="center" valign="center" width="100" height="30" visibleToMouse="true" focus="true">
@@ -660,7 +672,7 @@
 					<panel id="popup_quit_window_content_spacer2" width="100%" childLayout="horizontal"></panel>
 				</panel>
 				
-				<panel id="popup_quit_window_buttons" width="100%" height="50" childLayout="horizontal" backgroundColor="#000000ff">
+				<panel id="popup_quit_window_buttons" width="100%" height="50" childLayout="horizontal" backgroundColor="#000000ff" visibleToMouse="true">
 					<panel id="popup_quit_window_buttons_spacer" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
 					
 					<control name="button" style="custom-button" label="Quit" id="button_popup_quit_ok" align="center" valign="center" width="100" height="30" visibleToMouse="true">
@@ -695,7 +707,7 @@
 					<panel id="popup_note_window_content_spacer2" width="100%" childLayout="horizontal"></panel>
 				</panel>
 				
-				<panel id="popup_note_window_buttons" width="100%" height="50" childLayout="horizontal" backgroundColor="#000000ff">
+				<panel id="popup_note_window_buttons" width="100%" height="50" childLayout="horizontal" backgroundColor="#000000ff" visibleToMouse="true">
 					<panel id="popup_note_window_buttons_spacer" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
 					
 					<control name="button" style="custom-button" label="OK" id="button_popup_note_ok" align="center" valign="center" width="100" height="30" visibleToMouse="true">
@@ -724,7 +736,7 @@
 					<panel id="popup_nodestroy_window_content_spacer2" width="100%" childLayout="horizontal"></panel>
 				</panel>
 				
-				<panel id="popup_nodestroy_window_buttons" width="100%" height="50" childLayout="horizontal" backgroundColor="#000000ff">
+				<panel id="popup_nodestroy_window_buttons" width="100%" height="50" childLayout="horizontal" backgroundColor="#000000ff" visibleToMouse="true">
 					<panel id="popup_nodestroy_window_buttons_spacer" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
 					
 					<control name="button" style="custom-button" label="What a bummer!" id="button_popup_nodestroy_ok" align="center" valign="center" width="120" height="30" visibleToMouse="true">

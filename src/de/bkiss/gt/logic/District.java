@@ -204,9 +204,12 @@ public class District {
         
         for (Entry<String,GameObject> e : objects.entrySet()){
             count++;
-            if (e.getValue().isOwnedByPlayer()) owned++;
+            if (e.getValue().isOwnedByPlayer()){
+                if (e.getValue() instanceof Land) owned += 0.5f;
+                else owned++;
+            }
         }
-            
+        System.out.println("OWNED: " + owned/count);
         return owned/count;
     }
     
@@ -364,6 +367,18 @@ public class District {
     
     public boolean isObjectMarkersOn(){
         return objectMarkers;
+    }
+
+    
+    public void clearPassives() {
+        Set<String> mark = new HashSet<String>();
+        
+        for (Entry<String, GameObject> e : objects.entrySet()){
+            if (e.getValue() instanceof PassiveObject)
+                mark.add(e.getKey());
+        }
+        
+        for (String s : mark) objects.remove(s);
     }
     
     
