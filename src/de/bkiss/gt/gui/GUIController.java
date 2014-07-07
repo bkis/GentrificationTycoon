@@ -410,12 +410,12 @@ public class GUIController implements ScreenController {
         if (player.getMoney() >= sel().getValue()){
             setLabelTextColor(popup("buy").findElementByName("popup_buy_price"), COL_GREEN);
             setLabelText(popup("buy").findElementByName("popup_buy_text"),
-                    "Would you like to buy '" + sel().getName() + "'?");
+                    "Would you like to buy '" + sel().getName().replaceAll("[0-9.]", "") + "'?");
             popup("buy").findElementByName("button_popup_buy_ok").setVisible(true);
         } else {
             setLabelTextColor(popup("buy").findElementByName("popup_buy_price"), COL_RED);
             setLabelText(popup("buy").findElementByName("popup_buy_text"),
-                    "You don't have enough money to buy '" + sel().getName() + "'.");
+                    "You don't have enough money to buy '" + sel().getName().replaceAll("[0-9.]", "") + "'.");
             popup("buy").findElementByName("button_popup_buy_ok").setVisible(false);
         }
     }
@@ -530,10 +530,10 @@ public class GUIController implements ScreenController {
         //and
         if (sel().isOwnedByPlayer()){
             setLabelText(popup("destroy").findElementByName("popup_destroy_text"),
-                        "Do you want to destroy '" + sel().getName() + "'?");
+                        "Do you want to destroy '" + sel().getName().replaceAll("[0-9.]", "") + "'?");
         } else {
             setLabelText(popup("destroy").findElementByName("popup_destroy_text"),
-                        "Impossible! There are still people living in '" + sel().getName() + "'!");
+                        "Impossible! There are still people living in '" + sel().getName().replaceAll("[0-9.]", "") + "'!");
             popup("destroy").findElementByName("button_popup_destroy_ok").setVisible(false);
         }
     }
@@ -960,7 +960,7 @@ public class GUIController implements ScreenController {
     
     private void displayObjectInfoEdit(House go){
         //properties
-        setLabelText(popup("edit").findElementByName("popup_edit_info_1"), go.getName().replaceAll("^[a-zA-Z]", ""));
+        setLabelText(popup("edit").findElementByName("popup_edit_info_1"), go.getName().replaceAll("[0-9.]", ""));
         setLabelText(popup("edit").findElementByName("popup_edit_info_2"), go.getLuxury() + "");
         setLabelText(popup("edit").findElementByName("popup_edit_info_3"), go.getNeighborhoodValue()+ "");
         setLabelText(popup("edit").findElementByName("popup_edit_info_4"), Format.money(go.getValue()) + " $");
