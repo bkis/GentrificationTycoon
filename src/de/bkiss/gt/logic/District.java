@@ -260,7 +260,6 @@ public class District {
                 }
             }
         }
-        System.out.println("STUDENTS: " + hit/count + "%");
         return (hit/count) * 100;
     }
     

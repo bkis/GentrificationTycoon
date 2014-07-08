@@ -57,7 +57,7 @@ public class Bank {
     public float getCurrentInterest(float ownedRatio){
         float i;
         if (account >= 0){
-            i = (INTEREST_POS * ((0.05f + ownedRatio) * 2.5f));
+            i = (INTEREST_POS * ((0.04f + ownedRatio) * 1.8f));
         } else {
             i = INTEREST_NEG;
         }

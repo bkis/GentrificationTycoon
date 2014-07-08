@@ -26,7 +26,7 @@ public class TenantGenerator {
         String name = gen.getName(Math.random() < 0.5f);
         String prof = gen.getProfession(socialClass);
         int budget = getRndBudget(socialClass);
-        int minLux = getRndMinLux(budget);
+        int minLux = getRndMinLux(socialClass);
         
         if (socialClass == 0 && !prof.equalsIgnoreCase("student")) budget *= 0.7f;
         
@@ -37,7 +37,7 @@ public class TenantGenerator {
         
         int i = gen.rndNumber(1, 3);        // social class
         int s = gen.rndNumber(25, 50);      // min student ratio
-        int b = gen.rndNumber(1500, 2000);  // min avg budget
+        int b = gen.rndNumber(2000, 3000);  // min avg budget
         switch(socialClass){
             case 0: if (prof.equalsIgnoreCase("student")) t.setPublicCondition("club",i); break;
             case 1: t.setPublicCondition("gallery",i); t.setMinStudentsRatio(s); break;
@@ -52,14 +52,14 @@ public class TenantGenerator {
     private int getRndBudget(int socialClass){
         return (int)(
                 ((800 + (400*((Math.random() - 0.5f)/2)))
-                * (socialClass*2+1))
-                + (socialClass*(Math.random()*(400*socialClass)))
+                * (socialClass*3+1))
+                + (socialClass*(Math.random()*(600*socialClass)))
                 );
     }
     
     
-    private int getRndMinLux(int budget){
-        return (int)(100 * ((float)(budget-100)/4000));
+    private int getRndMinLux(int socialClass){
+        return gen.rndNumber((socialClass*50)+10, (socialClass*50)+60);
     }
     
     

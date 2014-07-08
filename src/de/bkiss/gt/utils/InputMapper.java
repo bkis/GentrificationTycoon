@@ -112,7 +112,7 @@ public class InputMapper{
     private ActionListener actionListener = new ActionListener() {
         public void onAction(String name, boolean isPressed, float tpf) {
             if (name.equals(MAPPING_ESC) && !isPressed)
-                app.stop();
+                guiController.openPopup("quit");
 //            if (name.equals(MAPPING_CAM_ZOOM) && !isPressed)
 //                cycleCamZoom();
             if (name.equals(MAPPING_LCLICK) && !isPressed)

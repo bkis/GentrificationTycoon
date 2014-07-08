@@ -60,12 +60,12 @@ public class GUIController implements ScreenController {
     private static final String BTN_DESTROY_ON = HUD_IMG_PATH + "hud-button-wrck.png";
     private static final String BTN_DESTROY_OFF = HUD_IMG_PATH + "hud-button-wrck-off.png";
     
-    private static final int PRICE_BUILD_H1 = 200000;
-    private static final int PRICE_BUILD_H2 = 500000;
-    private static final int PRICE_BUILD_H3 = 1500000;
-    private static final int PRICE_BUILD_E1 = 450000;   //CLUB
-    private static final int PRICE_BUILD_E2 = 1000000;  //GALLERY
-    private static final int PRICE_BUILD_E3 = 3000000;  //SCHOOL
+    private static final int PRICE_BUILD_H1 = 100000;
+    private static final int PRICE_BUILD_H2 = 300000;
+    private static final int PRICE_BUILD_H3 = 1000000;
+    private static final int PRICE_BUILD_E1 = 300000;   //CLUB
+    private static final int PRICE_BUILD_E2 = 750000;  //GALLERY
+    private static final int PRICE_BUILD_E3 = 2000000;  //SCHOOL
     
     private static final String HUD_DEFAULT_INFO_ICON = "defaultIconImg.png";
     
@@ -90,7 +90,6 @@ public class GUIController implements ScreenController {
     private List<Expansion> availableExtras;
     private List<Expansion> selectedExtras;
     private List<Alert> alerts;
-    private int selectedExtra;
     
     private boolean btnBuildActive;
     private boolean btnDestroyActive;
@@ -442,6 +441,13 @@ public class GUIController implements ScreenController {
         
         //color price tags
         colorPriceTags();
+        
+        //unhighlight
+        PanelRenderer pr = popup("build").findElementByName("popup_build_window_content_gallery_" + currBuildSelection).getRenderer(PanelRenderer.class);
+        pr.setBackgroundColor(new Color("#000000ff"));
+        popup("build").findElementByName("button_popup_build_ok").setVisible(false);
+        setLabelText(popup("build").findElementByName("popup_build_selection"), "Select the house you want to build!");
+        setLabelTextColor(popup("build").findElementByName("popup_build_selection"), Color.WHITE);
     }
     
     
@@ -619,6 +625,23 @@ public class GUIController implements ScreenController {
         setLabelText(popup("edit").findElementByName("edit_tenant_occupied"), "");
         popup("edit").findElementByName("button_popup_edit_tenants").setVisible(false);
         currTenantIndex = 999;
+    }
+    
+    
+    public void moveOut(House h){
+        showAlert(new Alert("That was too much...",
+            Format.money(h.getRent()) + "$ were too much.",
+            h.getTenant().getName() + " moved out."));
+        
+        h.removeTenant();
+        
+        //setup house details display
+        setLabelText(popup("edit").findElementByName("edit_tenant_name"), "");
+        setLabelText(popup("edit").findElementByName("edit_tenant_prof"), "");
+        setLabelText(popup("edit").findElementByName("edit_tenant_budget"), "");
+        setLabelText(popup("edit").findElementByName("edit_tenant_occupied"), "not occupied...");
+        setLabelTextColor(popup("edit").findElementByName("edit_tenant_occupied"), COL_RED);
+        popup("edit").findElementByName("button_popup_edit_tenants").setVisible(true);
     }
     
     

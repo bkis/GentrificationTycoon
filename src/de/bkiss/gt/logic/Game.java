@@ -83,10 +83,7 @@ public class Game {
         for (GameObject go : district.getObjectList()){
             if (go instanceof House && ((House)go).isOccupied() && ((House)go).isOwnedByPlayer()){
                 if (((House)go).getRent() > ((House)go).getTenant().getBudget()){
-                    guiController.showAlert(new Alert("That was too much...",
-                            Format.money(((House)go).getRent()) + "$ were too much.",
-                            ((House)go).getTenant().getName() + " moved out."));
-                    ((House)go).removeTenant();
+                    guiController.moveOut((House)go);
                 } else {
                     player.addMoney(((House)go).getRent());
                 }
