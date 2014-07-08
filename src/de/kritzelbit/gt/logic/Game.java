@@ -114,6 +114,7 @@ public class Game {
         if (2==3) guiController.win();
         
         guiController.refreshPlayerMoneyDisplay();
+        guiController.nextMonth();
     }
     
     private void refreshTenantList(){

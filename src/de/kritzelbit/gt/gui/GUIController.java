@@ -2,6 +2,7 @@ package de.kritzelbit.gt.gui;
 
 import com.jme3.app.Application;
 import com.jme3.app.SimpleApplication;
+import com.jme3.asset.AssetManager;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.niftygui.NiftyJmeDisplay;
@@ -120,7 +121,7 @@ public class GUIController implements ScreenController {
         nifty = niftyDisplay.getNifty();
         app.getGuiViewPort().addProcessor(niftyDisplay);
         
-        this.soundManager = new SoundManager();
+        this.soundManager = new SoundManager(app.getAssetManager());
         
         this.alerts = new ArrayList<Alert>();
         this.alertsEnabled = true;
@@ -164,6 +165,11 @@ public class GUIController implements ScreenController {
     
     public void quitGame(){
         app.stop();
+    }
+    
+    
+    public void nextMonth(){
+        soundManager.play(SoundManager.CASH);
     }
     
     
@@ -233,6 +239,7 @@ public class GUIController implements ScreenController {
         setLabelText(popup("note").findElementByName("popup_note_text1"), a.getLine1());
         setLabelText(popup("note").findElementByName("popup_note_text2"), a.getLine2());
         nifty.showPopup(screen, popup("note").getId(), null);
+        soundManager.play(SoundManager.ALERT);
         alerts.remove(a);
         alert = true;
     }
@@ -460,7 +467,8 @@ public class GUIController implements ScreenController {
         //unhighlight
         PanelRenderer pr = popup("build").findElementByName("popup_build_window_content_gallery_" + currBuildSelection).getRenderer(PanelRenderer.class);
         pr.setBackgroundColor(new Color("#000000ff"));
-        popup("build").findElementByName("button_popup_build_ok").setVisible(false);
+        currBuildSelection = null;
+        popup("build").findElementByName("button_popup_build_ok").setVisible(true);
         setLabelText(popup("build").findElementByName("popup_build_selection"), "Select the house you want to build!");
         setLabelTextColor(popup("build").findElementByName("popup_build_selection"), Color.WHITE);
     }
@@ -694,6 +702,11 @@ public class GUIController implements ScreenController {
     
     
     public void buildHouse(){
+        if (currBuildSelection == null){
+            showAlert(new Alert("Build what?","You have to select a project!","Are you confused?!"));
+            return;
+        }
+        
         String type;
         if      (currBuildSelection.equals("H1")) type = House.TYPE_HOUSE_1;
         else if (currBuildSelection.equals("H2")) type = House.TYPE_HOUSE_2;
@@ -715,10 +728,15 @@ public class GUIController implements ScreenController {
         player.reduceMoney(getDefPrice(currBuildSelection));
         refreshPlayerMoneyDisplay();
         closePopup("build");
+        
+        soundManager.play(SoundManager.BUILD);
+        if (type.equals(House.PUBLIC_SCHOOL)) soundManager.play(SoundManager.SCHOOL);
     }
     
     
     public void selectBuild(String selectionKey){
+        if (currBuildSelection == null) currBuildSelection = "H1";
+        
         if (player.getMoney() >= getDefPrice(selectionKey)){
             setLabelText("popup_build_selection", "Build for " + Format.money(getDefPrice(selectionKey)) + "$ ?");
             popup("build").findElementByName("button_popup_build_ok").setVisible(true);
@@ -835,6 +853,7 @@ public class GUIController implements ScreenController {
     public void destroyBuilding(){
         district.destroyBuilding(sel());
         closePopup("destroy");
+        soundManager.play(SoundManager.DESTROY);
     }
     
     
