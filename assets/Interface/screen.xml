@@ -17,7 +17,7 @@
 
 	-->
   
-	<screen id="start" controller="de.bkiss.gt.gui.GUIController">
+	<screen id="start" controller="de.kritzelbit.gt.gui.GUIController">
 	
 		<layer id="start-background" childLayout="center">
 		  	<image filename="Interface/start-background.jpg" width="100%" height="100%"></image>
@@ -61,7 +61,7 @@
   	</screen>
   	
   	
-  	<screen id="hud" controller="de.bkiss.gt.gui.GUIController">
+  	<screen id="hud" controller="de.kritzelbit.gt.gui.GUIController">
   	
 		<layer id="hud-background" childLayout="vertical">
 		  	<image filename="Interface/hud/hud-frame.png" width="100%" height="100%" imageMode="resize:62,4,62,59,62,4,62,5,62,4,62,192"/>
