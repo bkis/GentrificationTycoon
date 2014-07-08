@@ -6,6 +6,12 @@ import com.jme3.system.AppSettings;
 import de.bkiss.gt.states.MainState;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 
 /*
  * Gentrification Tycoon
@@ -25,6 +31,18 @@ public class Main extends SimpleApplication {
         //settings.setResolution(
         //            gDevice.getDisplayMode().getWidth(),
         //            gDevice.getDisplayMode().getHeight());
+        
+        try {
+            settings.setIcons(new BufferedImage[]{
+                ImageIO.read(new File("icons/16.png")),
+                ImageIO.read(new File("icons/32.png")),
+                ImageIO.read(new File("icons/64.png")),
+                ImageIO.read(new File("icons/128.png"))
+            });
+        } catch (IOException e) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, "Icon files missing",e);
+        }
+        
         settings.setResolution(800,600);
         settings.setSettingsDialogImage("Interface/splash.jpg");
         Main app = new Main();
