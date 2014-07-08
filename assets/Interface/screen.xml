@@ -73,15 +73,19 @@
 			<panel id="panel_hud_buttons" width="100%" height="" childLayout="center" visibleToMouse="true">
 				<panel id="panel_hud_buttons_inner" width="" height="" childLayout="horizontal">
 					<image filename="Interface/hud/spacer_l.png"></image>
-					<image id="button_info" filename="Interface/hud/hud-button-info.png" visibleToMouse="true"><interact onRelease="toggleObjectMarkers()" /></image>
+					<image id="button_info" filename="Interface/hud/hud-button-markers-off.png" visibleToMouse="true"><interact onRelease="toggleObjectMarkers()" /></image>
 					<image filename="Interface/hud/spacer_m.png"></image>
-					<image id="button_build" filename="Interface/hud/hud-button-buil-off.png" visibleToMouse="true"><interact onRelease="openPopup(build)" /></image>
+					<image id="button_build" filename="Interface/hud/hud-button-house-off.png" visibleToMouse="true"><interact onRelease="openPopup(build)" /></image>
 					<image filename="Interface/hud/spacer_m.png"></image>
-					<image id="button_destroy" filename="Interface/hud/hud-button-wrck-off.png" visibleToMouse="true"><interact onRelease="openPopup(destroy)" /></image>
+					<image id="button_destroy" filename="Interface/hud/hud-button-destroy-off.png" visibleToMouse="true"><interact onRelease="openPopup(destroy)" /></image>
 					<image filename="Interface/hud/spacer_m.png"></image>
 					<image id="button_bank" filename="Interface/hud/hud-button-bank.png" visibleToMouse="true"><interact onRelease="openPopup(bank)" /></image>
 					<image filename="Interface/hud/spacer_m.png"></image>
-					<image id="button_opin" filename="Interface/hud/hud-button-opin.png" visibleToMouse="true"><interact onRelease="" /></image>
+					<image id="button_opin" filename="Interface/hud/hud-button-hints.png" visibleToMouse="true"><interact onRelease="openPopup(hints)" /></image>
+					<image filename="Interface/hud/spacer_m.png"></image>
+					<image id="button_sound" filename="Interface/hud/hud-button-sound-on.png" visibleToMouse="true"><interact onRelease="toggleSound()" /></image>
+					<image filename="Interface/hud/spacer_m.png"></image>
+					<image id="button_alerts" filename="Interface/hud/hud-button-alerts-on.png" visibleToMouse="true"><interact onRelease="toggleAlerts()" /></image>
 					<image filename="Interface/hud/spacer_m.png"></image>
 					<image id="button_exit" filename="Interface/hud/hud-button-quit.png" visibleToMouse="true"><interact onRelease="openPopup(quit)" /></image>
 					<image filename="Interface/hud/spacer_r.png"></image>
@@ -537,17 +541,23 @@
 				<panel id="popup_rent_window_buttons" width="100%" height="50" childLayout="horizontal" backgroundColor="#000000ff" visibleToMouse="true">
 					<panel id="popup_rent_window_buttons_spacer" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
 					
-					<control name="button" style="custom-button" label="OK" id="button_popup_rent_ok" align="center" valign="center" width="100" height="30" visibleToMouse="true">
+					<control name="button" style="custom-button" label="OK" id="button_popup_rent_ok" align="center" valign="center" width="50" height="30" visibleToMouse="true">
 						<interact onRelease="setRent()" />
 					</control>
 					
 					<panel id="popup_rent_window_buttons_spacer2" width="20" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
 					
-					<control name="button" style="custom-button" label="= Budget" id="button_popup_rent_cancel" align="center" valign="center" width="100" height="30" visibleToMouse="true">
+					<control name="button" style="custom-button" label="= Budget" id="button_popup_rent_cancel" align="center" valign="center" width="80" height="30" visibleToMouse="true">
 						<interact onRelease="maxRent()" />
 					</control>
 					
-					<panel id="popup_rent_window_buttons_spacer3" height="50" childLayout="horizontal" backgroundColor="#00000000"></panel>
+					<panel height="20" backgroundColor="#00000000"></panel>
+					
+					<control name="button" style="custom-button" label="> Budget" id="button_popup_rent_bigger" align="center" valign="center" width="80" height="30" visibleToMouse="true">
+						<interact onRelease="maxRentPlus()" />
+					</control>
+					
+					<panel height="50" backgroundColor="#00000000"></panel>
 				</panel>
 			</panel>
 		</panel>

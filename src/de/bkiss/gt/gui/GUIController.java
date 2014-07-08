@@ -17,6 +17,7 @@ import de.bkiss.gt.objects.GameObject;
 import de.bkiss.gt.objects.House;
 import de.bkiss.gt.objects.Land;
 import de.bkiss.gt.objects.PublicBuilding;
+import de.bkiss.gt.sound.SoundManager;
 import de.bkiss.gt.states.MainState;
 import de.bkiss.gt.tenants.Tenant;
 import de.bkiss.gt.utils.Format;
@@ -56,9 +57,15 @@ public class GUIController implements ScreenController {
     private static final String BTN_HOUSE_BUILD = HUD_IMG_PATH + "hud-button-house-build.png";
     private static final String BTN_HOUSE_BUY = HUD_IMG_PATH + "hud-button-house-buy.png";
     private static final String BTN_HOUSE_EDIT = HUD_IMG_PATH + "hud-button-house-edit.png";
-    private static final String BTN_HOUSE_OFF = HUD_IMG_PATH + "hud-button-buil-off.png";
-    private static final String BTN_DESTROY_ON = HUD_IMG_PATH + "hud-button-wrck.png";
-    private static final String BTN_DESTROY_OFF = HUD_IMG_PATH + "hud-button-wrck-off.png";
+    private static final String BTN_HOUSE_OFF = HUD_IMG_PATH + "hud-button-house-off.png";
+    private static final String BTN_DESTROY_ON = HUD_IMG_PATH + "hud-button-destroy-on.png";
+    private static final String BTN_DESTROY_OFF = HUD_IMG_PATH + "hud-button-destroy-off.png";
+    private static final String BTN_MARKERS_ON = HUD_IMG_PATH + "hud-button-markers-on.png";
+    private static final String BTN_MARKERS_OFF = HUD_IMG_PATH + "hud-button-markers-off.png";
+    private static final String BTN_SOUND_ON = HUD_IMG_PATH + "hud-button-sound-on.png";
+    private static final String BTN_SOUND_OFF = HUD_IMG_PATH + "hud-button-sound-off.png";
+    private static final String BTN_ALERTS_ON = HUD_IMG_PATH + "hud-button-alerts-on.png";
+    private static final String BTN_ALERTS_OFF = HUD_IMG_PATH + "hud-button-alerts-off.png";
     
     private static final int PRICE_BUILD_H1 = 100000;
     private static final int PRICE_BUILD_H2 = 300000;
@@ -94,6 +101,9 @@ public class GUIController implements ScreenController {
     private boolean btnBuildActive;
     private boolean btnDestroyActive;
     private boolean alert;
+    private boolean alertsEnabled;
+    
+    private SoundManager soundManager;
     
     
     public GUIController(Application app, MainState mainState,
@@ -110,7 +120,10 @@ public class GUIController implements ScreenController {
         nifty = niftyDisplay.getNifty();
         app.getGuiViewPort().addProcessor(niftyDisplay);
         
+        this.soundManager = new SoundManager();
+        
         this.alerts = new ArrayList<Alert>();
+        this.alertsEnabled = true;
         this.btnBuildActive = false;
         this.btnDestroyActive = false;
         this.allExtras = gen.getAllExpansions();
@@ -209,6 +222,8 @@ public class GUIController implements ScreenController {
     
     
     public void showAlert(Alert a){
+        if (!alertsEnabled) return;
+        
         if (alert){
             if (!alerts.contains(a)) queueAlert(a);
             return;
@@ -661,6 +676,13 @@ public class GUIController implements ScreenController {
     }
     
     
+    public void maxRentPlus(){
+        ((House)sel()).setRent(((House)sel()).getTenant().getBudget()+1111);
+        closePopup("rent");
+        setLabelText(popup("edit").findElementByName("popup_edit_info_5"), Format.money(((House)sel()).getRent())+" $/m");
+    }
+    
+    
     public void sellHouse(){
         player.addMoney(sel().getValue());
         sel().setOwned(false);
@@ -1075,6 +1097,19 @@ public class GUIController implements ScreenController {
     
     public void toggleObjectMarkers(){
         district.toogleObjectMarkers();
+        setIconImage("button_info", (district.isObjectMarkersOn() ? BTN_MARKERS_ON : BTN_MARKERS_OFF));
+    }
+    
+    
+    public void toggleSound(){
+        soundManager.mute(!soundManager.isMuted());
+        setIconImage("button_sound", (soundManager.isMuted() ? BTN_SOUND_OFF : BTN_SOUND_ON));
+    }
+    
+    
+    public void toggleAlerts(){
+        alertsEnabled = !alertsEnabled;
+        setIconImage("button_alerts", (alertsEnabled ? BTN_ALERTS_ON : BTN_ALERTS_OFF));
     }
     
     
