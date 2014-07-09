@@ -131,7 +131,7 @@ public class GUIController implements ScreenController {
         this.availableExtras = new ArrayList<Expansion>();
         this.selectedExtras = new ArrayList<Expansion>();
         this.currTenants = new ArrayList<Tenant>();
-        this.currBuildSelection = "H1";
+        this.currBuildSelection = null;
         
         //create selection marker
         marker = ModelLoader.createSelectionMarker(app.getAssetManager());
@@ -524,12 +524,27 @@ public class GUIController implements ScreenController {
         colorPriceTags();
         
         //unhighlight
-        PanelRenderer pr = popup("build").findElementByName("popup_build_window_content_gallery_" + currBuildSelection).getRenderer(PanelRenderer.class);
-        pr.setBackgroundColor(new Color("#000000ff"));
-        currBuildSelection = null;
+        unhighlightBuildOptions();
         popup("build").findElementByName("button_popup_build_ok").setVisible(true);
         setLabelText(popup("build").findElementByName("popup_build_selection"), "Select the house you want to build!");
         setLabelTextColor(popup("build").findElementByName("popup_build_selection"), Color.WHITE);
+    }
+    
+    
+    private void unhighlightBuildOptions(){
+        PanelRenderer pr;
+        pr = popup("build").findElementByName("popup_build_window_content_gallery_H1").getRenderer(PanelRenderer.class);
+        pr.setBackgroundColor(new Color("#000000ff"));
+        pr = popup("build").findElementByName("popup_build_window_content_gallery_H2").getRenderer(PanelRenderer.class);
+        pr.setBackgroundColor(new Color("#000000ff"));
+        pr = popup("build").findElementByName("popup_build_window_content_gallery_H3").getRenderer(PanelRenderer.class);
+        pr.setBackgroundColor(new Color("#000000ff"));
+        pr = popup("build").findElementByName("popup_build_window_content_gallery_E1").getRenderer(PanelRenderer.class);
+        pr.setBackgroundColor(new Color("#000000ff"));
+        pr = popup("build").findElementByName("popup_build_window_content_gallery_E2").getRenderer(PanelRenderer.class);
+        pr.setBackgroundColor(new Color("#000000ff"));
+        pr = popup("build").findElementByName("popup_build_window_content_gallery_E3").getRenderer(PanelRenderer.class);
+        pr.setBackgroundColor(new Color("#000000ff"));
     }
     
     
@@ -667,6 +682,8 @@ public class GUIController implements ScreenController {
 //        highlightGameObject(sel());
         displayObjectInfo(sel());
         refreshButtonStates();
+        
+        if (key.contains("build")) currBuildSelection = null;
     }
 
     
@@ -800,8 +817,6 @@ public class GUIController implements ScreenController {
     
     
     public void selectBuild(String selectionKey){
-        if (currBuildSelection == null) currBuildSelection = "H1";
-        
         if (player.getMoney() >= getDefPrice(selectionKey)){
             setLabelText("popup_build_selection", "Build for " + Format.money(getDefPrice(selectionKey)) + "$ ?");
             popup("build").findElementByName("button_popup_build_ok").setVisible(true);
@@ -812,10 +827,9 @@ public class GUIController implements ScreenController {
             setLabelTextColor(popup("build").findElementByName("popup_build_selection"), COL_RED);
         }
         
-        PanelRenderer pr = popup("build").findElementByName("popup_build_window_content_gallery_" + currBuildSelection).getRenderer(PanelRenderer.class);
-        pr.setBackgroundColor(new Color("#000000ff"));
+        unhighlightBuildOptions();
         
-        pr = popup("build").findElementByName("popup_build_window_content_gallery_" + selectionKey).getRenderer(PanelRenderer.class);
+        PanelRenderer pr = popup("build").findElementByName("popup_build_window_content_gallery_" + selectionKey).getRenderer(PanelRenderer.class);
         pr.setBackgroundColor(new Color("#232323ff"));
         
         currBuildSelection = selectionKey;
