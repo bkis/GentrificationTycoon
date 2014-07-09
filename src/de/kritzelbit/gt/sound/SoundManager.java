@@ -87,18 +87,18 @@ public class SoundManager {
         musicMenu.setPositional(false);
         musicMenu.setDirectional(false);
         musicMenu.setLooping(true);
-        musicMenu.setVolume(1);
+        musicMenu.setVolume(4.2f);
         musicIngame =  new AudioNode(assetManager, MUSIC_INGAME);
         musicIngame.setPositional(false);
         musicIngame.setDirectional(false);
         musicIngame.setLooping(true);
-        musicIngame.setVolume(1);
+        musicIngame.setVolume(4.2f);
     }
     
     
     private void setupNodes(){
         for (Entry<String,AudioNode> e : sounds.entrySet()){
-            e.getValue().setVolume(1.6f);
+            e.getValue().setVolume(5.0f);
             e.getValue().setPositional(false);
             e.getValue().setDirectional(false);
         }

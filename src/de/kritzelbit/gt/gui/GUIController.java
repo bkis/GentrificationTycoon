@@ -242,7 +242,7 @@ public class GUIController implements ScreenController {
     
     
     public void showHint(){
-        String title = "You want some advice?";
+        String title = "You want some advice? Here you go...";
         String line1;
         String line2;
         
@@ -250,12 +250,12 @@ public class GUIController implements ScreenController {
         if (player.getMoney() + game.getBank().getBalance() < 50000){
             line1 = "You are almost broke...";
             line2 = "Maybe you should save some money!";
-        } else if (district.getAverageBudget() < 800){
-            line1 = "The people living in this district are poor!";
-            line2 = "Change this! Kick them out and get rich ones!";
         } else if (district.getNrOfBuildings(House.PUBLIC_CLUB) == 0){
             line1 = "No cool clubs, no students! You need students!";
             line2 = "Build some clubs to attract those black swans!";
+        } else if (district.getAverageBudget() < 500){
+            line1 = "The people living in this district are poor!";
+            line2 = "Change this! Kick them out and get rich ones!";
         } else if (district.getStudentsRatio() < 20){
             line1 = "It will be easier to find richer tenants for";
             line2 = "family houses if you have more students around!";
