@@ -7,7 +7,7 @@ package de.kritzelbit.gt.logic;
 public class Bank {
     
     private static final float INTEREST_POS = 0.01f;
-    private static final float INTEREST_NEG = 0.03f;
+    private static final float INTEREST_NEG = 0.01f;
     public static final int MAX_DEBTS = 5000000;
     
     private long account;

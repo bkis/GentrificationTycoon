@@ -9,7 +9,6 @@ import de.kritzelbit.gt.objects.House;
 import de.kritzelbit.gt.objects.Land;
 import de.kritzelbit.gt.objects.PassiveObject;
 import de.kritzelbit.gt.objects.PublicBuilding;
-import de.kritzelbit.gt.tenants.Tenant;
 import de.kritzelbit.gt.tenants.TenantGenerator;
 import de.kritzelbit.gt.utils.ModelLoader;
 import de.kritzelbit.gt.utils.RandomContentGenerator;

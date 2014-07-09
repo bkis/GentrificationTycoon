@@ -99,6 +99,7 @@ public class Game {
             i -= bank.getBalance() + Bank.MAX_DEBTS;
             bank.setBalanceToMin();
             player.reduceMoney(i);
+            guiController.bankAlert();
         } else {
             bank.applyInterest(owned);
         }
@@ -117,6 +118,12 @@ public class Game {
         guiController.nextMonth();
     }
     
+    
+    public void stopTimer(){
+        timer.cancel();
+    }
+    
+    
     private void refreshTenantList(){
         tenants.clear();
         for (int i = 0; i < 10; i++) {
@@ -132,6 +139,11 @@ public class Game {
     
     public List<Tenant> getTenants(){
         return tenants;
+    }
+    
+    
+    public String getMonths(){
+        return month + "";
     }
     
 }

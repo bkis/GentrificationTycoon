@@ -199,6 +199,7 @@ public class GUIController implements ScreenController {
                 prepareEditPopup();
                 nifty.showPopup(screen, popup("edit").getId(), null);
             }
+            soundManager.play(SoundManager.POPUP);
         } else if (key.startsWith("destroy")){
             if (!btnDestroyActive) return;
             if (sel().isOccupied()){
@@ -207,27 +208,78 @@ public class GUIController implements ScreenController {
                 prepareDestroyPopup();
                 nifty.showPopup(screen, popup("destroy").getId(), null);
             }
+            soundManager.play(SoundManager.POPUP);
         } else if (key.startsWith("tenant")){
             prepareTenantsPopup();
             nifty.showPopup(screen, popup("tenants").getId(), null);
+            soundManager.play(SoundManager.POPUP);
         } else if (key.startsWith("quit")){
             nifty.showPopup(screen, popup("quit").getId(), null);
+            soundManager.play(SoundManager.POPUP);
         } else if (key.startsWith("sell")){
             prepareSellPopup();
             nifty.showPopup(screen, popup("sell").getId(), null);
+            soundManager.play(SoundManager.POPUP);
         } else if (key.startsWith("rent")){
             popup("rent").findNiftyControl("rent_input", TextField.class).enableInputFilter(tif);
             popup("rent").findElementByName("button_popup_rent_cancel").setVisible(((House)sel()).isOccupied());
             nifty.showPopup(screen, popup("rent").getId(), null);
+            soundManager.play(SoundManager.POPUP);
         } else if (key.startsWith("extras")){
             prepareExtrasPopup();
             nifty.showPopup(screen, popup("extras").getId(), null);
+            soundManager.play(SoundManager.POPUP);
         } else if (key.startsWith("bank")){
             prepareBankPopup();
+            soundManager.play(SoundManager.POPUP);
             nifty.showPopup(screen, popup("bank").getId(), null);
+        } else if (key.startsWith("win")){
+            nifty.showPopup(screen, popup("win").getId(), null);
+        } else if (key.startsWith("lose")){
+            nifty.showPopup(screen, popup("lose").getId(), null);
         }
+    }
+    
+    
+    public void showHint(){
+        String title = "You want some advice?";
+        String line1;
+        String line2;
         
-        soundManager.play(SoundManager.POPUP);
+        
+        if (player.getMoney() + game.getBank().getBalance() < 50000){
+            line1 = "You are almost broke...";
+            line2 = "Maybe you should save some money!";
+        } else if (district.getAverageBudget() < 800){
+            line1 = "The people living in this district are poor!";
+            line2 = "Change this! Kick them out and get rich ones!";
+        } else if (district.getNrOfBuildings(House.PUBLIC_CLUB) == 0){
+            line1 = "No cool clubs, no students! You need students!";
+            line2 = "Build some clubs to attract those black swans!";
+        } else if (district.getStudentsRatio() < 20){
+            line1 = "It will be easier to find richer tenants for";
+            line2 = "family houses if you have more students around!";
+        } else if (district.getNrOfBuildings(House.PUBLIC_GALLERY) == 0){
+            line1 = "The richer people like fancy stuff. You should";
+            line2 = "try building art galleries to attract them...";
+        } else if (district.getNrOfBuildings(House.TYPE_HOUSE_2) < 10){
+            line1 = "Try building some family houses to attract";
+            line2 = "petter paying tenants - you'll need the money!";
+        } else if (district.getNrOfBuildings(House.PUBLIC_SCHOOL) == 0){
+            line1 = "Without a school in the district, there will";
+            line2 = "never be any snobs moving, here! Build a school!";
+        } else if (district.getAverageBudget() < 2000){
+            line1 = "The ultra rich don't like living next to the";
+            line2 = "poor people. Try raising the average wealth!";
+        } else if (district.getNrOfBuildings(House.TYPE_HOUSE_3) == 0){
+            line1 = "Why not start making real business? Build some";
+            line2 = "Mansions and stuff them with nice extras!";
+        } else {
+            line1 = "I have a feeling you'll";
+            line2 = "figure it out by yourself...";
+        }
+            
+        showAlert(new Alert(title, line1, line2));
     }
     
     
@@ -897,7 +949,7 @@ public class GUIController implements ScreenController {
     
     
     public String getDescriptionText(){
-        return "A funniy-ish yet serious-ish 3D arcade "
+        return "An arcade "
                 + "management simulation making you a mean "
                 + "and greedy real estate agent in a "
                 + "working-class district hit by gentrification!\n\n"
@@ -1202,16 +1254,41 @@ public class GUIController implements ScreenController {
     }
     
     
+    public void bankAlert(){
+        soundManager.play(SoundManager.BANK);
+    }
+    
+    
     public void win(){
+        stopGame();
         soundManager.play(SoundManager.WIN);
+        openPopup("win");
         //TODO
     } 
     
     
     public void lose(){
-        soundManager.play(SoundManager.POPUP);
+        stopGame();
+        player.setMoney(0);
+        soundManager.play(SoundManager.LOSE);
+        openPopup("lose");
         //TODO
     } 
+    
+    
+    private void stopGame(){
+        game.stopTimer();
+    }
+    
+    
+    public String getPlayerName(){
+        return player.getName();
+    }
+    
+    
+    public String getMonths(){
+        return game.getMonths();
+    }
     
     
 //    public void hightlightNeighborhoodRadius(){
