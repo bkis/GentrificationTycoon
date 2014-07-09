@@ -108,7 +108,7 @@ public class GUIController implements ScreenController {
     
     
     public GUIController(Application app, MainState mainState,
-            District district, RandomContentGenerator gen){
+            District district, RandomContentGenerator gen, SoundManager soundManager){
         this.app = (SimpleApplication) app;
         this.mainState = mainState;
         popups = new HashMap<String, Element>();
@@ -121,7 +121,7 @@ public class GUIController implements ScreenController {
         nifty = niftyDisplay.getNifty();
         app.getGuiViewPort().addProcessor(niftyDisplay);
         
-        this.soundManager = new SoundManager(app.getAssetManager());
+        this.soundManager = soundManager;
         
         this.alerts = new ArrayList<Alert>();
         this.alertsEnabled = true;
@@ -147,7 +147,9 @@ public class GUIController implements ScreenController {
     public void loadScreen(String screenKey){
         if (screenKey.equals(SCREEN_MAINMENU)){
             nifty.fromXml("Interface/screen.xml", screenKey, this);
+            soundManager.playMenuMusic();
         } else if (screenKey.equals(SCREEN_INGAME)){
+            soundManager.playIngameMusic();
             nifty.gotoScreen(screenKey);
             clearObjectInfo();
         }
@@ -169,7 +171,7 @@ public class GUIController implements ScreenController {
     
     
     public void nextMonth(){
-        soundManager.play(SoundManager.CASH);
+        soundManager.play(SoundManager.MONTH);
     }
     
     
@@ -224,6 +226,8 @@ public class GUIController implements ScreenController {
             prepareBankPopup();
             nifty.showPopup(screen, popup("bank").getId(), null);
         }
+        
+        soundManager.play(SoundManager.POPUP);
     }
     
     
@@ -304,6 +308,7 @@ public class GUIController implements ScreenController {
             if (game.getBank().canTake(amount)){
                 player.addMoney(game.getBank().take(amount));
                 refreshPlayerMoneyDisplay();
+                soundManager.play(SoundManager.BANK);
             } else {
                 showAlert(new Alert("I'm afraid we can't do that...", "The bank won't give you more money.",
                         "The maximum loan is " + Format.money(Bank.MAX_DEBTS) + "$."));
@@ -313,6 +318,7 @@ public class GUIController implements ScreenController {
             if (player.getMoney() >= amount){
                 player.reduceMoney(game.getBank().put(amount));
                 refreshPlayerMoneyDisplay();
+                soundManager.play(SoundManager.BANK);
             } else {
                 showAlert(new Alert("Sir, your pockets seem empty!", "You can't transfer this sum to your",
                         "account, as you don't have " + Format.money(amount) + "$ in cash."));
@@ -391,6 +397,7 @@ public class GUIController implements ScreenController {
         displayObjectInfoEdit((House)sel());
         refreshPlayerMoneyDisplay();
         closePopup("extras");
+        soundManager.play(SoundManager.BUY);
     }
 
     
@@ -623,6 +630,7 @@ public class GUIController implements ScreenController {
         refreshPlayerMoneyDisplay();
         refreshButtonStates();
         closePopup("buy");
+        soundManager.play(SoundManager.BUY);
     }
     
     
@@ -665,6 +673,8 @@ public class GUIController implements ScreenController {
         setLabelText(popup("edit").findElementByName("edit_tenant_occupied"), "not occupied...");
         setLabelTextColor(popup("edit").findElementByName("edit_tenant_occupied"), COL_RED);
         popup("edit").findElementByName("button_popup_edit_tenants").setVisible(true);
+        
+        soundManager.play(SoundManager.MOVEOUT);
     }
     
     
@@ -729,8 +739,11 @@ public class GUIController implements ScreenController {
         refreshPlayerMoneyDisplay();
         closePopup("build");
         
-        soundManager.play(SoundManager.BUILD);
+        //sound
         if (type.equals(House.PUBLIC_SCHOOL)) soundManager.play(SoundManager.SCHOOL);
+        else if (type.equals(House.PUBLIC_CLUB)) soundManager.play(SoundManager.CLUB);
+        else if (type.equals(House.PUBLIC_GALLERY)) soundManager.play(SoundManager.GALLERY);
+        else soundManager.play(SoundManager.BUILD);
     }
     
     
@@ -1190,11 +1203,13 @@ public class GUIController implements ScreenController {
     
     
     public void win(){
+        soundManager.play(SoundManager.WIN);
         //TODO
     } 
     
     
     public void lose(){
+        soundManager.play(SoundManager.POPUP);
         //TODO
     } 
     

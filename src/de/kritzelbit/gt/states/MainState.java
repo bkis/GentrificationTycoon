@@ -7,6 +7,7 @@ import com.jme3.app.state.AppStateManager;
 import de.kritzelbit.gt.IngameState;
 import de.kritzelbit.gt.logic.District;
 import de.kritzelbit.gt.gui.GUIController;
+import de.kritzelbit.gt.sound.SoundManager;
 import de.kritzelbit.gt.tenants.TenantGenerator;
 import de.kritzelbit.gt.utils.InputMapper;
 import de.kritzelbit.gt.utils.RandomContentGenerator;
@@ -31,6 +32,7 @@ public class MainState extends AbstractAppState {
     private AbstractAppState ingameState;
     private RandomContentGenerator gen;
     private TenantGenerator tenGen;
+    private SoundManager soundManager;
     
     
     
@@ -46,9 +48,10 @@ public class MainState extends AbstractAppState {
         this.app = (SimpleApplication) app;
         this.stateManager = stateManager;
         this.district = new District(app, gen, tenGen);
+        this.soundManager = new SoundManager(app.getAssetManager());
         
         //init GUI controller
-        guiController = new GUIController(app, this, district, gen);
+        guiController = new GUIController(app, this, district, gen, soundManager);
         
         //init input mapper
         inputMapper = new InputMapper(app, guiController);
