@@ -257,7 +257,7 @@ public class GUIController implements ScreenController {
             "You can BUY the selected object if you don't own it already, you can BUILD a building on a plot you own and you can SETUP some things about a house you own. In the last case you can look for a tenant, install extras in the house (that increase luxury), set the rent or sell the entire place (but you shouldn't do that unless you really have to - it will be very expensive to buy it back!).",
             "This one is for destroying a building. In the end, all those ugly, dirty hovels don't really please the eye, right? At some point you will need room for more appealing houses. This is how you get it!",
             "By clicking this button you get access to your bank account. You can deposit money (and earn interest money) or get a loan (and pay interest money, of course). You will get some more details from the bank itself.",
-            "Now this button is you litte helper. Whenever you click it, you will get some more or less useful advice on what your next steps could be.",
+            "Now this button is you litte helper. Whenever you click it, you will get some more or less useful advice on what your next steps could be. You know what? Go have one right away: You can move the field of view with W, A, S and D or the arrow keys.",
             "No, you won't get any info on this one. This tutorial isn't made to bore super brains like you. You were so smart about the position of the most important button earlier - now live with the consequences.",
             "Well, ... switches those alert messages on and off. But you probably figured that out already...",
             "OK, this one is very interesting: You will need it if and only if you neither manage to win nor lose the game. In any case, clicking this button will always be considered bad behaviour."};
@@ -1016,8 +1016,7 @@ public class GUIController implements ScreenController {
     
     
     public String getDescriptionText(){
-        return "An arcade "
-                + "management simulation making you a mean "
+        return "An arcade management simulation making you a mean "
                 + "and greedy real estate agent in a "
                 + "working-class district hit by gentrification!\n\n"
                 + "Take from the poor - give to the rich!";
