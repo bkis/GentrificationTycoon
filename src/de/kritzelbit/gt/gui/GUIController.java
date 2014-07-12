@@ -250,30 +250,30 @@ public class GUIController implements ScreenController {
     private void prepareTutorialPopup(){
         tutorialPage = 0;
         String[] texts = {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10"};
+            "This area in the bottom-left corner shows your amount of cash and the money you earn from rents per month. Beneath this, you get some infos about the game and the district. Your aim is to gentrify the district completely by changing it's amount of luxury and the kind of people who live here. Get rid of the workers and unemployed, draw some rich people to the area!",
+            "The area in the bottom-right shows you important pieces of information about the building or plot that is currently selected (if there is any!). Note that the luxury value is greatly influenced by the luxury of the houses around! If you own a house, you can set it's rent to whatever you want. However, the value of the house is determined by it's luxury.",
+            "Now let's have a look at those ugly buttons: This first one lets you turn on and off the object markers for the buildings and plots. It's recommended to use them for a better overview. A green marker means you own the object, a red one means you don't. A litte black dot in the middle of the merker means that there are currently people living in the house.",
+            "The second button is the most important one. Now you want to know why it isn't the first one, right? You won't get an answer to this question. This button always refers to the selected object and it's function changes depending on the selection. See the next page for some details and stop complaining about the order of the buttons, right now!",
+            "You can BUY the selected object if you don't own it already, you can BUILD a building on a plot you own and you can SETUP some things about a house you own. In the last case you can look for a tenant, install extras in the house (that increase luxury), set the rent or sell the entire place (but you shouldn't do that unless you really have to - it will be very expensive to buy it back!).",
+            "This one is for destroying a building. In the end, all those ugly, dirty hovels don't really please the eye, right? At some point you will need room for more appealing houses. This is how you get it!",
+            "By clicking this button you get access to your bank account. You can deposit money (and earn interest money) or get a loan (and pay interest money, of course). You will get some more details from the bank itself.",
+            "Now this button is you litte helper. Whenever you click it, you will get some more or less useful advice on what your next steps could be.",
+            "No, you won't get any info on this one. This tutorial isn't made to bore super brains like you. You were so smart about the position of the most important button earlier - now live with the consequences.",
+            "Well, ... switches those alert messages on and off. But you probably figured that out already...",
+            "OK, this one is very interesting: You will need it if and only if you neither manage to win nor lose the game. In any case, clicking this button will always be considered bad behaviour."};
         tutorialTexts = texts;
         
         setIconImage(popup("tutorial").findElementByName("tutorial_img"), "Interface/tutorial/" + tutorialPage + ".png");
-        setLabelText(popup("tutorial").findElementByName("tutorial_text"), tutorialTexts[tutorialPage]);
+        setLabelTextNoResize(popup("tutorial").findElementByName("tutorial_text"), tutorialTexts[tutorialPage]);
     }
     
     
     public void nextTutorial(String nextPrev){
         if (nextPrev.equalsIgnoreCase("next")){
-            if (tutorialPage < 10){
+            if (tutorialPage < tutorialTexts.length-1){
                 tutorialPage++;
                 setIconImage(popup("tutorial").findElementByName("tutorial_img"), "Interface/tutorial/" + tutorialPage + ".png");
-                setLabelText(popup("tutorial").findElementByName("tutorial_text"), tutorialTexts[tutorialPage]);
+                setLabelTextNoResize(popup("tutorial").findElementByName("tutorial_text"), tutorialTexts[tutorialPage]);
             } else {
                 showAlert(new Alert("That's it...","You'll figure the rest out by yourself.","Try to find the right strategy..."));
             }
@@ -281,12 +281,16 @@ public class GUIController implements ScreenController {
             if (tutorialPage > 0){
                 tutorialPage--;
                 setIconImage(popup("tutorial").findElementByName("tutorial_img"), "Interface/tutorial/" + tutorialPage + ".png");
-                setLabelText(popup("tutorial").findElementByName("tutorial_text"), tutorialTexts[tutorialPage]);
+                setLabelTextNoResize(popup("tutorial").findElementByName("tutorial_text"), tutorialTexts[tutorialPage]);
             } else {
                 showAlert(new Alert("No...","This was the first page.","There's nothing where you want to go."));
             }
         }
-        
+    }
+
+    
+    public String getTutorialText(){
+        return tutorialTexts[tutorialPage];
     }
     
     
@@ -1050,6 +1054,13 @@ public class GUIController implements ScreenController {
                 width = el.getWidth();
         
         e.getParent().setWidth(width);
+    }
+    
+    
+    private void setLabelTextNoResize(Element e, String text){
+        TextRenderer eRenderer = e.getRenderer(TextRenderer.class);
+        eRenderer.setText(text);
+        e.layoutElements();
     }
     
     

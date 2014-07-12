@@ -826,17 +826,17 @@
 	
 	<popup id="popup_tutorial" childLayout="center" backgroundColor="#00000088" visibleToMouse="true">
 		
-		<panel id="popup_tutorial_window_frame" width="454" height="424" childLayout="center" backgroundColor="#a55731ff" visibleToMouse="true" padding="2">
-			<panel id="popup_tutorial_window" width="450" height="420" childLayout="vertical" backgroundColor="#000000ff" visibleToMouse="true">
+		<panel id="popup_tutorial_window_frame" width="454" height="524" childLayout="center" backgroundColor="#a55731ff" visibleToMouse="true" padding="2">
+			<panel id="popup_tutorial_window" width="450" height="520" childLayout="vertical" backgroundColor="#000000ff" visibleToMouse="true">
 				<panel id="popup_tutorial_window_titlebar" width="100%" height="20" childLayout="center" backgroundColor="#a55731ff">
 					<text text="Tutorial - The first steps..." font="Interface/Fonts/Default.fnt" width="100%" height="100%" wrap="false" align="center"/>
 				</panel>
 				
-				<panel id="popup_tutorial_window_content" width="100%" height="350" childLayout="vertical">
+				<panel id="popup_tutorial_window_content" width="100%" height="450" childLayout="vertical">
 					<panel width="100%" height="25"></panel>
 					<image id="tutorial_img" filename="Interface/tutorial/0.png" align="center" height="200" width="300"></image>
 					<panel width="100%" height="25"></panel>
-					<control id="tutorial_text" name="label" font="Interface/Fonts/Default.fnt" text="Tutorial" align="center" wrap="true"/>
+					<control id="tutorial_text" name="label" font="Interface/Fonts/Default.fnt" text="${CALL.getTutorialText()}" height="90%" width="90%" align="center" wrap="true"/>
 				</panel>
 				
 				<panel id="popup_tutorial_window_buttons" width="100%" height="50" childLayout="horizontal" visibleToMouse="true">
