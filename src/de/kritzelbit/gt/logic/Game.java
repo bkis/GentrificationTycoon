@@ -76,6 +76,9 @@ public class Game {
         guiController.displayGameTime(month);
         guiController.displayGentrificationState();
         
+        //tutorial?
+        if (month == 2) guiController.openPopup("tutorial");
+        
         //new tenants?
         refreshTenantList();
         

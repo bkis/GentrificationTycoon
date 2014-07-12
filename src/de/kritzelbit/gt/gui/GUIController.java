@@ -104,6 +104,9 @@ public class GUIController implements ScreenController {
     private boolean alert;
     private boolean alertsEnabled;
     
+    private int tutorialPage;
+    private String[] tutorialTexts;
+    
     private SoundManager soundManager;
     
     
@@ -237,7 +240,53 @@ public class GUIController implements ScreenController {
             nifty.showPopup(screen, popup("win").getId(), null);
         } else if (key.startsWith("lose")){
             nifty.showPopup(screen, popup("lose").getId(), null);
+        } else if (key.startsWith("tutorial")){
+            prepareTutorialPopup();
+            nifty.showPopup(screen, popup("tutorial").getId(), null);
         }
+    }
+    
+    
+    private void prepareTutorialPopup(){
+        tutorialPage = 0;
+        String[] texts = {
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10"};
+        tutorialTexts = texts;
+        
+        setIconImage(popup("tutorial").findElementByName("tutorial_img"), "Interface/tutorial/" + tutorialPage + ".png");
+        setLabelText(popup("tutorial").findElementByName("tutorial_text"), tutorialTexts[tutorialPage]);
+    }
+    
+    
+    public void nextTutorial(String nextPrev){
+        if (nextPrev.equalsIgnoreCase("next")){
+            if (tutorialPage < 10){
+                tutorialPage++;
+                setIconImage(popup("tutorial").findElementByName("tutorial_img"), "Interface/tutorial/" + tutorialPage + ".png");
+                setLabelText(popup("tutorial").findElementByName("tutorial_text"), tutorialTexts[tutorialPage]);
+            } else {
+                showAlert(new Alert("That's it...","You'll figure the rest out by yourself.","Try to find the right strategy..."));
+            }
+        } else {
+            if (tutorialPage > 0){
+                tutorialPage--;
+                setIconImage(popup("tutorial").findElementByName("tutorial_img"), "Interface/tutorial/" + tutorialPage + ".png");
+                setLabelText(popup("tutorial").findElementByName("tutorial_text"), tutorialTexts[tutorialPage]);
+            } else {
+                showAlert(new Alert("No...","This was the first page.","There's nothing where you want to go."));
+            }
+        }
+        
     }
     
     
