@@ -68,12 +68,12 @@ public class GUIController implements ScreenController {
     private static final String BTN_ALERTS_ON = HUD_IMG_PATH + "hud-button-alerts-on.png";
     private static final String BTN_ALERTS_OFF = HUD_IMG_PATH + "hud-button-alerts-off.png";
     
-    private static final int PRICE_BUILD_H1 = 100000;
-    private static final int PRICE_BUILD_H2 = 300000;
-    private static final int PRICE_BUILD_H3 = 1000000;
-    private static final int PRICE_BUILD_E1 = 300000;   //CLUB
-    private static final int PRICE_BUILD_E2 = 750000;  //GALLERY
-    private static final int PRICE_BUILD_E3 = 2000000;  //SCHOOL
+    private static final int PRICE_BUILD_H1 = 150000;
+    private static final int PRICE_BUILD_H2 = 500000;
+    private static final int PRICE_BUILD_H3 = 2000000;
+    private static final int PRICE_BUILD_E1 = 500000;   //CLUB
+    private static final int PRICE_BUILD_E2 = 1000000;  //GALLERY
+    private static final int PRICE_BUILD_E3 = 3000000;  //SCHOOL
     
     private static final String HUD_DEFAULT_INFO_ICON = "defaultIconImg.png";
     
@@ -226,6 +226,7 @@ public class GUIController implements ScreenController {
         } else if (key.startsWith("rent")){
             popup("rent").findNiftyControl("rent_input", TextField.class).enableInputFilter(tif);
             popup("rent").findElementByName("button_popup_rent_cancel").setVisible(((House)sel()).isOccupied());
+            popup("rent").findElementByName("button_popup_rent_bigger").setVisible(((House)sel()).isOccupied());
             nifty.showPopup(screen, popup("rent").getId(), null);
             soundManager.play(SoundManager.POPUP);
         } else if (key.startsWith("extras")){
@@ -257,7 +258,7 @@ public class GUIController implements ScreenController {
             "You can BUY the selected object if you don't own it already, you can BUILD a building on a plot you own and you can SETUP some things about a house you own. In the last case you can look for a tenant, install extras in the house (that increase luxury), set the rent or sell the entire place (but you shouldn't do that unless you really have to - it will be very expensive to buy it back!).",
             "This one is for destroying a building. In the end, all those ugly, dirty hovels don't really please the eye, right? At some point you will need room for more appealing houses. This is how you get it!",
             "By clicking this button you get access to your bank account. You can deposit money (and earn interest money) or get a loan (and pay interest money, of course). You will get some more details from the bank itself.",
-            "Now this button is you litte helper. Whenever you click it, you will get some more or less useful advice on what your next steps could be. You know what? Go have one right away: You can move the field of view with W, A, S and D or the arrow keys.",
+            "Now this button is your litte helper. Whenever you click it, you will get some more or less useful advice on what your next steps could be. You know what? Go have one right away: You can move the field of view with W, A, S and D or the arrow keys.",
             "No, you won't get any info on this one. This tutorial isn't made to bore super brains like you. You were so smart about the position of the most important button earlier - now live with the consequences.",
             "Well, ... switches those alert messages on and off. But you probably figured that out already...",
             "OK, this one is very interesting: You will need it if and only if you neither manage to win nor lose the game. In any case, clicking this button will always be considered bad behaviour."};
@@ -1300,8 +1301,8 @@ public class GUIController implements ScreenController {
     
     
     public void displayGentrificationState(){
-        int objectCount = 0;
-        int luxuryCount = 0;
+        float objectCount = 0;
+        float luxuryCount = 0;
         
         for (GameObject go : district.getObjectList()){
             objectCount++;
@@ -1313,7 +1314,7 @@ public class GUIController implements ScreenController {
         setLabelText("game_stat_district_tot_luxury",
                 "Avg. Luxury: " + (luxuryCount/objectCount));
         
-        float g = (float)((float)(luxuryCount/objectCount) / 120) * 100;
+        float g = (float)(luxuryCount/objectCount) / 120 * 100;
         
         setLabelText("game_stat_gentrified",
                 "Gentrified: " + Format.twoDecimals(g) + "%");

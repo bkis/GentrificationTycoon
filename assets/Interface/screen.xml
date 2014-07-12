@@ -848,13 +848,13 @@
 					
 					<panel width="20" height="50" childLayout="horizontal"></panel>
 					
-					<control name="button" style="custom-button" label="Previous" id="button_popup_tutorial_prev" align="center" valign="center" width="100" height="30" visibleToMouse="true">
+					<control name="button" style="custom-button" label="&lt;&lt; Previous" id="button_popup_tutorial_prev" align="center" valign="center" width="100" height="30" visibleToMouse="true">
 						<interact onRelease="nextTutorial(prev)" />
 					</control>
 					
 					<panel width="20" height="50" childLayout="horizontal"></panel>
 					
-					<control name="button" style="custom-button" label="Next" id="button_popup_tutorial_next" align="center" valign="center" width="100" height="30" visibleToMouse="true">
+					<control name="button" style="custom-button" label="Next &gt;&gt;" id="button_popup_tutorial_next" align="center" valign="center" width="100" height="30" visibleToMouse="true">
 						<interact onRelease="nextTutorial(next)" />
 					</control>
 					
