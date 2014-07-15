@@ -25,7 +25,15 @@ public class House extends GameObject {
     }
     
     
-    public int getLuxury() {
+    public int getLuxury(){
+        int lux = getOwnLuxury();
+        int n = getNeighborhoodLuxury();
+        lux += ((Math.max(lux, n) - Math.min(lux, n))/3)*(lux < n ? 1 : -1);
+        return lux;
+    }
+    
+    
+    public int getOwnLuxury() {
         int lux = 0;
         
         if (type.equals(GameObject.TYPE_HOUSE_1))
@@ -40,7 +48,7 @@ public class House extends GameObject {
         
         return lux;
     }
-
+    
     
     public void addExpansion(Expansion exp){
         for (Expansion e : expansions)
@@ -61,7 +69,7 @@ public class House extends GameObject {
     
     
     public int calcDefaultRent(){
-        return (int)(Math.pow(getLuxury()*2 + getNeighborhoodValue(), 1.5f));
+        return (int)(Math.pow(getLuxury()*2 + getNeighborhoodLuxury(), 1.5f));
     }
     
     

@@ -82,14 +82,19 @@ public class Game {
         //new tenants?
         refreshTenantList();
         
+        //move out?
+        for (GameObject go : district.getObjectList()){
+            if (go instanceof House && ((House)go).isOccupied() && ((House)go).isOwnedByPlayer()){
+                if (!((House)go).getTenant().acceptsHouse((House)go)){
+                    guiController.moveOut((House)go);
+                }
+            }
+        }
+        
         //pay rent / moving out
         for (GameObject go : district.getObjectList()){
             if (go instanceof House && ((House)go).isOccupied() && ((House)go).isOwnedByPlayer()){
-                if (((House)go).getRent() > ((House)go).getTenant().getBudget()){
-                    guiController.moveOut((House)go);
-                } else {
-                    player.addMoney(((House)go).getRent());
-                }
+                player.addMoney(((House)go).getRent());
             }
         }
         guiController.refreshPlayerMoneyDisplay();

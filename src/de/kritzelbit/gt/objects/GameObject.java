@@ -218,7 +218,7 @@ public abstract class GameObject {
     }
     
     
-    public int getNeighborhoodValue(){
+    public int getNeighborhoodLuxury(){
         return district.getNeighborhoodValue(this);
     }
     
@@ -240,8 +240,8 @@ public abstract class GameObject {
         } else {
             return (int) Math.pow(
                 (this instanceof House ? ((House)this).calcDefaultRent()+400
-                + this.getNeighborhoodValue() :
-                this.getNeighborhoodValue()*10)+50
+                + this.getNeighborhoodLuxury() :
+                this.getNeighborhoodLuxury()*10)+50
                 , 1.5f
                 )*4;
         }

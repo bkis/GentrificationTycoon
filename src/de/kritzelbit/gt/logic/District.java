@@ -162,8 +162,8 @@ public class District {
         int count = 1;
         
         for (GameObject go : neighborhood)
-            if (go instanceof House){
-                value += ((House) go).getLuxury();
+            if (go instanceof House && go != object){
+                value += ((House) go).getOwnLuxury();
                 count++;
             }
         
@@ -328,7 +328,7 @@ public class District {
                         if (Math.random() < 0.25f){
                             ((House)go).setTenant(tenGen.generateTenant(0));
                             ((House)go).setRent(((House)go).calcDefaultRent());
-                            ((House)go).getTenant().setBudget(((House)go).getRent() + 11);
+                            ((House)go).getTenant().setNeedsFor((House)go);
                         }
                     } else if (rnd < 0.55f){
                         go = new House(app,
@@ -337,7 +337,7 @@ public class District {
                         if (Math.random() < 0.25f){
                             ((House)go).setTenant(tenGen.generateTenant(1));
                             ((House)go).setRent(((House)go).calcDefaultRent());
-                            ((House)go).getTenant().setBudget(((House)go).getRent() + 11);
+                            ((House)go).getTenant().setNeedsFor((House)go);
                         }
                     } else {
                         go = new Land(app,

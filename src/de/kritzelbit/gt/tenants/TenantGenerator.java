@@ -35,15 +35,19 @@ public class TenantGenerator {
             if (Math.random() > 0.1f)
                 t.addNeed(gen.getRndExpansionFor(socialClass));
         
-        int i = gen.rndNumber(1, 3);        // social class
-        int s = gen.rndNumber(25, 50);      // min student ratio
-        int b = gen.rndNumber(2000, 3000);  // min avg budget
+        int i = gen.rndNumber(1, 3);        // public condition count
+        int s = gen.rndNumber(39, 68);      // min student ratio
+        int b = gen.rndNumber(2413, 3611);  // min avg budget
         switch(socialClass){
             case 0: if (prof.equalsIgnoreCase("student")) t.setPublicCondition("club",i); break;
             case 1: t.setPublicCondition("gallery",i); t.setMinStudentsRatio(s); break;
             case 2: t.setPublicCondition("school",i); t.setMinAverageBudget(b); break;
             default: break;
         }
+        
+        t.setMinLuxury(t.getMinLuxury()/i);
+        t.setMinAverageBudget(t.getMinAverageBudget()/i);
+        t.setMinStudentsRatio(t.getMinStudentsRatio()/i);
         
         return t;
     }
@@ -59,7 +63,7 @@ public class TenantGenerator {
     
     
     private int getRndMinLux(int socialClass){
-        return gen.rndNumber((socialClass*50)+10, (socialClass*50)+60);
+        return gen.rndNumber((socialClass*50)+40, (socialClass*50)+60);
     }
     
     

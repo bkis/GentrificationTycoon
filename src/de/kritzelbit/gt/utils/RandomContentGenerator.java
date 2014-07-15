@@ -123,7 +123,7 @@ public class RandomContentGenerator {
     
     
     public int rndNumber(int min, int max){
-        return rnd.nextInt(max-min) + min;
+        return rnd.nextInt(max-min+1) + min;
     }
     
 }

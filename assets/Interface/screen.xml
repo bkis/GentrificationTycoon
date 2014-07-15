@@ -593,8 +593,14 @@
 				<panel id="popup_extras_window_buttons" width="100%" height="50" childLayout="horizontal" backgroundColor="#000000ff" visibleToMouse="true">
 					<panel id="popup_extras_window_buttons_spacer" height="50"></panel>
 					
-					<control name="button" style="custom-button" label="OK" id="button_popup_extras_ok" align="center" valign="center" width="100" height="30" visibleToMouse="true">
+					<control name="button" style="custom-button" label="OK" id="button_popup_extras_ok" align="center" valign="center" width="60" height="30" visibleToMouse="true">
 						<interact onRelease="buyExtra()"/>
+					</control>
+					
+					<panel width="20" height="50"></panel>
+					
+					<control name="button" style="custom-button" label="All" id="button_popup_extras_all" align="center" valign="center" width="100" height="30" visibleToMouse="true">
+						<interact onRelease="buyAllExtras()" />
 					</control>
 					
 					<panel id="popup_extras_window_buttons_spacer2" width="20" height="50"></panel>

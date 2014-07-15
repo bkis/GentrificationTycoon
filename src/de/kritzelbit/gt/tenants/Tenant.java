@@ -1,5 +1,6 @@
 package de.kritzelbit.gt.tenants;
 
+import com.jme3.terrain.geomipmap.lodcalc.DistanceLodCalculator;
 import de.kritzelbit.gt.objects.Expansion;
 import de.kritzelbit.gt.objects.House;
 import java.util.HashSet;
@@ -141,6 +142,16 @@ public class Tenant {
     public void setOnlyNeed(Expansion need){
         needs.clear();
         needs.add(need);
+    }
+    
+    
+    public void setNeedsFor(House h){
+        setBudget(h.getRent() + 11);
+        setMinAverageBudget(0);
+        publicConditionCount = 0;
+        setMinLuxury(h.getLuxury() - 1);
+        setMinStudentsRatio(0);
+        setOnlyNeed((Expansion)h.getExpansions().toArray()[0]);
     }
     
     

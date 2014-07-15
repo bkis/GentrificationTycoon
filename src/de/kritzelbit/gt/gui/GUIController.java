@@ -338,6 +338,11 @@ public class GUIController implements ScreenController {
     
     
     public void showAlert(Alert a){
+        showAlert(a, SoundManager.ALERT);
+    }
+    
+    
+    public void showAlert(Alert a, String soundKey){
         if (!alertsEnabled) return;
         
         if (alert){
@@ -349,7 +354,7 @@ public class GUIController implements ScreenController {
         setLabelText(popup("note").findElementByName("popup_note_text1"), a.getLine1());
         setLabelText(popup("note").findElementByName("popup_note_text2"), a.getLine2());
         nifty.showPopup(screen, popup("note").getId(), null);
-        soundManager.play(SoundManager.ALERT);
+        soundManager.play(soundKey);
         alerts.remove(a);
         alert = true;
     }
@@ -504,6 +509,29 @@ public class GUIController implements ScreenController {
         refreshPlayerMoneyDisplay();
         closePopup("extras");
         soundManager.play(SoundManager.BUY);
+    }
+    
+    
+    public void buyAllExtras(){
+        int price = 0;
+        for (Expansion e : availableExtras){
+            price += e.getPrice();
+        }
+        
+        if (price > player.getMoney()){
+            showAlert(new Alert("Too expensive...", "You don't have enough cash", "to install all these extras."));
+        } else {
+            player.reduceMoney(price);
+            for (Expansion e : availableExtras)
+                ((House)sel()).addExpansion(e);
+            availableExtras.clear();
+            selectedExtras.clear();
+            refreshExpansionList((House)sel());
+            displayObjectInfoEdit((House)sel());
+            refreshPlayerMoneyDisplay();
+            closePopup("extras");
+            soundManager.play(SoundManager.BUY);
+        }
     }
 
     
@@ -783,9 +811,9 @@ public class GUIController implements ScreenController {
     
     
     public void moveOut(House h){
-        showAlert(new Alert("That was too much...",
-            Format.money(h.getRent()) + "$ were too much.",
-            h.getTenant().getName() + " moved out."));
+        showAlert(new Alert(h.getTenant().getName(),
+            "\"This place is not what it used to be.",
+            "I am moving out right now.\""), SoundManager.MOVEOUT);
         
         h.removeTenant();
         
@@ -796,8 +824,6 @@ public class GUIController implements ScreenController {
         setLabelText(popup("edit").findElementByName("edit_tenant_occupied"), "not occupied...");
         setLabelTextColor(popup("edit").findElementByName("edit_tenant_occupied"), COL_RED);
         popup("edit").findElementByName("button_popup_edit_tenants").setVisible(true);
-        
-        soundManager.play(SoundManager.MOVEOUT);
     }
     
     
@@ -1147,7 +1173,7 @@ public class GUIController implements ScreenController {
         //properties
         setLabelText("info_1", go.getName().replaceAll("[0-9.]", ""));
         setLabelText("info_2", (go instanceof House ? ((House)go).getLuxury() + "" : ""));
-        setLabelText("info_3", go.getNeighborhoodValue()+ "");
+        setLabelText("info_3", go.getNeighborhoodLuxury()+ "");
         setLabelText("info_4", (go instanceof House || go instanceof Land ? Format.money(go.getValue()) + "$" : ""));
         setLabelText("info_5", (go instanceof House ? Format.money(((House)go).getRent()) + " $/m." : ""));
         setIconImage("panel_hud_info_image", go.getImagePath());
@@ -1165,7 +1191,7 @@ public class GUIController implements ScreenController {
         //properties
         setLabelText(popup("edit").findElementByName("popup_edit_info_1"), go.getName().replaceAll("[0-9.]", ""));
         setLabelText(popup("edit").findElementByName("popup_edit_info_2"), go.getLuxury() + "");
-        setLabelText(popup("edit").findElementByName("popup_edit_info_3"), go.getNeighborhoodValue()+ "");
+        setLabelText(popup("edit").findElementByName("popup_edit_info_3"), go.getNeighborhoodLuxury()+ "");
         setLabelText(popup("edit").findElementByName("popup_edit_info_4"), Format.money(go.getValue()) + " $");
         setLabelText(popup("edit").findElementByName("popup_edit_info_5"), Format.money(go.getRent()) + " $/m");
         setIconImage(popup("edit").findElementByName("popup_edit_info_image"), go.getImagePath());
@@ -1301,20 +1327,18 @@ public class GUIController implements ScreenController {
     
     
     public void displayGentrificationState(){
-        float objectCount = 0;
         float luxuryCount = 0;
         
         for (GameObject go : district.getObjectList()){
-            objectCount++;
             if (go instanceof House){
                 luxuryCount += ((House)go).getLuxury();
             }
         }
         
         setLabelText("game_stat_district_tot_luxury",
-                "Avg. Luxury: " + (luxuryCount/objectCount));
+                "Avg. Luxury: " + (luxuryCount/49));
         
-        float g = (float)(luxuryCount/objectCount) / 120 * 100;
+        float g = (float)(luxuryCount/49) / 150 * 100;
         
         setLabelText("game_stat_gentrified",
                 "Gentrified: " + Format.twoDecimals(g) + "%");
