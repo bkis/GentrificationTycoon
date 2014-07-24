@@ -35,7 +35,7 @@
 			<panel id="panel_bottom" height="35%" width="500" align="center" childLayout="vertical">
 				<panel height="60%" width="100%" childLayout="vertical">
 					<panel width="100%"></panel>
-					<control id="player_avatar_select" name="imageSelect" align="center" width="146px" imageWidth="100px" imageHeight="100px" imageList="Interface/hud/avatars/0.png,Interface/hud/avatars/1.png,Interface/hud/avatars/2.png,Interface/hud/avatars/3.png,Interface/hud/avatars/4.png,Interface/hud/avatars/5.png,Interface/hud/avatars/6.png,Interface/hud/avatars/7.png,Interface/hud/avatars/8.png,Interface/hud/avatars/9.png,Interface/hud/avatars/10.png"/>
+					<control id="player_avatar_select" name="imageSelect" align="center" width="146px" imageWidth="100px" imageHeight="100px" imageList="Interface/hud/avatars/0.png,Interface/hud/avatars/1.png,Interface/hud/avatars/2.png,Interface/hud/avatars/3.png,Interface/hud/avatars/4.png,Interface/hud/avatars/5.png"/>
 					<panel height="10" width="100%"></panel>
 					<control id="player_name_input" name="textfield" align="center" width="100px" text="${CALL.getUserName()}"/>
 					<panel height="20" width="100%"></panel>
