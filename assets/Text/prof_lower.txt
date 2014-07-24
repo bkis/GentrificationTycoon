@@ -1,0 +1,3 @@
+Worker
+Student
+Unemployed
