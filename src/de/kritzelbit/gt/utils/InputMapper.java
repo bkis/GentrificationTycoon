@@ -54,13 +54,10 @@ public class InputMapper{
     private final static Trigger TRIGGER_CAM_E2 =  new KeyTrigger(KeyInput.KEY_D);
     private final static Trigger TRIGGER_CAM_S  =  new KeyTrigger(KeyInput.KEY_DOWN);
     private final static Trigger TRIGGER_CAM_S2 =  new KeyTrigger(KeyInput.KEY_S);
-    private final static Trigger TRIGGER_CAM_ZOOM =  new KeyTrigger(KeyInput.KEY_C);
     private final static String MAPPING_CAM_W = "cam move west";
     private final static String MAPPING_CAM_N = "cam move north";
     private final static String MAPPING_CAM_E = "cam move east";
     private final static String MAPPING_CAM_S = "cam move south";
-    private final static String MAPPING_CAM_ZOOM = "cam zoom";
-    
 
     
     public InputMapper(Application app, GUIController guiController){
@@ -86,7 +83,6 @@ public class InputMapper{
                 inputManager.addMapping(MAPPING_CAM_N, TRIGGER_CAM_N, TRIGGER_CAM_N2);
                 inputManager.addMapping(MAPPING_CAM_E, TRIGGER_CAM_E, TRIGGER_CAM_E2);
                 inputManager.addMapping(MAPPING_CAM_S, TRIGGER_CAM_S, TRIGGER_CAM_S2);
-                inputManager.addMapping(MAPPING_CAM_ZOOM, TRIGGER_CAM_ZOOM);
                 inputManager.addMapping(MAPPING_ESC, TRIGGER_ESC);
                 inputManager.addMapping(MAPPING_LCLICK, TRIGGER_LCLICK);
                 inputManager.addListener(analogListener,
@@ -97,7 +93,6 @@ public class InputMapper{
                             MAPPING_CAM_S});
                 inputManager.addListener(actionListener,new String[]{
                             MAPPING_ESC,
-                            MAPPING_CAM_ZOOM,
                             MAPPING_LCLICK});
                 break;
             case INPUT_MODE_MAINMENU:
