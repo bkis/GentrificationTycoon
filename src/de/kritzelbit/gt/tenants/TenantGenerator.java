@@ -40,8 +40,8 @@ public class TenantGenerator {
         int b = gen.rndNumber(2413, 3611);  // min avg budget
         switch(socialClass){
             case 0: if (prof.equalsIgnoreCase("student")) t.setPublicCondition("club",i); break;
-            case 1: t.setPublicCondition("gallery",i); t.setMinStudentsRatio(s); break;
-            case 2: t.setPublicCondition("school",i); t.setMinAverageBudget(b); break;
+            case 1: t.setPublicCondition("school",i); t.setMinStudentsRatio(s); break;
+            case 2: t.setPublicCondition("gallery",i); t.setMinAverageBudget(b); break;
             default: break;
         }
         

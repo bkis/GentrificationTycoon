@@ -72,8 +72,8 @@ public class GUIController implements ScreenController {
     private static final int PRICE_BUILD_H2 = 500000;
     private static final int PRICE_BUILD_H3 = 2000000;
     private static final int PRICE_BUILD_E1 = 500000;   //CLUB
-    private static final int PRICE_BUILD_E2 = 1000000;  //GALLERY
-    private static final int PRICE_BUILD_E3 = 3000000;  //SCHOOL
+    private static final int PRICE_BUILD_E2 = 3000000;  //GALLERY
+    private static final int PRICE_BUILD_E3 = 1000000;  //SCHOOL
     
     private static final String HUD_DEFAULT_INFO_ICON = "defaultIconImg.png";
     
@@ -598,9 +598,9 @@ public class GUIController implements ScreenController {
         setLabelText(popup("build").findElementByName("popup_build_price_h21"),
                         Format.money(PRICE_BUILD_E1) + "");
         setLabelText(popup("build").findElementByName("popup_build_price_h22"),
-                        Format.money(PRICE_BUILD_E2) + "");
-        setLabelText(popup("build").findElementByName("popup_build_price_h23"),
                         Format.money(PRICE_BUILD_E3) + "");
+        setLabelText(popup("build").findElementByName("popup_build_price_h23"),
+                        Format.money(PRICE_BUILD_E2) + "");
         
         //color price tags
         colorPriceTags();
@@ -651,12 +651,12 @@ public class GUIController implements ScreenController {
         else
             setLabelTextColor(popup("build").findElementByName("popup_build_price_h21"), COL_GREEN);
         
-        if (game.getPlayer().getMoney() < PRICE_BUILD_E2)
+        if (game.getPlayer().getMoney() < PRICE_BUILD_E3)
             setLabelTextColor(popup("build").findElementByName("popup_build_price_h22"), COL_RED);
         else
             setLabelTextColor(popup("build").findElementByName("popup_build_price_h22"), COL_GREEN);
         
-        if (game.getPlayer().getMoney() < PRICE_BUILD_E3)
+        if (game.getPlayer().getMoney() < PRICE_BUILD_E2)
             setLabelTextColor(popup("build").findElementByName("popup_build_price_h23"), COL_RED);
         else
             setLabelTextColor(popup("build").findElementByName("popup_build_price_h23"), COL_GREEN);
@@ -721,6 +721,9 @@ public class GUIController implements ScreenController {
                         "Impossible! There are still people living in '" + sel().getName().replaceAll("[0-9.]", "") + "'!");
             popup("destroy").findElementByName("button_popup_destroy_ok").setVisible(false);
         }
+        
+        setIconImage(popup("destroy").findElementByName("popup_destroy_img"),
+                sel().getImagePath());
     }
     
     

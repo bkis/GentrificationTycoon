@@ -263,18 +263,18 @@
 							<control id="popup_build_desc_h21" name="label" text="Club" align="center" height="18"/>
 							<control id="popup_build_price_h21" name="label" text="" align="center" height="18"/>
 						</panel>
-						<panel id="popup_build_window_content_gallery_E2" childLayout="vertical" width="200" backgroundColor="#000000ff">
-							<image id="popup_build_img_E2" filename="Interface/hud/public_gallery.png" align="center" height="100" width="100" visibleToMouse="true">
-								<interact onRelease="selectBuild(E2)" />
-							</image>
-							<control id="popup_build_desc_h22" name="label" text="Art Gallery" align="center" height="18"/>
-							<control id="popup_build_price_h22" name="label" text="" align="center" height="18"/>
-						</panel>
 						<panel id="popup_build_window_content_gallery_E3" childLayout="vertical" width="200" backgroundColor="#000000ff">
-							<image id="popup_build_img_E3" filename="Interface/hud/public_school.png" align="center" height="100" width="100" visibleToMouse="true">
+							<image id="popup_build_img_E2" filename="Interface/hud/public_school.png" align="center" height="100" width="100" visibleToMouse="true">
 								<interact onRelease="selectBuild(E3)" />
 							</image>
-							<control id="popup_build_desc_h23" name="label" text="Elementary School" align="center" height="18"/>
+							<control id="popup_build_desc_h22" name="label" text="Elementary School" align="center" height="18"/>
+							<control id="popup_build_price_h22" name="label" text="" align="center" height="18"/>
+						</panel>
+						<panel id="popup_build_window_content_gallery_E2" childLayout="vertical" width="200" backgroundColor="#000000ff">
+							<image id="popup_build_img_E3" filename="Interface/hud/public_gallery.png" align="center" height="100" width="100" visibleToMouse="true">
+								<interact onRelease="selectBuild(E2)" />
+							</image>
+							<control id="popup_build_desc_h23" name="label" text="Art Gallery" align="center" height="18"/>
 							<control id="popup_build_price_h23" name="label" text="" align="center" height="18"/>
 						</panel>
 					</panel>
